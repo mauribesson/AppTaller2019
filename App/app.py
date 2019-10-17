@@ -7,6 +7,10 @@ def index():
     data = []
     return render_template('index.html', users=data)
 
+@app.route('/altausuario')
+def altausuario():
+    data = []
+    return render_template('index.html', users=data)
 
 #Inicio de aplicacion
 if __name__ == '__main__':
