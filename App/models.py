@@ -1,5 +1,5 @@
 
-#Clase Usuario 
+#Modelo Usuario 
 class Usuario:
     def __init__(self):
         self.nombre = ""
