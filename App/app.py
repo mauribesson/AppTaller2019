@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from db import Database
+from modelos.usuario import Usuario
 
 db = Database()
 

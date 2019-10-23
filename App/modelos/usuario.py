@@ -1,8 +1,5 @@
-
-##########################################33
-#  NO  usar 
-#########################################3
-
+from db import Database
+ 
 #Modelo Usuario 
 class Usuario:
     def __init__(self):
@@ -23,5 +20,6 @@ class Usuario:
         pass
 
     
+
 
 
