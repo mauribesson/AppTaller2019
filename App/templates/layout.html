@@ -1,49 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>App Flask</title>
-    <!--Bootstrap 4-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='lib/bootstrap-4.3.1/css/bootstrap.min.css') }}">
-
-    <!--CUSTOM CSS-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-    <!--JS-->
-    <script src="{{ url_for('static', filename='lib/jquery/jquery-3.4.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='lib/bootstrap-4.3.1/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='lib/popper/popper.min.js') }}"></script>
-
-</head>
+{% include 'header/header.html' %}
 
 <body>
     {% include 'navbars/navbar.html' %}
-    <!--
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">App Taller 2019 - 2020</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Blog</a>
-                </li>
 
-            </ul>
-        </div>
-    </nav>
-
--->
     <div class="container p-2">
         {% block content %} {% endblock %}
     </div>
