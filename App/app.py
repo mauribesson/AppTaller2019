@@ -21,8 +21,8 @@ def altausuario():
 @app.route('/pruebaCombo')
 def pruebaCombo():
     data = db.query('''
-                SELECT {} FROM "combo";
-            '''.format('"nombre"'))
+                SELECT {} , {} FROM "combo";
+            '''.format('"nombre"', '"total"'))
     print(data)
     return render_template('index.html', data=data)
     
