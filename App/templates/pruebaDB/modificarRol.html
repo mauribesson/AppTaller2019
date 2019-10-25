@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>Modificar Rol</h2>
+        <form action="editarRol" method="POST">
+            <div class="form-group">
+                <label for="nombreRol">Nombre del rol a modificar</label>
+                <input type="text" class="form-control" name="nombreRol" id="nombreRol" placeholder="ingresar nombre del rol">
+            </div>
+            <div class="form-group">
+                <label for="nombreNuevoRol">Nuevos Nombre del rol</label>
+                <input type="text" class="form-control" name="nombreNuevoRol" id="nombreNuevoRol" placeholder="ingresar nombre del rol">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>
