@@ -9,7 +9,7 @@ class Database:
         self.password = "12345678"
         pass
 
-    def query(self, query=""):  
+    def querySelect(self, query=""):  
         self.connect = psycopg2.connect(host=self.host, 
                                         port=self.port, 
                                         database=self.database, 

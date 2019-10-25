@@ -21,7 +21,7 @@ def altausuario():
 #Seleccionar todos los combos 
 @app.route('/pruebaCombo')
 def pruebaCombo():
-    data = db.query('''
+    data = db.querySelect('''
                 SELECT {} , {} FROM "combo";
             '''.format('"nombre"', '"total"'))
     print(data)
@@ -30,7 +30,7 @@ def pruebaCombo():
 #====ROL
 @app.route('/altaRol')
 def altaRol():
-     return render_template('pruebaDB/altaRol.html') 
+     return render_template('rol/altaRol.html') 
 
 @app.route('/guardarRol', methods=["POST"])
 def guardarRol():
@@ -41,11 +41,11 @@ def guardarRol():
                INSERT INTO "rol" ("nombreRol") values ('{}');
             '''.format(nombre))
    
-    return render_template('pruebaDB/rolGuardado.html', data=data)  
+    return render_template('rol/rolGuardado.html', data=data)  
 
 @app.route('/bajaRol') 
 def bajaRol():
-    return render_template('pruebaDB/bajaRol.html')  
+    return render_template('rol/bajaRol.html')  
 
 @app.route('/eliminarRol', methods=["POST"])
 def eliminarRol():
@@ -56,11 +56,11 @@ def eliminarRol():
                DELETE FROM "rol" WHERE "nombreRol" = '{}'; 
             '''.format(nombre))
 
-    return render_template('pruebaDB/rolEliminado.html', data=data)    
+    return render_template('rol/rolEliminado.html', data=data)    
 
 @app.route('/modificarRol') 
 def modificarRol():
-    return render_template('pruebaDB/modificarRol.html')  
+    return render_template('rol/modificarRol.html')  
 
 @app.route('/editarRol', methods=["POST"])
 def editarRol():
@@ -74,17 +74,26 @@ def editarRol():
 	                WHERE "nombreRol" = '{}';
             '''.format(nombreNuevo, nombre))
 
-    return render_template('pruebaDB/rolModificado.html', data=data)
+    return render_template('rol/rolModificado.html', data=data)
+
+@app.route('/listarRol')
+def listarRol():
+    data = db.querySelect('''
+                SELECT * FROM "rol";
+            ''')
+    print(data)
+    return render_template('rol/listadoRol.html', data=data)
+
 #===========FIN ROL
 
 
 @app.route('/altaUsuario')
 def altaUsuario():
-    #data = db.query('''
+    #data = db.querySelect('''
     #           SELECT {} , {} FROM "combo";
      #       '''.format('"nombre"', '"total"'))
    # print(data)
-    return render_template('pruebaDB/altaUsuario.html')    
+    return render_template('rol/altaUsuario.html')    
     
 #=========================Pruebas===================================
 
