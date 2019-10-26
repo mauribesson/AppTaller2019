@@ -148,7 +148,60 @@ def listarUsuario():
     return render_template('usuario/listadoUsuario.html', data=data)   
     
 
-  
+
+
+#========ABM tipoProducto
+@app.route('/altaTipoProducto')
+def altaTipoProducto():
+     return render_template('tipoProducto/altaTipoProducto.html') 
+
+@app.route('/guardarTipoProducto', methods=["POST"])
+def guardarTipoProducto():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        data = db.queryInsert('''
+               INSERT INTO "tipoProducto" ("nombre") values ('{}');
+            '''.format(nombre))
+   
+    return render_template('tipoProducto/tipoProductoGuardado.html', data=data)  
+
+@app.route('/bajaTipoProducto') 
+def bajaTipoProducto():
+    return render_template('tipoProducto/bajaTipoProducto.html')  
+
+@app.route('/eliminarTipoProducto', methods=["POST"])
+def eliminarTipoProducto():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        data = db.queryInsert('''
+               DELETE FROM "tipoProducto" WHERE "nombre" = '{}'; 
+            '''.format(nombre))
+
+    return render_template('tipoProducto/tipoProductoEliminado.html', data=data)    
+
+@app.route('/modificarTipoProducto') 
+def modificarTipoProducto():
+    return render_template('tipoProducto/modificarTipoProducto.html')  
+
+@app.route('/editarTipoProducto', methods=["POST"])
+def editarUsuario():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        nombreNuevo = request.form['nombreNuevo']
+        data = db.queryInsert('''
+               UPDATE "tipoProducto"
+	                SET "nombre" = '{}'
+	                WHERE "nombre" = '{}';
+            '''.format(nombreNuevo, nombre))
+
+    return render_template('tipoProducto/tipoProductoModificado.html', data=data)
+
+@app.route('/listarTipoProducto')
+def listarTipoProducto():
+    data = db.querySelect('''
+                SELECT * FROM "tipoProducto";
+            ''')
+    return render_template('tipoProducto/listadoTipoProducto.html', data=data)
 #=========================Pruebas===================================
 
 
