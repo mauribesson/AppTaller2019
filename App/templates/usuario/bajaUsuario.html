@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>Baja de usuario</h2>
+        <form action="eliminarUsuario" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre del usuario</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar nombre del usuario">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>

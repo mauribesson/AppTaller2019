@@ -86,15 +86,69 @@ def listarRol():
 
 #===========FIN ROL
 
-
+#========ABM usuario
 @app.route('/altaUsuario')
 def altaUsuario():
-    #data = db.querySelect('''
-    #           SELECT {} , {} FROM "combo";
-     #       '''.format('"nombre"', '"total"'))
-   # print(data)
-    return render_template('rol/altaUsuario.html')    
+     return render_template('usuario/altaUsuario.html') 
+
+@app.route('/guardarUsuario', methods=["POST"])
+def guardarUsuario():
+    if request.method == 'POST':
+        nombre = request.form['nombreUsuario']
+        contrasenia = request.form['contrasenia']
+        contacto = request.form['contacto']
+        verificador = db.querySelect('''
+                SELECT * FROM "usuario" WHERE "nombre" = ('{}');
+            '''.format(nombre))
+        if verificador == 0:
+            data = db.queryInsert('''
+                INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol") values ('{}', '{}', '{}', 1);
+                '''.format(nombre, contrasenia, contacto))
+   
+    return render_template('usuario/usuarioGuardado.html', data=data, verificador=verificador)  
+
+@app.route('/bajaUsuario') 
+def bajaUsuario():
+    return render_template('usuario/bajaUsuario.html')  
+
+@app.route('/eliminarUsuario', methods=["POST"])
+def eliminarUsuario():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        data = db.queryInsert('''
+               DELETE FROM "usuario" WHERE "nombre" = '{}'; 
+            '''.format(nombre))
+
+    return render_template('usuario/usuarioEliminado.html', data=data)    
+
+@app.route('/modificarUsuario') 
+def modificarUsuario():
+    return render_template('usuario/modificarUsuario.html')  
+
+@app.route('/editarUsuario', methods=["POST"])
+def editarUsuario():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        nombreNuevo = request.form['nombreNuevo']
+        contraseniaNueva = request.form['contraseniaNueva']
+        contactoNuevo = request.form['contactoNuevo']  
+        data = db.queryInsert('''
+               UPDATE "usuario"
+	                SET "nombre" = '{}', "contrasenia" = '{}', "contacto" = '{}'
+	                WHERE "nombre" = '{}';
+            '''.format(nombreNuevo, contraseniaNueva, contactoNuevo, nombre))
+
+    return render_template('usuario/usuarioModificado.html', data=data)
+
+@app.route('/listarUsuario')
+def listarUsuario():
+    data = db.querySelect('''
+                SELECT * FROM "usuario";
+            ''')
+    return render_template('usuario/listadoUsuario.html', data=data)   
     
+
+  
 #=========================Pruebas===================================
 
 
