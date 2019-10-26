@@ -202,6 +202,62 @@ def listarTipoProducto():
                 SELECT * FROM "tipoProducto";
             ''')
     return render_template('tipoProducto/listadoTipoProducto.html', data=data)
+
+
+#====MARCA
+@app.route('/altaMarca')
+def altaMarca():
+     return render_template('marca/altaMarca.html') 
+
+@app.route('/guardarMarca', methods=["POST"])
+def guardarMarca():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        data = db.queryInsert('''
+               INSERT INTO "marca" ("nombre") values ('{}');
+            '''.format(nombre))
+   
+    return render_template('marca/marcaGuardada.html', data=data)  
+
+@app.route('/bajaMarca') 
+def bajaMarca():
+    return render_template('marca/bajaMarca.html')  
+
+@app.route('/eliminarMarca', methods=["POST"])
+def eliminarMarca():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        data = db.queryInsert('''
+               DELETE FROM "marca" WHERE "nombre" = '{}'; 
+            '''.format(nombre))
+
+    return render_template('marca/marcaEliminada.html', data=data)    
+
+@app.route('/modificarMarca') 
+def modificarMarca():
+    return render_template(marca/modificarMarca.html')  
+
+@app.route('/editarMarca', methods=["POST"])
+def editarMarca():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        nombreNuevo = request.form['nombreNuevo']
+        data = db.queryInsert('''
+               UPDATE "marca"
+	                SET "nombre" = '{}'
+	                WHERE "nombre" = '{}';
+            '''.format(nombreNuevo, nombre))
+
+    return render_template('marca/marcaModificada.html', data=data)
+
+@app.route('/listarMarca')
+def listarMarca():
+    data = db.querySelect('''
+                SELECT * FROM "marca";
+            ''')
+    return render_template('marca/listadoMarca.html', data=data)
+
+
 #=========================Pruebas===================================
 
 
