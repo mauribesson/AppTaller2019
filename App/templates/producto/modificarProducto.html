@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>Modificar producto</h2>
+        <form action="editarProducto" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre del producto a modificar</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar nombre del producto">
+            </div>
+            <div class="form-group">
+                <label for="nuevoNombre">Nuevo nombre del producto</label>
+                <input type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar nombre del producto">
+            </div>
+            <div class="form-group">
+                <label for="nuevaDescripcion">Nueva descripcion del producto</label>
+                <input type="text" class="form-control" name="nuevaDescripcion" id="nuevaDescripcion" placeholder="Ingresar la descripcion del producto">
+            </div>
+            <div class="form-group">
+                <label for="nuevoPrecio">Nuevo precio del producto</label>
+                <input type="number" class="form-control" name="nuevoPrecio" id="nuevoPrecio" placeholder="Ingresar el precio del producto">
+            </div>
+            <div class="form-group">
+                <label for="nuevoModelo">Nuevo modelo del producto</label>
+                <input type="text" class="form-control" name="nuevoModelo" id="nuevoModelo" placeholder="Ingresar el modelo del producto">
+            </div>
+            <div class="form-group">
+                <label for="nuevaGarantia">Nueva garantía del producto</label>
+                <input type="number" class="form-control" name="nuevaGarantia" id="nuevaGarantia" placeholder="Ingresar la garantía en meses">
+            </div>
+            <div class="form-group">
+                <label for="nuevoTipoProducto">Nuevo tipo de producto</label>
+                <input type="number" class="form-control" name="nuevoTipoProducto" id="nuevoTipoProducto" placeholder="Ingresar el código del tipo de producto">
+            </div>
+            <div class="form-group">
+                <label for="nuevaMarca">Nueva marca del producto</label>
+                <input type="number" class="form-control" name="nuevaMarca" id="nuevaMarca" placeholder="Ingresar el código de la marca">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>

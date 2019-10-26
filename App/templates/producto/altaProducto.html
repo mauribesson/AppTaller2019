@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>Alta producto</h2>
+        <form action="guardarProducto" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre del producto</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar el nombre del producto">
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripcion del producto</label>
+                <input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Ingresar la descripcion del producto">
+            </div>
+            <div class="form-group">
+                <label for="precio">Precio del producto</label>
+                <input type="number" class="form-control" name="precio" id="precio" placeholder="Ingresar el precio del producto">
+            </div>
+            <div class="form-group">
+                <label for="modelo">Modelo del producto</label>
+                <input type="text" class="form-control" name="modelo" id="modelo" placeholder="Ingresar el modelo del producto">
+            </div>
+            <div class="form-group">
+                <label for="garantia">Garantía del producto</label>
+                <input type="number" class="form-control" name="garantia" id="garantia" placeholder="Ingresar la garantía en meses">
+            </div>
+            <div class="form-group">
+                <label for="tipoProducto">Tipo de producto</label>
+                <input type="number" class="form-control" name="tipoProducto" id="tipoProducto" placeholder="Ingresar el código del tipo de producto">
+            </div>
+            <div class="form-group">
+                <label for="marca">Marca del producto</label>
+                <input type="number" class="form-control" name="marca" id="marca" placeholder="Ingresar el código de la marca">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    
+</body>
+
+</html>

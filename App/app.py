@@ -258,6 +258,80 @@ def listarMarca():
     return render_template('marca/listadoMarca.html', data=data)
 
 
+#====PRODUCTO
+@app.route('/altaProducto')
+def altaProducto():
+     return render_template('producto/altaProducto.html') 
+
+@app.route('/guardarProducto', methods=["POST"])
+def guardarProducto():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        descripcion = request.form['descripcion'] 
+        precio = request.form['precio']
+        modelo = request.form['modelo']
+        garantia = request.form['garantia']
+        tipoProducto = request.form['tipoProducto']
+        marca = request.form['marca'] 
+        data = db.queryInsert('''
+               INSERT INTO "producto" 
+               ("nombre", "descripcion", "precio", "modelo", "garantia", "tipoProducto", "marca") 
+               values ('{}','{}','{}','{}','{}','{}','{}');
+            '''.format(nombre, descripcion, precio, modelo, garantia, tipoProducto, marca))
+   
+    return render_template('producto/productoGuardado.html', data=data)  
+
+@app.route('/bajaProducto') 
+def bajaProducto():
+    return render_template('producto/bajaProducto.html')  
+
+@app.route('/eliminarProducto', methods=["POST"])
+def eliminarProducto():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        data = db.queryInsert('''
+               DELETE FROM "producto" WHERE "nombre" = '{}'; 
+            '''.format(nombre))
+
+    return render_template('producto/productoEliminado.html', data=data)    
+
+@app.route('/modificarProducto') 
+def modificarProducto():
+    return render_template('producto/modificarProducto.html')  
+
+@app.route('/editarProducto', methods=["POST"])
+def editarProducto():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        nuevoNombre = request.form['nuevoNombre']
+        nuevaDescripcion = request.form['nuevaDescripcion']
+        nuevoPrecio = request.form['nuevoPrecio']
+        nuevoModelo = request.form['nuevoModelo']
+        nuevaGarantia = request.form['nuevaGarantia']
+        nuevoTipoProducto = request.form['nuevoTipoProducto']
+        nuevaMarca = request.form['nuevaMarca']
+        data = db.queryInsert('''
+               UPDATE "producto"
+	                SET "nombreRol" = '{}', 
+                    "descripcion" = '{}', 
+                    "precio" = '{}', 
+                    "modelo" = '{}', 
+                    "garantia" = '{}', 
+                    "tipoProducto" = '{}', 
+                    "marca" = '{}',
+	                WHERE "nombre" = '{}';
+            '''.format(nuevoNombre, nuevaDescripcion, nuevoPrecio, nuevoModelo, nuevaGarantia, nuevoTipoProducto, nuevaMarca, nombre))
+
+    return render_template('producto/productoModificado.html', data=data)
+
+@app.route('/listarProducto')
+def listarProducto():
+    data = db.querySelect('''
+                SELECT * FROM "producto";
+            ''')
+    return render_template('producto/listadoProducto.html', data=data)
+
+
 #=========================Pruebas===================================
 
 
