@@ -1,6 +1,14 @@
- {% extends "layout.html" %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
 
+{% include 'header/header.html' %}
 
-<h2>{{ data }}</h2>
+<body>
+    {% include 'navbars/navbar.html' %}
 
-{% endblock %}
+    <div class="container p-2">
+        <h2>{{ data }}</h2>
+    </div>
+</body>
+
+</html>
