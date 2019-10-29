@@ -235,7 +235,7 @@ def eliminarMarca():
 
 @app.route('/modificarMarca') 
 def modificarMarca():
-    return render_template(marca/modificarMarca.html')  
+    return render_template('marca/modificarMarca.html')  
 
 @app.route('/editarMarca', methods=["POST"])
 def editarMarca():
