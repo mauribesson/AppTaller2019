@@ -426,6 +426,72 @@ def listarEjemplar():
     return render_template('ejemplar/listadoEjemplar.html', data=data)
 
 
+#====COMMBO
+@app.route('/altaCombo')
+def altaCombo():
+     return render_template('combo/altaCombo.html') 
+
+@app.route('/guardarCombo', methods=["POST"])
+def guardarCombo():
+    data = []
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        precio = request.form['precio'] 
+        descuento = request.form['descuento']
+        verificador = db.querySelect('''
+                SELECT * FROM "combo" WHERE "nombre" = '{}';
+            '''.format(nombre)) 
+        if verificador == []:
+            data = db.queryInsert('''
+                INSERT INTO "combo" 
+                ("nombre", "precio", "precio") 
+                values ('{}','{}','{}');
+                '''.format(nombre, precio, descuento))
+   
+    return render_template('combo/comboGuardado.html', data=data, verificador=verificador)  
+
+@app.route('/bajaCombo') 
+def bajaCombo():
+    return render_template('combo/bajaCombo.html')  
+
+@app.route('/eliminarCombo', methods=["POST"])
+def eliminarCombo():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        data = db.queryInsert('''
+               DELETE FROM "combo" WHERE "nombre" = '{}'; 
+            '''.format(nombre))
+
+    return render_template('combo/comboEliminado.html', data=data)    
+
+@app.route('/modificarCombo') 
+def modificarCombo():
+    return render_template('combo/modificarCombo.html')  
+
+@app.route('/editarCombo', methods=["POST"])
+def editarCombo():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        nuevoNombre = request.form['nuevoNombre']
+        nuevoPrecio = request.form['nuevoPrecio']
+        nuevoDescuento = request.form['nuevoDescuento']
+        data = db.queryInsert('''
+               UPDATE "combo"
+	                SET "nombre" = '{}', 
+                    "precio" = '{}', 
+                    "descuento" = '{}'
+	                WHERE "nombre" = '{}';
+            '''.format(nuevoNombre, nuevaPrecio, nuevoDescuento, nombre))
+
+    return render_template('combo/comboModificado.html', data=data)
+
+@app.route('/listarCombo')
+def listarCombo():
+    data = db.querySelect('''
+                SELECT * FROM "combo";
+            ''')
+    return render_template('combo/listadoCombo.html', data=data)
+
 #=========================Pruebas===================================
 
 
