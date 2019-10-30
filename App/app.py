@@ -34,6 +34,7 @@ def altaRol():
 
 @app.route('/guardarRol', methods=["POST"])
 def guardarRol():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombreRol']
         verificador = db.querySelect('''
@@ -286,6 +287,7 @@ def altaProducto():
 
 @app.route('/guardarProducto', methods=["POST"])
 def guardarProducto():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
         descripcion = request.form['descripcion'] 
@@ -364,10 +366,11 @@ def altaEjemplar():
 
 @app.route('/guardarEjemplar', methods=["POST"])
 def guardarEjemplar():
+    data = []
     if request.method == 'POST':
         numeroSerie = request.form['numeroSerie']
         vendido = request.form['vendido'] 
-        producto = request.form['produto']
+        producto = request.form['producto']
         verificador = db.querySelect('''
                 SELECT * FROM "ejemplar" WHERE "numeroSerie" = '{}';
             '''.format(numeroSerie)) 
