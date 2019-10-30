@@ -93,18 +93,19 @@ def altaUsuario():
 
 @app.route('/guardarUsuario', methods=["POST"])
 def guardarUsuario():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombreUsuario']
         contrasenia = request.form['contrasenia']
         contacto = request.form['contacto']
         verificador = db.querySelect('''
-                SELECT * FROM "usuario" WHERE "nombre" = ('{}');
+                SELECT * FROM "usuario" WHERE "nombre" = '{}';
             '''.format(nombre))
-        if verificador == 0:
+        
+        if verificador == []:
             data = db.queryInsert('''
                 INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol") values ('{}', '{}', '{}', 1);
-                '''.format(nombre, contrasenia, contacto))
-   
+                '''.format(nombre, contrasenia, contacto))    
     return render_template('usuario/usuarioGuardado.html', data=data, verificador=verificador)  
 
 @app.route('/bajaUsuario') 
@@ -113,6 +114,7 @@ def bajaUsuario():
 
 @app.route('/eliminarUsuario', methods=["POST"])
 def eliminarUsuario():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
         data = db.queryInsert('''
@@ -127,6 +129,7 @@ def modificarUsuario():
 
 @app.route('/editarUsuario', methods=["POST"])
 def editarUsuario():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
         nombreNuevo = request.form['nombreNuevo']
@@ -157,10 +160,11 @@ def altaTipoProducto():
 
 @app.route('/guardarTipoProducto', methods=["POST"])
 def guardarTipoProducto():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
         data = db.queryInsert('''
-               INSERT INTO "tipoProducto" ("nombre") values ('{}');
+               INSERT INTO "tipoProducto" ("nombreTipo") values ('{}');
             '''.format(nombre))
    
     return render_template('tipoProducto/tipoProductoGuardado.html', data=data)  
@@ -171,10 +175,11 @@ def bajaTipoProducto():
 
 @app.route('/eliminarTipoProducto', methods=["POST"])
 def eliminarTipoProducto():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
         data = db.queryInsert('''
-               DELETE FROM "tipoProducto" WHERE "nombre" = '{}'; 
+               DELETE FROM "tipoProducto" WHERE "nombreTipo" = '{}'; 
             '''.format(nombre))
 
     return render_template('tipoProducto/tipoProductoEliminado.html', data=data)    
@@ -184,14 +189,15 @@ def modificarTipoProducto():
     return render_template('tipoProducto/modificarTipoProducto.html')  
 
 @app.route('/editarTipoProducto', methods=["POST"])
-def editarUsuario():
+def editarTipoProducto():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
         nombreNuevo = request.form['nombreNuevo']
         data = db.queryInsert('''
                UPDATE "tipoProducto"
-	                SET "nombre" = '{}'
-	                WHERE "nombre" = '{}';
+	                SET "nombreTipo" = '{}'
+	                WHERE "nombreTipo" = '{}';
             '''.format(nombreNuevo, nombre))
 
     return render_template('tipoProducto/tipoProductoModificado.html', data=data)
@@ -211,6 +217,7 @@ def altaMarca():
 
 @app.route('/guardarMarca', methods=["POST"])
 def guardarMarca():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
         data = db.queryInsert('''
@@ -225,6 +232,7 @@ def bajaMarca():
 
 @app.route('/eliminarMarca', methods=["POST"])
 def eliminarMarca():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
         data = db.queryInsert('''
@@ -239,6 +247,7 @@ def modificarMarca():
 
 @app.route('/editarMarca', methods=["POST"])
 def editarMarca():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
         nombreNuevo = request.form['nombreNuevo']
@@ -252,6 +261,7 @@ def editarMarca():
 
 @app.route('/listarMarca')
 def listarMarca():
+    data = []
     data = db.querySelect('''
                 SELECT * FROM "marca";
             ''')
@@ -312,13 +322,13 @@ def editarProducto():
         nuevaMarca = request.form['nuevaMarca']
         data = db.queryInsert('''
                UPDATE "producto"
-	                SET "nombreRol" = '{}', 
+	                SET "nombre" = '{}', 
                     "descripcion" = '{}', 
                     "precio" = '{}', 
                     "modelo" = '{}', 
                     "garantia" = '{}', 
                     "tipoProducto" = '{}', 
-                    "marca" = '{}',
+                    "marca" = '{}'
 	                WHERE "nombre" = '{}';
             '''.format(nuevoNombre, nuevaDescripcion, nuevoPrecio, nuevoModelo, nuevaGarantia, nuevoTipoProducto, nuevaMarca, nombre))
 

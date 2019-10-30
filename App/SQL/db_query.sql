@@ -1,7 +1,7 @@
 /*
  * agregar : 
  
- -- tipo de producto 
+ -- Controlar longitud de contraseña al modificar usuario en nueva contraseña 
  
 */
 
@@ -137,9 +137,34 @@ BEFORE INSERT ON "usuario"
 FOR EACH ROW
 EXECUTE PROCEDURE nuevaContrasenia();
 
-
 ---Test trigger Contraseña 
 --INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('Mario@aaa', '123', 'etrada 10030', 1); 
+
+
+---Actualizar La contraseña de usuario no puede tener menos de 5 caracteres de longitud ni más de 20.
+CREATE OR REPLACE FUNCTION actualizarContrasenia()
+RETURNS trigger AS $verificarActualizarContrasenia$
+BEGIN
+IF (char_length(NEW.contrasenia)<5) THEN
+RAISE EXCEPTION 'La contraseña es muy corta, debe superar los 5 caracteres ';
+rollback transaction;
+ELSE
+IF (20 < char_length(NEW.contrasenia)) THEN
+RAISE EXCEPTION 'La contraseña es muy larga, no debe superar los 20 caracteres ';
+rollback transaction;
+ELSE 
+RETURN NEW;
+END IF;
+END IF; 
+END;
+$verificarActualizarContrasenia$ 
+LANGUAGE plpgsql;
+
+CREATE TRIGGER verificarActualizarContrasenia
+BEFORE UPDATE ON "usuario"
+FOR EACH ROW
+EXECUTE PROCEDURE actualizarContrasenia();
+
 
 
 
