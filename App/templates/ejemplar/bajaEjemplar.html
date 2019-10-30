@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>Baja ejemplar</h2>
+        <form action="eliminarEjemplar" method="POST">
+            <div class="form-group">
+                <label for="numeroSerie">Número de serie del ejemplar</label>
+                <input type="text" class="form-control" name="numeroSerie" id="numeroSerie" placeholder="Ingresar el número de serie del ejemplar">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>

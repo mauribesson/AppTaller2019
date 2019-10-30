@@ -227,11 +227,15 @@ def guardarMarca():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        data = db.queryInsert('''
-               INSERT INTO "marca" ("nombre") values ('{}');
-            '''.format(nombre))
+        verificador = db.querySelect('''
+                SELECT * FROM "marca" WHERE "nombre" = '{}';
+            '''.format(nombre)) 
+        if verificador == []:
+            data = db.queryInsert('''
+                INSERT INTO "marca" ("nombre") values ('{}');
+                '''.format(nombre))
    
-    return render_template('marca/marcaGuardada.html', data=data)  
+    return render_template('marca/marcaGuardada.html', data=data, verificador=verificador)  
 
 @app.route('/bajaMarca') 
 def bajaMarca():
@@ -290,13 +294,17 @@ def guardarProducto():
         garantia = request.form['garantia']
         tipoProducto = request.form['tipoProducto']
         marca = request.form['marca'] 
-        data = db.queryInsert('''
-               INSERT INTO "producto" 
-               ("nombre", "descripcion", "precio", "modelo", "garantia", "tipoProducto", "marca") 
-               values ('{}','{}','{}','{}','{}','{}','{}');
-            '''.format(nombre, descripcion, precio, modelo, garantia, tipoProducto, marca))
+        verificador = db.querySelect('''
+                SELECT * FROM "producto" WHERE "nombre" = '{}';
+            '''.format(nombre)) 
+        if verificador == []:
+            data = db.queryInsert('''
+                INSERT INTO "producto" 
+                ("nombre", "descripcion", "precio", "modelo", "garantia", "tipoProducto", "marca") 
+                values ('{}','{}','{}','{}','{}','{}','{}');
+                '''.format(nombre, descripcion, precio, modelo, garantia, tipoProducto, marca))
    
-    return render_template('producto/productoGuardado.html', data=data)  
+    return render_template('producto/productoGuardado.html', data=data, verificador=verificador)  
 
 @app.route('/bajaProducto') 
 def bajaProducto():
@@ -347,6 +355,72 @@ def listarProducto():
                 SELECT * FROM "producto";
             ''')
     return render_template('producto/listadoProducto.html', data=data)
+
+
+#====EJEMPLAR
+@app.route('/altaEjemplar')
+def altaEjemplar():
+     return render_template('ejemplar/altaEjemplar.html') 
+
+@app.route('/guardarEjemplar', methods=["POST"])
+def guardarEjemplar():
+    if request.method == 'POST':
+        numeroSerie = request.form['numeroSerie']
+        vendido = request.form['vendido'] 
+        producto = request.form['produto']
+        verificador = db.querySelect('''
+                SELECT * FROM "ejemplar" WHERE "numeroSerie" = '{}';
+            '''.format(numeroSerie)) 
+        if verificador == []:
+            data = db.queryInsert('''
+                INSERT INTO "ejemplar" 
+                ("numeroSerie", "vendido", "producto") 
+                values ('{}','{}','{}');
+                '''.format(numeroSerie, vendido, producto))
+   
+    return render_template('ejemplar/ejemplarGuardado.html', data=data, verificador=verificador)  
+
+@app.route('/bajaEjemplar') 
+def bajaEjemplar():
+    return render_template('ejemplar/bajaEjemplar.html')  
+
+@app.route('/eliminarEjemplar', methods=["POST"])
+def eliminarEjemplar():
+    if request.method == 'POST':
+        numeroSerie = request.form['numeroSerie']
+        data = db.queryInsert('''
+               DELETE FROM "ejemplar" WHERE "numeroSerie" = '{}'; 
+            '''.format(numeroSerie))
+
+    return render_template('ejemplar/ejemplarEliminado.html', data=data)    
+
+@app.route('/modificarEjemplar') 
+def modificarEjemplar():
+    return render_template('ejemplar/modificarEjemplar.html')  
+
+@app.route('/editarEjemplar', methods=["POST"])
+def editarEjemplar():
+    if request.method == 'POST':
+        numeroSerie = request.form['numeroSerie']
+        nuevoNumeroSerie = request.form['nuevoNumeroSerie']
+        nuevoVendido = request.form['nuevoVendido']
+        nuevoProducto = request.form['nuevoProducto']
+        data = db.queryInsert('''
+               UPDATE "ejemplar"
+	                SET "numeroSerie" = '{}', 
+                    "vendido" = '{}', 
+                    "producto" = '{}'
+	                WHERE "numeroSerie" = '{}';
+            '''.format(nuevoNumeroSerie, nuevoVendido, nuevoProducto, numeroSerie))
+
+    return render_template('ejemplar/ejemplarModificado.html', data=data)
+
+@app.route('/listarEjemplar')
+def listarEjemplar():
+    data = db.querySelect('''
+                SELECT * FROM "ejemplar";
+            ''')
+    return render_template('ejemplar/listadoEjemplar.html', data=data)
 
 
 #=========================Pruebas===================================
