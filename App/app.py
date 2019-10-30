@@ -36,12 +36,15 @@ def altaRol():
 def guardarRol():
     if request.method == 'POST':
         nombre = request.form['nombreRol']
-        print(nombre)  
-        data = db.queryInsert('''
-               INSERT INTO "rol" ("nombreRol") values ('{}');
-            '''.format(nombre))
+        verificador = db.querySelect('''
+                SELECT * FROM "rol" WHERE "nombreRol" = '{}';
+            '''.format(nombre)) 
+        if verificador == []:
+            data = db.queryInsert('''
+                INSERT INTO "rol" ("nombreRol") values ('{}');
+                '''.format(nombre))
    
-    return render_template('rol/rolGuardado.html', data=data)  
+    return render_template('rol/rolGuardado.html', data=data, verificador=verificador)  
 
 @app.route('/bajaRol') 
 def bajaRol():
@@ -163,11 +166,15 @@ def guardarTipoProducto():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        data = db.queryInsert('''
-               INSERT INTO "tipoProducto" ("nombreTipo") values ('{}');
-            '''.format(nombre))
+        verificador = db.querySelect('''
+                SELECT * FROM "tipoProducto" WHERE "nombreTipo" = '{}';
+            '''.format(nombre)) 
+        if verificador == []:
+            data = db.queryInsert('''
+                 INSERT INTO "tipoProducto" ("nombreTipo") values ('{}');
+                '''.format(nombre))
    
-    return render_template('tipoProducto/tipoProductoGuardado.html', data=data)  
+    return render_template('tipoProducto/tipoProductoGuardado.html', data=data, verificador=verificador)  
 
 @app.route('/bajaTipoProducto') 
 def bajaTipoProducto():

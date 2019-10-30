@@ -3,7 +3,11 @@
 {% include 'header/header.html' %}
 
 <body>
-    <h2> Tipo de producto dado de alta!</h2>
+    {% if verificador == [] %}
+    <h2>Tipi de producto dado de alta!</h2>
+    {% else %}
+    <h2>El tipo de producto ya existe</h2>
+    {% endif %}s
 </body>
 
 </html>
