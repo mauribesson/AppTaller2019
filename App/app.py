@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from db import Database
+from modelos.rol import Rol
 from modelos.usuario import Usuario
 
 db = Database()
@@ -37,13 +38,15 @@ def guardarRol():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombreRol']
-        verificador = db.querySelect('''
-                SELECT * FROM "rol" WHERE "nombreRol" = '{}';
-            '''.format(nombre)) 
-        if verificador == []:
-            data = db.queryInsert('''
-                INSERT INTO "rol" ("nombreRol") values ('{}');
-                '''.format(nombre))
+        rol =  Rol()
+        data = rol.alta_rol(nombre)
+        #verificador = db.querySelect('''
+        #        SELECT * FROM "rol" WHERE "nombreRol" = '{}';
+        #    '''.format(nombre)) 
+        #if verificador == []:
+        #    data = db.queryInsert('''
+        #        INSERT INTO "rol" ("nombreRol") values ('{}');
+        #        '''.format(nombre))
    
     return render_template('rol/rolGuardado.html', data=data, verificador=verificador)  
 
