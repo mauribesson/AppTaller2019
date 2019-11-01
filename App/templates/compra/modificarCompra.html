@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>Modificar compra</h2>
+        <form action="editarCompra" method="POST">
+            <div class="form-group">
+                <label for="id">Id de la compra a modificar</label>
+                <input type="number" class="form-control" name="id" id="id" placeholder="ingresar id de la compra">
+            </div>
+            <div class="form-group">
+                <label for="nuevoMontoCompra">Nuevo monto de la compra</label>
+                <input type="number" class="form-control" name="nuevoMontoCompra" id="nuevoMontoCompra" placeholder="ingresar el nuevo monto de la compra">
+            </div>
+            <div class="form-group">
+                <label for="nuevoEstadoConfirmacion">Nuevo estado de confirmacion</label>
+                <input type="number" class="form-control" name="nuevoEstadoConfirmacion" id="nuevoEstadoConfirmacion" placeholder="ingresar el nuevo monto de la compra">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>

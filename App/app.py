@@ -656,6 +656,61 @@ def listarEjemplar_carrito():
             ''')
     return render_template('ejemplar_carrito/listadoEjemplar_carrito.html', data=data)   
 
+
+#====COMPRA
+@app.route('/altaCompra)
+def altaCompra():
+     return render_template('compra/altaCompra.html') 
+
+@app.route('/guardarCompra', methods=["POST"])
+def guardarCompra():
+    data = []
+    if request.method == 'POST':
+        idCarrito = request.form['idCarrito']
+        montoCompra = request.form['montoCompra']
+        estadoConfirmacion = request.form['estadoConfirmacion']
+        data = db.queryInsert('''
+            INSERT INTO "compra" ("idCarrito", "montoCompra", "estadoConfirmacion") values ('{}');
+            '''.format(idCarrito, montoCompra, estadoConfirmacion)) 
+
+@app.route('/bajaCompra') 
+def bajaCompra():
+    return render_template('compra/bajaCompra.html')  
+
+@app.route('/eliminarCompra', methods=["POST"])
+def eliminarCompra():
+    if request.method == 'POST':
+        id = request.form['id']
+        data = db.queryInsert('''
+               DELETE FROM "compra" WHERE "idCarrito" = '{}'; 
+            '''.format(id))
+
+    return render_template('compra/compraEliminada.html', data=data)    
+
+@app.route('/modificarCompra') 
+def modificarCompra():
+    return render_template('compra/modificarCompra.html')  
+
+@app.route('/editarCompra', methods=["POST"])
+def editarCompra():
+    if request.method == 'POST':
+        id = request.form['id']
+        nuevoMontoCompra = request.form['nuevoMontoCompra']
+        nuevoEstadoConfirmacion = request.form['nuevoEstadoConfirmacion']
+        data = db.queryInsert('''
+               UPDATE "compra"
+	                SET "montoCompra" = '{}', "estadoConfirmacion" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(nuevoMontoCompra, nuevoEstadoConfirmacion, id))
+
+    return render_template('compra/compraModificada.html', data=data)
+
+@app.route('/mostrarCompra')
+def mostrarCompra():
+    data = db.querySelect('''
+                SELECT * FROM "compra";
+            ''')
+    return render_template('compra/mostrarCompra.html', data=data)
 #=========================Pruebas===================================
 
 
