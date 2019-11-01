@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>Modificar Ejemplar_carrito</h2>
+        <form action="editarEjemplar_carrito" method="POST">
+            <div class="form-group">
+                <label for="idCarrito">Id del carrito del ejemplar_carrito a modificar</label>
+                <input type="number" class="form-control" name="idCarrito" id="idCarrito" placeholder="Ingresar el id del carrito">
+            </div>
+            <div class="form-group">
+                <label for="numeroSerie">Número de serie del producto del ejemplar_carrito a modificar</label>
+                <input type="text" class="form-control" name="numeroSerie" id="numeroSerie" placeholder="Ingresar el número de serie">
+            </div>
+            <div class="form-group">
+                <label for="nuevoIdCarrito">Nuevo id del carrito del ejemplar_carrito a modificar</label>
+                <input type="number" class="form-control" name="nuevoIdCarrito" id="nuevoIdCarrito" placeholder="Ingresar el nuevo id del carrito">
+            </div>
+            <div class="form-group">
+                <label for="nuevoNumeroSerie">Nuevo número de serie del producto del ejemplar_carrito a modificar</label>
+                <input type="text" class="form-control" name="nuevoNumeroSerie" id="nuevoNumeroSerie" placeholder="Ingresar el nuevo número de serie">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>

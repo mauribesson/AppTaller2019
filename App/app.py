@@ -602,6 +602,59 @@ def mostrarCarrito():
     return render_template('carrito/mostrarCarrito.html', data=data)
 
 
+#======== ejemplar_carrito
+@app.route('/altaEjemplar_carrito')
+def altaEjemplar_carrito():
+     return render_template('ejemplar_carrito/altaEjemplar_carrito.html') 
+
+@app.route('/guardarEjemplar_carrito', methods=["POST"])
+def guardarEjemplar_carrito():
+    data = []
+    if request.method == 'POST':
+        idCarrito= request.form['idCarrito']
+        numeroSerie = request.form['numeroSerie']
+        data = db.queryInsert('''
+            INSERT INTO "ejemplar_carrito" ("idCarrito", "numeroSerie") values ('{}', '{}');
+            '''.format(idCarrito, numeroSerie))    
+
+@app.route('/bajaEjemplar_carrito') 
+def bajaEjemplar_carrito():
+    return render_template('ejemplar_carrito/bajaEjemplar_carrito.html')  
+
+@app.route('/eliminarEjemplar_carrito', methods=["POST"])
+def eliminarEjemplar_carrito():
+    data = []
+    if request.method == 'POST':
+        idCarrito = request.form['idCarrito']
+        numeroSerie = request.form['numeroSerie']
+        data = db.queryInsert('''
+               DELETE FROM "ejemplar_carrito" WHERE "idCarrito" = '{}' AND "numeroSerie" = '{}'; 
+            '''.format(idCarrito, numeroSerie))   
+
+@app.route('/modificarEjemplar_carrito') 
+def modificarEjemplar_carrito():
+    return render_template('ejemplar_carrito/modificarEjemplar_carrito.html')  
+
+@app.route('/editarEjemplar_carrito', methods=["POST"])
+def editarEjemplar_carrito():
+    data = []
+    if request.method == 'POST':
+        idCarrito = request.form['idCarrito']
+        numeroSerie = request.form['numeroSerie']
+        nuevoIdCarrito = request.form['nuevoIdCarrito']
+        nuevoNumeroSerie = request.form['nuevoNumeroSerie']  
+        data = db.queryInsert('''
+               UPDATE "ejemplar_carrito"
+	                SET "idCarrito" = '{}', "numeroSerie" = '{}'
+	                WHERE "idCarrito" = '{}' AND "numeroSerie" = '{}';
+            '''.format(nuevoIdCarrito, nuevoNumeroSerie, idCarrito, numeroSerie))
+
+@app.route('/listarEjemplar_carrito')
+def listarEjemplar_carrito():
+    data = db.querySelect('''
+                SELECT * FROM "ejemplar_carrito";
+            ''')
+    return render_template('ejemplar_carrito/listadoEjemplar_carrito.html', data=data)   
 
 #=========================Pruebas===================================
 
