@@ -711,6 +711,69 @@ def mostrarCompra():
                 SELECT * FROM "compra";
             ''')
     return render_template('compra/mostrarCompra.html', data=data)
+
+
+#====PAGO
+@app.route('/altaPago)
+def altaPago():
+     return render_template('pago/altaPago.html') 
+
+@app.route('/guardarPago', methods=["POST"])
+def guardarPago():
+    data = []
+    if request.method == 'POST':
+        idCompra = request.form['idCompra']
+        total = request.form['total']
+        estado = request.form['estado']
+        tarjeta = request.form['tarjeta']
+        cuotas = request.form['cuotas']
+        data = db.queryInsert('''
+            INSERT INTO "pago" ("idCompra", "total", "estado", "tarjeta", "cuotas") 
+            values ('{}', '{}', '{}', '{}', '{}');
+            '''.format(idCompra, total, estado, tarjeta, cuotas)) 
+
+@app.route('/bajaPago') 
+def bajaPago():
+    return render_template('pago/bajaPago.html')  
+
+@app.route('/eliminarPago', methods=["POST"])
+def eliminarPago():
+    if request.method == 'POST':
+        id = request.form['id']
+        data = db.queryInsert('''
+               DELETE FROM "pago" WHERE "id" = '{}'; 
+            '''.format(id))
+
+    return render_template('pago/pagoEliminado.html', data=data)    
+
+@app.route('/modificarPago') 
+def modificarPago():
+    return render_template('pago/modificarPago.html')  
+
+@app.route('/editarPago', methods=["POST"])
+def editarPago():
+    if request.method == 'POST':
+        id = request.form['id']
+        nuevoTotal = request.form['nuevoTotal']
+        nuevoEstado = request.form['nuevoEstado']
+        nuevaTarjeta = request.form['nuevaTarjeta']
+        nuevoCuotas = request.form['nuevoCuotas']
+        data = db.queryInsert('''
+               UPDATE "pago"
+	                SET "total" = '{}', "estado" = '{}', "tarjeta" = '{}', "cuotas" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(nuevoTotal, nuevoEstado, nuevaTarjeta, nuevoCuotas, id))
+
+    return render_template('pago/pagoModificado.html', data=data)
+
+@app.route('/mostrarPago')
+def mostrarPago():
+    data = db.querySelect('''
+                SELECT * FROM "pago";
+            ''')
+    return render_template('pago/mostrarPago.html', data=data)
+
+    
 #=========================Pruebas===================================
 
 

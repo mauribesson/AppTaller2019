@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>Modificar pago</h2>
+        <form action="editarPago" method="POST">
+            <div class="form-group">
+                <label for="id">Id del pago a modificar</label>
+                <input type="text" class="form-control" name="id" id="id" placeholder="ingresar id del pago">
+            </div>
+            <div class="form-group">
+                <label for="nuevoTotal">Nuevo total</label>
+                <input type="text" class="form-control" name="nuevoTotal" id="nuevoTotal" placeholder="ingresar el nuevo total">
+            </div>
+            <div class="form-group">
+                <label for="nuevoEstado">Nuevo estado</label>
+                <input type="text" class="form-control" name="nuevoEstado" id="nuevoEstado" placeholder="ingresar el nuevo estado">
+            </div>
+            <div class="form-group">
+                <label for="nuevaTarjeta">Nueva tarjeta</label>
+                <input type="text" class="form-control" name="nuevaTarjeta" id="nuevaTarjeta" placeholder="ingresar la nueva tarjeta">
+            </div>
+            <div class="form-group">
+                <label for="nuevoCuotas">Nuevo cuotas</label>
+                <input type="text" class="form-control" name="nuevoCuotas" id="nuevoCuotas" placeholder="ingresar las nuevas cuotas">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>
