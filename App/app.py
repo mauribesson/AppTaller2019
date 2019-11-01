@@ -549,6 +549,57 @@ def listarEjemplar_combo():
     
 
 
+#====CARRITO
+@app.route('/altaCarrito')
+def altaCarrito():
+     return render_template('carrito/altaCarrito.html') 
+
+@app.route('/guardarCarrito', methods=["POST"])
+def guardarCarrito():
+    data = []
+    if request.method == 'POST':
+        total = request.form['total']
+        data = db.queryInsert('''
+            INSERT INTO "carrito" ("total") values ('{}');
+            '''.format(total)) 
+
+@app.route('/bajaCarrito') 
+def bajaCarrito():
+    return render_template('carrito/bajaCarrito.html')  
+
+@app.route('/eliminarCarrito', methods=["POST"])
+def eliminarCarrito():
+    if request.method == 'POST':
+        id = request.form['id']
+        data = db.queryInsert('''
+               DELETE FROM "carrito" WHERE "id" = '{}'; 
+            '''.format(id))
+
+    return render_template('carrito/carritoEliminado.html', data=data)    
+
+@app.route('/modificarCarrito') 
+def modificarCarrito():
+    return render_template('carrito/modificarCarrito.html')  
+
+@app.route('/editarCarrito', methods=["POST"])
+def editarCarrito():
+    if request.method == 'POST':
+        total = request.form['total']
+        id = request.form['id']
+        data = db.queryInsert('''
+               UPDATE "carrito"
+	                SET "total" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(total, id))
+
+    return render_template('carrito/carritoModificado.html', data=data)
+
+@app.route('/mostrarCarrito')
+def mostrarCarrito():
+    data = db.querySelect('''
+                SELECT * FROM "carrito";
+            ''')
+    return render_template('carrito/mostrarCarrito.html', data=data)
 
 
 

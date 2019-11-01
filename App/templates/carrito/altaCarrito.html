@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>alta carrito</h2>
+        <form action="guardarCarrito" method="POST">
+            <div class="form-group">
+                <label for="total">Total</label>
+                <input type="number" class="form-control" name="total" id="total" placeholder="ingresar el total">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>
