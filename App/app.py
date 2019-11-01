@@ -492,6 +492,66 @@ def listarCombo():
             ''')
     return render_template('combo/listadoCombo.html', data=data)
 
+
+#======== ejemplar_combo
+@app.route('/altaEjemplar_combo')
+def altaEjemplar_combo():
+     return render_template('ejemplar_combo/altaEjemplar_combo.html') 
+
+@app.route('/guardarEjemplar_combo', methods=["POST"])
+def guardarEjemplar_combo():
+    data = []
+    if request.method == 'POST':
+        idCombo = request.form['idCombo']
+        numeroSerie = request.form['numeroSerie']
+        data = db.queryInsert('''
+            INSERT INTO "ejemplar_combo" ("idCombo", "numeroSerie") values ('{}', '{}');
+            '''.format(idCombo, numeroSerie))    
+
+@app.route('/bajaEjemplar_combo') 
+def bajaEjemplar_combo():
+    return render_template('ejemplar_combo/bajaEjemplar_combo.html')  
+
+@app.route('/eliminarEjemplar_combo', methods=["POST"])
+def eliminarEjemplar_combo():
+    data = []
+    if request.method == 'POST':
+        idCombo = request.form['idCombo']
+        numeroSerie = request.form['numeroSerie']
+        data = db.queryInsert('''
+               DELETE FROM "ejemplar_combo" WHERE "idCombo" = '{}' AND "numeroSerie" = '{}'; 
+            '''.format(idCombo, numeroSerie))   
+
+@app.route('/modificarEjemplar_combo') 
+def modificarEjemplar_combo():
+    return render_template('ejemplar_combo/modificarEjemplar_combo.html')  
+
+@app.route('/editarEjemplar_combo', methods=["POST"])
+def editarEjemplar_combo():
+    data = []
+    if request.method == 'POST':
+        idCombo = request.form['idCombo']
+        numeroSerie = request.form['numeroSerie']
+        nuevoIdCombo = request.form['nuevoIdCombo']
+        nuevoNumeroSerie = request.form['nuevoNumeroSerie']  
+        data = db.queryInsert('''
+               UPDATE "ejemplar_combo"
+	                SET "idCombo" = '{}', "numeroSerie" = '{}'
+	                WHERE "idCombo" = '{}' AND "numeroSerie" = '{}';
+            '''.format(nuevoIdCombo, nuevoNumeroSerie, idCombo, numeroSerie))
+
+@app.route('/listarEjemplar_combo')
+def listarEjemplar_combo():
+    data = db.querySelect('''
+                SELECT * FROM "ejemplar_combo";
+            ''')
+    return render_template('ejemplar_combo/listadoEjemplar_combo.html', data=data)   
+    
+
+
+
+
+
 #=========================Pruebas===================================
 
 

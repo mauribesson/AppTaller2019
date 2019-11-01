@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>Modificar Ejemplar_combo</h2>
+        <form action="editarEjemplar_combo" method="POST">
+            <div class="form-group">
+                <label for="idCombo">Nombre id de combo del ejemplar_combo o a modificar</label>
+                <input type="number" class="form-control" name="idCombo" id="idCombo" placeholder="Ingresar el id del combo">
+            </div>
+            <div class="form-group">
+                <label for="numeroSerie">Número de serie del producto del ejemplar_combo a modificar</label>
+                <input type="text" class="form-control" name="numeroSerie" id="numeroSerie" placeholder="Ingresar el número de serie">
+            </div>
+            <div class="form-group">
+                <label for="nuevoIdCombo">Nuevo nombre id de combo del ejemplar_combo o a modificar</label>
+                <input type="number" class="form-control" name="nuevoIdCombo" id="nuevoIdCombo" placeholder="Ingresar el nuevo id del combo">
+            </div>
+            <div class="form-group">
+                <label for="nuevoNumeroSerie">Nuevo número de serie del producto del ejemplar_combo a modificar</label>
+                <input type="text" class="form-control" name="nuevoNumeroSerie" id="nuevoNumeroSerie" placeholder="Ingresar el nuevo número de serie">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>

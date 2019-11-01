@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>Baja ejemplar_combo</h2>
+        <form action="eliminarEjemplar_combo" method="POST">
+            <div class="form-group">
+                <label for="idCombo">Id del combo</label>
+                <input type="number" class="form-control" name="idCombo" id="idCombo" placeholder="Ingresar el id del combo">
+            </div>
+            <div class="form-group">
+                <label for="numeroSerie">Numero de serie</label>
+                <input type="text" class="form-control" name="numeroSerie" id="numeroSerie" placeholder="Ingresar el número de serie">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>
