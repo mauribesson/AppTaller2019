@@ -659,6 +659,124 @@ def listarEjemplar_carrito():
             ''')
     return render_template('ejemplar_carrito/listadoEjemplar_carrito.html', data=data)   
 
+
+#====COMPRA
+@app.route('/altaCompra)
+def altaCompra():
+     return render_template('compra/altaCompra.html') 
+
+@app.route('/guardarCompra', methods=["POST"])
+def guardarCompra():
+    data = []
+    if request.method == 'POST':
+        idCarrito = request.form['idCarrito']
+        montoCompra = request.form['montoCompra']
+        estadoConfirmacion = request.form['estadoConfirmacion']
+        data = db.queryInsert('''
+            INSERT INTO "compra" ("idCarrito", "montoCompra", "estadoConfirmacion") values ('{}');
+            '''.format(idCarrito, montoCompra, estadoConfirmacion)) 
+
+@app.route('/bajaCompra') 
+def bajaCompra():
+    return render_template('compra/bajaCompra.html')  
+
+@app.route('/eliminarCompra', methods=["POST"])
+def eliminarCompra():
+    if request.method == 'POST':
+        id = request.form['id']
+        data = db.queryInsert('''
+               DELETE FROM "compra" WHERE "idCarrito" = '{}'; 
+            '''.format(id))
+
+    return render_template('compra/compraEliminada.html', data=data)    
+
+@app.route('/modificarCompra') 
+def modificarCompra():
+    return render_template('compra/modificarCompra.html')  
+
+@app.route('/editarCompra', methods=["POST"])
+def editarCompra():
+    if request.method == 'POST':
+        id = request.form['id']
+        nuevoMontoCompra = request.form['nuevoMontoCompra']
+        nuevoEstadoConfirmacion = request.form['nuevoEstadoConfirmacion']
+        data = db.queryInsert('''
+               UPDATE "compra"
+	                SET "montoCompra" = '{}', "estadoConfirmacion" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(nuevoMontoCompra, nuevoEstadoConfirmacion, id))
+
+    return render_template('compra/compraModificada.html', data=data)
+
+@app.route('/mostrarCompra')
+def mostrarCompra():
+    data = db.querySelect('''
+                SELECT * FROM "compra";
+            ''')
+    return render_template('compra/mostrarCompra.html', data=data)
+
+
+#====PAGO
+@app.route('/altaPago)
+def altaPago():
+     return render_template('pago/altaPago.html') 
+
+@app.route('/guardarPago', methods=["POST"])
+def guardarPago():
+    data = []
+    if request.method == 'POST':
+        idCompra = request.form['idCompra']
+        total = request.form['total']
+        estado = request.form['estado']
+        tarjeta = request.form['tarjeta']
+        cuotas = request.form['cuotas']
+        data = db.queryInsert('''
+            INSERT INTO "pago" ("idCompra", "total", "estado", "tarjeta", "cuotas") 
+            values ('{}', '{}', '{}', '{}', '{}');
+            '''.format(idCompra, total, estado, tarjeta, cuotas)) 
+
+@app.route('/bajaPago') 
+def bajaPago():
+    return render_template('pago/bajaPago.html')  
+
+@app.route('/eliminarPago', methods=["POST"])
+def eliminarPago():
+    if request.method == 'POST':
+        id = request.form['id']
+        data = db.queryInsert('''
+               DELETE FROM "pago" WHERE "id" = '{}'; 
+            '''.format(id))
+
+    return render_template('pago/pagoEliminado.html', data=data)    
+
+@app.route('/modificarPago') 
+def modificarPago():
+    return render_template('pago/modificarPago.html')  
+
+@app.route('/editarPago', methods=["POST"])
+def editarPago():
+    if request.method == 'POST':
+        id = request.form['id']
+        nuevoTotal = request.form['nuevoTotal']
+        nuevoEstado = request.form['nuevoEstado']
+        nuevaTarjeta = request.form['nuevaTarjeta']
+        nuevoCuotas = request.form['nuevoCuotas']
+        data = db.queryInsert('''
+               UPDATE "pago"
+	                SET "total" = '{}', "estado" = '{}', "tarjeta" = '{}', "cuotas" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(nuevoTotal, nuevoEstado, nuevaTarjeta, nuevoCuotas, id))
+
+    return render_template('pago/pagoModificado.html', data=data)
+
+@app.route('/mostrarPago')
+def mostrarPago():
+    data = db.querySelect('''
+                SELECT * FROM "pago";
+            ''')
+    return render_template('pago/mostrarPago.html', data=data)
+
+    
 #=========================Pruebas===================================
 
 

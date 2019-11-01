@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>alta pago</h2>
+        <form action="guardarPago" method="POST">
+            <div class="form-group">
+                <label for="id">Id de la compra</label>
+                <input type="number" class="form-control" name="id" id="id" placeholder="ingresar el id de la compra">
+            </div>
+            <div class="form-group">
+                <label for="total">Id de la compra</label>
+                <input type="number" class="form-control" name="total" id="total" placeholder="ingresar el total de la compra">
+            </div>
+            <div class="form-group">
+                <label for="estado">Estado de la compra</label>
+                <input type="number" class="form-control" name="estado" id="estado" placeholder="ingresar el estado de la compra">
+            </div>
+            <div class="form-group">
+                <label for="tarjeta">Tarjeta</label>
+                <input type="text" class="form-control" name="tarjeta" id="tarjeta" placeholder="ingresar datos de la tarjeta">
+            </div>
+            <div class="form-group">
+                <label for="cuotas">Cuotas</label>
+                <input type="number" class="form-control" name="cuotas" id="cuotas" placeholder="ingresar cantidad de cuotas">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>

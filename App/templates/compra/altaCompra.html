@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    {% include 'navbars/navbar.html' %}
+    <div class="container p-2">
+        <h2>alta compra</h2>
+        <form action="guardarCompra" method="POST">
+            <div class="form-group">
+                <label for="idCarrito">Id del carrito</label>
+                <input type="number" class="form-control" name="idCarrito" id="idCarrito" placeholder="ingresar el id del carrito">
+            </div>
+            <div class="form-group">
+                <label for="montoCompra">Monto de la compra</label>
+                <input type="number" class="form-control" name="montoCompra" id="montoCompra" placeholder="ingresar el monto de la compra">
+            </div>
+            <div class="form-group">
+                <label for="estadoConfirmacion">Estado de confirmacion</label>
+                <input type="number" class="form-control" name="estadoConfirmacion" id="estadoConfirmacion" placeholder="ingresar el estado de confirmacion">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>
