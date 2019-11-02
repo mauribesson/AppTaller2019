@@ -12,11 +12,11 @@ def index():
     data = []
     return render_template('index.html', data=data)
 
-@app.route('/altausuario')
+""" @app.route('/altausuario')
 def altausuario():
     data = []
     return render_template('index.html', data=data)
-
+ """
 #Seleccionar todos los combos 
 """ @app.route('/pruebaCombo')
 def pruebaCombo():
@@ -26,6 +26,8 @@ def pruebaCombo():
     print(data)
     return render_template('index.html', data=data) """
 
+
+#=========================ABMS===================================
 #====ROL
 #Alta Rol 
 @app.route('/altaRol')
@@ -44,7 +46,7 @@ def guardarRol():
     return render_template('rol/rolGuardado.html', data=data, verificador=verificador)  
 #Fin Alta Rol
 
-#=========================PruebasDB===================================
+#Baja Rol
 @app.route('/bajaRol') 
 def bajaRol():
     return render_template('rol/bajaRol.html')  
@@ -53,13 +55,12 @@ def bajaRol():
 def eliminarRol():
     if request.method == 'POST':
         nombre = request.form['nombreRol']
-        print(nombre)  
-        data = db.queryInsert('''
-               DELETE FROM "rol" WHERE "nombreRol" = '{}'; 
-            '''.format(nombre))
-
+        rol =  Rol()
+        data = rol.baja_rol(nombre)
     return render_template('rol/rolEliminado.html', data=data)    
+#Fin Baja Rol
 
+#Modificar Rol
 @app.route('/modificarRol') 
 def modificarRol():
     return render_template('rol/modificarRol.html')  
@@ -69,23 +70,23 @@ def editarRol():
     if request.method == 'POST':
         nombre = request.form['nombreRol']
         nombreNuevo = request.form['nombreNuevoRol']
-        print(nombre)  
-        data = db.queryInsert('''
-               UPDATE "rol"
-	                SET "nombreRol" = '{}'
-	                WHERE "nombreRol" = '{}';
-            '''.format(nombreNuevo, nombre))
-
+        rol = Rol()
+        data = rol.modificar_rol(nombre, nombreNuevo)     
     return render_template('rol/rolModificado.html', data=data)
 
+# Listar Rol
 @app.route('/listarRol')
 def listarRol():
-    data = db.querySelect('''
-                SELECT * FROM "rol";
-            ''')
-    print(data)
+    rol = Rol()
+    data = rol.listar_rol()
     return render_template('rol/listadoRol.html', data=data)
+# Fin Listar Rol
 
+@app.route('/verRol/<int:id>')
+def verRol(id):
+    rol = Rol()
+    data = rol.consultar_rol_por_id(id)
+    return render_template('rol/listadoRol.html', data=data)
 #===========FIN ROL
 
 #========ABM usuario
@@ -780,7 +781,7 @@ def mostrarPago():
     return render_template('pago/mostrarPago.html', data=data)
 
     
-#=========================Pruebas===================================
+#=========================Fin ABM===================================
 
 
 

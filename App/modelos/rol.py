@@ -33,11 +33,32 @@ class Rol:
                     '''.format(pNombreRol))
         return data       
 
-    def baja_rol(self):
-        pass
+    def baja_rol(self, pNombreRol):
+        data = db.queryInsert('''
+               DELETE FROM "rol" WHERE "nombreRol" = '{}'; 
+            '''.format(pNombreRol))
+        return data
 
-    def modificar_rol(self):
-        pass
+    def modificar_rol(self, pNombreRol, pNuevoNombreRol):
+        data = db.queryInsert('''
+               UPDATE "rol"
+	                SET "nombreRol" = '{}'
+	                WHERE "nombreRol" = '{}';
+            '''.format(pNuevoNombreRol, pNombreRol))
+        return data
 
-    def consultar_rol(self):
-        pass
+    def listar_rol(self):
+        data = db.querySelect('''
+                SELECT * FROM "rol";
+            ''')
+        return data
+
+    def consultar_rol_por_id(self, pId):
+        id = str(pId)
+        data = db.querySelect(
+            '''
+                SELECT * FROM "rol"
+                WHERE "idRol" = {};
+            '''.format(id))
+        return data
+       
