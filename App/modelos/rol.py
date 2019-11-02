@@ -4,8 +4,10 @@ db = Database()
 
 #Modelo Rol 
 class Rol:
-    def __init__(self, pNombreRol):
-        self.nombreRol = pNombreRol
+    def __init__(self):
+        self.id = None
+        self.nombreRol = ''
+
 
     def alta_rol(self, pNombreRol):
         data = []       

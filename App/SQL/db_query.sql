@@ -1,14 +1,7 @@
 /*
  * agregar : 
- 
- -- Controlar longitud de contraseña al modificar usuario en nueva contraseña 
- 
+ -- insertar datos que se necesitan para arrancar..
 */
-
-
-
-
-
 
 CREATE TABLE "rol" (
 	"idRol" serial NOT NULL,
@@ -91,7 +84,7 @@ CREATE TABLE "compra" (
 	"id" serial NOT NULL,
 	"idCarrito" integer NOT NULL,
 	"montoCompra" float NOT NULL, 
-	"estadoConfiracion" boolean,
+	"estadoConfirmacion" boolean,
 	Primary key ("id"),
 	foreign key ("idCarrito") references "carrito" deferrable
 );

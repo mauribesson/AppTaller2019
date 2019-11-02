@@ -429,7 +429,7 @@ def listarEjemplar():
     return render_template('ejemplar/listadoEjemplar.html', data=data)
 
 
-#====COMMBO
+#====COMBO
 @app.route('/altaCombo')
 def altaCombo():
      return render_template('combo/altaCombo.html') 
@@ -439,7 +439,7 @@ def guardarCombo():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        precio = request.form['precio'] 
+        precio = request.form['precioTotal'] 
         descuento = request.form['descuento']
         verificador = db.querySelect('''
                 SELECT * FROM "combo" WHERE "nombre" = '{}';
@@ -447,7 +447,7 @@ def guardarCombo():
         if verificador == []:
             data = db.queryInsert('''
                 INSERT INTO "combo" 
-                ("nombre", "precio", "precio") 
+                ("nombre", "total", "descuento") 
                 values ('{}','{}','{}');
                 '''.format(nombre, precio, descuento))
    
@@ -481,10 +481,10 @@ def editarCombo():
         data = db.queryInsert('''
                UPDATE "combo"
 	                SET "nombre" = '{}', 
-                    "precio" = '{}', 
+                    "total" = '{}', 
                     "descuento" = '{}'
 	                WHERE "nombre" = '{}';
-            '''.format(nuevoNombre, nuevaPrecio, nuevoDescuento, nombre))
+            '''.format(nuevoNombre, nuevoPrecio, nuevoDescuento, nombre))
 
     return render_template('combo/comboModificado.html', data=data)
 
@@ -509,7 +509,8 @@ def guardarEjemplar_combo():
         numeroSerie = request.form['numeroSerie']
         data = db.queryInsert('''
             INSERT INTO "ejemplar_combo" ("idCombo", "numeroSerie") values ('{}', '{}');
-            '''.format(idCombo, numeroSerie))    
+            '''.format(idCombo, numeroSerie)) 
+    return render_template('index.html')   
 
 @app.route('/bajaEjemplar_combo') 
 def bajaEjemplar_combo():
@@ -524,6 +525,7 @@ def eliminarEjemplar_combo():
         data = db.queryInsert('''
                DELETE FROM "ejemplar_combo" WHERE "idCombo" = '{}' AND "numeroSerie" = '{}'; 
             '''.format(idCombo, numeroSerie))   
+    return render_template('index.html')
 
 @app.route('/modificarEjemplar_combo') 
 def modificarEjemplar_combo():
@@ -542,6 +544,7 @@ def editarEjemplar_combo():
 	                SET "idCombo" = '{}', "numeroSerie" = '{}'
 	                WHERE "idCombo" = '{}' AND "numeroSerie" = '{}';
             '''.format(nuevoIdCombo, nuevoNumeroSerie, idCombo, numeroSerie))
+    return render_template('index.html')
 
 @app.route('/listarEjemplar_combo')
 def listarEjemplar_combo():
@@ -565,7 +568,8 @@ def guardarCarrito():
         data = db.queryInsert('''
             INSERT INTO "carrito" ("total") values ('{}');
             '''.format(total)) 
-
+    return render_template('index.html')
+    
 @app.route('/bajaCarrito') 
 def bajaCarrito():
     return render_template('carrito/bajaCarrito.html')  
@@ -576,8 +580,7 @@ def eliminarCarrito():
         id = request.form['id']
         data = db.queryInsert('''
                DELETE FROM "carrito" WHERE "id" = '{}'; 
-            '''.format(id))
-
+            '''.format(id))    
     return render_template('carrito/carritoEliminado.html', data=data)    
 
 @app.route('/modificarCarrito') 
@@ -587,14 +590,13 @@ def modificarCarrito():
 @app.route('/editarCarrito', methods=["POST"])
 def editarCarrito():
     if request.method == 'POST':
-        total = request.form['total']
+        total = request.form['nuevoTotal']
         id = request.form['id']
         data = db.queryInsert('''
                UPDATE "carrito"
 	                SET "total" = '{}'
 	                WHERE "id" = '{}';
             '''.format(total, id))
-
     return render_template('carrito/carritoModificado.html', data=data)
 
 @app.route('/mostrarCarrito')
@@ -618,7 +620,8 @@ def guardarEjemplar_carrito():
         numeroSerie = request.form['numeroSerie']
         data = db.queryInsert('''
             INSERT INTO "ejemplar_carrito" ("idCarrito", "numeroSerie") values ('{}', '{}');
-            '''.format(idCarrito, numeroSerie))    
+            '''.format(idCarrito, numeroSerie))  
+    return render_template('index.html')
 
 @app.route('/bajaEjemplar_carrito') 
 def bajaEjemplar_carrito():
@@ -633,6 +636,7 @@ def eliminarEjemplar_carrito():
         data = db.queryInsert('''
                DELETE FROM "ejemplar_carrito" WHERE "idCarrito" = '{}' AND "numeroSerie" = '{}'; 
             '''.format(idCarrito, numeroSerie))   
+    return render_template('index.html')
 
 @app.route('/modificarEjemplar_carrito') 
 def modificarEjemplar_carrito():
@@ -651,6 +655,7 @@ def editarEjemplar_carrito():
 	                SET "idCarrito" = '{}', "numeroSerie" = '{}'
 	                WHERE "idCarrito" = '{}' AND "numeroSerie" = '{}';
             '''.format(nuevoIdCarrito, nuevoNumeroSerie, idCarrito, numeroSerie))
+    return render_template('index.html')
 
 @app.route('/listarEjemplar_carrito')
 def listarEjemplar_carrito():
@@ -661,7 +666,7 @@ def listarEjemplar_carrito():
 
 
 #====COMPRA
-@app.route('/altaCompra)
+@app.route('/altaCompra')
 def altaCompra():
      return render_template('compra/altaCompra.html') 
 
@@ -673,8 +678,10 @@ def guardarCompra():
         montoCompra = request.form['montoCompra']
         estadoConfirmacion = request.form['estadoConfirmacion']
         data = db.queryInsert('''
-            INSERT INTO "compra" ("idCarrito", "montoCompra", "estadoConfirmacion") values ('{}');
+            INSERT INTO "compra" ("idCarrito", "montoCompra", "estadoConfirmacion") 
+            values ('{}', '{}','{}');
             '''.format(idCarrito, montoCompra, estadoConfirmacion)) 
+    return render_template('index.html')
 
 @app.route('/bajaCompra') 
 def bajaCompra():
@@ -685,7 +692,7 @@ def eliminarCompra():
     if request.method == 'POST':
         id = request.form['id']
         data = db.queryInsert('''
-               DELETE FROM "compra" WHERE "idCarrito" = '{}'; 
+               DELETE FROM "compra" WHERE "id" = '{}'; 
             '''.format(id))
 
     return render_template('compra/compraEliminada.html', data=data)    
@@ -717,7 +724,7 @@ def mostrarCompra():
 
 
 #====PAGO
-@app.route('/altaPago)
+@app.route('/altaPago')
 def altaPago():
      return render_template('pago/altaPago.html') 
 
@@ -734,6 +741,7 @@ def guardarPago():
             INSERT INTO "pago" ("idCompra", "total", "estado", "tarjeta", "cuotas") 
             values ('{}', '{}', '{}', '{}', '{}');
             '''.format(idCompra, total, estado, tarjeta, cuotas)) 
+    return render_template('index.html')
 
 @app.route('/bajaPago') 
 def bajaPago():
@@ -763,7 +771,7 @@ def editarPago():
         nuevoCuotas = request.form['nuevoCuotas']
         data = db.queryInsert('''
                UPDATE "pago"
-	                SET "total" = '{}', "estado" = '{}', "tarjeta" = '{}', "cuotas" = '{}'
+	                SET "total" = {}, "estado" = '{}', "tarjeta" = '{}', "cuotas" = {}
 	                WHERE "id" = '{}';
             '''.format(nuevoTotal, nuevoEstado, nuevaTarjeta, nuevoCuotas, id))
 
