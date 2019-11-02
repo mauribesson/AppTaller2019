@@ -17,18 +17,17 @@ def altausuario():
     data = []
     return render_template('index.html', data=data)
 
-#=========================PruebasDB===================================
-
 #Seleccionar todos los combos 
-@app.route('/pruebaCombo')
+""" @app.route('/pruebaCombo')
 def pruebaCombo():
     data = db.querySelect('''
                 SELECT {} , {} FROM "combo";
             '''.format('"nombre"', '"total"'))
     print(data)
-    return render_template('index.html', data=data)
+    return render_template('index.html', data=data) """
 
 #====ROL
+#Alta Rol 
 @app.route('/altaRol')
 def altaRol():
      return render_template('rol/altaRol.html') 
@@ -39,17 +38,13 @@ def guardarRol():
     if request.method == 'POST':
         nombre = request.form['nombreRol']
         rol =  Rol()
-        data = rol.alta_rol(nombre)
-        #verificador = db.querySelect('''
-        #        SELECT * FROM "rol" WHERE "nombreRol" = '{}';
-        #    '''.format(nombre)) 
-        #if verificador == []:
-        #    data = db.queryInsert('''
-        #        INSERT INTO "rol" ("nombreRol") values ('{}');
-        #        '''.format(nombre))
-   
+        verificador = rol.verificar_unico_rol(nombre)
+        if verificador == []:
+            data = rol.alta_rol(nombre)   
     return render_template('rol/rolGuardado.html', data=data, verificador=verificador)  
+#Fin Alta Rol
 
+#=========================PruebasDB===================================
 @app.route('/bajaRol') 
 def bajaRol():
     return render_template('rol/bajaRol.html')  
