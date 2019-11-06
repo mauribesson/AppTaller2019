@@ -8,18 +8,21 @@ class Rol:
         self._id = None
         self._nombreRol = ''
 
+    #setter
     def set_id(self, pId):
         self._id = pId
-
-    def get_id(self):
-        return self._id 
-
+ 
     def set_nombreRol(self, pNombreRol):
         self._nombreRol = pNombreRol
+        
+    #getter
+    def get_id(self):
+        return self._id 
 
     def get_nombreRol(self):
         return self._nombreRol   
 
+    #logica 
     def verificar_unico_rol(self, pNombreRol):
         verificador = db.querySelect('''
             SELECT * FROM "rol" WHERE "nombreRol" = '{}';
