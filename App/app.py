@@ -40,9 +40,10 @@ def guardarRol():
     if request.method == 'POST':
         nombre = request.form['nombreRol']
         rol =  Rol()
-        verificador = rol.verificar_unico_rol(nombre)
+        rol.set_nombreRol(nombre)
+        verificador = rol.verificar_unico_rol()
         if verificador == []:
-            data = rol.alta_rol(nombre)   
+            data = rol.alta_rol()   
     return render_template('rol/rolGuardado.html', data=data, verificador=verificador)  
 #Fin Alta Rol
 
@@ -56,7 +57,8 @@ def eliminarRol():
     if request.method == 'POST':
         nombre = request.form['nombreRol']
         rol =  Rol()
-        data = rol.baja_rol(nombre)
+        rol.set_nombreRol(nombre)
+        data = rol.baja_rol()
     return render_template('rol/rolEliminado.html', data=data)    
 #Fin Baja Rol
 
@@ -71,7 +73,8 @@ def editarRol():
         nombre = request.form['nombreRol']
         nombreNuevo = request.form['nombreNuevoRol']
         rol = Rol()
-        data = rol.modificar_rol(nombre, nombreNuevo)     
+        rol.set_nombreRol(nombre)
+        data = rol.modificar_rol(nombreNuevo)     
     return render_template('rol/rolModificado.html', data=data)
 
 # Listar Rol
@@ -85,7 +88,8 @@ def listarRol():
 @app.route('/verRol/<int:id>')
 def verRol(id):
     rol = Rol()
-    data = rol.consultar_rol_por_id(id)
+    rol.set_id(id)
+    data = rol.consultar_rol_por_id()
     return render_template('rol/listadoRol.html', data=data)
 #===========FIN ROL
 

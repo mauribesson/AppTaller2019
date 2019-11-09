@@ -5,49 +5,49 @@ db = Database()
 #Modelo Rol 
 class Rol:
     def __init__(self):
-        self._id = None
-        self._nombreRol = ''
+        self.__id = None
+        self.__nombreRol = ''
 
     #setter
     def set_id(self, pId):
-        self._id = pId
+        self.__id = pId
  
     def set_nombreRol(self, pNombreRol):
-        self._nombreRol = pNombreRol
-        
+        self.__nombreRol = pNombreRol
+
     #getter
     def get_id(self):
-        return self._id 
+        return self.__id 
 
     def get_nombreRol(self):
-        return self._nombreRol   
+        return self.__nombreRol   
 
     #logica 
-    def verificar_unico_rol(self, pNombreRol):
+    def verificar_unico_rol(self):
         verificador = db.querySelect('''
             SELECT * FROM "rol" WHERE "nombreRol" = '{}';
-         '''.format(pNombreRol)) 
+         '''.format(self.__nombreRol))
         return verificador
 
-    def alta_rol(self, pNombreRol):
+    def alta_rol(self):
         data = []      
         data = db.queryInsert('''
                     INSERT INTO "rol" ("nombreRol") values ('{}');
-                    '''.format(pNombreRol))
+                    '''.format(self.__nombreRol))
         return data       
 
-    def baja_rol(self, pNombreRol):
+    def baja_rol(self):
         data = db.queryInsert('''
                DELETE FROM "rol" WHERE "nombreRol" = '{}'; 
-            '''.format(pNombreRol))
+            '''.format(self.__nombreRol))
         return data
 
-    def modificar_rol(self, pNombreRol, pNuevoNombreRol):
+    def modificar_rol(self, pNuevoNombreRol):
         data = db.queryInsert('''
                UPDATE "rol"
 	                SET "nombreRol" = '{}'
 	                WHERE "nombreRol" = '{}';
-            '''.format(pNuevoNombreRol, pNombreRol))
+            '''.format(pNuevoNombreRol, self.__nombreRol))
         return data
 
     def listar_rol(self):
@@ -56,8 +56,8 @@ class Rol:
             ''')
         return data
 
-    def consultar_rol_por_id(self, pId):
-        id = str(pId)
+    def consultar_rol_por_id(self):
+        id = str(self.__id)
         data = db.querySelect(
             '''
                 SELECT * FROM "rol"

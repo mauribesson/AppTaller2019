@@ -1,31 +1,33 @@
 from db import Database
- 
+
+db = Database()
+
 #Modelo Carrito 
 class Carrito:
     def __init__(self):
-        self._id= None
-        self._productos = []
-        self._total = None
+        self.__id= None
+        self.__productos = []
+        self.__total = None
 
     #setter
     def set_id(self, pId):
-        self._id = pId
+        self.__id = pId
 
     def set_productos(self, pProductos = []):
-        self._productos = pProductos
+        self.__productos = pProductos
 
     def set_total(self, pTotal):
-        self._total = pTotal
+        self.__total = pTotal
 
     #getteres
     def get_id(self):
-        return self._id
+        return self.__id
 
     def get_productos(self):
-        return self._productos
+        return self.__productos
 
     def get_total(self):
-        return self._total
+        return self.__total
 
     #logica 
     def alta_carrito(self):

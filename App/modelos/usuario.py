@@ -1,31 +1,33 @@
 from db import Database
  
+db = Database()
+
 #Modelo Usuario 
 class Usuario:
     def __init__(self):
-        self._nombre = ""
-        self._contrasenia = ""
-        self._contacto = ""
+        self.__nombre = ""
+        self.__contrasenia = ""
+        self.__contacto = ""
 
     #setter
     def set_nombre(self, pNombre):
-        self._nombre = pNombre
+        self.__nombre = pNombre
 
     def set_contrasenia(self, pPass):  
-        self._contrasenia = pPass
+        self.__contrasenia = pPass
 
     def set_contacto(self, pContacto):
-        self._contacto = pContacto   
+        self.__contacto = pContacto   
 
     #getter
     def get_nombre(self):
-        return self._nombre
+        return self.__nombre
 
     def get_contrasenia(self):
-        return self._contrasenia       
+        return self.__contrasenia       
 
     def get_contacto(self):
-        return self._contacto
+        return self.__contacto
 
 
     def alta_usuario(self):
