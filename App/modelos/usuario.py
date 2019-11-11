@@ -28,10 +28,25 @@ class Usuario:
 
     def get_contacto(self):
         return self.__contacto
-
+    
+    #Logica
+    def verificar_unico_usuario(self):
+        verificador = db.querySelect('''
+                SELECT * FROM "usuario" WHERE "nombre" = '{}';
+            '''.format(self.__nombre)) 
+        return verificador    
+        
 
     def alta_usuario(self):
-        pass
+        data = db.queryInsert(
+                '''
+                INSERT INTO "usuario" ("nombre",
+                 "contrasenia",
+                 "contacto",
+                  "rol") 
+                values ('{}', '{}', '{}', 1);
+                '''.format(self.__nombre, self.__contrasenia,self.__contacto)) 
+        return data
 
     def baja_usuario(self):
         pass

@@ -105,14 +105,17 @@ def guardarUsuario():
         nombre = request.form['nombreUsuario']
         contrasenia = request.form['contrasenia']
         contacto = request.form['contacto']
-        verificador = db.querySelect('''
-                SELECT * FROM "usuario" WHERE "nombre" = '{}';
-            '''.format(nombre))
-        
+
+        usuario = Usuario()
+        usuario.set_nombre(nombre)
+        usuario.set_contrasenia(contrasenia)
+        usuario.set_contacto(contacto)
+
+        verificador = usuario.verificar_unico_usuario()  
+
         if verificador == []:
-            data = db.queryInsert('''
-                INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol") values ('{}', '{}', '{}', 1);
-                '''.format(nombre, contrasenia, contacto))    
+            data = usuario.alta_usuario() 
+                           
     return render_template('usuario/usuarioGuardado.html', data=data, verificador=verificador)  
 
 @app.route('/bajaUsuario') 
