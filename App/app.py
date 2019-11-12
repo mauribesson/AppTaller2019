@@ -151,9 +151,9 @@ def editarUsuario():
 
 @app.route('/listarUsuario')
 def listarUsuario():
-    data = db.querySelect('''
-                SELECT * FROM "usuario";
-            ''')
+    data = []
+    usuario = Usuario()
+    data = usuario.consultar_usuario() 
     return render_template('usuario/listadoUsuario.html', data=data)   
     
 

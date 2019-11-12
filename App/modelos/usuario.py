@@ -67,7 +67,10 @@ class Usuario:
         return data
 
     def consultar_usuario(self):
-        pass
+        data = db.querySelect('''
+                SELECT * FROM "usuario";
+                ''')        
+        return data
 
     
 
