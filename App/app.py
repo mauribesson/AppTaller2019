@@ -115,7 +115,6 @@ def guardarUsuario():
 
         if verificador == []:
             data = usuario.alta_usuario() 
-                           
     return render_template('usuario/usuarioGuardado.html', data=data, verificador=verificador)  
 
 @app.route('/bajaUsuario') 
@@ -127,10 +126,9 @@ def eliminarUsuario():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        data = db.queryInsert('''
-               DELETE FROM "usuario" WHERE "nombre" = '{}'; 
-            '''.format(nombre))
-
+        usuario = Usuario()
+        usuario.set_nombre(nombre)
+        data = usuario.baja_usuario()
     return render_template('usuario/usuarioEliminado.html', data=data)    
 
 @app.route('/modificarUsuario') 

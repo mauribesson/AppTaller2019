@@ -49,7 +49,10 @@ class Usuario:
         return data
 
     def baja_usuario(self):
-        pass
+        data = db.queryInsert('''
+               DELETE FROM "usuario" WHERE "nombre" = '{}'; 
+            '''.format(self.__nombre))
+        return data    
 
     def modificar_usuario(self):
         pass
