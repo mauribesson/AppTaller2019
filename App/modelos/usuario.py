@@ -34,9 +34,8 @@ class Usuario:
         verificador = db.querySelect('''
                 SELECT * FROM "usuario" WHERE "nombre" = '{}';
             '''.format(self.__nombre)) 
-        return verificador    
+        return verificador  
         
-
     def alta_usuario(self):
         data = db.queryInsert(
                 '''
@@ -54,8 +53,18 @@ class Usuario:
             '''.format(self.__nombre))
         return data    
 
-    def modificar_usuario(self):
-        pass
+    def modificar_usuario(self, pNuevoNombre, pNuevaContrasenia, pNuevoContacto):
+        data = db.queryInsert('''
+               UPDATE "usuario"
+	                SET "nombre" = '{}', 
+                    "contrasenia" = '{}', 
+                    "contacto" = '{}'
+	                WHERE "nombre" = '{}';
+            '''.format(pNuevoNombre, 
+                        pNuevaContrasenia, 
+                        pNuevoContacto, 
+                        self.__nombre))
+        return data
 
     def consultar_usuario(self):
         pass

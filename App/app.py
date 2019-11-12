@@ -143,12 +143,10 @@ def editarUsuario():
         nombreNuevo = request.form['nombreNuevo']
         contraseniaNueva = request.form['contraseniaNueva']
         contactoNuevo = request.form['contactoNuevo']  
-        data = db.queryInsert('''
-               UPDATE "usuario"
-	                SET "nombre" = '{}', "contrasenia" = '{}', "contacto" = '{}'
-	                WHERE "nombre" = '{}';
-            '''.format(nombreNuevo, contraseniaNueva, contactoNuevo, nombre))
 
+        usuario = Usuario()
+        usuario.set_nombre(nombre)
+        usuario.modificar_usuario(nombreNuevo, contraseniaNueva, contactoNuevo)
     return render_template('usuario/usuarioModificado.html', data=data)
 
 @app.route('/listarUsuario')
