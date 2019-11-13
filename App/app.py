@@ -246,9 +246,9 @@ def eliminarMarca():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        data = db.queryInsert('''
-               DELETE FROM "marca" WHERE "nombre" = '{}'; 
-            '''.format(nombre))
+        marca = Marca()
+        marca.set_nombre(nombre)
+        data = marca.baja_marca()
 
     return render_template('marca/marcaEliminada.html', data=data)    
 
@@ -262,22 +262,18 @@ def editarMarca():
     if request.method == 'POST':
         nombre = request.form['nombre']
         nombreNuevo = request.form['nombreNuevo']
-        data = db.queryInsert('''
-               UPDATE "marca"
-	                SET "nombre" = '{}'
-	                WHERE "nombre" = '{}';
-            '''.format(nombreNuevo, nombre))
 
+        marca = Marca()
+        marca.set_nombre(nombre)
+        data = marca.modificar_marca(nombreNuevo)
     return render_template('marca/marcaModificada.html', data=data)
 
 @app.route('/listarMarca')
 def listarMarca():
     data = []
-    data = db.querySelect('''
-                SELECT * FROM "marca";
-            ''')
+    marca = Marca()
+    data = marca.consultar_marca()
     return render_template('marca/listadoMarca.html', data=data)
-
 
 #====PRODUCTO
 @app.route('/altaProducto')

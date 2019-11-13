@@ -36,11 +36,22 @@ class Marca:
         return data    
 
     def baja_marca(self):
-        pass
+        data = db.queryInsert('''
+               DELETE FROM "marca" WHERE "nombre" = '{}'; 
+            '''.format(self.__nombre))
+        return data
 
-    def modificar_marca(self):
-        pass
+    def modificar_marca(self, pNuevoNombre):
+        data = db.queryInsert('''
+               UPDATE "marca"
+	                SET "nombre" = '{}'
+	                WHERE "nombre" = '{}';
+            '''.format(pNuevoNombre, self.__nombre))        
+        return data
 
     def consultar_marca(self):
-        pass
+        data = db.querySelect('''
+                SELECT * FROM "marca";
+            ''')
+        return data
 
