@@ -3,6 +3,7 @@ from db import Database
 from modelos.rol import Rol
 from modelos.usuario import Usuario
 from modelos.tipoProducto import TipoProducto
+from modelos.marca import Marca
 
 db = Database()
 
@@ -227,14 +228,13 @@ def guardarMarca():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        verificador = db.querySelect('''
-                SELECT * FROM "marca" WHERE "nombre" = '{}';
-            '''.format(nombre)) 
+
+        marca = Marca()
+        marca.set_nombre(nombre)
+        verificador = marca.verificar_unica_marca() 
+
         if verificador == []:
-            data = db.queryInsert('''
-                INSERT INTO "marca" ("nombre") values ('{}');
-                '''.format(nombre))
-   
+            data = marca.alta_marca()   
     return render_template('marca/marcaGuardada.html', data=data, verificador=verificador)  
 
 @app.route('/bajaMarca') 

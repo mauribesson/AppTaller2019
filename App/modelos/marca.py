@@ -23,8 +23,17 @@ class Marca:
         return self.__nombre
 
     #Logica
+    def verificar_unica_marca(self):
+        verificador = db.querySelect('''
+                SELECT * FROM "marca" WHERE "nombre" = '{}';
+            '''.format(self.__nombre))
+        return verificador
+
     def alta_marca(self):
-        pass
+        data = db.queryInsert('''
+                INSERT INTO "marca" ("nombre") values ('{}');
+                '''.format(self.__nombre)) 
+        return data    
 
     def baja_marca(self):
         pass
