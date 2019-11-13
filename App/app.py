@@ -4,6 +4,7 @@ from modelos.rol import Rol
 from modelos.usuario import Usuario
 from modelos.tipoProducto import TipoProducto
 from modelos.marca import Marca
+from modelos.producto import Producto
 
 db = Database()
 
@@ -278,7 +279,7 @@ def listarMarca():
 #====PRODUCTO
 @app.route('/altaProducto')
 def altaProducto():
-     return render_template('producto/altaProducto.html') 
+    return render_template('producto/altaProducto.html') 
 
 @app.route('/guardarProducto', methods=["POST"])
 def guardarProducto():
@@ -289,18 +290,22 @@ def guardarProducto():
         precio = request.form['precio']
         modelo = request.form['modelo']
         garantia = request.form['garantia']
-        tipoProducto = request.form['tipoProducto']
+        tipo_producto = request.form['tipoProducto']
         marca = request.form['marca'] 
-        verificador = db.querySelect('''
-                SELECT * FROM "producto" WHERE "nombre" = '{}';
-            '''.format(nombre)) 
+
+        producto = Producto()
+        producto.set_nombre(nombre)
+        producto.set_descripcion(descripcion)
+        producto.set_precio(precio)
+        producto.set_modelo(modelo)
+        producto.set_garantia(garantia)
+        producto.set_tipo_producto(tipo_producto)
+        producto.set_marca(marca)
+
+        verificador = producto.verificar_unico_producto()
+ 
         if verificador == []:
-            data = db.queryInsert('''
-                INSERT INTO "producto" 
-                ("nombre", "descripcion", "precio", "modelo", "garantia", "tipoProducto", "marca") 
-                values ('{}','{}','{}','{}','{}','{}','{}');
-                '''.format(nombre, descripcion, precio, modelo, garantia, tipoProducto, marca))
-   
+            data = producto.alta_producto()          
     return render_template('producto/productoGuardado.html', data=data, verificador=verificador)  
 
 @app.route('/bajaProducto') 
@@ -311,10 +316,9 @@ def bajaProducto():
 def eliminarProducto():
     if request.method == 'POST':
         nombre = request.form['nombre']
-        data = db.queryInsert('''
-               DELETE FROM "producto" WHERE "nombre" = '{}'; 
-            '''.format(nombre))
-
+        producto = Producto()
+        producto.set_nombre(nombre)   
+        data = producto.baja_producto()  
     return render_template('producto/productoEliminado.html', data=data)    
 
 @app.route('/modificarProducto') 
@@ -332,25 +336,23 @@ def editarProducto():
         nuevaGarantia = request.form['nuevaGarantia']
         nuevoTipoProducto = request.form['nuevoTipoProducto']
         nuevaMarca = request.form['nuevaMarca']
-        data = db.queryInsert('''
-               UPDATE "producto"
-	                SET "nombre" = '{}', 
-                    "descripcion" = '{}', 
-                    "precio" = '{}', 
-                    "modelo" = '{}', 
-                    "garantia" = '{}', 
-                    "tipoProducto" = '{}', 
-                    "marca" = '{}'
-	                WHERE "nombre" = '{}';
-            '''.format(nuevoNombre, nuevaDescripcion, nuevoPrecio, nuevoModelo, nuevaGarantia, nuevoTipoProducto, nuevaMarca, nombre))
-
+        
+        producto = Producto()
+        producto.set_nombre(nombre)  
+        data = producto.modificar_producto(nuevoNombre, 
+                                            nuevaDescripcion,
+                                            nuevoPrecio,
+                                            nuevoModelo,
+                                            nuevaGarantia,
+                                            nuevoTipoProducto,
+                                            nuevaMarca)     
     return render_template('producto/productoModificado.html', data=data)
 
 @app.route('/listarProducto')
 def listarProducto():
-    data = db.querySelect('''
-                SELECT * FROM "producto";
-            ''')
+    data = []
+    producto = Producto()
+    data = producto.consultar_producto()
     return render_template('producto/listadoProducto.html', data=data)
 
 
