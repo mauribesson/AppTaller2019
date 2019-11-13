@@ -23,15 +23,36 @@ class TipoProducto:
         return self.__nombreTipo
 
     #Logica
+    def verificar_unico_tipo_producto(self):
+        verificador = []
+        verificador = db.querySelect('''
+                SELECT * FROM "tipoProducto" WHERE "nombreTipo" = '{}';
+            '''.format(self.__nombreTipo))
+        return verificador
+
     def alta_tipo_producto(self):
-        pass
+        data = db.queryInsert('''
+                 INSERT INTO "tipoProducto" ("nombreTipo") values ('{}');
+                '''.format(self.__nombreTipo))
+        return data
 
     def baja_tipo_producto(self):
-        pass
+        data = db.queryInsert('''
+               DELETE FROM "tipoProducto" WHERE "nombreTipo" = '{}'; 
+            '''.format(self.__nombreTipo))
+        return data        
 
-    def modificar_tipo_producto(self):
-        pass
+    def modificar_tipo_producto(self, pNuevoTipoNombre):
+        data = db.queryInsert('''
+               UPDATE "tipoProducto"
+	                SET "nombreTipo" = '{}'
+	                WHERE "nombreTipo" = '{}';
+            '''.format(pNuevoTipoNombre, self.__nombreTipo))
+        return data
 
     def consultar_tipo_producto(self):
-        pass
+            data = db.querySelect('''
+                SELECT * FROM "tipoProducto";
+            ''')
+            return data
 

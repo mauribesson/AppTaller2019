@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from db import Database
 from modelos.rol import Rol
 from modelos.usuario import Usuario
+from modelos.tipoProducto import TipoProducto
 
 db = Database()
 
@@ -169,14 +170,12 @@ def guardarTipoProducto():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        verificador = db.querySelect('''
-                SELECT * FROM "tipoProducto" WHERE "nombreTipo" = '{}';
-            '''.format(nombre)) 
-        if verificador == []:
-            data = db.queryInsert('''
-                 INSERT INTO "tipoProducto" ("nombreTipo") values ('{}');
-                '''.format(nombre))
-   
+        tipo_producto = TipoProducto()
+        tipo_producto.set_nombre_tipo(nombre)
+        verificador = tipo_producto.verificar_unico_tipo_producto()
+
+        if verificador == []: 
+            data = tipo_producto.alta_tipo_producto()     
     return render_template('tipoProducto/tipoProductoGuardado.html', data=data, verificador=verificador)  
 
 @app.route('/bajaTipoProducto') 
@@ -188,9 +187,10 @@ def eliminarTipoProducto():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        data = db.queryInsert('''
-               DELETE FROM "tipoProducto" WHERE "nombreTipo" = '{}'; 
-            '''.format(nombre))
+
+        tipo_producto = TipoProducto()
+        tipo_producto.set_nombre_tipo(nombre)
+        data = tipo_producto.baja_tipo_producto()
 
     return render_template('tipoProducto/tipoProductoEliminado.html', data=data)    
 
@@ -204,19 +204,16 @@ def editarTipoProducto():
     if request.method == 'POST':
         nombre = request.form['nombre']
         nombreNuevo = request.form['nombreNuevo']
-        data = db.queryInsert('''
-               UPDATE "tipoProducto"
-	                SET "nombreTipo" = '{}'
-	                WHERE "nombreTipo" = '{}';
-            '''.format(nombreNuevo, nombre))
+        tipo_producto = TipoProducto()
+        tipo_producto.set_nombre_tipo(nombre)
+        data = tipo_producto.modificar_tipo_producto(nombreNuevo)
 
     return render_template('tipoProducto/tipoProductoModificado.html', data=data)
 
 @app.route('/listarTipoProducto')
 def listarTipoProducto():
-    data = db.querySelect('''
-                SELECT * FROM "tipoProducto";
-            ''')
+    tipo_producto = TipoProducto()
+    data = tipo_producto.consultar_tipo_producto()
     return render_template('tipoProducto/listadoTipoProducto.html', data=data)
 
 
