@@ -31,13 +31,27 @@ class Carrito:
 
     #logica 
     def alta_carrito(self):
-        pass
+        data = db.queryInsert('''
+            INSERT INTO "carrito" ("total") values ('{}');
+            '''.format(self.__total))
+        return data 
 
     def baja_carrito(self):
-        pass
+        data = db.queryInsert('''
+               DELETE FROM "carrito" WHERE "id" = '{}'; 
+            '''.format(self.__id)) 
+        return data   
 
-    def modificar_carrito(self):
-        pass
-
+    def modificar_carrito(self, pTotal):
+        data = db.queryInsert('''
+               UPDATE "carrito"
+	                SET "total" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(pTotal, self.__id))
+        return data
+    
     def consultar_carrito(self):
-        pass
+        data = db.querySelect('''
+                SELECT * FROM "carrito";
+            ''')
+        return data

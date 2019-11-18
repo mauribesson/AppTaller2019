@@ -7,6 +7,7 @@ from modelos.marca import Marca
 from modelos.producto import Producto
 from modelos.ejemplar import Ejemplar
 from modelos.combo import Combo
+from modelos.carrito import Carrito
 
 db = Database()
 
@@ -16,21 +17,6 @@ app = Flask(__name__)
 def index():
     data = []
     return render_template('index.html', data=data)
-
-""" @app.route('/altausuario')
-def altausuario():
-    data = []
-    return render_template('index.html', data=data)
- """
-#Seleccionar todos los combos 
-""" @app.route('/pruebaCombo')
-def pruebaCombo():
-    data = db.querySelect('''
-                SELECT {} , {} FROM "combo";
-            '''.format('"nombre"', '"total"'))
-    print(data)
-    return render_template('index.html', data=data) """
-
 
 #=========================ABMS===================================
 #====ROL
@@ -554,10 +540,11 @@ def guardarCarrito():
     data = []
     if request.method == 'POST':
         total = request.form['total']
-        data = db.queryInsert('''
-            INSERT INTO "carrito" ("total") values ('{}');
-            '''.format(total)) 
-    return render_template('index.html')
+        
+        carrito = Carrito()
+        carrito.set_total(total)
+        data = carrito.alta_carrito()
+    return render_template('carrito/carritoGuardado.html', data=data)
     
 @app.route('/bajaCarrito') 
 def bajaCarrito():
@@ -566,10 +553,11 @@ def bajaCarrito():
 @app.route('/eliminarCarrito', methods=["POST"])
 def eliminarCarrito():
     if request.method == 'POST':
-        id = request.form['id']
-        data = db.queryInsert('''
-               DELETE FROM "carrito" WHERE "id" = '{}'; 
-            '''.format(id))    
+        idCarrito = request.form['id']
+
+        carrito = Carrito()
+        carrito.set_id(idCarrito)
+        data = carrito.baja_carrito()
     return render_template('carrito/carritoEliminado.html', data=data)    
 
 @app.route('/modificarCarrito') 
@@ -578,21 +566,22 @@ def modificarCarrito():
 
 @app.route('/editarCarrito', methods=["POST"])
 def editarCarrito():
+    data = []
     if request.method == 'POST':
         total = request.form['nuevoTotal']
-        id = request.form['id']
-        data = db.queryInsert('''
-               UPDATE "carrito"
-	                SET "total" = '{}'
-	                WHERE "id" = '{}';
-            '''.format(total, id))
+        idCarrito = request.form['id']
+
+        carrito = Carrito()
+        carrito.set_id(idCarrito)
+        data = carrito.modificar_carrito(total) 
+
     return render_template('carrito/carritoModificado.html', data=data)
 
 @app.route('/mostrarCarrito')
 def mostrarCarrito():
-    data = db.querySelect('''
-                SELECT * FROM "carrito";
-            ''')
+    data = []
+    carrito = Carrito()
+    data = carrito.consultar_carrito()
     return render_template('carrito/mostrarCarrito.html', data=data)
 
 
