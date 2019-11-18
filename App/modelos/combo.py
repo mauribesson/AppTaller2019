@@ -44,14 +44,42 @@ class Combo:
         return self.__descuento
 
     #Logica
+    def verificar_combo(self):
+        verificador = db.querySelect('''
+                SELECT * FROM "combo" WHERE "nombre" = '{}';
+            '''.format(self.__nombre))        
+        return verificador
+
     def alta_combo(self):
-        pass
+        data = db.queryInsert('''
+                INSERT INTO "combo" 
+                ("nombre", "total", "descuento") 
+                values ('{}','{}','{}');
+                '''.format(self.__nombre, self.__total, self.__descuento))
+        return data
 
     def baja_combo(self):
-        pass
+        data = db.queryInsert('''
+               DELETE FROM "combo" WHERE "nombre" = '{}'; 
+            '''.format(self.__nombre))
+        return data
 
-    def modificar_combo(self):
-        pass
+    def modificar_combo(self, pNuevoNombre, pNuevoTotal, pNuevoDescuento):
+        data = db.queryInsert('''
+               UPDATE "combo"
+	                SET "nombre" = '{}', 
+                    "total" = '{}', 
+                    "descuento" = '{}'
+	                WHERE "nombre" = '{}';
+            '''.format(
+                pNuevoNombre, 
+                pNuevoTotal,
+                pNuevoDescuento, 
+                self.__nombre))
+        return data
 
     def consultar_combo(self):
-        pass 
+        data = db.querySelect('''
+                SELECT * FROM "combo";
+            ''') 
+        return data

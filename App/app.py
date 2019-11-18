@@ -6,6 +6,7 @@ from modelos.tipoProducto import TipoProducto
 from modelos.marca import Marca
 from modelos.producto import Producto
 from modelos.ejemplar import Ejemplar
+from modelos.combo import Combo
 
 db = Database()
 
@@ -420,7 +421,6 @@ def listarEjemplar():
     data = ejemplar.consultar_ejemplar()
     return render_template('ejemplar/listadoEjemplar.html', data=data)
 
-
 #====COMBO
 @app.route('/altaCombo')
 def altaCombo():
@@ -428,21 +428,20 @@ def altaCombo():
 
 @app.route('/guardarCombo', methods=["POST"])
 def guardarCombo():
-    data = []
+    data, verificador = [], []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        precio = request.form['precioTotal'] 
+        total = request.form['precioTotal'] 
         descuento = request.form['descuento']
-        verificador = db.querySelect('''
-                SELECT * FROM "combo" WHERE "nombre" = '{}';
-            '''.format(nombre)) 
+
+        combo = Combo()
+        combo.set_nombre(nombre)
+        combo.set_total(total)
+        combo.set_descuento(descuento)
+
+        verificador = combo.verificar_combo() 
         if verificador == []:
-            data = db.queryInsert('''
-                INSERT INTO "combo" 
-                ("nombre", "total", "descuento") 
-                values ('{}','{}','{}');
-                '''.format(nombre, precio, descuento))
-   
+            data = combo.alta_combo()   
     return render_template('combo/comboGuardado.html', data=data, verificador=verificador)  
 
 @app.route('/bajaCombo') 
@@ -453,10 +452,11 @@ def bajaCombo():
 def eliminarCombo():
     if request.method == 'POST':
         nombre = request.form['nombre']
-        data = db.queryInsert('''
-               DELETE FROM "combo" WHERE "nombre" = '{}'; 
-            '''.format(nombre))
 
+        combo = Combo()
+        combo.set_nombre(nombre)
+
+        data = combo.baja_combo()
     return render_template('combo/comboEliminado.html', data=data)    
 
 @app.route('/modificarCombo') 
@@ -465,26 +465,23 @@ def modificarCombo():
 
 @app.route('/editarCombo', methods=["POST"])
 def editarCombo():
+    data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
         nuevoNombre = request.form['nuevoNombre']
-        nuevoPrecio = request.form['nuevoPrecio']
+        nuevoPrecioTotal = request.form['nuevoPrecio']
         nuevoDescuento = request.form['nuevoDescuento']
-        data = db.queryInsert('''
-               UPDATE "combo"
-	                SET "nombre" = '{}', 
-                    "total" = '{}', 
-                    "descuento" = '{}'
-	                WHERE "nombre" = '{}';
-            '''.format(nuevoNombre, nuevoPrecio, nuevoDescuento, nombre))
+        
+        combo = Combo()
+        combo.set_nombre(nombre)
 
+        data = combo.modificar_combo(nuevoNombre, nuevoPrecioTotal, nuevoDescuento)
     return render_template('combo/comboModificado.html', data=data)
 
 @app.route('/listarCombo')
 def listarCombo():
-    data = db.querySelect('''
-                SELECT * FROM "combo";
-            ''')
+    combo = Combo()
+    data = combo.consultar_combo()
     return render_template('combo/listadoCombo.html', data=data)
 
 
