@@ -5,6 +5,7 @@ from modelos.usuario import Usuario
 from modelos.tipoProducto import TipoProducto
 from modelos.marca import Marca
 from modelos.producto import Producto
+from modelos.ejemplar import Ejemplar
 
 db = Database()
 
@@ -352,7 +353,7 @@ def editarProducto():
 def listarProducto():
     data = []
     producto = Producto()
-    data = producto.consultar_producto()
+    data = producto.consultar_producto() 
     return render_template('producto/listadoProducto.html', data=data)
 
 
@@ -363,21 +364,22 @@ def altaEjemplar():
 
 @app.route('/guardarEjemplar', methods=["POST"])
 def guardarEjemplar():
-    data = []
+    data, verificador = [], []
+
     if request.method == 'POST':
         numeroSerie = request.form['numeroSerie']
         vendido = request.form['vendido'] 
         producto = request.form['producto']
-        verificador = db.querySelect('''
-                SELECT * FROM "ejemplar" WHERE "numeroSerie" = '{}';
-            '''.format(numeroSerie)) 
+
+        ejemplar = Ejemplar()
+        ejemplar.set_numero_serie(numeroSerie)
+        ejemplar.set_vendido(vendido)
+        ejemplar.set_producto(producto)
+        
+        verificador = ejemplar.verificar_ejemplar()
+ 
         if verificador == []:
-            data = db.queryInsert('''
-                INSERT INTO "ejemplar" 
-                ("numeroSerie", "vendido", "producto") 
-                values ('{}','{}','{}');
-                '''.format(numeroSerie, vendido, producto))
-   
+            data = ejemplar.alta_ejemplar()            
     return render_template('ejemplar/ejemplarGuardado.html', data=data, verificador=verificador)  
 
 @app.route('/bajaEjemplar') 
@@ -388,10 +390,9 @@ def bajaEjemplar():
 def eliminarEjemplar():
     if request.method == 'POST':
         numeroSerie = request.form['numeroSerie']
-        data = db.queryInsert('''
-               DELETE FROM "ejemplar" WHERE "numeroSerie" = '{}'; 
-            '''.format(numeroSerie))
-
+        ejemplar = Ejemplar()
+        ejemplar.set_numero_serie(numeroSerie)
+        data = ejemplar.baja_ejemplar()
     return render_template('ejemplar/ejemplarEliminado.html', data=data)    
 
 @app.route('/modificarEjemplar') 
@@ -405,21 +406,18 @@ def editarEjemplar():
         nuevoNumeroSerie = request.form['nuevoNumeroSerie']
         nuevoVendido = request.form['nuevoVendido']
         nuevoProducto = request.form['nuevoProducto']
-        data = db.queryInsert('''
-               UPDATE "ejemplar"
-	                SET "numeroSerie" = '{}', 
-                    "vendido" = '{}', 
-                    "producto" = '{}'
-	                WHERE "numeroSerie" = '{}';
-            '''.format(nuevoNumeroSerie, nuevoVendido, nuevoProducto, numeroSerie))
+        
+        ejemplar = Ejemplar()
+        ejemplar.set_numero_serie(numeroSerie)
+        data = ejemplar.modificar_ejemplar(nuevoNumeroSerie, nuevoVendido, nuevoProducto )
 
     return render_template('ejemplar/ejemplarModificado.html', data=data)
 
 @app.route('/listarEjemplar')
 def listarEjemplar():
-    data = db.querySelect('''
-                SELECT * FROM "ejemplar";
-            ''')
+    data = []
+    ejemplar = Ejemplar()
+    data = ejemplar.consultar_ejemplar()
     return render_template('ejemplar/listadoEjemplar.html', data=data)
 
 

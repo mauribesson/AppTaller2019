@@ -72,6 +72,7 @@ class Producto:
         return verificador
 
     def alta_producto(self):
+        data =[]
         data = db.queryInsert('''
              INSERT INTO "producto" 
                 ("nombre", "descripcion", "precio", "modelo", "garantia", "tipoProducto", "marca") 
@@ -116,10 +117,11 @@ class Producto:
         return data
 
     def consultar_producto(self):
+        data =[]
         data = db.querySelect('''
                 SELECT * FROM "producto";
             ''')
-        return data
+        return data 
 
     def stock(self):         
         stock = None
