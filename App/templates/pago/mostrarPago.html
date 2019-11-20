@@ -5,7 +5,7 @@
 <body>
     <ul>
         {% for e in data %}
-        <li>{{ e[1] }}</li>
+        <li>ID Pago: {{e[0]}} - idCompra: {{ e[1] }} - Total: {{e[2]}} - EstadoPago: {{ e[3]}} - Tarjeta: {{ e[4]}} - Cuotas: {{ e[5]}}</li>
         {% endfor %}
     </ul>
 

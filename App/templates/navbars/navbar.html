@@ -105,6 +105,70 @@
                 </div>
             </li>
             <!--/EJEMPLAR-->
+            <!--COMBO-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Combo ABMC
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url_for('altaCombo') }}">Alta</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('bajaCombo') }}">Baja</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('modificarCombo') }}">Modificaión</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('listarCombo') }}">Consulta(Lista)</a>
+                </div>
+            </li>
+            <!--/COMBO-->
+            <!--CARRITO-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Carrito ABMC
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url_for('altaCarrito') }}">Alta</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('bajaCarrito') }}">Baja</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('modificarCarrito') }}">Modificaión</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('mostrarCarrito') }}">Consulta(Lista)</a>
+                </div>
+            </li>
+            <!--/CARRITO-->
+            <!--COMPRA-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Compra ABMC
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url_for('altaCompra') }}">Alta</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('bajaCompra') }}">Baja</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('modificarCompra') }}">Modificaión</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('mostrarCompra') }}">Consulta(Lista)</a>
+                </div>
+            </li>
+            <!--/COMPRA-->
+            <!--PAGO-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Pago ABMC
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url_for('altaPago') }}">Alta</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('bajaPago') }}">Baja</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('modificarPago') }}">Modificaión</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('mostrarPago') }}">Consulta(Lista)</a>
+                </div>
+            </li>
+            <!--/PAGO-->
         </ul>
     </div>
 </nav>
