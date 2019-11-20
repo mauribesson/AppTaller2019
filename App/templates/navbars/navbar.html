@@ -89,6 +89,22 @@
                 </div>
             </li>
             <!--/PRODUCTO-->
+            <!--EJEMPLAR-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ejemplar ABMC
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url_for('altaEjemplar') }}">Alta</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('bajaEjemplar') }}">Baja</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('modificarEjemplar') }}">Modificaión</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('listarEjemplar') }}">Consulta(Lista)</a>
+                </div>
+            </li>
+            <!--/EJEMPLAR-->
         </ul>
     </div>
 </nav>

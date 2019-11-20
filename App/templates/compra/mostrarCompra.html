@@ -5,7 +5,7 @@
 <body>
     <ul>
         {% for e in data %}
-        <li>{{ e[1] }}</li>
+        <li>ID Compra: {{e[0]}} - idCarrito: {{ e[1] }} - Total: {{e[2]}} - EstadoConfirmacion: {{ e[3]}}</li>
         {% endfor %}
     </ul>
 

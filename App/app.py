@@ -8,6 +8,7 @@ from modelos.producto import Producto
 from modelos.ejemplar import Ejemplar
 from modelos.combo import Combo
 from modelos.carrito import Carrito
+from modelos.compra import Compra
 
 db = Database()
 
@@ -655,11 +656,14 @@ def guardarCompra():
         idCarrito = request.form['idCarrito']
         montoCompra = request.form['montoCompra']
         estadoConfirmacion = request.form['estadoConfirmacion']
-        data = db.queryInsert('''
-            INSERT INTO "compra" ("idCarrito", "montoCompra", "estadoConfirmacion") 
-            values ('{}', '{}','{}');
-            '''.format(idCarrito, montoCompra, estadoConfirmacion)) 
-    return render_template('index.html')
+        
+        compra = Compra()
+        compra.set_id_carrito(idCarrito)
+        compra.set_monto_compra(montoCompra)
+        compra.set_estado_confirmacion(estadoConfirmacion)
+
+        data = compra.alta_compra()    
+        return render_template('index.html')
 
 @app.route('/bajaCompra') 
 def bajaCompra():
@@ -668,11 +672,12 @@ def bajaCompra():
 @app.route('/eliminarCompra', methods=["POST"])
 def eliminarCompra():
     if request.method == 'POST':
-        id = request.form['id']
-        data = db.queryInsert('''
-               DELETE FROM "compra" WHERE "id" = '{}'; 
-            '''.format(id))
+        idCompra = request.form['id']
 
+        compra = Compra()
+        compra.set_id(idCompra)
+
+        data = compra.baja_compra()  
     return render_template('compra/compraEliminada.html', data=data)    
 
 @app.route('/modificarCompra') 
@@ -682,22 +687,20 @@ def modificarCompra():
 @app.route('/editarCompra', methods=["POST"])
 def editarCompra():
     if request.method == 'POST':
-        id = request.form['id']
+        idCompra = request.form['id']
         nuevoMontoCompra = request.form['nuevoMontoCompra']
         nuevoEstadoConfirmacion = request.form['nuevoEstadoConfirmacion']
-        data = db.queryInsert('''
-               UPDATE "compra"
-	                SET "montoCompra" = '{}', "estadoConfirmacion" = '{}'
-	                WHERE "id" = '{}';
-            '''.format(nuevoMontoCompra, nuevoEstadoConfirmacion, id))
 
+        compra = Compra()
+        compra.set_id(idCompra)   
+
+        data = compra.modificar_compra(nuevoMontoCompra, nuevoEstadoConfirmacion)
     return render_template('compra/compraModificada.html', data=data)
 
 @app.route('/mostrarCompra')
 def mostrarCompra():
-    data = db.querySelect('''
-                SELECT * FROM "compra";
-            ''')
+    compra = Compra()
+    data = compra.consultar_compra()
     return render_template('compra/mostrarCompra.html', data=data)
 
 
