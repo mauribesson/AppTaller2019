@@ -9,6 +9,7 @@ from modelos.ejemplar import Ejemplar
 from modelos.combo import Combo
 from modelos.carrito import Carrito
 from modelos.compra import Compra
+from modelos.pago import Pago
 
 db = Database()
 
@@ -718,10 +719,15 @@ def guardarPago():
         estado = request.form['estado']
         tarjeta = request.form['tarjeta']
         cuotas = request.form['cuotas']
-        data = db.queryInsert('''
-            INSERT INTO "pago" ("idCompra", "total", "estado", "tarjeta", "cuotas") 
-            values ('{}', '{}', '{}', '{}', '{}');
-            '''.format(idCompra, total, estado, tarjeta, cuotas)) 
+
+        pago = Pago()
+        pago.set_id_compra(idCompra)
+        pago.set_total(total)
+        pago.set_estado(estado)
+        pago.set_tarjeta(tarjeta)
+        pago.set_cuotas(cuotas)
+
+        data = pago.alta_pago()
     return render_template('index.html')
 
 @app.route('/bajaPago') 
@@ -731,11 +737,12 @@ def bajaPago():
 @app.route('/eliminarPago', methods=["POST"])
 def eliminarPago():
     if request.method == 'POST':
-        id = request.form['id']
-        data = db.queryInsert('''
-               DELETE FROM "pago" WHERE "id" = '{}'; 
-            '''.format(id))
+        idPago = request.form['id']
 
+        pago = Pago()
+        pago.set_id(idPago)
+
+        data = pago.baja_pago()
     return render_template('pago/pagoEliminado.html', data=data)    
 
 @app.route('/modificarPago') 
@@ -745,24 +752,22 @@ def modificarPago():
 @app.route('/editarPago', methods=["POST"])
 def editarPago():
     if request.method == 'POST':
-        id = request.form['id']
+        idPago = request.form['id']
         nuevoTotal = request.form['nuevoTotal']
         nuevoEstado = request.form['nuevoEstado']
         nuevaTarjeta = request.form['nuevaTarjeta']
         nuevoCuotas = request.form['nuevoCuotas']
-        data = db.queryInsert('''
-               UPDATE "pago"
-	                SET "total" = {}, "estado" = '{}', "tarjeta" = '{}', "cuotas" = {}
-	                WHERE "id" = '{}';
-            '''.format(nuevoTotal, nuevoEstado, nuevaTarjeta, nuevoCuotas, id))
+        
+        pago = Pago()
+        pago.set_id(idPago)
 
+        data = pago.modificar_pago(nuevoTotal, nuevoEstado, nuevaTarjeta, nuevoCuotas)        
     return render_template('pago/pagoModificado.html', data=data)
 
 @app.route('/mostrarPago')
 def mostrarPago():
-    data = db.querySelect('''
-                SELECT * FROM "pago";
-            ''')
+    pago = Pago()    
+    data = pago.consultar_pago() 
     return render_template('pago/mostrarPago.html', data=data)
 
     
