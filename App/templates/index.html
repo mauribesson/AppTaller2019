@@ -4,14 +4,47 @@
 {% include 'header/header.html' %}
 
 <body>
-    {% include 'navbars/navbar.html' %}
+
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar.html' %}
+            <div class="container-fluid">
+                <!--<h2>{{ data }}</h2>-->
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="jumbotron m-2">
+                            <h1 class="display-6">Hello, world!</h1>
+                            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                            <hr class="my-4">
+                            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="jumbotron m-2">
+                            <h1 class="display-6">Hello, world!</h1>
+                            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                            <hr class="my-4">
+                            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="jumbotron m-2">
+                            <h1 class="display-6">Hello, world!</h1>
+                            <p class="lead"></p>
+                            <hr class="my-4">
+                            <p></p>
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </div>
+                    </div>
+                </div>
 
 
-
-    <div class="container-fluid p-2">
-        <!--<h2>{{ data }}</h2>-->
-        <div class="row">
-            {% include 'navbars/sidebar.html' %}
+            </div>
         </div>
     </div>
 </body>

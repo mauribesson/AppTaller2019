@@ -7,27 +7,10 @@
         </li>
     </ul>
 </nav>-->
+<!--
 <nav class="col-md-2 d-none d-md-block bg-light sidebar shadow">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
-
-            <!--ROL-->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Rol ABMC
-                    </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url_for('altaRol') }}">Alta</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('bajaRol') }}">Baja</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('modificarRol') }}">Modificaión</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('listarRol') }}">Consulta(Lista)</a>
-                </div>
-            </li>
-            <!--/ROL-->
-
             <li class="nav-item">
                 <a class="nav-link active" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>                    Dashboard <span class="sr-only">(current)</span>
@@ -89,4 +72,21 @@
             </li>
         </ul>
     </div>
-</nav>
+</nav>-->
+
+
+
+<!-- Sidebar -->
+<div class="bg-light border-right" id="sidebar-wrapper">
+    <!--<div class="sidebar-heading">Start Bootstrap </div>-->
+    <a class="navbar-brand mb-0 h1 p-3" href="/">App Taller 2019</a>
+    <div class="list-group list-group-flush">
+        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+    </div>
+</div>
+<!-- /#sidebar-wrapper -->
