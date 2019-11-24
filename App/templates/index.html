@@ -6,8 +6,13 @@
 <body>
     {% include 'navbars/navbar.html' %}
 
-    <div class="container p-2">
-        <h2>{{ data }}</h2>
+
+
+    <div class="container-fluid p-2">
+        <!--<h2>{{ data }}</h2>-->
+        <div class="row">
+            {% include 'navbars/sidebar.html' %}
+        </div>
     </div>
 </body>
 

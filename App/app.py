@@ -20,7 +20,7 @@ def index():
     data = []
     return render_template('index.html', data=data)
 
-#=========================ABMS===================================
+#=========================ABMC===================================
 #====ROL
 #Alta Rol 
 @app.route('/altaRol')
@@ -771,7 +771,7 @@ def mostrarPago():
     return render_template('pago/mostrarPago.html', data=data)
 
     
-#=========================Fin ABM===================================
+#=========================Fin ABMC===================================
 
 
 
