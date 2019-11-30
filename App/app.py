@@ -22,6 +22,25 @@ def index():
 
 #=========================ABMC===================================
 #====ROL
+
+@app.route('/rolABMC') 
+def rolABMC():
+    data = [{
+        "id": "1",
+        "rol": "Prueba tabla Harcodeado 1"
+        },
+        {
+        "id": "2",
+        "rol": "Prueba tabla Harcodeado 2"
+        }, {
+        "id": "3",
+        "rol": "Prueba tabla Harcodeado 3"
+        }]
+           
+    return render_template('rol/rolABMC.html',
+      data=data,    
+      title='Flask Bootstrap Table')
+
 #Alta Rol 
 @app.route('/altaRol')
 def altaRol():

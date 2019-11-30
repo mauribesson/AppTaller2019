@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar.html' %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-10 p-2">
+                        <div class="jumbotron">
+                            <table id="tablaRol" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $('document').ready(function() {
+
+        var data = JSON.parse('{{data | tojson}}'); //data: jinja template 
+        var columns = [{
+                "field": "id",
+                "title": "ID",
+                "sortable": true,
+            }, {
+                "field": "rol",
+                "title": "Rol",
+                "sortable": true,
+            }
+            /*
+            , {
+                "field": "attention",
+                "title": "attention",
+                "sortable": true,
+            }, {
+                "field": "uneven",
+                "title": "uneven",
+                "sortable": true,
+            }*/
+
+        ]
+
+        $('#tablaRol').bootstrapTable({
+            data: data,
+            columns: columns,
+        });
+
+
+    });
+</script>
+
+</html>
