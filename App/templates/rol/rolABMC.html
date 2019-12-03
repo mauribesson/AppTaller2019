@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 {% include 'header/header.html' %}
 
 <body>
@@ -10,9 +10,12 @@
             {% include 'navbars/navbar.html' %}
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-10 p-2">
-                        <div class="jumbotron">
-                            <table id="tablaRol" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500">
+                    <div class="col-lg-12 p-2">
+                        <div class="jumbotron p-3">
+                            <h1 class="display-6">Rol</h1>
+                            <a class="btn btn-success" href="{{ url_for('altaRol') }}"><i class="far fa-plus-square"></i> Nuevo</a>
+                            <hr class="my-4">
+                            <table id="tablaRol" data-classes="table table-bordered table-hover  table-striped" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500">
                             </table>
                         </div>
                     </div>
@@ -24,32 +27,52 @@
 <script>
     $('document').ready(function() {
 
-        var data = JSON.parse('{{data | tojson}}'); //data: jinja template 
+        var data = JSON.parse('{{data | tojson}}'); //data: jinja template, se hace asi xq el formateador rompe la template 
         var columns = [{
-                "field": "id",
-                "title": "ID",
-                "sortable": true,
-            }, {
-                "field": "rol",
-                "title": "Rol",
-                "sortable": true,
-            }
-            /*
-            , {
-                "field": "attention",
-                "title": "attention",
-                "sortable": true,
-            }, {
-                "field": "uneven",
-                "title": "uneven",
-                "sortable": true,
-            }*/
+            field: "id",
+            title: "ID",
+            sortable: true,
+            width: "20"
+        }, {
+            field: "rol",
+            title: "Rol",
+            sortable: true,
+            width: "30"
+        }, {
+            field: 'operate',
+            title: 'Acciones',
+            width: "50",
+            // align: 'center',
+            //valign: 'middle',
+            clickToSelect: false,
+            formatter: function(value, row, index) {
+                var urlModificar = "{{ url_for('modificarRol') }}"; //jinja Template
+                var urlEliminar = "{{ url_for('bajaRol') }}"; //jinja Template
 
-        ]
+
+                var html = '';
+                html += '<a class="btn btn-info m-2"><i class="fas fa-eye"></i></a>';
+                html += '<a class="btn btn-primary m-2" href=' + urlModificar + '><i class="fas fa-edit"></i></a>';
+                html += '<a class="btn btn-secondary m-2" href=' + urlEliminar + '><i class="fas fa-trash"></i></a>';
+
+                return html;
+            }
+        }]
 
         $('#tablaRol').bootstrapTable({
             data: data,
             columns: columns,
+            locale: "es-ES",
+            showRefresh: false
+        });
+
+        $(".btn").click(function() {
+            var pageDetails = $(this).attr('pageDetails');
+            var pageName = $(this).attr('pageName');
+            $(".modal .modal-title").html(pageName);
+            $(".modal .modal-body").html(pageDetails);
+            $(".modal").modal("show");
+
         });
 
 

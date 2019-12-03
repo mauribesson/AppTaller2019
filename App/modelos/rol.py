@@ -64,4 +64,12 @@ class Rol:
                 WHERE "idRol" = {};
             '''.format(id))
         return data
-       
+
+    def formato_datos_tabla(self):
+        ListaRoles = self.listar_rol()
+        nueva_lista = []
+
+        for e in ListaRoles:
+            nueva_lista.append({'id':e[0], 'rol':e[1]})
+        
+        return nueva_lista
