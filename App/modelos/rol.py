@@ -38,8 +38,8 @@ class Rol:
 
     def baja_rol(self):
         data = db.queryInsert('''
-               DELETE FROM "rol" WHERE "nombreRol" = '{}'; 
-            '''.format(self.__nombreRol))
+               DELETE FROM "rol" WHERE "idRol" = {}; 
+            '''.format(self.__id))
         return data
 
     def modificar_rol(self, pNuevoNombreRol):

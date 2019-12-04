@@ -33,6 +33,51 @@
             </div>
         </div>
     </div>
+    <!--
+    <div id='myModal' class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    -->
+
+    <div id='myModal' class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
 <script>
     $('document').ready(function() {
@@ -57,13 +102,14 @@
             clickToSelect: false,
             formatter: function(value, row, index) {
                 var urlModificar = "{{ url_for('modificarRol') }}"; //jinja Template
-                var urlEliminar = "{{ url_for('bajaRol') }}"; //jinja Template
+                var urlEliminar = '{{ url_for("eliminarRol") }}'; //jinja Template
 
+                console.log(row);
 
                 var html = '';
-                html += '<a class="btn btn-info m-2"><i class="fas fa-eye"></i></a>';
+                html += '<a id="verRol' + row.id + '" class="btn btn-info m-2"><i class="fas fa-eye"></i></a>';
                 html += '<a class="btn btn-primary m-2" href=' + urlModificar + '><i class="fas fa-edit"></i></a>';
-                html += '<a class="btn btn-secondary m-2" href=' + urlEliminar + '><i class="fas fa-trash"></i></a>';
+                html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.id + '><i class="fas fa-trash"></i></a>';
 
                 return html;
             }
@@ -76,14 +122,30 @@
             showRefresh: false,
         });
 
-        $(".btn").click(function() {
+
+        $('#verRol1').click(function(e) {
+            $('#myModal').modal('toggle');
+        });
+
+        $('.eliminar').click(function(e) {
+            var r = confirm("¿Desea eliminar el Rol?");
+
+            if (r == true) {
+                txt = "You pressed OK!";
+                console.log(txt)
+            } else {
+                e.preventDefault();
+            }
+        });
+
+        /*$(".btn").click(function() {
             var pageDetails = $(this).attr('pageDetails');
             var pageName = $(this).attr('pageName');
             $(".modal .modal-title").html(pageName);
             $(".modal .modal-body").html(pageDetails);
             $(".modal").modal("show");
 
-        });
+        });*/
 
 
     });

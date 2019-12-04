@@ -49,17 +49,25 @@ def guardarRol():
 #Fin Alta Rol
 
 #Baja Rol
-@app.route('/bajaRol') 
-def bajaRol():
-    return render_template('rol/bajaRol.html')  
 
-@app.route('/eliminarRol', methods=["POST"])
-def eliminarRol():
-    if request.method == 'POST':
-        nombre = request.form['nombreRol']
-        rol =  Rol()
-        rol.set_nombreRol(nombre)
-        data = rol.baja_rol()
+
+@app.route('/bajaRol') 
+#@app.route('/bajaRol/<rol_nombre>')
+@app.route('/bajaRol', methods=["GET"])
+def bajaRol():
+    if request.method == 'GET':
+       rol_nombre = request.args.get('Rol')
+    return render_template('rol/bajaRol.html',data=rol_nombre)  
+
+
+@app.route('/eliminarRol')
+@app.route('/eliminarRol/<int:id_rol>')
+def eliminarRol(id_rol=None):
+    print(id_rol)
+    rol =  Rol()
+    #rol.set_nombreRol(nombre)
+    rol.set_id(id_rol)
+    data = rol.baja_rol()
     return render_template('rol/rolEliminado.html', data=data)    
 #Fin Baja Rol
 
