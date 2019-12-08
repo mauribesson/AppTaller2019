@@ -12,11 +12,13 @@
             <div class="container-fluid">
                 {% if data == "elimido" %}
                 <div class="row">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Rol Eliminado!</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <div class="col-md-12">
+                        <div class="m-2 alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Rol Eliminado!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
+                        </div>
                     </div>
                 </div>
                 {%endif%}
@@ -44,28 +46,6 @@
             </div>
         </div>
     </div>
-    <!--
-    <div id='myModal' class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    -->
 
     <div id='myModal' class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -120,12 +100,13 @@
                 html += '<a class="btn btn-primary m-2" href=' + urlModificar + '/' + row.id + '><i class="fas fa-edit"></i></a>';
                 html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.id + '><i class="fas fa-trash"></i></a>';
 
+
                 return html;
             }
         }]
 
         $('#tablaRol').bootstrapTable({
-            url: "{{ url_for('rol_data_table') }}",
+            url: "{{ url_for('rol_data_table') }}", //Obrtine los datos desde el backend, formato json 
             columns: columns,
             locale: "es-ES",
             showRefresh: false,
@@ -136,26 +117,17 @@
             $('#myModal').modal('toggle');
         });
 
-        $('a.eliminar').click(function(e) {
-            e.preventDefault();
+        $('.eliminar').click(function(e) {
+            alert()
             var r = confirm("¿Desea eliminar el Rol?");
 
             if (r == true) {
-                console.log("eliminado")
-                location.href('/rolABMC')
+                location.href('/eliminarRol/' + id)
             } else {
                 e.preventDefault();
             }
         });
 
-        /*$(".btn").click(function() {
-            var pageDetails = $(this).attr('pageDetails');
-            var pageName = $(this).attr('pageName');
-            $(".modal .modal-title").html(pageName);
-            $(".modal .modal-body").html(pageDetails);
-            $(".modal").modal("show");
-
-        });*/
 
 
     });
