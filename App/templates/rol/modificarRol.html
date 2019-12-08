@@ -6,17 +6,17 @@
     {% include 'navbars/navbar.html' %}
     <div class="container p-2">
         <h2>Modificar Rol</h2>
-        <form action="editarRol" method="POST">
+        <form action="{{ url_for('editarRol') }}" method="POST">
             <div class="form-group">
                 <label for="nombreRol">Nombre del rol a modificar</label>
-                <input type="text" class="form-control" name="nombreRol" id="nombreRol" placeholder="ingresar nombre del rol">
+                <input readonly value="{{data[0][1]}}" type="text" class="form-control" name="nombreRol" id="nombreRol" placeholder="ingresar nombre del rol">
             </div>
             <div class="form-group">
                 <label for="nombreNuevoRol">Nuevos Nombre del rol</label>
                 <input type="text" class="form-control" name="nombreNuevoRol" id="nombreNuevoRol" placeholder="ingresar nombre del rol">
             </div>
             <button type="submit" class="btn btn-primary">Aceptar</button>
-			<a class="btn btn-danger" href="/" role="button">Cancelar</a>
+            <a class="btn btn-danger" href="/" role="button">Cancelar</a>
         </form>
 
 

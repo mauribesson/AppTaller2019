@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from db import Database
 from modelos.rol import Rol
 from modelos.usuario import Usuario
@@ -30,6 +30,12 @@ def rolABMC():
     
     return render_template('rol/rolABMC.html', data=data)
 
+@app.route('/rol_data_table')
+def rol_data_table():
+    rol = Rol()
+    data = rol.formato_datos_tabla()
+    return jsonify(data)
+
 #Alta Rol 
 @app.route('/altaRol')
 def altaRol():
@@ -50,7 +56,7 @@ def guardarRol():
 
 #Baja Rol
 
-
+'''
 @app.route('/bajaRol') 
 #@app.route('/bajaRol/<rol_nombre>')
 @app.route('/bajaRol', methods=["GET"])
@@ -58,26 +64,30 @@ def bajaRol():
     if request.method == 'GET':
        rol_nombre = request.args.get('Rol')
     return render_template('rol/bajaRol.html',data=rol_nombre)  
-
+'''
 
 @app.route('/eliminarRol')
 @app.route('/eliminarRol/<int:id_rol>')
 def eliminarRol(id_rol=None):
-    print(id_rol)
     rol =  Rol()
-    #rol.set_nombreRol(nombre)
     rol.set_id(id_rol)
     data = rol.baja_rol()
-    return render_template('rol/rolEliminado.html', data=data)    
+    data = "elimido"
+    return render_template('rol/RolABMC.html', data=data)    
 #Fin Baja Rol
 
 #Modificar Rol
 @app.route('/modificarRol') 
-def modificarRol():
-    return render_template('rol/modificarRol.html')  
+@app.route('/modificarRol/<int:id_rol>') 
+def modificarRol(id_rol=None):
+    rol = Rol()
+    rol.set_id(id_rol)
+    rol_a_mod = rol.consultar_rol_por_id()
+    return render_template('rol/modificarRol.html',data=rol_a_mod)  
 
 @app.route('/editarRol', methods=["POST"])
 def editarRol():
+    data=[]
     if request.method == 'POST':
         nombre = request.form['nombreRol']
         nombreNuevo = request.form['nombreNuevoRol']

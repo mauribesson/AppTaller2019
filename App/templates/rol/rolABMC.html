@@ -8,7 +8,18 @@
 
         <div id="page-content-wrapper">
             {% include 'navbars/navbar.html' %}
+
             <div class="container-fluid">
+                {% if data == "elimido" %}
+                <div class="row">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Rol Eliminado!</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                {%endif%}
                 <div class="row">
                     <div class="col-lg-12 p-2">
                         <div class="jumbotron p-3">
@@ -81,8 +92,6 @@
 </body>
 <script>
     $('document').ready(function() {
-
-        var data = JSON.parse('{{data | tojson}}'); //data: jinja template, se hace asi xq el formateador rompe la template 
         var columns = [{
             field: "id",
             title: "ID",
@@ -108,7 +117,7 @@
 
                 var html = '';
                 html += '<a id="verRol' + row.id + '" class="btn btn-info m-2"><i class="fas fa-eye"></i></a>';
-                html += '<a class="btn btn-primary m-2" href=' + urlModificar + '><i class="fas fa-edit"></i></a>';
+                html += '<a class="btn btn-primary m-2" href=' + urlModificar + '/' + row.id + '><i class="fas fa-edit"></i></a>';
                 html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.id + '><i class="fas fa-trash"></i></a>';
 
                 return html;
@@ -116,7 +125,7 @@
         }]
 
         $('#tablaRol').bootstrapTable({
-            data: data,
+            url: "{{ url_for('rol_data_table') }}",
             columns: columns,
             locale: "es-ES",
             showRefresh: false,
@@ -128,11 +137,12 @@
         });
 
         $('.eliminar').click(function(e) {
+            e.preventDefault();
             var r = confirm("¿Desea eliminar el Rol?");
 
             if (r == true) {
-                txt = "You pressed OK!";
-                console.log(txt)
+                console.log("eliminado")
+                location.href('/rolABMC')
             } else {
                 e.preventDefault();
             }
