@@ -127,3 +127,10 @@ class Producto:
         stock = None
         #Agregar logica de stock aca
         return stock
+
+    def consultar_vista_productos(self):
+        data = db.querySelect(
+            ''' 
+            SELECT * FROM public.vista_productos;
+            ''')
+        return data   

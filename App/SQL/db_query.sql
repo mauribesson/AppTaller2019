@@ -350,3 +350,38 @@ EXECUTE PROCEDURE verificandoUnicoTipoProducto();
 --Test Tigger 
 
 --INSERT INTO "tipoProducto"("nombreTipo") values ('mouse');
+
+
+--------------------------------
+-- Vistas DB
+--------------------------------
+
+--VISTA detalle de Ejemplares
+CREATE VIEW vista_ejemplares AS
+SELECT 
+	e."numeroSerie", 
+	e."vendido", 
+	p."nombre", 
+	p."descripcion",
+	p."precio",
+	p."modelo",
+	"m"."nombre" AS "marca",
+	tp."nombreTipo" AS "tipoProducto"
+FROM ejemplar AS e
+JOIN producto AS "p" ON e."producto" = p."id"  
+JOIN marca AS "m" ON m."idMarca" = p."marca"
+JOIN "tipoProducto" AS "tp" ON tp."idTipo" = p."tipoProducto"
+
+----
+----Vista Productos
+CREATE VIEW vista_productos AS
+SELECT
+ 	p."nombre", 
+	p."descripcion",
+	p."precio",
+	p."modelo",
+	"m"."nombre" AS "marca",
+	tp."nombreTipo" AS "tipoProducto"
+FROM producto AS p 
+JOIN marca AS "m" ON m."idMarca" = p."marca"
+JOIN "tipoProducto" AS "tp" ON tp."idTipo" = p."tipoProducto"

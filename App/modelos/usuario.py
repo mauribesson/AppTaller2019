@@ -72,6 +72,25 @@ class Usuario:
                 ''')        
         return data
 
+   """ 
+   def consultar_rol_por_id(self):
+        id = str(self.__id)
+        data = db.querySelect(
+            '''
+                SELECT * FROM "rol"
+                WHERE "idRol" = {};
+            '''.format(id))
+        return data
+"""
+    def formato_datos_tabla(self):
+        ListaRoles = self.consultar_usuario()
+        nueva_lista = []
+
+        for e in ListaRoles:
+            nueva_lista.append({'id':e[0], 'rol':e[1]})
+        
+        return nueva_lista
+
     
 
 

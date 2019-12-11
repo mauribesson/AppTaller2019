@@ -72,3 +72,10 @@ class Ejemplar:
                 SELECT * FROM "ejemplar";
             ''')
         return data
+
+    def consultar_vista_ejemplares(self):
+        data = db.querySelect(
+            ''' 
+            SELECT * FROM public.vista_ejemplares;
+            ''')
+        return data
