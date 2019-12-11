@@ -357,7 +357,7 @@ EXECUTE PROCEDURE verificandoUnicoTipoProducto();
 --------------------------------
 
 --VISTA detalle de Ejemplares
-CREATE VIEW vista_ejemplares AS
+CREATE OR REPLACE VIEW vista_ejemplares AS
 SELECT 
 	e."numeroSerie", 
 	e."vendido", 
@@ -374,7 +374,7 @@ JOIN "tipoProducto" AS "tp" ON tp."idTipo" = p."tipoProducto"
 
 ----
 ----Vista Productos
-CREATE VIEW vista_productos AS
+CREATE OR REPLACE VIEW vista_productos AS
 SELECT
  	p."nombre", 
 	p."descripcion",
