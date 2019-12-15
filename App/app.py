@@ -25,11 +25,12 @@ def index():
 
 @app.route('/rolABMC') 
 def rolABMC():
-    rol = Rol()
-    data = rol.formato_datos_tabla()
-    
+    #rol = Rol()
+    #data = rol.formato_datos_tabla()#ver de quitar ya que se optine por url "/rol_data_table"
+    data =[]
     return render_template('rol/rolABMC.html', data=data)
 
+#datos para tabla Rol "JSON"
 @app.route('/rol_data_table')
 def rol_data_table():
     rol = Rol()
@@ -113,6 +114,18 @@ def verRol(id):
 #===========FIN ROL
 
 #========ABM usuario
+@app.route('/usuarioABMC') 
+def usuarioABMC():
+    data =[]
+    return render_template('usuario/usuarioABMC.html', data=data)
+
+#datos para tabla Usuario "JSON"
+@app.route('/usuario_data_table')
+def usuario_data_table():
+    usuario = Usuario()
+    data = usuario.formato_datos_tabla()
+    return jsonify(data)
+
 @app.route('/altaUsuario')
 def altaUsuario():
      return render_template('usuario/altaUsuario.html') 

@@ -83,11 +83,11 @@ class Usuario:
             return data
         """
     def formato_datos_tabla(self):
-        ListaRoles = self.consultar_usuario()
+        ListaUsuarios = self.consultar_usuario()
         nueva_lista = []
 
-        for e in ListaRoles:
-            nueva_lista.append({'id':e[0], 'rol':e[1]})
+        for e in ListaUsuarios:
+            nueva_lista.append({'nombre':e[0],  'contacto':e[2], 'rol':e[3]})
         
         return nueva_lista
 
