@@ -70,7 +70,7 @@ class Usuario:
 
     def consultar_usuario(self):
         data = db.querySelect('''
-                SELECT * FROM "usuario";
+                SELECT * FROM "vista_usuarios";
                 ''')        
         return data
 

@@ -385,3 +385,14 @@ SELECT
 FROM producto AS p 
 JOIN marca AS "m" ON m."idMarca" = p."marca"
 JOIN "tipoProducto" AS "tp" ON tp."idTipo" = p."tipoProducto"
+
+-----
+----- Vista Usuarios 
+CREATE OR REPLACE VIEW vista_usuarios AS
+SELECT 
+	u."nombre",
+	u."contrasenia", 
+	u."contacto", 
+	r."nombreRol" 
+FROM usuario AS u
+JOIN rol AS r ON r."idRol" = u."rol"    
