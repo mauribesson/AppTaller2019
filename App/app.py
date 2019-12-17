@@ -164,21 +164,37 @@ def eliminarUsuario():
     return render_template('usuario/usuarioEliminado.html', data=data)    
 
 @app.route('/modificarUsuario') 
-def modificarUsuario():
-    return render_template('usuario/modificarUsuario.html')  
+@app.route('/modificarUsuario/<email>') 
+def modificarUsuario(email=None):
+    data = {}
+    usuario = Usuario()
+    usuario.set_nombre(email)#La app usa el email como nombre de usuario 
+    uAux = usuario.consultar_usuario_por_nombre()
+    
+    rol = Rol()
+    rol.listar_rol()
+
+    data['email'] = email
+    data['roles'] = rol.listar_rol()
+    data['rolUsario'] = uAux[3]
+    data['Contacto'] = uAux[2]
+
+    return render_template('usuario/modificarUsuario.html', data=data)  
 
 @app.route('/editarUsuario', methods=["POST"])
 def editarUsuario():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        nombreNuevo = request.form['nombreNuevo']
+        #nombreNuevo = request.form['nombreNuevo']
         contraseniaNueva = request.form['contraseniaNueva']
-        contactoNuevo = request.form['contactoNuevo']  
+        contactoNuevo = request.form['contactoNuevo'] 
+        RolNuevo = request.form['NuevoRol']  
 
         usuario = Usuario()
         usuario.set_nombre(nombre)
-        usuario.modificar_usuario(nombreNuevo, contraseniaNueva, contactoNuevo)
+        #usuario.modificar_usuario(nombreNuevo, contraseniaNueva, contactoNuevo, RolNuevo)
+        usuario.modificar_usuario(contraseniaNueva, contactoNuevo, RolNuevo)
     return render_template('usuario/usuarioModificado.html', data=data)
 
 @app.route('/listarUsuario')

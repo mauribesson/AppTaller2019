@@ -12,7 +12,7 @@
                 <h2>Alta de usuario</h2>
                 <form action="guardarUsuario" method="POST">
                     <div class="form-group">
-                        <label for="nombreUsuario">Nombre del usuario</label>
+                        <label for="nombreUsuario">Email</label>
                         <input type="email" class="form-control" name="nombreUsuario" id="nombreUSuario" placeholder="Ingresar el nombre del usuario">
                     </div>
                     <div class="form-group">
@@ -21,7 +21,8 @@
                     </div>
                     <div class="form-group">
                         <label for="contacto">Contacto</label>
-                        <input type="text" class="form-control" name="contacto" id="contacto" placeholder="Ingresar los datos de contacto">
+                        <textarea type="text" class="form-control" name="contacto" id="contacto" placeholder="Ingresar los datos de contacto">                            
+                        </textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Aceptar</button>
                     <a class="btn btn-danger" href="/" role="button">Cancelar</a>

@@ -53,16 +53,18 @@ class Usuario:
             '''.format(self.__nombre))
         return data    
 
-    def modificar_usuario(self, pNuevoNombre, pNuevaContrasenia, pNuevoContacto):
+    def modificar_usuario(self, pNuevaContrasenia, pNuevoContacto, nuevoRol):
         data = db.queryInsert('''
                UPDATE "usuario"
-	                SET "nombre" = '{}', 
+	                SET 
                     "contrasenia" = '{}', 
-                    "contacto" = '{}'
+                    "contacto" = '{}',
+                    "rol" = {}
 	                WHERE "nombre" = '{}';
-            '''.format(pNuevoNombre, 
+            '''.format( 
                         pNuevaContrasenia, 
                         pNuevoContacto, 
+                        int(nuevoRol),
                         self.__nombre))
         return data
 
@@ -72,16 +74,15 @@ class Usuario:
                 ''')        
         return data
 
-    """ 
-    def consultar_rol_por_id(self):
-            id = str(self.__id)
+    def consultar_usuario_por_nombre(self):
+            nombre = str(self.__nombre)
             data = db.querySelect(
                 '''
-                    SELECT * FROM "rol"
-                    WHERE "idRol" = {};
-                '''.format(id))
-            return data
-        """
+                    SELECT * FROM "usuario"
+                    WHERE "nombre" = '{}';
+                '''.format(nombre))
+            return data[0]#retorna la unica tupla 
+        
     def formato_datos_tabla(self):
         ListaUsuarios = self.consultar_usuario()
         nueva_lista = []
