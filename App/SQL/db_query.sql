@@ -370,7 +370,7 @@ SELECT
 FROM ejemplar AS e
 JOIN producto AS "p" ON e."producto" = p."id"  
 JOIN marca AS "m" ON m."idMarca" = p."marca"
-JOIN "tipoProducto" AS "tp" ON tp."idTipo" = p."tipoProducto"
+JOIN "tipoProducto" AS "tp" ON tp."idTipo" = p."tipoProducto";
 
 ----
 ----Vista Productos
@@ -384,7 +384,7 @@ SELECT
 	tp."nombreTipo" AS "tipoProducto"
 FROM producto AS p 
 JOIN marca AS "m" ON m."idMarca" = p."marca"
-JOIN "tipoProducto" AS "tp" ON tp."idTipo" = p."tipoProducto"
+JOIN "tipoProducto" AS "tp" ON tp."idTipo" = p."tipoProducto";
 
 -----
 ----- Vista Usuarios 
@@ -395,4 +395,38 @@ SELECT
 	u."contacto", 
 	r."nombreRol" 
 FROM usuario AS u
-JOIN rol AS r ON r."idRol" = u."rol"    
+JOIN rol AS r ON r."idRol" = u."rol" ;   
+
+--------
+---Vista Ejemplar_combo
+CREATE OR REPLACE VIEW vista_ejemplar_combo AS
+SELECT
+ec."idCombo",
+ec."numeroSerie",
+e."vendido",
+e."producto",
+p."nombre",
+c."id",
+c."total",
+c."descuento"
+FROM ejemplar_combo AS ec
+JOIN ejemplar AS "e" ON ec."numeroSerie" = e."numeroSerie"
+JOIN combo AS "c" ON ec."idCombo" = c."id"
+Join producto AS "p" ON e.producto = p."id";
+
+
+---VISTA EJEMPLAR CARRITO
+CREATE OR REPLACE VIEW vista_ejemplar_carrito AS
+SELECT
+ec."idCarrito",
+ec."numeroSerie",
+e."vendido",
+e."producto",
+p."nombre",
+c."id",
+c."total"
+FROM ejemplar_carrito AS ec
+JOIN ejemplar AS "e" ON ec."numeroSerie" = e."numeroSerie"
+JOIN carrito AS "c" ON ec."idCarrito" = c."id"
+Join producto AS "p" ON e.producto = p."id";
+

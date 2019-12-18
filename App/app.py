@@ -72,7 +72,7 @@ def bajaRol():
 def eliminarRol(id_rol=None):
     rol =  Rol()
     rol.set_id(id_rol)
-    data = rol.baja_rol()
+    rol.baja_rol()
     data = "elimido"
     return render_template('rol/RolABMC.html', data=data)    
 #Fin Baja Rol
@@ -148,20 +148,20 @@ def guardarUsuario():
         if verificador == []:
             data = usuario.alta_usuario() 
     return render_template('usuario/usuarioGuardado.html', data=data, verificador=verificador)  
-
+"""
 @app.route('/bajaUsuario') 
 def bajaUsuario():
     return render_template('usuario/bajaUsuario.html')  
+"""
 
-@app.route('/eliminarUsuario', methods=["POST"])
-def eliminarUsuario():
-    data = []
-    if request.method == 'POST':
-        nombre = request.form['nombre']
-        usuario = Usuario()
-        usuario.set_nombre(nombre)
-        data = usuario.baja_usuario()
-    return render_template('usuario/usuarioEliminado.html', data=data)    
+@app.route('/eliminarUsuario')
+@app.route('/eliminarUsuario/<email>')
+def eliminarUsuario(email=None):
+    usuario = Usuario()
+    usuario.set_nombre(email)
+    usuario.baja_usuario()
+    data = "elimido"
+    return render_template('usuario/usuarioABMC.html', data=data)    
 
 @app.route('/modificarUsuario') 
 @app.route('/modificarUsuario/<email>') 
