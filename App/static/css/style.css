@@ -20,9 +20,12 @@ body {
     width: 15rem;
 }
 
+
+/*
 #page-content-wrapper {
     min-width: 100vw;
 }
+*/
 
 #wrapper.toggled #sidebar-wrapper {
     margin-left: 0;
@@ -39,4 +42,14 @@ body {
     #wrapper.toggled #sidebar-wrapper {
         margin-left: -15rem;
     }
+}
+
+
+/*footer*/
+
+#sticky-footer {
+    flex-shrink: none;
+    position: sticky;
+    bottom: 0;
+    overflow: auto;
 }
