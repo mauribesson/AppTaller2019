@@ -53,3 +53,10 @@ body {
     bottom: 0;
     overflow: auto;
 }
+
+
+/*Boton Nuevo ABMC*/
+
+a.nuevo-abmc.btn.btn-success {
+    position: absolute;
+}

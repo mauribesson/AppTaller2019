@@ -185,16 +185,15 @@ def modificarUsuario(email=None):
 def editarUsuario():
     data = []
     if request.method == 'POST':
-        nombre = request.form['nombre']
-        #nombreNuevo = request.form['nombreNuevo']
+        nombre = request.form['nombre']      
         contraseniaNueva = request.form['contraseniaNueva']
         contactoNuevo = request.form['contactoNuevo'] 
         RolNuevo = request.form['NuevoRol']  
-
+        
         usuario = Usuario()
-        usuario.set_nombre(nombre)
-        #usuario.modificar_usuario(nombreNuevo, contraseniaNueva, contactoNuevo, RolNuevo)
+        usuario.set_nombre(nombre)    
         usuario.modificar_usuario(contraseniaNueva, contactoNuevo, RolNuevo)
+
     return render_template('usuario/usuarioModificado.html', data=data)
 
 @app.route('/listarUsuario')
