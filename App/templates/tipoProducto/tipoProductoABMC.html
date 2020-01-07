@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="m-2 alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Usuario Eliminado!</strong>
+                            <strong>Tipo de Producto Eliminado!</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -25,11 +25,11 @@
                 <div class="row">
                     <div class="col-lg-12 p-2">
 
-                        <h1 class="display-5">Usuario</h1>
+                        <h1 class="display-5">Tipo de Producto</h1>
                         <hr class="my-4">
-                        <a class="nuevo-abmc btn btn-success" href="{{ url_for('altaUsuario') }}"><i class="far fa-plus-square"></i> Nuevo</a>
+                        <a class="nuevo-abmc btn btn-success" href="{{ url_for('altaTipoProducto') }}"><i class="far fa-plus-square"></i> Nuevo</a>
 
-                        <table id="tablaUsuario" data-classes="table table-bordered table-hover  table-striped" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500">
+                        <table id="tablaTipoProducto" data-classes="table table-bordered table-hover  table-striped" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500">
                         </table>
                     </div>
                 </div>
@@ -64,18 +64,13 @@
 <script>
     $('document').ready(function() {
         var columns = [{
-                field: "nombre",
-                title: "Usuario",
+                field: "id",
+                title: "ID",
                 sortable: true,
                 width: "20"
             }, {
-                field: "contacto",
-                title: "Contacto",
-                sortable: true,
-                width: "30"
-            }, {
-                field: "rol",
-                title: "Rol",
+                field: "tipo",
+                title: "Tipo de Producto",
                 sortable: true,
                 width: "30"
             },
@@ -88,8 +83,8 @@
                 //valign: 'middle',
                 clickToSelect: false,
                 formatter: function(value, row, index) {
-                    var urlModificar = "{{ url_for('modificarUsuario') }}"; //jinja Template
-                    var urlEliminar = '{{ url_for("eliminarUsuario") }}'; //jinja Template
+                    var urlModificar = "{{ url_for('modificarTipoProducto') }}"; //jinja Template
+                    var urlEliminar = '{{ url_for("eliminarTipoProducto") }}'; //jinja Template
 
 
 
@@ -104,8 +99,8 @@
             }
         ]
 
-        $('#tablaUsuario').bootstrapTable({
-            url: "{{ url_for('usuario_data_table') }}", //Obrtine los datos desde el backend, formato json 
+        $('#tablaTipoProducto').bootstrapTable({
+            url: "{{ url_for('tipo_de_producto_data_table') }}", //Obrtine los datos desde el backend, formato json 
             columns: columns,
             locale: "es-ES",
             showRefresh: false,

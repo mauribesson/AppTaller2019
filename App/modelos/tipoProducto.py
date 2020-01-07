@@ -56,3 +56,11 @@ class TipoProducto:
             ''')
             return data
 
+    def formato_datos_tabla(self):
+        ListaTipoProd = self.consultar_tipo_producto()
+        nueva_lista = []
+
+        for e in ListaTipoProd:
+            nueva_lista.append({'id':e[0],  'tipo':e[1]})
+        
+        return nueva_lista

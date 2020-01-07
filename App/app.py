@@ -189,7 +189,7 @@ def editarUsuario():
         contraseniaNueva = request.form['contraseniaNueva']
         contactoNuevo = request.form['contactoNuevo'] 
         RolNuevo = request.form['NuevoRol']  
-        
+
         usuario = Usuario()
         usuario.set_nombre(nombre)    
         usuario.modificar_usuario(contraseniaNueva, contactoNuevo, RolNuevo)
@@ -207,6 +207,18 @@ def listarUsuario():
 
 
 #========ABM tipoProducto
+@app.route('/tipoProductoABMC') 
+def tipoProductoABMC():
+    data =[]
+    return render_template('tipoProducto/tipoProductoABMC.html', data=data)
+
+ #datos para tabla Tipo de Producto "JSON"
+@app.route('/tipo_de_producto_data_table')
+def tipo_de_producto_data_table():
+    tp = TipoProducto()
+    data = tp.formato_datos_tabla()
+    return jsonify(data)   
+
 @app.route('/altaTipoProducto')
 def altaTipoProducto():
      return render_template('tipoProducto/altaTipoProducto.html') 
