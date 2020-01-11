@@ -204,9 +204,10 @@ def listarUsuario():
     return render_template('usuario/listadoUsuario.html', data=data)   
     
 
+#====================
+# ABM tipoProducto
+#====================
 
-
-#========ABM tipoProducto
 @app.route('/tipoProductoABMC') 
 def tipoProductoABMC():
     data =[]
@@ -233,28 +234,32 @@ def guardarTipoProducto():
         verificador = tipo_producto.verificar_unico_tipo_producto()
 
         if verificador == []: 
-            data = tipo_producto.alta_tipo_producto()     
-    return render_template('tipoProducto/tipoProductoGuardado.html', data=data, verificador=verificador)  
+            tipo_producto.alta_tipo_producto()   
+            data = "alta"
+        else:
+            data = "ya_existe"
 
-@app.route('/bajaTipoProducto') 
-def bajaTipoProducto():
-    return render_template('tipoProducto/bajaTipoProducto.html')  
+    return render_template('tipoProducto/tipoProductoABMC.html', data=data, verificador=verificador)  
 
-@app.route('/eliminarTipoProducto', methods=["POST"])
-def eliminarTipoProducto():
+@app.route('/eliminarTipoProducto')
+@app.route('/eliminarTipoProducto/<int:id>')
+def eliminarTipoProducto(id=None):
     data = []
-    if request.method == 'POST':
-        nombre = request.form['nombre']
+    tipo_producto = TipoProducto()        
+    tipo_producto.set_id(id)
+    tipo_producto.baja_tipo_producto()
+    data = "elimido"
 
-        tipo_producto = TipoProducto()
-        tipo_producto.set_nombre_tipo(nombre)
-        data = tipo_producto.baja_tipo_producto()
-
-    return render_template('tipoProducto/tipoProductoEliminado.html', data=data)    
+    return render_template('tipoProducto/tipoProductoABMC.html', data=data)    
 
 @app.route('/modificarTipoProducto') 
-def modificarTipoProducto():
-    return render_template('tipoProducto/modificarTipoProducto.html')  
+@app.route('/modificarTipoProducto/<int:id>')
+def modificarTipoProducto(id=None):
+    data = []
+    tp = TipoProducto()
+    tp.set_id(id)
+    data = tp.consultar_tipo_producto_por_id()
+    return render_template('tipoProducto/modificarTipoProducto.html', data=data)  
 
 @app.route('/editarTipoProducto', methods=["POST"])
 def editarTipoProducto():
@@ -264,9 +269,14 @@ def editarTipoProducto():
         nombreNuevo = request.form['nombreNuevo']
         tipo_producto = TipoProducto()
         tipo_producto.set_nombre_tipo(nombre)
-        data = tipo_producto.modificar_tipo_producto(nombreNuevo)
+        result = tipo_producto.modificar_tipo_producto(nombreNuevo)
 
-    return render_template('tipoProducto/tipoProductoModificado.html', data=data)
+        if result == 1:
+            data = "modificado"
+        else:
+            data = "no_modificado"
+
+    return render_template('tipoProducto/tipoProductoABMC.html', data=data)
 
 @app.route('/listarTipoProducto')
 def listarTipoProducto():

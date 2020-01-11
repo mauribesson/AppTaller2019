@@ -38,8 +38,8 @@ class TipoProducto:
 
     def baja_tipo_producto(self):
         data = db.queryInsert('''
-               DELETE FROM "tipoProducto" WHERE "nombreTipo" = '{}'; 
-            '''.format(self.__nombreTipo))
+               DELETE FROM "tipoProducto" WHERE "idTipo" = {}; 
+            '''.format(int(self.__id)))
         return data        
 
     def modificar_tipo_producto(self, pNuevoTipoNombre):
@@ -55,6 +55,15 @@ class TipoProducto:
                 SELECT * FROM "tipoProducto";
             ''')
             return data
+
+    def consultar_tipo_producto_por_id(self):
+        id = str(self.__id)
+        data = db.querySelect(
+            '''
+                SELECT * FROM "tipoProducto"
+                WHERE "idTipo" = {};
+            '''.format(id))
+        return data[0]
 
     def formato_datos_tabla(self):
         ListaTipoProd = self.consultar_tipo_producto()
