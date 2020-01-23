@@ -20,13 +20,14 @@ def index():
     data = []
     return render_template('index.html', data=data)
 
-#=========================ABMC===================================
-#====ROL
+#=========================ABMC===========================#
+
+#===========================
+#         ROL
+#===========================
 
 @app.route('/rolABMC') 
 def rolABMC():
-    #rol = Rol()
-    #data = rol.formato_datos_tabla()#ver de quitar ya que se optine por url "/rol_data_table"
     data =[]
     return render_template('rol/rolABMC.html', data=data)
 
@@ -50,22 +51,15 @@ def guardarRol():
         rol =  Rol()
         rol.set_nombreRol(nombre)
         verificador = rol.verificar_unico_rol()
+
         if verificador == []:
-            data = rol.alta_rol()   
-    return render_template('rol/rolGuardado.html', data=data, verificador=verificador)  
+            rol.alta_rol() 
+            data = "alta" 
+        else:
+            data = "ya_existe"
+
+    return render_template('rol/rolABMC.html', data=data, verificador=verificador)  
 #Fin Alta Rol
-
-#Baja Rol
-
-'''
-@app.route('/bajaRol') 
-#@app.route('/bajaRol/<rol_nombre>')
-@app.route('/bajaRol', methods=["GET"])
-def bajaRol():
-    if request.method == 'GET':
-       rol_nombre = request.args.get('Rol')
-    return render_template('rol/bajaRol.html',data=rol_nombre)  
-'''
 
 @app.route('/eliminarRol')
 @app.route('/eliminarRol/<int:id_rol>')
@@ -113,7 +107,10 @@ def verRol(id):
     return render_template('rol/listadoRol.html', data=data)
 #===========FIN ROL
 
-#========ABM usuario
+
+#===========================
+#       ABM usuario
+#===========================
 @app.route('/usuarioABMC') 
 def usuarioABMC():
     data =[]
@@ -285,7 +282,21 @@ def listarTipoProducto():
     return render_template('tipoProducto/listadoTipoProducto.html', data=data)
 
 
-#====MARCA
+#====================
+# ABM Marca
+#====================
+@app.route('/marcaABMC') 
+def marcaABMC():
+    data =[]
+    return render_template('marca/marcaABMC.html', data=data)
+
+ #datos para Marca "JSON"
+@app.route('/marca_data_table')
+def marca_data_table():
+    tp = Marca()
+    data = tp.formato_datos_tabla()
+    return jsonify(data)   
+
 @app.route('/altaMarca')
 def altaMarca():
      return render_template('marca/altaMarca.html') 

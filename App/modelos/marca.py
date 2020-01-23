@@ -55,3 +55,11 @@ class Marca:
             ''')
         return data
 
+    def formato_datos_tabla(self):
+        ListaMarca= self.consultar_marca()
+        nueva_lista = []
+
+        for e in ListaMarca:
+            nueva_lista.append({'id':e[0],  'marca':e[1]})
+        
+        return nueva_lista
