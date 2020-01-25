@@ -6,7 +6,7 @@ class Database:
         self.port = "5432" 
         self.database = "AppTaller2019" 
         self.user = "postgres" 
-        self.password = "12345678"
+        self.password = "admin"
         pass
 
     def querySelect(self, query=""):  
