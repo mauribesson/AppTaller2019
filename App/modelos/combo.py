@@ -83,3 +83,24 @@ class Combo:
                 SELECT * FROM "combo";
             ''') 
         return data
+
+    def listar_combos(self):
+        data = db.querySelect('''
+                SELECT * FROM "combo";
+            ''')
+        return data
+
+    def formato_datos_tabla(self):
+        ListaCombos = self.listar_combos()
+        nueva_lista = []
+
+        for e in ListaCombos:
+            nueva_lista.append({'id':e[0], 'nombre':e[1], 'total':e[1], 'descuento':e[1]})
+        
+        return nueva_lista
+    
+    def verCombo(self):
+        data = db.querySelect('''
+                SELECT * FROM "combo";
+            ''') 
+        return data

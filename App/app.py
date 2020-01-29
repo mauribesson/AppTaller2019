@@ -500,6 +500,18 @@ def listarEjemplar():
     return render_template('ejemplar/listadoEjemplar.html', data=data)
 
 #====COMBO
+@app.route('/comboABMC') 
+def comboABMC():
+    data =[]
+    return render_template('combo/comboABMC.html', data=data)
+
+#datos para tabla Combo "JSON"
+@app.route('/combo_data_table')
+def combo_data_table():
+    combo = Combo()
+    data = combo.formato_datos_tabla()
+    return jsonify(data)
+
 @app.route('/altaCombo')
 def altaCombo():
      return render_template('combo/altaCombo.html') 
