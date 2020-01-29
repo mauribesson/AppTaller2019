@@ -326,7 +326,6 @@ def eliminarMarca(id=None):
     marca.set_id(id)
     data = marca.baja_marca()
     data = "elimido"
-
     return render_template('marca/marcaABMC.html', data=data)    
 
 @app.route('/modificarMarca') 
@@ -334,8 +333,7 @@ def eliminarMarca(id=None):
 def modificarMarca(id=None):
     marca = Marca()
     marca.set_id(id)
-    data = marca.consual_marca()
-
+    data = marca.consultar_marca()
     return render_template('marca/modificarMarca.html', data=data)  
 
 @app.route('/editarMarca', methods=["POST"])
@@ -347,8 +345,12 @@ def editarMarca():
 
         marca = Marca()
         marca.set_nombre(nombre)
-        data = marca.modificar_marca(nombreNuevo)
-    return render_template('marca/marcaModificada.html', data=data)
+        result = marca.modificar_marca(nombreNuevo)
+        if result == 1:
+            data = "modificado"
+        else:
+            data = "no_modificado"
+    return render_template('marca/marcaABMC.html', data=data)
 
 @app.route('/listarMarca')
 def listarMarca():
@@ -357,7 +359,9 @@ def listarMarca():
     data = marca.consultar_marca()
     return render_template('marca/listadoMarca.html', data=data)
 
-#====PRODUCTO
+#==================
+# ABMC PRODUCTO
+#==================
 @app.route('/altaProducto')
 def altaProducto():
     return render_template('producto/altaProducto.html') 

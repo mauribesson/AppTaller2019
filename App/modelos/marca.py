@@ -53,10 +53,16 @@ class Marca:
         data = db.querySelect('''
                 SELECT * FROM "marca" WHERE "idMarca" = {}; 
             '''.format(int(self.__id)))
+        return data[0]
+
+    def listar_marca(self):
+        data = db.querySelect('''
+                SELECT * FROM "marca";
+            ''')
         return data
 
     def formato_datos_tabla(self):
-        ListaMarca= self.consultar_marca()
+        ListaMarca= self.listar_marca()
         nueva_lista = []
 
         for e in ListaMarca:
