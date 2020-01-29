@@ -311,9 +311,12 @@ def guardarMarca():
         marca.set_nombre(nombre)
         verificador = marca.verificar_unica_marca() 
 
-        if verificador == []:
-            data = marca.alta_marca()   
-    return render_template('marca/marcaGuardada.html', data=data, verificador=verificador)  
+        if verificador == []: 
+            marca.alta_marca()   
+            data = "alta"
+        else:
+            data = "ya_existe"  
+    return render_template('marca/marcaABMC.html', data=data, verificador=verificador)  
 
 @app.route('/bajaMarca') 
 def bajaMarca():

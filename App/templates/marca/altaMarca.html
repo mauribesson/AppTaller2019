@@ -3,19 +3,25 @@
 {% include 'header/header.html' %}
 
 <body>
-    {% include 'navbars/navbar.html' %}
-    <div class="container p-2">
-        <h2>Alta marca</h2>
-        <form action="guardarMarca" method="POST">
-            <div class="form-group">
-                <label for="nombre">Nombre de la marca</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar el nombre de la marca">
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar.html' %}
+            <div class="container p-2">
+                <h2>Alta marca</h2>
+                <form action="guardarMarca" method="POST">
+                    <div class="form-group">
+                        <label for="nombre">Nombre de la marca</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar el nombre de la marca">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                    <a class="btn btn-danger" href="/" role="button">Cancelar</a>
+                </form>
+
+
             </div>
-            <button type="submit" class="btn btn-primary">Aceptar</button>
-			<a class="btn btn-danger" href="/" role="button">Cancelar</a>
-        </form>
-
-
+        </div>
     </div>
 </body>
 

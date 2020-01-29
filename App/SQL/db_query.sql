@@ -99,7 +99,7 @@ CREATE TABLE "pago" (
 	Primary key ("id"),
 	foreign key ("idCompra") references "compra" deferrable
 );
-*/
+
 
 --Setear datos por defecto 
 INSERT INTO "rol" ("nombreRol") values ('admin');
