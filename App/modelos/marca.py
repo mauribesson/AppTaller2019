@@ -37,8 +37,8 @@ class Marca:
 
     def baja_marca(self):
         data = db.queryInsert('''
-               DELETE FROM "marca" WHERE "nombre" = '{}'; 
-            '''.format(self.__nombre))
+               DELETE FROM "marca" WHERE "idMarca" = {}; 
+            '''.format(int(self.__id)))
         return data
 
     def modificar_marca(self, pNuevoNombre):
@@ -51,8 +51,8 @@ class Marca:
 
     def consultar_marca(self):
         data = db.querySelect('''
-                SELECT * FROM "marca";
-            ''')
+                SELECT * FROM "marca" WHERE "idMarca" = {}; 
+            '''.format(int(self.__id)))
         return data
 
     def formato_datos_tabla(self):

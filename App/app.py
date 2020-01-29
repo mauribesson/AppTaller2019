@@ -318,24 +318,25 @@ def guardarMarca():
             data = "ya_existe"  
     return render_template('marca/marcaABMC.html', data=data, verificador=verificador)  
 
-@app.route('/bajaMarca') 
-def bajaMarca():
-    return render_template('marca/bajaMarca.html')  
+@app.route('/eliminarMarca')
+@app.route('/eliminarMarca/<int:id>')
+def eliminarMarca(id=None):
+    data = []   
+    marca = Marca()
+    marca.set_id(id)
+    data = marca.baja_marca()
+    data = "elimido"
 
-@app.route('/eliminarMarca', methods=["POST"])
-def eliminarMarca():
-    data = []
-    if request.method == 'POST':
-        nombre = request.form['nombre']
-        marca = Marca()
-        marca.set_nombre(nombre)
-        data = marca.baja_marca()
-
-    return render_template('marca/marcaEliminada.html', data=data)    
+    return render_template('marca/marcaABMC.html', data=data)    
 
 @app.route('/modificarMarca') 
-def modificarMarca():
-    return render_template('marca/modificarMarca.html')  
+@app.route('/modificarMarca/<int:id>')
+def modificarMarca(id=None):
+    marca = Marca()
+    marca.set_id(id)
+    data = marca.consual_marca()
+
+    return render_template('marca/modificarMarca.html', data=data)  
 
 @app.route('/editarMarca', methods=["POST"])
 def editarMarca():
