@@ -133,4 +133,10 @@ class Producto:
             ''' 
             SELECT * FROM public.vista_productos;
             ''')
-        return data   
+        return data  
+
+    def listar_productos(self):
+        data = db.querySelect('''
+                SELECT * FROM "producto";
+            ''')
+        return data 
