@@ -140,3 +140,9 @@ class Producto:
                 SELECT * FROM "producto";
             ''')
         return data 
+    
+    def obtener_precio(self, id):
+        data = db.querySelect('''
+            SELECT "precio" FROM "producto" WHERE "id" = '{}';
+        '''.format(id))
+        return data

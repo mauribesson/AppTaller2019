@@ -533,6 +533,7 @@ def guardarCombo():
 
         combo = Combo()
         combo.set_nombre(nombre)
+        combo.set_total(0)
         verificador = combo.verificar_combo() 
         if verificador == []:
             data = combo.alta_combo()  
@@ -542,6 +543,7 @@ def guardarCombo():
 
         dato['productos'] = producto.listar_productos()
         dato['nombreCombo'] = combo.get_nombre()
+        dato['total'] = combo.get_total()
         ListaCombos = combo.listar_combos()
         for e in ListaCombos:
             id= e[0]
@@ -555,10 +557,23 @@ def cargarProductos():
         data['nombreCombo']  = request.form['nombreCombo']      
         data['idCombo'] = request.form['idCombo']
         data['producto'] = request.form['producto']
+        total = request.form['total']
+    
+    producto = Producto()
+    p = producto.obtener_precio(data['producto'])
+    for e in p: 
+        precio = e[0] 
+    precio =int(precio)
+    total = int(total)
+    data['total'] = total + precio
+
+    combo = Combo()
+    combo.cambiar_precio((data['idCombo']), (data['total']))
     
     ejemplar = Ejemplar()
 
     data['ejemplares'] = ejemplar.ejemplares_de_un_producto(data['producto'])
+
     return render_template('combo/cargarEjemplaresAlCombo.html', data=data)
 
 @app.route('/cargarEjemplaresAlCombo', methods=["POST"])
@@ -570,6 +585,7 @@ def cargarEjemplaresAlCombo():
         dato['idCombo'] = request.form['idCombo']
         dato['idProducto'] = request.form['idProducto']
         dato['ejemplar'] = request.form['ejemplar']
+        dato['total'] = request.form['total']
         id=request.form['idCombo']
 
     ejemplacombo = Ejemplar_combo()

@@ -104,3 +104,23 @@ class Combo:
                 SELECT * FROM "combo";
             ''') 
         return data
+
+    def acumular_total(self, id, precio):
+        data = db.queryInsert('''
+               UPDATE "combo"
+	                SET "total" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(
+                precio, 
+                id))
+        return data
+
+    def cambiar_precio(self, id, nuevoTotal):
+        data = db.queryInsert('''
+               UPDATE "combo"
+	                SET "total" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(
+                nuevoTotal, 
+                id))
+        return data
