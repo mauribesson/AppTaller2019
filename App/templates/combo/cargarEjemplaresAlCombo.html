@@ -10,20 +10,21 @@
         <div id="page-content-wrapper">
             {% include 'navbars/navbar.html' %}
             <div class="container p-2">
-                <h2>Cargar ejemplares al combo</h2>
+                <center>
+                <h2>{{data['nombreCombo']}}</h2>
                 <form action="cargarEjemplaresAlCombo" method="POST">
                     <div class="form-group">
-                        <label for="nombreCombo">Nombre del combo</label>
-                        <input readonly value="{{data['nombreCombo']}}" type="text" class="form-control" name="nombreCombo" id="nombreCombo" placeholder="Nombre del combo">
+                        <input readonly value="{{data['nombreCombo']}}" type="hidden" class="form-control" name="nombreCombo" id="nombreCombo" placeholder="Nombre del combo">
                     </div>
                     <div class="form-group">
-                        <label for="idCombo">Id del combo</label>
-                        <input readonly value="{{data['idCombo']}}" type="text" class="form-control" name="idCombo" id="idCombo" placeholder="Id del combo">
+                        <label for="idCombo">Id del combo:{{data['idCombo']}}</label>
+                        <input readonly value="{{data['idCombo']}}" type="hidden" class="form-control" name="idCombo" id="idCombo" placeholder="Id del combo">
                     </div>
                     <div class="form-group">
-                        <label for="total">Precio total</label>
-                        <input readonly value="{{data['total']}}" type="text" class="form-control" name="total" id="total" placeholder="Total">
+                        <label for="total">Precio total: {{data['total']}}</label>
+                        <input readonly value="{{data['total']}}" type="hidden" class="form-control" name="total" id="total" placeholder="Total">
                     </div>
+                </center>
                     <div class="form-group">
                         <label for="idProducto">Id del producto</label>
                         <input readonly value="{{data['producto']}}" type="text" class="form-control" name="idProducto" id="idProducto" placeholder="Id del producto">

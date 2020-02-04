@@ -518,6 +518,15 @@ def combo_data_table():
     data = combo.formato_datos_tabla()
     return jsonify(data)
 
+#datos para tabla Emplares del Combo "JSON"
+@app.route('/productos_combo_data_table')
+def productos_combo_data_table():
+    if request.method == 'POST':
+        idCombo = request.form['idCombo']
+    combo = Combo()
+    data = combo.formato_datos_tabla_productos(idCombo)
+    return jsonify(data)
+
 @app.route('/altaCombo')
 def altaCombo():
      return render_template('combo/altaCombo.html') 
