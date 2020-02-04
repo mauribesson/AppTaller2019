@@ -59,8 +59,8 @@
             sortable: true,
             width: "30"
         }, {
-            field: "total",
-            title: "Total",
+            field: "precio",
+            title: "Precio",
             sortable: true,
             width: "20"
         },{
@@ -87,8 +87,10 @@
             }
         }]
 
+        var idCombo="{{id}}";
+
         $('#tablaProductosCombo').bootstrapTable({
-            url: "{{ url_for('productos_combo_data_table') }}", //Obtiene los datos desde el backend, formato json 
+            url: "{{ url_for('productos_combo_data_table') }}/"+idCombo, //Obtiene los datos desde el backend, formato json 
             columns: columns,
             locale: "es-ES",
             showRefresh: false,

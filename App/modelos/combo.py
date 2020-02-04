@@ -92,9 +92,9 @@ class Combo:
 
     def listar_poductos_del_combo(self, idCombo):
         data = db.querySelect('''
-                SELECT * FROM "vista_ejemplar_combo" where "idCombo" = '{}';
+                SELECT * FROM "vista_ejemplar_combo" where "idCombo" = {};
                 '''.format(
-                    idCombo))        
+                    int(idCombo)))        
         return data
 
     def formato_datos_tabla_productos(self, idCombo):
@@ -102,7 +102,7 @@ class Combo:
         nueva_lista = []
 
         for e in ListaCombos:
-            nueva_lista.append({'idCombo':e[0], 'numeroSeria':e[1], 'vendido':e[2], 'nombre':e[4]})
+            nueva_lista.append({'idCombo':e[0], 'numeroSerie':e[1], 'vendido':e[2], 'nombre':e[4], 'precio':e[6]})
         
         return nueva_lista
 
