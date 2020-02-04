@@ -67,6 +67,13 @@ class Ejemplar:
                         self.__numeroSerie))
         return data
 
+    def ejemplares_de_un_producto(self, producto):
+        data = db.querySelect('''
+                SELECT * FROM "ejemplar"
+                WHERE "producto" = '{}';
+            '''.format(producto))
+        return data
+
     def consultar_ejemplar(self):
         data = db.querySelect('''
                 SELECT * FROM "ejemplar";

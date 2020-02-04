@@ -10,6 +10,7 @@ from modelos.combo import Combo
 from modelos.carrito import Carrito
 from modelos.compra import Compra
 from modelos.pago import Pago
+from modelos.ejemplar_combo import Ejemplar_combo
 
 db = Database()
 
@@ -523,21 +524,81 @@ def altaCombo():
 
 @app.route('/guardarCombo', methods=["POST"])
 def guardarCombo():
+    dato = {}
     data, verificador = [], []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        total = request.form['precioTotal'] 
-        descuento = request.form['descuento']
+        """ total = request.form['precioTotal'] 
+        descuento = request.form['descuento'] """
 
         combo = Combo()
         combo.set_nombre(nombre)
-        combo.set_total(total)
-        combo.set_descuento(descuento)
-
+        combo.set_total(0)
         verificador = combo.verificar_combo() 
         if verificador == []:
-            data = combo.alta_combo()   
-    return render_template('combo/comboGuardado.html', data=data, verificador=verificador)  
+            data = combo.alta_combo()  
+
+        producto = Producto()
+        producto.listar_productos()
+
+        dato['productos'] = producto.listar_productos()
+        dato['nombreCombo'] = combo.get_nombre()
+        dato['total'] = combo.get_total()
+        ListaCombos = combo.listar_combos()
+        for e in ListaCombos:
+            id= e[0]
+
+    return render_template('combo/cargarProductosalCombo.html', dato=dato,id=id)  
+
+@app.route('/cargarProductos', methods=["POST"])
+def cargarProductos():
+    data = {}
+    if request.method == 'POST':
+        data['nombreCombo']  = request.form['nombreCombo']      
+        data['idCombo'] = request.form['idCombo']
+        data['producto'] = request.form['producto']
+        total = request.form['total']
+    
+    producto = Producto()
+    p = producto.obtener_precio(data['producto'])
+    for e in p: 
+        precio = e[0] 
+    precio =int(precio)
+    total = int(total)
+    data['total'] = total + precio
+
+    combo = Combo()
+    combo.cambiar_precio((data['idCombo']), (data['total']))
+    
+    ejemplar = Ejemplar()
+
+    data['ejemplares'] = ejemplar.ejemplares_de_un_producto(data['producto'])
+
+    return render_template('combo/cargarEjemplaresAlCombo.html', data=data)
+
+@app.route('/cargarEjemplaresAlCombo', methods=["POST"])
+def cargarEjemplaresAlCombo():
+    dato = {}
+    data = []
+    if request.method == 'POST':
+        dato['nombreCombo']  = request.form['nombreCombo']      
+        dato['idCombo'] = request.form['idCombo']
+        dato['idProducto'] = request.form['idProducto']
+        dato['ejemplar'] = request.form['ejemplar']
+        dato['total'] = request.form['total']
+        id=request.form['idCombo']
+
+    ejemplacombo = Ejemplar_combo()
+    ejemplacombo.set_idCombo(dato['idCombo'])
+    ejemplacombo.set_numero_serie(dato['ejemplar'])
+    data = ejemplacombo.alta_ejemplar_combo()
+
+    producto = Producto()
+    producto.listar_productos()
+    dato['productos'] = producto.listar_productos()
+
+    return render_template('combo/cargarProductosalCombo.html',data=data, dato=dato, id=id)
+
 
 @app.route('/bajaCombo') 
 def bajaCombo():

@@ -54,8 +54,8 @@ class Combo:
         data = db.queryInsert('''
                 INSERT INTO "combo" 
                 ("nombre", "total", "descuento") 
-                values ('{}','{}','{}');
-                '''.format(self.__nombre, self.__total, self.__descuento))
+                values ('{}',0,0);
+                '''.format(self.__nombre))
         return data
 
     def baja_combo(self):
@@ -95,7 +95,7 @@ class Combo:
         nueva_lista = []
 
         for e in ListaCombos:
-            nueva_lista.append({'id':e[0], 'nombre':e[1], 'total':e[1], 'descuento':e[1]})
+            nueva_lista.append({'id':e[0], 'nombre':e[1], 'total':e[2], 'descuento':e[3]})
         
         return nueva_lista
     
@@ -103,4 +103,24 @@ class Combo:
         data = db.querySelect('''
                 SELECT * FROM "combo";
             ''') 
+        return data
+
+    def acumular_total(self, id, precio):
+        data = db.queryInsert('''
+               UPDATE "combo"
+	                SET "total" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(
+                precio, 
+                id))
+        return data
+
+    def cambiar_precio(self, id, nuevoTotal):
+        data = db.queryInsert('''
+               UPDATE "combo"
+	                SET "total" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(
+                nuevoTotal, 
+                id))
         return data
