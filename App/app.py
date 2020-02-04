@@ -363,6 +363,18 @@ def listarMarca():
 #==================
 # ABMC PRODUCTO
 #==================
+
+@app.route('/productoABMC') 
+def productoABMC():
+    data =[]
+    return render_template('producto/productoABMC.html', data=data)
+
+@app.route('/producto_data_table')
+def producto_data_table():
+    producto = Producto()
+    data = producto.formato_datos_tabla()
+    return jsonify(data)    
+
 @app.route('/altaProducto')
 def altaProducto():
     return render_template('producto/altaProducto.html') 

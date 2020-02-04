@@ -137,7 +137,7 @@ class Producto:
 
     def listar_productos(self):
         data = db.querySelect('''
-                SELECT * FROM "producto";
+                SELECT * FROM "vista_productos";
             ''')
         return data 
     
@@ -146,3 +146,20 @@ class Producto:
             SELECT "precio" FROM "producto" WHERE "id" = '{}';
         '''.format(id))
         return data
+
+    def formato_datos_tabla(self):
+        ListaMarca= self.listar_productos()
+        nueva_lista = []
+
+        for e in ListaMarca:
+            nueva_lista.append({'id': e[0],
+                                'nombre':e[1],
+                                'descripcion': e[2],
+                                'precio': e[3],
+                                'modelo':e[4],
+                                'garantia':e[5],
+                                'marca': e[6],
+                                'tipoProducto':e[7]
+                                })
+        
+        return nueva_lista
