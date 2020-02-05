@@ -377,7 +377,12 @@ def producto_data_table():
 
 @app.route('/altaProducto')
 def altaProducto():
-    return render_template('producto/altaProducto.html') 
+    data = {}
+    tp = TipoProducto()
+    data['TipoProducto'] = tp.consultar_tipo_producto()
+    marca = Marca()
+    data['marca'] = marca.listar_marca()
+    return render_template('producto/altaProducto.html', data=data) 
 
 @app.route('/guardarProducto', methods=["POST"])
 def guardarProducto():
