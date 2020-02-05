@@ -409,6 +409,7 @@ ec."numeroSerie",
 e."vendido",
 e."producto",
 p."nombre",
+p."precio",
 c."id",
 c."total",
 c."descuento"

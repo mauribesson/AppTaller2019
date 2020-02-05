@@ -102,7 +102,7 @@ class Combo:
         nueva_lista = []
 
         for e in ListaCombos:
-            nueva_lista.append({'idCombo':e[0], 'numeroSerie':e[1], 'vendido':e[2], 'nombre':e[4], 'precio':e[6]})
+            nueva_lista.append({'idCombo':e[0], 'numeroSerie':e[1], 'vendido':e[2], 'nombre':e[4], 'precio':e[5]})
         
         return nueva_lista
 
