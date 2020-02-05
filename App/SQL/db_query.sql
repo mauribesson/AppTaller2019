@@ -194,6 +194,7 @@ values ('mause 1 ', 'descripcion 1 ', -10, 'm320', 12, 1, 1);
 
 
 --- El total del combo no puede ser menor o igual a cero
+/*
 CREATE OR REPLACE FUNCTION cargandoTotal()
 RETURNS trigger AS
 $cargarTotal$
@@ -212,7 +213,7 @@ CREATE TRIGGER cargarTotal
 BEFORE INSERT ON "combo"
 FOR EACH ROW
 EXECUTE PROCEDURE cargandoTotal();
-
+*/
 
 --Test Total sobre Cobo
 --INSERT INTO "combo" ("nombre", "total", "descuento") VALUES ('combo 1', -12, 1.0);
@@ -376,10 +377,12 @@ JOIN "tipoProducto" AS "tp" ON tp."idTipo" = p."tipoProducto";
 ----Vista Productos
 CREATE OR REPLACE VIEW vista_productos AS
 SELECT
+	p."id",
  	p."nombre", 
 	p."descripcion",
 	p."precio",
 	p."modelo",
+	p."garantia",
 	"m"."nombre" AS "marca",
 	tp."nombreTipo" AS "tipoProducto"
 FROM producto AS p 
