@@ -24,6 +24,13 @@
                         <label for="total">Precio total: {{data['total']}}</label>
                         <input readonly value="{{data['total']}}" type="hidden" class="form-control" name="total" id="total" placeholder="Total">
                     </div>
+                    <div class="form-group">
+                        <label for="total">Porcentaje de descuento aplicado: {{data['descuento']}}%</label>
+                        <input readonly value="{{data['descuento']}}" type="hidden" class="form-control" name="descuento" id="descuento" placeholder="Descuento">
+                    </div>
+                    <div class="form-group">
+                        <input value="{{data['totalConDescuento']}}" type="hidden" class="form-control" name="totalConDescuento" id="dtotalConDescuento" placeholder="Total con Descuento">
+                    </div>
                 </center>
                     <div class="form-group">
                         <label for="idProducto">Id del producto</label>

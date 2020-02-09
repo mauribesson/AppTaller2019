@@ -57,6 +57,7 @@ CREATE TABLE "combo" (
 	"nombre" character varying (50),
 	"total" float,
 	"descuento" float,
+	"totalConDescuento" float,
 	Primary key ("id")
 );
 
@@ -412,7 +413,8 @@ p."nombre",
 p."precio",
 c."id",
 c."total",
-c."descuento"
+c."descuento",
+c."totalConDescuento"
 FROM ejemplar_combo AS ec
 JOIN ejemplar AS "e" ON ec."numeroSerie" = e."numeroSerie"
 JOIN combo AS "c" ON ec."idCombo" = c."id"

@@ -549,9 +549,7 @@ def productos_combo_data_table():
 @app.route('/productos_combo_data_table/<int:idCombo>')
 def productos_combo_data_table(idCombo=None):
     combo = Combo()
-
     data = combo.formato_datos_tabla_productos(idCombo)
-    print(data)
     return jsonify(data)
 
 @app.route('/altaCombo')
@@ -570,6 +568,8 @@ def guardarCombo():
         combo = Combo()
         combo.set_nombre(nombre)
         combo.set_total(0)
+        combo.set_descuento(0)
+        combo.set_totalConDescuento(0)
         verificador = combo.verificar_combo() 
         if verificador == []:
             data = combo.alta_combo()  
@@ -580,6 +580,8 @@ def guardarCombo():
         dato['productos'] = producto.listar_productos()
         dato['nombreCombo'] = combo.get_nombre()
         dato['total'] = combo.get_total()
+        dato['descuento'] = combo.get_descuento()
+        dato['totalConDescuento'] = combo.get_totalConDescuento()
         ListaCombos = combo.listar_combos()
         for e in ListaCombos:
             id= e[0]
@@ -593,7 +595,9 @@ def cargarProductos():
         data['nombreCombo']  = request.form['nombreCombo']      
         data['idCombo'] = request.form['idCombo']
         data['producto'] = request.form['producto']
+        data['descuento'] = request.form['descuento']
         total = request.form['total']
+        data['totalConDescuento'] = request.form['totalConDescuento']
     
     producto = Producto()
     p = producto.obtener_precio(data['producto'])
@@ -622,6 +626,8 @@ def cargarEjemplaresAlCombo():
         dato['idProducto'] = request.form['idProducto']
         dato['ejemplar'] = request.form['ejemplar']
         dato['total'] = request.form['total']
+        dato['descuento'] = request.form['descuento']
+        dato['totalConDescuento'] = request.form['totalConDescuento']
         id=request.form['idCombo']
 
     ejemplacombo = Ejemplar_combo()
@@ -635,6 +641,33 @@ def cargarEjemplaresAlCombo():
 
     return render_template('combo/cargarProductosalCombo.html',data=data, dato=dato, id=id)
 
+@app.route('/cargarDescuentoAlCombo', methods=["POST"])
+def cargarDescuento():
+    dato = {}
+    if request.method == 'POST':
+        dato['nombreCombo'] = request.form['nombreCombo']
+        dato['idCombo'] = request.form['idCombo']
+        dato['descuento']  = request.form['descuento'] 
+        dato['total']  = request.form['total']
+        dato['totalConDescuento']  = request.form['totalConDescuento']
+        id=request.form['idCombo']
+
+    total = int(dato['total'])   
+    desc = int(dato['descuento'])
+    importeDescuento = ((total * desc)/100)
+    totalConDesc = total - importeDescuento
+
+    combo = Combo()
+    combo.aplicarDescuento(dato['idCombo'], totalConDesc, dato['descuento'])
+
+    dato['totalConDescuento']  = totalConDesc
+
+    producto = Producto()
+    producto.listar_productos()
+    dato['productos'] = producto.listar_productos()
+
+
+    return render_template('combo/cargarProductosalCombo.html', dato=dato, id=id)    
 
 @app.route('/bajaCombo') 
 def bajaCombo():
@@ -693,11 +726,14 @@ def guardarEjemplar_combo():
             '''.format(idCombo, numeroSerie)) 
     return render_template('index.html')   
 
-@app.route('/bajaEjemplar_combo') 
-def bajaEjemplar_combo():
-    return render_template('ejemplar_combo/bajaEjemplar_combo.html')  
 
-@app.route('/eliminarEjemplar_combo', methods=["POST"])
+###No se implementa
+""" @app.route('/bajaEjemplar_combo') 
+def bajaEjemplar_combo():
+    return render_template('ejemplar_combo/bajaEjemplar_combo.html')  """
+
+###Se modifica
+"""@app.route('/eliminarEjemplar_combo', methods=["POST"])
 def eliminarEjemplar_combo():
     data = []
     if request.method == 'POST':
@@ -705,8 +741,18 @@ def eliminarEjemplar_combo():
         numeroSerie = request.form['numeroSerie']
         data = db.queryInsert('''
                DELETE FROM "ejemplar_combo" WHERE "idCombo" = '{}' AND "numeroSerie" = '{}'; 
-            '''.format(idCombo, numeroSerie))   
-    return render_template('index.html')
+            '''.format(idCombo, numeroSerie))  
+    return render_template('index.html') """
+
+@app.route('/eliminarEjemplar_combo/<int:numeroSerie>/<int:idCombo>')
+def eliminarEjemplar_combo(numeroSerie, idCombo):
+    idCombo = idCombo
+    numeroSerie = numeroSerie
+    data = db.queryInsert('''
+        DELETE FROM "ejemplar_combo" WHERE "idCombo" = '{}' AND "numeroSerie" = '{}'; 
+        '''.format(idCombo, numeroSerie)) 
+    marcador = "eliminado"
+    return marcador
 
 @app.route('/modificarEjemplar_combo') 
 def modificarEjemplar_combo():

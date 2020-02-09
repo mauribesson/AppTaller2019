@@ -10,6 +10,7 @@ class Combo:
         self.__nombre = ''
         self.__total = None
         self.__descuento = None
+        self.__totalConDescuento = None
 
    #Setter
     def set_id(self, pId):
@@ -27,6 +28,9 @@ class Combo:
     def set_descuento(self, pDescuento):
         self.__descuento = pDescuento
 
+    def set_totalConDescuento(self, ptotalConDescuento):
+        self.__totalConDescuento = ptotalConDescuento
+
     #Getter
     def get_id(self):
         return self.__id
@@ -42,6 +46,9 @@ class Combo:
 
     def get_descuento(self):
         return self.__descuento
+
+    def get_totalConDescuento(self):
+        return self.__totalConDescuento
 
     #Logica
     def verificar_combo(self):
@@ -111,7 +118,7 @@ class Combo:
         nueva_lista = []
 
         for e in ListaCombos:
-            nueva_lista.append({'id':e[0], 'nombre':e[1], 'total':e[2], 'descuento':e[3]})
+            nueva_lista.append({'id':e[0], 'nombre':e[1], 'total':e[2], 'descuento':e[3], 'totalConDescuento':e[4]})
         
         return nueva_lista
     
@@ -139,4 +146,16 @@ class Combo:
             '''.format(
                 nuevoTotal, 
                 id))
+        return data
+
+    def aplicarDescuento(self, idCombo, totalConDesc,descuento):
+        data = db.queryInsert('''
+            UPDATE "combo"
+                SET "totalConDescuento" = '{}',
+                    "descuento" = '{}'
+                WHERE "id" = '{}';
+            '''.format(
+                totalConDesc,
+                descuento,
+                idCombo))
         return data
