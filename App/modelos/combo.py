@@ -67,8 +67,8 @@ class Combo:
 
     def baja_combo(self):
         data = db.queryInsert('''
-               DELETE FROM "combo" WHERE "nombre" = '{}'; 
-            '''.format(self.__nombre))
+               DELETE FROM "combo" WHERE "id" = '{}'; 
+            '''.format(self.__id))
         return data
 
     def modificar_combo(self, pNuevoNombre, pNuevoTotal, pNuevoDescuento):

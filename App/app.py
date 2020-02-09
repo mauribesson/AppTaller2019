@@ -669,20 +669,19 @@ def cargarDescuento():
 
     return render_template('combo/cargarProductosalCombo.html', dato=dato, id=id)    
 
+
 @app.route('/bajaCombo') 
 def bajaCombo():
     return render_template('combo/bajaCombo.html')  
-
-@app.route('/eliminarCombo', methods=["POST"])
-def eliminarCombo():
-    if request.method == 'POST':
-        nombre = request.form['nombre']
-
-        combo = Combo()
-        combo.set_nombre(nombre)
-
-        data = combo.baja_combo()
-    return render_template('combo/comboEliminado.html', data=data)    
+ 
+@app.route('/eliminarCombo')
+@app.route('/eliminarCombo/<int:id_combo>')
+def eliminarCombo(id_combo=None):
+    combo =  Combo()
+    combo.set_id(id_combo)
+    combo.baja_combo()
+    data = "eliminado"
+    return render_template('combo/comboABMC.html', data=data) 
 
 @app.route('/modificarCombo') 
 def modificarCombo():

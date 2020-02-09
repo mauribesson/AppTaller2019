@@ -10,7 +10,7 @@
             {% include 'navbars/navbar.html' %}
 
             <div class="container-fluid">
-                {% if data == "elimido" %}
+                {% if data == "eliminado" %}
                 <div class="row">
                     <div class="col-md-12">
                         <div class="m-2 alert alert-success alert-dismissible fade show" role="alert">
@@ -157,10 +157,10 @@
 
         $('.eliminar').click(function(e) {
             alert()
-            var r = confirm("¿Desea eliminar el Rol?");
+            var r = confirm("¿Desea eliminar este combo?");
 
             if (r == true) {
-                location.href('/eliminarRol/' + id)
+                location.href('/eliminarCombo/' + id)
             } else {
                 e.preventDefault();
             }
