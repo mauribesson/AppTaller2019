@@ -684,23 +684,26 @@ def eliminarCombo(id_combo=None):
     return render_template('combo/comboABMC.html', data=data) 
 
 @app.route('/modificarCombo') 
-def modificarCombo():
-    return render_template('combo/modificarCombo.html')  
+@app.route('/modificarCombo/<int:id>') 
+def modificarCombo(id=None):
+    combo = Combo()
+    combo.set_id(id)
+    data = combo.consultar_combo_por_id()
+    return render_template('combo/modificarCombo.html',data=data, id=id)  
 
 @app.route('/editarCombo', methods=["POST"])
 def editarCombo():
-    data = []
+    data=[]
     if request.method == 'POST':
+        id = request.form['id']
+        print(id)
         nombre = request.form['nombre']
-        nuevoNombre = request.form['nuevoNombre']
-        nuevoPrecioTotal = request.form['nuevoPrecio']
-        nuevoDescuento = request.form['nuevoDescuento']
-        
+        nombreNuevo = request.form['nombreNuevo']
         combo = Combo()
-        combo.set_nombre(nombre)
-
-        data = combo.modificar_combo(nuevoNombre, nuevoPrecioTotal, nuevoDescuento)
+        combo.set_id(id)
+        data = combo.modificar_combo(nombreNuevo)     
     return render_template('combo/comboModificado.html', data=data)
+
 
 @app.route('/listarCombo')
 def listarCombo():

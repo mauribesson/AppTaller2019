@@ -3,11 +3,21 @@
 {% include 'header/header.html' %}
 
 <body>
-    {% if data == 1 %}
-    <h2>Combo modificado!</h2>
-    {% else %}
-    <h2>Combo no existe!</h2>
-    {% endif %}
+
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar.html' %} {% if data == 1 %}
+            <h2>Combo Modificado!</h2>
+            {% else %}
+            <h2>Combo no existe!</h2>
+            {% endif %}
+
+            <a href="/comboABMC"> Volver </a>
+        </div>
+    </div>
+
 </body>
 
 </html>

@@ -71,24 +71,27 @@ class Combo:
             '''.format(self.__id))
         return data
 
-    def modificar_combo(self, pNuevoNombre, pNuevoTotal, pNuevoDescuento):
+    def modificar_combo(self, pNuevoNombre):
         data = db.queryInsert('''
                UPDATE "combo"
-	                SET "nombre" = '{}', 
-                    "total" = '{}', 
-                    "descuento" = '{}'
-	                WHERE "nombre" = '{}';
+	                SET "nombre" = '{}'
+	                WHERE "id" = '{}';
             '''.format(
-                pNuevoNombre, 
-                pNuevoTotal,
-                pNuevoDescuento, 
-                self.__nombre))
+                pNuevoNombre,  
+                self.__id))
         return data
 
     def consultar_combo(self):
         data = db.querySelect('''
                 SELECT * FROM "combo";
             ''') 
+        return data
+
+    def consultar_combo_por_id(self):
+        data = db.querySelect('''
+                SELECT * FROM "combo" WHERE "id" = '{}';
+            '''.format(
+                self.__id))
         return data
 
     def listar_combos(self):
