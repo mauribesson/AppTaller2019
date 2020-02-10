@@ -536,15 +536,6 @@ def combo_data_table():
     return jsonify(data)
 
 #datos para tabla Emplares del Combo "JSON"
-""" @app.route('/productos_combo_data_table')
-def productos_combo_data_table():
-    if request.method == 'POST':
-        idCombo = request.form['idCombo']
-        print(idCombo)
-    combo = Combo()
-    data = combo.formato_datos_tabla_productos(idCombo)
-    return jsonify(data) """
-
 @app.route('/productos_combo_data_table')
 @app.route('/productos_combo_data_table/<int:idCombo>')
 def productos_combo_data_table(idCombo=None):
@@ -562,8 +553,6 @@ def guardarCombo():
     data, verificador = [], []
     if request.method == 'POST':
         nombre = request.form['nombre']
-        """ total = request.form['precioTotal'] 
-        descuento = request.form['descuento'] """
 
         combo = Combo()
         combo.set_nombre(nombre)
@@ -587,8 +576,34 @@ def guardarCombo():
             id= e[0]
 
     return render_template('combo/cargarProductosalCombo.html', dato=dato,id=id)  
+    
 
+@app.route('/verCombo')
+@app.route('/verCombo/<int:id>')
+def verCombo(id):
+    combo = Combo()
+    combo.set_id(id)
+    data = combo.consultar_combo_por_id()
+
+    dato = {}
+    dato['nombreCombo'] = data[0][1]
+    dato['idCombo'] = data[0][0]
+    dato['descuento']  = data[0][3] 
+    dato['total']  = data[0][2]
+    dato['totalConDescuento']  = data[0][4]
+    id=data[0][0]
+
+    producto = Producto()
+    producto.listar_productos()
+
+    dato['productos'] = producto.listar_productos()
+
+    return render_template('combo/cargarProductosAlCombo.html', dato=dato, id=id)
+
+@app.route('/cargarProductos')
 @app.route('/cargarProductos', methods=["POST"])
+@app.route('/verCombo/cargarProductos', methods=["POST"])
+# @app.route('/cargarProductos/<int:id>')
 def cargarProductos():
     data = {}
     if request.method == 'POST':
@@ -598,13 +613,13 @@ def cargarProductos():
         data['descuento'] = request.form['descuento']
         total = request.form['total']
         data['totalConDescuento'] = request.form['totalConDescuento']
-    
+
     producto = Producto()
     p = producto.obtener_precio(data['producto'])
     for e in p: 
         precio = e[0] 
     precio =int(precio)
-    total = int(total)
+    total = float(total)
     data['total'] = total + precio
 
     combo = Combo()
@@ -617,6 +632,7 @@ def cargarProductos():
     return render_template('combo/cargarEjemplaresAlCombo.html', data=data)
 
 @app.route('/cargarEjemplaresAlCombo', methods=["POST"])
+@app.route('/verCombo/cargarEjemplaresAlCombo', methods=["POST"])
 def cargarEjemplaresAlCombo():
     dato = {}
     data = []
@@ -639,9 +655,16 @@ def cargarEjemplaresAlCombo():
     producto.listar_productos()
     dato['productos'] = producto.listar_productos()
 
+    total = float(dato['total'])   
+    desc = float(dato['descuento'])
+    importeDescuento = ((total * desc)/100)
+    totalConDesc = total - importeDescuento
+    dato['totalConDescuento'] = totalConDesc
+
     return render_template('combo/cargarProductosalCombo.html',data=data, dato=dato, id=id)
 
 @app.route('/cargarDescuentoAlCombo', methods=["POST"])
+@app.route('/verCombo/cargarDescuentoAlCombo', methods=["POST"])
 def cargarDescuento():
     dato = {}
     if request.method == 'POST':
@@ -652,8 +675,8 @@ def cargarDescuento():
         dato['totalConDescuento']  = request.form['totalConDescuento']
         id=request.form['idCombo']
 
-    total = int(dato['total'])   
-    desc = int(dato['descuento'])
+    total = float(dato['total'])   
+    desc = float(dato['descuento'])
     importeDescuento = ((total * desc)/100)
     totalConDesc = total - importeDescuento
 
@@ -746,6 +769,7 @@ def eliminarEjemplar_combo():
             '''.format(idCombo, numeroSerie))  
     return render_template('index.html') """
 
+@app.route('/eliminarEjemplar_combo')
 @app.route('/eliminarEjemplar_combo/<int:numeroSerie>/<int:idCombo>')
 def eliminarEjemplar_combo(numeroSerie, idCombo):
     idCombo = idCombo

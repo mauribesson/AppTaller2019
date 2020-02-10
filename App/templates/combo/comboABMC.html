@@ -46,15 +46,6 @@
                 {%endif%}
                 <div class="row">
                     <div class="col-12 p-2">
-                        <!--<div class="card p-3 shadow">-->
-                        <!--<div class="row">
-                                <div class="col-md-2">
-                                    <h1 class="display-4">Rol</h1>
-                                </div>
-                                <div class="col-md-10">
-                                    <a class="btn btn-success" href="{{ url_for('altaRol') }}"><i class="far fa-plus-square"></i> Nuevo</a>
-                                </div>
-                            </div>-->
                         <h1 class="display-5">Combos</h1>
                         <hr class="my-4">
                         <a class="nuevo-abmc btn btn-success" href="{{ url_for('altaCombo') }}"><i class="far fa-plus-square"></i> Nuevo</a>
@@ -62,7 +53,6 @@
                         <table id="tablaCombo" data-classes="table table-bordered table-hover table-striped shadow" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500">
                         </table>
                     </div>
-                    <!--</div>-->
                 </div>
             </div>
             {% include 'footer/footer.html' %}
@@ -98,43 +88,42 @@
             field: "id",
             title: "ID",
             sortable: true,
-            width: "10"
+            width: "30"
         }, {
             field: "nombre",
             title: "Nombre",
             sortable: true,
-            width: "50"
+            width: "30"
         }, {
             field: "total",
             title: "Total",
             sortable: true,
-            width: "10"
+            width: "30"
         },{
             field: "descuento",
             title: "Descuento",
             sortable: true,
-            width: "10"
+            width: "30"
         },{
             field: "totalConDescuento",
             title: "Total con descuento",
             sortable: true,
-            width: "10"
+            width: "30"
         },{
             field: 'operate',
             title: 'Acciones',
-            width: "10",
+            width: "50",
             // align: 'center',
             //valign: 'middle',
             clickToSelect: false,
             formatter: function(value, row, index) {
                 var urlModificar = "{{ url_for('modificarCombo') }}"; //jinja Template
                 var urlEliminar = '{{ url_for("eliminarCombo") }}'; //jinja Template
-
-
+                var urlVer = '{{ url_for("verCombo") }}';
 
                 var html = '';
                 //html += '<a id="verRol' + row.id + '" class="btn btn-info m-2"><i class="fas fa-eye"></i></a>';
-                //html += '<a class="btn btn-primary m-2" href=' + urlVer + '/' + row.id + '><i class="fas fa-eye"></i></a>';
+                html += '<a class="btn btn-primary m-2" href=' + urlVer + '/' + row.id + '><i class="fas fa-eye"></i></a>';
                 html += '<a class="btn btn-primary m-2" href=' + urlModificar + '/' + row.id + '><i class="fas fa-edit"></i></a>';
                 html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.id + '><i class="fas fa-trash"></i></a>';
 
@@ -154,7 +143,6 @@
         $('#verRol1').click(function(e) {
             $('#myModal').modal('toggle');
         });
-
         $('.eliminar').click(function(e) {
             alert()
             var r = confirm("¿Desea eliminar este combo?");
