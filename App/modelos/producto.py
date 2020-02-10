@@ -89,8 +89,8 @@ class Producto:
 
     def baja_producto(self):
         data = db.queryInsert('''
-               DELETE FROM "producto" WHERE "nombre" = '{}'; 
-            '''.format(self.__nombre))
+               DELETE FROM "producto" WHERE "id" = {}; 
+            '''.format(int(self.__id)))
         return data
 
 

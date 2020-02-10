@@ -68,7 +68,7 @@ def eliminarRol(id_rol=None):
     rol =  Rol()
     rol.set_id(id_rol)
     rol.baja_rol()
-    data = "elimido"
+    data = "eliminado"
     return render_template('rol/RolABMC.html', data=data)    
 #Fin Baja Rol
 
@@ -158,7 +158,7 @@ def eliminarUsuario(email=None):
     usuario = Usuario()
     usuario.set_nombre(email)
     usuario.baja_usuario()
-    data = "elimido"
+    data = "eliminado"
     return render_template('usuario/usuarioABMC.html', data=data)    
 
 @app.route('/modificarUsuario') 
@@ -246,7 +246,7 @@ def eliminarTipoProducto(id=None):
     tipo_producto = TipoProducto()        
     tipo_producto.set_id(id)
     tipo_producto.baja_tipo_producto()
-    data = "elimido"
+    data = "eliminado"
 
     return render_template('tipoProducto/tipoProductoABMC.html', data=data)    
 
@@ -326,7 +326,7 @@ def eliminarMarca(id=None):
     marca = Marca()
     marca.set_id(id)
     data = marca.baja_marca()
-    data = "elimido"
+    data = "eliminado"
     return render_template('marca/marcaABMC.html', data=data)    
 
 @app.route('/modificarMarca') 
@@ -410,19 +410,20 @@ def guardarProducto():
         if verificador == []:
             data = producto.alta_producto()          
     return render_template('producto/productoGuardado.html', data=data, verificador=verificador)  
-
+'''
 @app.route('/bajaProducto') 
 def bajaProducto():
     return render_template('producto/bajaProducto.html')  
+'''
 
-@app.route('/eliminarProducto', methods=["POST"])
-def eliminarProducto():
-    if request.method == 'POST':
-        nombre = request.form['nombre']
-        producto = Producto()
-        producto.set_nombre(nombre)   
-        data = producto.baja_producto()  
-    return render_template('producto/productoEliminado.html', data=data)    
+@app.route('/eliminarProducto')
+@app.route('/eliminarProducto/<int:id>')
+def eliminarProducto(id=None):    
+    producto = Producto()
+    producto.set_id(id)  
+    producto.baja_producto() 
+    data = "eliminado"
+    return render_template('producto/productoABMC.html', data=data)    
 
 @app.route('/modificarProducto') 
 def modificarProducto():
