@@ -3,63 +3,67 @@
 {% include 'header/header.html' %}
 
 <body>
-    {% include 'navbars/navbar.html' %}
-    <div class="container p-2">
-        <h2>Modificar producto</h2>
-        <form action="{{ url_for('editarProducto')}}" method="POST">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="nuevoNombre">ID Producto</label>
-                        <input readonly value="{{data['producto'][0]}}" type="text" class="form-control" name="idProd" id="idProd" placeholder="Ingresar nombre del producto">
-                    </div>
-                </div>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="nuevoNombre">Nuevo nombre del producto</label>
-                        <input value="{{data['producto'][1]}}" type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar nombre del producto">
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar.html' %}
+            <div class="container p-2">
+                <h2>Modificar producto</h2>
+                <form action="{{ url_for('editarProducto')}}" method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nuevoNombre">ID Producto</label>
+                                <input readonly value="{{data['producto'][0]}}" type="text" class="form-control" name="idProd" id="idProd" placeholder="Ingresar nombre del producto">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nuevoNombre">Nuevo nombre del producto</label>
+                                <input value="{{data['producto'][1]}}" type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar nombre del producto">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="nuevaDescripcion">Nueva descripcion del producto</label>
-                        <input value="{{data['producto'][2]}}" type="text" class="form-control" name="nuevaDescripcion" id="nuevaDescripcion" placeholder="Ingresar la descripcion del producto">
-                    </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nuevaDescripcion">Nueva descripcion del producto</label>
+                                <input value="{{data['producto'][2]}}" type="text" class="form-control" name="nuevaDescripcion" id="nuevaDescripcion" placeholder="Ingresar la descripcion del producto">
+                            </div>
+                        </div>
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="nuevoPrecio">Nuevo precio del producto</label>
-                        <input value="{{data['producto'][3]}}" type="number" class="form-control" name="nuevoPrecio" id="nuevoPrecio" placeholder="Ingresar el precio del producto">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nuevoPrecio">Nuevo precio del producto</label>
+                                <input value="{{data['producto'][3]}}" type="number" class="form-control" name="nuevoPrecio" id="nuevoPrecio" placeholder="Ingresar el precio del producto">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="nuevoModelo">Nuevo modelo del producto</label>
-                        <input value="{{data['producto'][4]}}" type="text" class="form-control" name="nuevoModelo" id="nuevoModelo" placeholder="Ingresar el modelo del producto">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nuevoModelo">Nuevo modelo del producto</label>
+                                <input value="{{data['producto'][4]}}" type="text" class="form-control" name="nuevoModelo" id="nuevoModelo" placeholder="Ingresar el modelo del producto">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nuevaGarantia">Nueva garantía del producto</label>
+                                <input value="{{data['producto'][5]}}" type="number" class="form-control" name="nuevaGarantia" id="nuevaGarantia" placeholder="Ingresar la garantía en meses">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="nuevaGarantia">Nueva garantía del producto</label>
-                        <input value="{{data['producto'][5]}}" type="number" class="form-control" name="nuevaGarantia" id="nuevaGarantia" placeholder="Ingresar la garantía en meses">
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="contactoNuevo">Marca</label>
-                        <select name="nuevaMarca" class="custom-select">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="contactoNuevo">Marca</label>
+                                <select name="nuevaMarca" class="custom-select">
                             {% for e in data['marca'] %}
                                 {% if data['producto'][6] == e[1] %}
                                     <option selected value="{{e[0]}}">{{e[1]}}</option>
@@ -68,13 +72,13 @@
                                 {% endif %}
                             {% endfor %}
                         </select>
-                    </div>
-                </div>
+                            </div>
+                        </div>
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="contactoNuevo">Tipo de Producto</label>
-                        <select name="nuevoTipoProducto" class="custom-select">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="contactoNuevo">Tipo de Producto</label>
+                                <select name="nuevoTipoProducto" class="custom-select">
                             {% for e in data['tipo_producto'] %}
                                 {% if data['producto'][7] == e[1] %}
                                     <option selected value="{{e[0]}}">{{e[1]}}</option>
@@ -83,17 +87,16 @@
                                 {% endif %}
                             {% endfor %}
                         </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                    <a class="btn btn-danger" href="/" role="button">Cancelar</a>
+                </form>
             </div>
-
-
-            <button type="submit" class="btn btn-primary">Aceptar</button>
-            <a class="btn btn-danger" href="/" role="button">Cancelar</a>
-        </form>
-
-
+        </div>
     </div>
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>
