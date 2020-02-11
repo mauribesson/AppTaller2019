@@ -104,7 +104,7 @@ class Producto:
                                         "garantia" = '{}', 
                                         "tipoProducto" = '{}', 
                                         "marca" = '{}'
-                                        WHERE "nombre" = '{}';
+                                        WHERE "id" = {};
                                 '''.format(
                                         pNuevoNombre,
                                         pNuevaDescripcion,
@@ -113,7 +113,7 @@ class Producto:
                                         pNuevaGarantia,
                                         pNuevoTipoProducto,
                                         pNuevaMarca,
-                                        self.__nombre))
+                                        int(self.__id)))
         return data
 
     def consultar_producto(self):
@@ -163,3 +163,9 @@ class Producto:
                                 })
         
         return nueva_lista
+
+    def consultar_producto_por_id(self):
+        data = db.querySelect('''
+            SELECT * FROM "vista_productos" WHERE "id" = {};
+        '''.format(int(self.__id)))
+        return data[0]

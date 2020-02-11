@@ -307,11 +307,9 @@ def guardarMarca():
     data = []
     if request.method == 'POST':
         nombre = request.form['nombre']
-
         marca = Marca()
         marca.set_nombre(nombre)
         verificador = marca.verificar_unica_marca() 
-
         if verificador == []: 
             marca.alta_marca()   
             data = "alta"
@@ -408,13 +406,11 @@ def guardarProducto():
         verificador = producto.verificar_unico_producto()
  
         if verificador == []:
-            data = producto.alta_producto()          
-    return render_template('producto/productoGuardado.html', data=data, verificador=verificador)  
-'''
-@app.route('/bajaProducto') 
-def bajaProducto():
-    return render_template('producto/bajaProducto.html')  
-'''
+            data = producto.alta_producto()
+            data="alta"
+        else:
+            data="ya_existe"
+    return render_template('producto/productoABMC.html', data=data)  
 
 @app.route('/eliminarProducto')
 @app.route('/eliminarProducto/<int:id>')
@@ -426,13 +422,23 @@ def eliminarProducto(id=None):
     return render_template('producto/productoABMC.html', data=data)    
 
 @app.route('/modificarProducto') 
-def modificarProducto():
-    return render_template('producto/modificarProducto.html')  
+@app.route('/modificarProducto/<int:id>') 
+def modificarProducto(id=None):
+    data = {}
+    producto = Producto()
+    producto.set_id(id)
+    data['producto'] = producto.consultar_producto_por_id()
+    tipo_prod = TipoProducto()
+    data['tipo_producto'] = tipo_prod.consultar_tipo_producto()
+    marca = Marca()
+    data['marca'] = marca.listar_marca()
+
+    return render_template('producto/modificarProducto.html', data=data)  
 
 @app.route('/editarProducto', methods=["POST"])
 def editarProducto():
     if request.method == 'POST':
-        nombre = request.form['nombre']
+        idProd = request.form['idProd']
         nuevoNombre = request.form['nuevoNombre']
         nuevaDescripcion = request.form['nuevaDescripcion']
         nuevoPrecio = request.form['nuevoPrecio']
@@ -442,7 +448,7 @@ def editarProducto():
         nuevaMarca = request.form['nuevaMarca']
         
         producto = Producto()
-        producto.set_nombre(nombre)  
+        producto.set_id(idProd)
         data = producto.modificar_producto(nuevoNombre, 
                                             nuevaDescripcion,
                                             nuevoPrecio,
@@ -451,16 +457,17 @@ def editarProducto():
                                             nuevoTipoProducto,
                                             nuevaMarca)     
     return render_template('producto/productoModificado.html', data=data)
-
+'''
 @app.route('/listarProducto')
 def listarProducto():
     data = []
     producto = Producto()
     data = producto.consultar_producto() 
     return render_template('producto/listadoProducto.html', data=data)
-
-
-#====EJEMPLAR
+'''
+#==================
+# ABMC EJEMPLAR
+#==================
 @app.route('/altaEjemplar')
 def altaEjemplar():
      return render_template('ejemplar/altaEjemplar.html') 
