@@ -106,6 +106,7 @@ def verRol(id):
     rol.set_id(id)
     data = rol.consultar_rol_por_id()
     return render_template('rol/listadoRol.html', data=data)
+    
 #===========FIN ROL
 
 
