@@ -94,6 +94,13 @@ class Combo:
                 self.__id))
         return data
 
+    def consultar_precio_combo(self):
+        data = db.querySelect('''
+                SELECT "total" FROM "combo" WHERE "id" = '{}';
+            '''.format(
+                self.__id))
+        return data
+
     def listar_combos(self):
         data = db.querySelect('''
                 SELECT * FROM "combo";
@@ -151,6 +158,17 @@ class Combo:
                 id))
         return data
 
+    def cambiar_total(self, nuevoTotal):
+        data = db.queryInsert('''
+               UPDATE "combo"
+	                SET "total" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(
+                nuevoTotal, 
+                self.__id))
+        return data
+
+
     def aplicarDescuento(self, idCombo, totalConDesc,descuento):
         data = db.queryInsert('''
             UPDATE "combo"
@@ -162,3 +180,4 @@ class Combo:
                 descuento,
                 idCombo))
         return data
+

@@ -751,35 +751,6 @@ def guardarEjemplar_combo():
             '''.format(idCombo, numeroSerie)) 
     return render_template('index.html')   
 
-
-###No se implementa
-""" @app.route('/bajaEjemplar_combo') 
-def bajaEjemplar_combo():
-    return render_template('ejemplar_combo/bajaEjemplar_combo.html')  """
-
-###Se modifica
-"""@app.route('/eliminarEjemplar_combo', methods=["POST"])
-def eliminarEjemplar_combo():
-    data = []
-    if request.method == 'POST':
-        idCombo = request.form['idCombo']
-        numeroSerie = request.form['numeroSerie']
-        data = db.queryInsert('''
-               DELETE FROM "ejemplar_combo" WHERE "idCombo" = '{}' AND "numeroSerie" = '{}'; 
-            '''.format(idCombo, numeroSerie))  
-    return render_template('index.html') """
-
-@app.route('/eliminarEjemplar_combo')
-@app.route('/eliminarEjemplar_combo/<int:numeroSerie>/<int:idCombo>')
-def eliminarEjemplar_combo(numeroSerie, idCombo):
-    idCombo = idCombo
-    numeroSerie = numeroSerie
-    data = db.queryInsert('''
-        DELETE FROM "ejemplar_combo" WHERE "idCombo" = '{}' AND "numeroSerie" = '{}'; 
-        '''.format(idCombo, numeroSerie)) 
-    marcador = "eliminado"
-    return marcador
-
 @app.route('/modificarEjemplar_combo') 
 def modificarEjemplar_combo():
     return render_template('ejemplar_combo/modificarEjemplar_combo.html')  
@@ -804,7 +775,30 @@ def listarEjemplar_combo():
     data = db.querySelect('''
                 SELECT * FROM "ejemplar_combo";
             ''')
-    return render_template('ejemplar_combo/listadoEjemplar_combo.html', data=data)   
+    return render_template('ejemplar_combo/listadoEjemplar_combo.html', data=data) 
+
+
+@app.route('/eliminarEjemplar_combo')
+@app.route('/eliminarEjemplar_combo/<string:numeroSerie>/<int:idCombo>')
+def eliminarEjemplar_combo(numeroSerie, idCombo):
+    combo = Combo()
+    combo.set_id(idCombo)
+    total = combo.consultar_precio_combo()
+    total = total[0][0]
+    ejemplar = Ejemplar()
+    ejemplar.set_numero_serie(numeroSerie)
+    precioDelProducto = ejemplar.precioDelEjemplar()
+    precioDelProducto = precioDelProducto[0][0]
+    nuevoTotal = (int(total) - int(precioDelProducto))
+    print(nuevoTotal)
+    combo.cambiar_total(nuevoTotal)
+
+    ejemplar_combo = Ejemplar_combo()
+    ejemplar_combo.set_idCombo(idCombo)
+    ejemplar_combo.set_numero_serie(numeroSerie)
+    ejemplar_combo.baja_ejemplar_combo()
+    marcador = "eliminado"
+    return marcador  
     
 
 

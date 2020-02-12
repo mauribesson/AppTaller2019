@@ -101,7 +101,7 @@
                     {%endif%}
                     <div class="row">
                         <div class="col-12 p-2">
-                            <table id="tablaProductosCombo" data-classes="table table-bordered table-hover table-striped shadow" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500">
+                            <table id="tablaProductosCombo" data-classes="table table-bordered table-hover table-striped shadow" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="false" data-show-columns="false" data-pagination="true" data-height="500">
                             </table>
                         </div>
                     </div>
@@ -137,12 +137,10 @@
             //valign: 'middle',
             clickToSelect: false,
             formatter: function(value, row, index) {
-                /* var idCombo="{{id}}";
+                var urlEliminar = '{{ url_for("eliminarEjemplar_combo") }}';
                 var html = '';
-                println(urlEliminar);
-                println(html);
                 html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.numeroSerie + '/' + idCombo + '><i class="fas fa-trash"></i></a>';
-                return html; */
+                return html; 
             }
         }]
 

@@ -86,3 +86,12 @@ class Ejemplar:
             SELECT * FROM public.vista_ejemplares;
             ''')
         return data
+
+    def precioDelEjemplar(self):
+        data = db.querySelect('''
+                SELECT precio FROM "vista_ejemplar_combo" where "numeroSerie" = '{}';
+                '''.format(
+                    self.__numeroSerie))        
+        return data
+
+

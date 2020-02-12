@@ -36,8 +36,10 @@ class Ejemplar_combo:
 
     def baja_ejemplar_combo(self):
         data = db.queryInsert('''
-               DELETE FROM "ejemplar_combo" WHERE "numeroSerie" = '{}'; 
-            '''.format(self.__numeroSerie))
+               DELETE FROM "ejemplar_combo" WHERE "numeroSerie" = '{}' AND "idCombo" = {}; 
+            '''.format(
+                self.__numeroSerie,
+                self.__idCombo))
         return data
 
     def modificar_ejemplar_combo(self, pNuevoNumeroSerie):
