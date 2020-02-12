@@ -87,6 +87,7 @@ class Ejemplar:
             ''')
         return data
 
+<<<<<<< HEAD
     def precioDelEjemplar(self):
         data = db.querySelect('''
                 SELECT precio FROM "vista_ejemplar_combo" where "numeroSerie" = '{}';
@@ -95,3 +96,16 @@ class Ejemplar:
         return data
 
 
+=======
+
+    def formato_datos_tabla(self):
+        ListaEjemplar= self.consultar_vista_ejemplares()
+        nueva_lista = []
+
+        for e in ListaEjemplar:
+            nueva_lista.append({'serie':e[0], 
+                                'producto':e[2],
+                                'vendido':e[1]})
+        
+        return nueva_lista
+>>>>>>> 5f3591c8db9b229e3231aed8543a33c76dbdc55c

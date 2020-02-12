@@ -3,12 +3,159 @@
 {% include 'header/header.html' %}
 
 <body>
-    <ul>
-        {% for e in data %}
-        <li>Nro serie: {{ e[0] }}</li>
-        {% endfor %}
-    </ul>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar.html' %}
+            <div class="container-fluid">
+                {% if data == "eliminado" %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="m-2 alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Ejemplar Eliminado!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+                {%endif%} {% if data == "alta" %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="m-2 alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Ejemplar Dado de Alta!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+                {%endif%} {% if data == "ya_existe" %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="m-2 alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>La Ejemplar Ya Existe!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+                {%endif%} {% if data == "modificado" %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="m-2 alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Ejemplar Modificado!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+                {%endif%} {% if data == "no_modificado" %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="m-2 alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Ejemplar No Modificado!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+                {%endif%}
+
+                <div class="row">
+                    <div class="col-lg-12 p-2">
+
+                        <h1 class="display-5">Ejemplar</h1>
+                        <hr class="my-4">
+                        <!--
+                            <a class="nuevo-abmc btn btn-success" href="{{ url_for('altaEjemplar') }}"><i class="far fa-plus-square"></i> Nuevo</a>
+                        -->
+                        <table id="tablaEjemplar" data-classes="table table-bordered table-hover  table-striped" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500">
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    {% include 'footer/footer.html' %}
 
 </body>
+<script>
+    $('document').ready(function() {
+        var columns = [{
+                field: "serie",
+                title: "Nro Serie",
+                sortable: true,
+                width: "20"
+            }, {
+                field: "producto",
+                title: "Ejemplar",
+                sortable: true,
+                width: "30"
+            }, {
+                field: "vendido",
+                title: "Vendido",
+                sortable: true,
+                width: "30"
+            },
+
+            {
+                field: 'operate',
+                title: 'Acciones',
+                width: "50",
+                // align: 'center',
+                //valign: 'middle',
+                clickToSelect: false,
+                formatter: function(value, row, index) {
+                    var urlModificar = "{{ url_for('modificarEjemplar') }}"; //jinja Template
+                    var urlEliminar = '{{ url_for("eliminarEjemplar") }}'; //jinja Template
+
+
+
+                    var html = '';
+                    //html += '<a id="verRol' + row.nombre + '" class="btn btn-info m-2"><i class="fas fa-eye"></i></a>';
+                    html += '<a class="btn btn-primary m-2" href=' + urlModificar + '/' + row.id + '><i class="fas fa-edit"></i></a>';
+                    html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.id + '><i class="fas fa-trash"></i></a>';
+
+
+                    return html;
+                }
+            }
+        ]
+
+        $('#tablaEjemplar').bootstrapTable({
+            url: "{{ url_for('ejemplar_data_table') }}", //Obrtine los datos desde el backend, formato json 
+            columns: columns,
+            locale: "es-ES",
+            showRefresh: false,
+        });
+
+
+        $('#verRol1').click(function(e) {
+            $('#myModal').modal('toggle');
+        });
+
+        $('.eliminar').click(function(e) {
+            alert()
+            var r = confirm("¿Desea eliminar el Rol?");
+
+            if (r == true) {
+                location.href('/eliminarRol/' + id)
+            } else {
+                e.preventDefault();
+            }
+        });
+
+
+
+    });
+</script>
 
 </html>
