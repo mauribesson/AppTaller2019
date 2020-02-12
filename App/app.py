@@ -106,7 +106,7 @@ def verRol(id):
     rol.set_id(id)
     data = rol.consultar_rol_por_id()
     return render_template('rol/listadoRol.html', data=data)
-    
+
 #===========FIN ROL
 
 
@@ -471,7 +471,9 @@ def listarProducto():
 #==================
 @app.route('/altaEjemplar')
 def altaEjemplar():
-     return render_template('ejemplar/altaEjemplar.html') 
+    prod = Producto()
+    data = prod.listar_productos()
+    return render_template('ejemplar/altaEjemplar.html', data=data) 
 
 @app.route('/guardarEjemplar', methods=["POST"])
 def guardarEjemplar():
@@ -736,6 +738,11 @@ def editarCombo():
         data = combo.modificar_combo(nombreNuevo)     
     return render_template('combo/comboModificado.html', data=data)
 
+@app.route('/ejemplar_data_table')
+def ejemplar_data_table():
+    ejemplar = Ejemplar()
+    data = ejemplar.formato_datos_tabla()
+    return jsonify(data)
 
 @app.route('/listarCombo')
 def listarCombo():

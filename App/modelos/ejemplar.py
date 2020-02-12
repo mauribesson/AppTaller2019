@@ -86,3 +86,15 @@ class Ejemplar:
             SELECT * FROM public.vista_ejemplares;
             ''')
         return data
+
+
+    def formato_datos_tabla(self):
+        ListaEjemplar= self.consultar_vista_ejemplares()
+        nueva_lista = []
+
+        for e in ListaEjemplar:
+            nueva_lista.append({'serie':e[0], 
+                                'producto':e[2],
+                                'vendido':e[1]})
+        
+        return nueva_lista

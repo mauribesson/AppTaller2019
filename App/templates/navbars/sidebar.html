@@ -9,10 +9,26 @@
         <a href="{{ url_for('marcaABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-copyright"></i> Marca <i class="fas fa-angle-right"></i></a>
         <a href="{{ url_for('productoABMC') }}" class="list-group-item list-group-item-action bg-light"> <i class="fab fa-product-hunt"></i> Producto <i class="fas fa-angle-right"></i></a>
         <!--<a href="#" class="list-group-item list-group-item-action bg-light">----</a>-->
+        <!--<li class="nav-item dropdown">-->
+        <a class="list-group-item list-group-item-action bg-light  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-angle-right"></i> Ejemplar ABMC
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ url_for('altaEjemplar') }}">Alta</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ url_for('bajaEjemplar') }}">Baja</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ url_for('modificarEjemplar') }}">Modificaión</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ url_for('listarEjemplar') }}">Consulta(Lista)</a>
+        </div>
+        <!--</li>-->
         <a href="{{ url_for('comboABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-layer-group"></i> Combos <i class="fas fa-angle-right"></i></a>
+
+        <a href="#" class="list-group-item list-group-item-action bg-light"></a>
+        <!--<a href="#" class="list-group-item list-group-item-action bg-light">----</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">----</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">----</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">----</a>
+        -->
     </div>
 </div>
 <!-- /#sidebar-wrapper -->
