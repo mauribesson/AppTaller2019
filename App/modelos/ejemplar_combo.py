@@ -58,3 +58,10 @@ class Ejemplar_combo:
                 WHERE "idCombo" = '{}';
             '''.format(id_Combo))
         return data
+
+    def eliminar_ejemplares_combo(self):
+        data = db.queryInsert('''
+               DELETE FROM "ejemplar_combo" WHERE "idCombo" = {}; 
+            '''.format(
+                self.__idCombo))
+        return data

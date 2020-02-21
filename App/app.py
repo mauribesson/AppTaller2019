@@ -711,6 +711,9 @@ def bajaCombo():
 @app.route('/eliminarCombo')
 @app.route('/eliminarCombo/<int:id_combo>')
 def eliminarCombo(id_combo=None):
+    ejemplar_combo = Ejemplar_combo()
+    ejemplar_combo.set_idCombo(id_combo)
+    ejemplar_combo.eliminar_ejemplares_combo()
     combo =  Combo()
     combo.set_id(id_combo)
     combo.baja_combo()
@@ -806,15 +809,39 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
     precioDelProducto = ejemplar.precioDelEjemplar()
     precioDelProducto = precioDelProducto[0][0]
     nuevoTotal = (int(total) - int(precioDelProducto))
-    print(nuevoTotal)
     combo.cambiar_total(nuevoTotal)
 
     ejemplar_combo = Ejemplar_combo()
     ejemplar_combo.set_idCombo(idCombo)
     ejemplar_combo.set_numero_serie(numeroSerie)
     ejemplar_combo.baja_ejemplar_combo()
-    marcador = "eliminado"
-    return marcador  
+
+    nuevoTotal = float(nuevoTotal)   
+    desc = combo.consultar_descuento_combo()
+    desc = float(desc[0][0])
+    importeDescuento = ((nuevoTotal * desc)/100)
+    totalConDesc = nuevoTotal - importeDescuento
+    print(nuevoTotal)
+    print(desc)
+    print(totalConDesc)
+    combo.actualizarDescuento(totalConDesc)
+
+    data = combo.consultar_combo_por_id()
+    dato = {}
+    dato['nombreCombo'] = data[0][1]
+    dato['idCombo'] = data[0][0]
+    dato['descuento']  = data[0][3] 
+    dato['total']  = data[0][2]
+    dato['totalConDescuento']  = data[0][4]
+    id=data[0][0]
+
+    producto = Producto()
+    producto.listar_productos()
+
+    dato['productos'] = producto.listar_productos()
+
+    return render_template('combo/cargarProductosAlCombo.html', dato=dato, id=id)
+    
     
 
 
