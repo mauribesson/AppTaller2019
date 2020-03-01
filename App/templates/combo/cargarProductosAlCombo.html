@@ -5,6 +5,9 @@
 <body>
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar.html' %}
             <div class="container p-2">
                 <center>
                     <h2>{{dato['nombreCombo']}}</h2>
@@ -29,16 +32,16 @@
                                 <div class="form-group">
                                     <input value="{{dato['totalConDescuento']}}" type="hidden" class="form-control" name="totalConDescuento" id="dtotalConDescuento" placeholder="Total con Descuento">
                                 </div>
-                                    <div class="form-group">
-                                        <label for="nuevoProducto">Agregar producto</label>
-                                        <select name="producto" class="custom-select">
+                                <div class="form-group">
+                                    <label for="nuevoProducto">Agregar producto</label>
+                                    <select name="producto" class="custom-select">
                                             {% for e in dato['productos'] %}   
                                                 <option value="{{e[0]}}">{{e[1]}}</option>
                                             {% endfor %}
                                         </select>
-                                    </div>
-                                        <button type="submit" class="btn btn-primary">Agregar</button>
-                                        <!-- <a class="btn btn-danger" href="/" role="button">Volver</a> -->
+                                </div>
+                                <button type="submit" class="btn btn-primary">Agregar</button>
+                                <!-- <a class="btn btn-danger" href="/" role="button">Volver</a> -->
                             </form>
                         </div>
 
@@ -66,7 +69,7 @@
                     </div>
 
 
-                <div>
+                    <div>
                         <h4>Detalle del combo</h4>
                         <div class="form-group">
                             <label for="idCombo">Id del combo: {{id}}</label>
@@ -84,31 +87,33 @@
                             <label for="total">Total con descuento: ${{dato['totalConDescuento']}}</label>
                             <input readonly value="{{dato['totalConDescuento']}}" type="hidden" class="form-control" name="totalConDescuento" id="totalConDescuento" placeholder="Total con Descuento">
                         </div>
-                </div>
-                
-                <div class="container-fluid">
-                    {% if marcador == "eliminado" %}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="m-2 alert alert-success alert-dismissible fade show" role="alert">
+                    </div>
+
+                    <div class="container-fluid">
+                        {% if marcador == "eliminado" %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="m-2 alert alert-success alert-dismissible fade show" role="alert">
                                     <strong>Ejemplar eliminado!</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
+                                </div>
+                            </div>
+                        </div>
+                        {%endif%}
+                        <div class="row">
+                            <div class="col-12 p-2">
+                                <table id="tablaProductosCombo" data-classes="table table-bordered table-hover table-striped shadow" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="false" data-show-columns="false" data-pagination="true" data-height="500">
+                                </table>
                             </div>
                         </div>
                     </div>
-                    {%endif%}
-                    <div class="row">
-                        <div class="col-12 p-2">
-                            <table id="tablaProductosCombo" data-classes="table table-bordered table-hover table-striped shadow" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="false" data-show-columns="false" data-pagination="true" data-height="500">
-                            </table>
-                        </div>
-                    </div>
-                </div>
                 </center>
             </div>
-    </div> 
+        </div>
+    </div>
+    {% include 'footer/footer.html' %}
 </body>
 
 
@@ -129,7 +134,7 @@
             title: "Precio",
             sortable: true,
             width: "10"
-        },{
+        }, {
             field: 'operate',
             title: 'Acciones',
             width: "10",
@@ -140,14 +145,14 @@
                 var urlEliminar = '{{ url_for("eliminarEjemplar_combo") }}';
                 var html = '';
                 html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.numeroSerie + '/' + idCombo + '><i class="fas fa-trash"></i></a>';
-                return html; 
+                return html;
             }
         }]
 
-        var idCombo="{{id}}";
+        var idCombo = "{{id}}";
 
         $('#tablaProductosCombo').bootstrapTable({
-            url: "{{ url_for('productos_combo_data_table') }}/"+idCombo, //Obtiene los datos desde el backend, formato json 
+            url: "{{ url_for('productos_combo_data_table') }}/" + idCombo, //Obtiene los datos desde el backend, formato json 
             columns: columns,
             locale: "es-ES",
             showRefresh: false,
@@ -163,11 +168,12 @@
             var r = confirm("¿Desea quitar este producto del combo?");
 
             if (r == true) {
-                location.href('/eliminarEjemplar_combo/' + numeroSerie +'/' + idCombo)
+                location.href('/eliminarEjemplar_combo/' + numeroSerie + '/' + idCombo)
             } else {
                 e.preventDefault();
             }
         });
     });
-</script>  
+</script>
+
 </html>
