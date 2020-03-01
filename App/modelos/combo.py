@@ -180,4 +180,21 @@ class Combo:
                 descuento,
                 idCombo))
         return data
+    
+    def consultar_descuento_combo(self):
+        data = db.querySelect('''
+                SELECT "descuento" FROM "combo" WHERE "id" = '{}';
+            '''.format(
+                self.__id))
+        return data
+
+    def actualizarDescuento(self, totalConDesc):
+        data = db.queryInsert('''
+            UPDATE "combo"
+                SET "totalConDescuento" = '{}'
+                WHERE "id" = '{}';
+            '''.format(
+                totalConDesc,
+                self.__id))
+        return data
 
