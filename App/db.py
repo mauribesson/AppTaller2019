@@ -40,3 +40,6 @@ class Database:
         self.cursor.close()
         self.connect.close()
         return result
+
+    def manejar_error():
+        pass    
