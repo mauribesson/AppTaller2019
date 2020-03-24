@@ -381,6 +381,26 @@ def listarMarca():
     return render_template('marca/listadoMarca.html', data=data)
 
 
+@app.route('/listadoMarcas') #### Busqueda de productos por marca
+def listadoMarcas():
+    marca = Marca()
+    data = marca.listar_marca()
+    return render_template('marca/listadoMarca.html', data=data)
+
+
+@app.route('/productosPorMarca', methods=["POST"])
+def productosPorMarca():
+    if request.method == 'POST':
+        marca = request.form['marca']
+    data = {}
+    producto = Producto()
+    data['productos'] = producto.consultar_producto_por_marca(marca)
+    cant = producto.obtener_cantidad_productos()
+    for e in cant:
+        cantidad = e[0]
+    cantidad=int(cantidad)
+    return render_template('producto/productos.html', data=data, cantidad=cantidad)
+
 
 
 #==================
