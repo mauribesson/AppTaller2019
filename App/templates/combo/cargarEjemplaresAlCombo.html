@@ -11,49 +11,49 @@
             {% include 'navbars/navbar.html' %}
             <div class="container p-2">
                 <center>
-                <h2>{{data['nombreCombo']}}</h2>
-                <form action="cargarEjemplaresAlCombo" method="POST">
-                    <div class="form-group">
-                        <input readonly value="{{data['nombreCombo']}}" type="hidden" class="form-control" name="nombreCombo" id="nombreCombo" placeholder="Nombre del combo">
-                    </div>
-                    <div class="form-group">
-                        <label for="idCombo">Id del combo:{{data['idCombo']}}</label>
-                        <input readonly value="{{data['idCombo']}}" type="hidden" class="form-control" name="idCombo" id="idCombo" placeholder="Id del combo">
-                    </div>
-                    <div class="form-group">
-                        <label for="total">Precio total: {{data['total']}}</label>
-                        <input readonly value="{{data['total']}}" type="hidden" class="form-control" name="total" id="total" placeholder="Total">
-                    </div>
-                    <div class="form-group">
-                        <label for="total">Porcentaje de descuento aplicado: {{data['descuento']}}%</label>
-                        <input readonly value="{{data['descuento']}}" type="hidden" class="form-control" name="descuento" id="descuento" placeholder="Descuento">
-                    </div>
-                    <div class="form-group">
-                        <input value="{{data['totalConDescuento']}}" type="hidden" class="form-control" name="totalConDescuento" id="dtotalConDescuento" placeholder="Total con Descuento">
-                    </div>
+                    <h2>{{data['nombreCombo']}}</h2>
+                    <form action="cargarEjemplaresAlCombo" method="POST">
+                        <div class="form-group">
+                            <input readonly value="{{data['nombreCombo']}}" type="hidden" class="form-control" name="nombreCombo" id="nombreCombo" placeholder="Nombre del combo">
+                        </div>
+                        <div class="form-group">
+                            <label for="idCombo">Id del combo:{{data['idCombo']}}</label>
+                            <input readonly value="{{data['idCombo']}}" type="hidden" class="form-control" name="idCombo" id="idCombo" placeholder="Id del combo">
+                        </div>
+                        <div class="form-group">
+                            <label for="total">Precio total: {{data['total']}}</label>
+                            <input readonly value="{{data['total']}}" type="hidden" class="form-control" name="total" id="total" placeholder="Total">
+                        </div>
+                        <div class="form-group">
+                            <label for="total">Porcentaje de descuento aplicado: {{data['descuento']}}%</label>
+                            <input readonly value="{{data['descuento']}}" type="hidden" class="form-control" name="descuento" id="descuento" placeholder="Descuento">
+                        </div>
+                        <div class="form-group">
+                            <input value="{{data['totalConDescuento']}}" type="hidden" class="form-control" name="totalConDescuento" id="dtotalConDescuento" placeholder="Total con Descuento">
+                        </div>
                 </center>
-                    <div class="form-group">
-                        <label for="idProducto">Id del producto</label>
-                        <input readonly value="{{data['producto']}}" type="text" class="form-control" name="idProducto" id="idProducto" placeholder="Id del producto">
-                    </div>
-                    <div class="form-group">
-                        <label for="nuevoEjemplar">Agregar ejemplar</label>
-                        <select name="ejemplar" class="custom-select">
+                <div class="form-group">
+                    <label for="idProducto">Id del producto</label>
+                    <input readonly value="{{data['producto']}}" type="text" class="form-control" name="idProducto" id="idProducto" placeholder="Id del producto">
+                </div>
+                <div class="form-group">
+                    <label for="nuevoEjemplar">Agregar ejemplar</label>
+                    <select name="ejemplar" class="custom-select">
                             {% for e in data['ejemplares'] %}  
                                 {% if e[1] == false %}  
                                     <option value="{{e[0]}}">{{e[0]}}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Aceptar</button>
-                    <a class="btn btn-danger" href="/" role="button">Cancelar</a>
+                </div>
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+                <a class="btn btn-danger" href="/" role="button">Cancelar</a>
                 </form>
             </div>
-            {% include 'footer/footer.html' %}
+
         </div>
     </div>
-
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>

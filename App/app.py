@@ -491,9 +491,12 @@ def verProducto(id=None):
 # ABMC EJEMPLAR
 #==================
 @app.route('/altaEjemplar')
-def altaEjemplar():
+@app.route('/altaEjemplar/<int:id_prod>')
+def altaEjemplar(id_prod=None):
+    data = {}
     prod = Producto()
-    data = prod.listar_productos()
+    data['lista_productos'] = prod.listar_productos()
+    data['id_prod'] = id_prod
     return render_template('ejemplar/altaEjemplar.html', data=data) 
 
 @app.route('/guardarEjemplar', methods=["POST"])
@@ -1109,6 +1112,28 @@ def mostrarPago():
 
 
 
+#========================== LOGIN  ===================================#
+#PENDINTE --> Eliminar funcionalidad 
+@app.route('/login_google') 
+def  login_google():
+    return render_template('login/google_login.html')
+
+@app.route('/login_firebase')
+def  login_firebase():
+    return render_template('login/login_firebase.html')
+
+#========================== Fin LOGIN  ===================================#
+
+#========================== CLIENTE ===================================#
+@app.route('/cliente')
+@app.route('/cliente/home')
+def cliente_home():
+    return render_template ('cliente/home.html')
+
+#========================== Fin CLIENTE ===============================#
+
+
 #Inicio de aplicacion
 if __name__ == '__main__':
     app.run(debug=True)
+    #app.run(ssl_context='adhoc', debug=True)

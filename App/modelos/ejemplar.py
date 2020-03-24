@@ -94,8 +94,6 @@ class Ejemplar:
                     self.__numeroSerie))        
         return data
 
-
-
     def formato_datos_tabla(self):
         ListaEjemplar= self.consultar_vista_ejemplares()
         nueva_lista = []

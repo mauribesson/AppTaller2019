@@ -6,7 +6,7 @@ class Database:
         self.port = "5432" 
         self.database = "AppTaller2019" 
         self.user = "postgres" 
-        self.password = "admin"
+        self.password = "12345678"
         pass
 
     def querySelect(self, query=""):  
@@ -40,3 +40,6 @@ class Database:
         self.cursor.close()
         self.connect.close()
         return result
+
+    def manejar_error():
+        pass    

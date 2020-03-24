@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+{% include 'header/header.html' %}
+
+<body>
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+
+    <button class="btn btn-primary" id="loginFacebook"> <i class="fab fa-facebook-square"></i> Facebook</button>
+
+    <button class="btn btn-primary" id="loginGoogle"> <i class="fab fa-google"></i> Google</button>
+    <!--Salir-->
+    <button class="btn btn-danger" id="singOut"> <i class="fas fa-sign-out-alt"></i> Salir </button>
+
+    <button class="btn btn-secondary" id="stausUser"> Estado </button>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        $(document).ready(function() {
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyBHoVNC2ji7XihvnD22q9SysNl9OGlDapc",
+                authDomain: "apptaller2019.firebaseapp.com",
+                databaseURL: "https://apptaller2019.firebaseio.com",
+                projectId: "apptaller2019",
+                storageBucket: "apptaller2019.appspot.com",
+                messagingSenderId: "171601985099",
+                appId: "1:171601985099:web:fcba3f334a55c6bc6997ce"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+
+            var providerFB = new firebase.auth.FacebookAuthProvider();
+
+            var providerGoogle = new firebase.auth.GoogleAuthProvider();
+
+            $('#loginFacebook').click(function() {
+                //signInWithPopup
+                firebase.auth().signInWithRedirect(providerFB).then(function(result) {
+                    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                    var token = result.credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                    // ...
+                    console.log(result)
+                }).catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+
+                    console.log(errorCode, errorMessage);
+                });
+
+            });
+
+            $('#loginGoogle').click(function() {
+                //signInWithPopup
+                firebase.auth().signInWithPopup(providerGoogle).then(function(result) {
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    var token = result.credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                    // ...
+                    console.log(result);
+                }).catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                    Console.log(result)
+                });
+            });
+
+            $('#stausUser').click(function() {
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        console.log("logueado", user)
+                    } else {
+                        console.log("No logueado", user)
+                    }
+                });
+
+            });
+
+            $('#singOut').click(function() {
+                firebase.auth().signOut().then(function(result) {
+                    // Sign-out successful.
+                    console.log(result)
+                }).catch(function(error) {
+                    // An error happened.
+                    console.log(error)
+                });
+
+            });
+
+        }); //fin jQ.docuement.ready
+    </script>
+
+</body>
+
+</html>
