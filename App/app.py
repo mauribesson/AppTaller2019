@@ -284,8 +284,26 @@ def editarTipoProducto():
     return render_template('tipoProducto/tipoProductoABMC.html', data=data)
 
 
+@app.route('/listarTipoProducto') #### CATEGORIAS DE PRODUCTOS
+def listarTipoProducto():
+    tipo_producto = TipoProducto()
+    data = tipo_producto.consultar_tipo_producto()
+    return render_template('tipoProducto/listadoTipoProducto.html', data=data)
 
-    
+
+@app.route('/listarCategorias', methods=["POST"])
+def listarCategorias():
+    if request.method == 'POST':
+        tipoProducto = request.form['tipoProducto']
+    data = {}
+    producto = Producto()
+    data['productos'] = producto.consultar_producto_por_tipo(tipoProducto)
+    cant = producto.obtener_cantidad_productos()
+    for e in cant:
+        cantidad = e[0]
+    cantidad=int(cantidad)
+    return render_template('producto/productos.html', data=data, cantidad=cantidad)
+
 
 #====================
 # ABM Marca
