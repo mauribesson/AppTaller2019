@@ -21,6 +21,12 @@ def index():
     data = []
     return render_template('index.html', data=data)
 
+@app.route('/login')
+def login():
+    data = []
+    return render_template('login.html', data=data)
+
+
 #=========================ABMC===========================#
 
 #===========================
@@ -277,12 +283,9 @@ def editarTipoProducto():
 
     return render_template('tipoProducto/tipoProductoABMC.html', data=data)
 
-@app.route('/listarTipoProducto')
-def listarTipoProducto():
-    tipo_producto = TipoProducto()
-    data = tipo_producto.consultar_tipo_producto()
-    return render_template('tipoProducto/listadoTipoProducto.html', data=data)
 
+
+    
 
 #====================
 # ABM Marca
@@ -358,6 +361,9 @@ def listarMarca():
     marca = Marca()
     data = marca.consultar_marca()
     return render_template('marca/listadoMarca.html', data=data)
+
+
+
 
 #==================
 # ABMC PRODUCTO
@@ -458,14 +464,29 @@ def editarProducto():
                                             nuevoTipoProducto,
                                             nuevaMarca)     
     return render_template('producto/productoModificado.html', data=data)
-'''
-@app.route('/listarProducto')
-def listarProducto():
-    data = []
+
+
+@app.route('/listarProductos')
+def listarProductos():
+    data = {}
     producto = Producto()
-    data = producto.consultar_producto() 
-    return render_template('producto/listadoProducto.html', data=data)
-'''
+    data['productos'] = producto.listar_productos()
+    cant = producto.obtener_cantidad_productos()
+    for e in cant:
+        cantidad = e[0]
+    cantidad=int(cantidad)
+    return render_template('producto/productos.html', data=data, cantidad=cantidad)
+
+@app.route('/verProducto')
+@app.route('/verProducto/<int:id>')
+def verProducto(id=None):
+    data = {}
+    producto = Producto()
+    producto.set_id(id)
+    data = producto.consultar_producto_por_id()
+    return render_template('producto/verProducto.html', data = data)
+
+
 #==================
 # ABMC EJEMPLAR
 #==================
