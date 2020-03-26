@@ -673,6 +673,30 @@ def verCombo(id):
 
     return render_template('combo/cargarProductosAlCombo.html', dato=dato, id=id)
 
+
+@app.route('/mostrarComboAlUsuario')
+@app.route('/mostrarComboAlUsuario/<int:id>')
+def mostrarComboAlUsuario(id):
+    combo = Combo()
+    combo.set_id(id)
+    data = combo.consultar_combo_por_id()
+
+    dato = {}
+    dato['nombreCombo'] = data[0][1]
+    dato['idCombo'] = data[0][0]
+    dato['descuento']  = data[0][3] 
+    dato['total']  = data[0][2]
+    dato['totalConDescuento']  = data[0][4]
+    id=data[0][0]
+
+    producto = Producto()
+    producto.listar_productos()
+
+    dato['productos'] = producto.listar_productos()
+
+    return render_template('combo/mostrarComboAlUsuario.html', dato=dato, id=id)
+
+
 @app.route('/cargarProductos')
 @app.route('/cargarProductos', methods=["POST"])
 @app.route('/verCombo/cargarProductos', methods=["POST"])
@@ -812,7 +836,8 @@ def ejemplar_data_table():
 @app.route('/listarCombo')
 def listarCombo():
     combo = Combo()
-    data = combo.consultar_combo()
+    data = combo.listar_combos()
+    print(data)
     return render_template('combo/listadoCombo.html', data=data)
 
 

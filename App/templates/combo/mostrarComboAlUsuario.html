@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<style>
+    .btn-success{
+    font-size: 30px;
+    margin-right:5px;
+    margin-left:890px;
+    }
+</style>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar.html' %}
+            <div class="container p-2">
+                <table class="egt">
+                    <tr>                  
+                      <td><a class="btn btn-danger" href="/listarCombo" role="button">Volver</a></td>                  
+                      <td style=float:right><a href="{{ url_for('verProducto') }}" class="btn btn-success"><span class="fa fa-cart-plus"></span></a></td>                  
+                    </tr>
+                  </table>
+                <center>        
+                    <h2>{{dato['nombreCombo']}}</h2>
+                    <div class="form-group">
+                        <input readonly value="{{dato['nombreCombo']}}" type="hidden" class="form-control" name="nombreCombo" id="nombreCombo" placeholder="Nombre del combo">
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="total">Precio total: ${{dato['total']}}</label>
+                            <input readonly value="{{dato['total']}}" type="hidden" class="form-control" name="total" id="total" placeholder="Total">
+                        </div>
+                        <div class="form-group">
+                            <label for="total">Porcentaje de descuento aplicado: {{dato['descuento']}}%</label>
+                            <input readonly value="{{dato['descuento']}}" type="hidden" class="form-control" name="descuento" id="descuento" placeholder="Descuento">
+                        </div>
+                        <div class="form-group">
+                            <label for="total">Total con descuento: ${{dato['totalConDescuento']}}</label>
+                            <input readonly value="{{dato['totalConDescuento']}}" type="hidden" class="form-control" name="totalConDescuento" id="totalConDescuento" placeholder="Total con Descuento">
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        {% if marcador == "eliminado" %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="m-2 alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Ejemplar eliminado!</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                                </div>
+                            </div>
+                        </div>
+                        {%endif%}
+                        <div class="row">
+                            <div class="col-12 p-2">
+                                <table id="tablaProductosCombo" data-classes="table table-bordered table-hover table-striped shadow" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="false" data-show-columns="false" data-pagination="true" data-height="500">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </div>
+    {% include 'footer/footer.html' %}
+</body>
+
+
+<script>
+    $('document').ready(function() {
+        var columns = [{
+            field: "nombre",
+            title: "Nombre",
+            sortable: true,
+            width: "30"
+        }, {
+            field: "precio",
+            title: "Precio",
+            sortable: true,
+            width: "10"
+        }]
+
+        var idCombo = "{{id}}";
+
+        $('#tablaProductosCombo').bootstrapTable({
+            url: "{{ url_for('productos_combo_data_table') }}/" + idCombo, //Obtiene los datos desde el backend, formato json 
+            columns: columns,
+            locale: "es-ES",
+            showRefresh: false,
+        });
+
+
+        $('#verRol1').click(function(e) {
+            $('#myModal').modal('toggle');
+        });
+
+        $('.eliminar').click(function(e) {
+            alert()
+            var r = confirm("¿Desea quitar este producto del combo?");
+
+            if (r == true) {
+                location.href('/eliminarEjemplar_combo/' + numeroSerie + '/' + idCombo)
+            } else {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+</html>
