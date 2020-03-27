@@ -1193,6 +1193,11 @@ def  login_firebase():
 def cliente_home():
     return render_template ('cliente/home.html')
 
+
+@app.route('/preguntas_frecuentes')
+def preguntas_frecuentes():
+     return render_template('cliente/faq.html') 
+
 #========================== Fin CLIENTE ===============================#
 
 

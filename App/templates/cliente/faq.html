@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+    <head>
+        <title>Preguntas frecuentes</title>
+    </head>
+    <style>
+        details{
+        font-size: 18px;
+        border: 1px solid #DED3D0;
+        font-family: Arial;
+        margin-bottom:20px;
+        margin-top: 20px;
+        margin-left:5px;
+        width:100%;
+        }
+        p{
+        font-size: 14px;
+        color: #666;
+        margin-bottom:20px;
+        margin-top: 20px;
+        margin-left:5px;
+        }
+        h2{
+            font-family: Verdana, Arial;
+            text-align: center;
+            font-size: 38px;
+        }
+    </style>
+    <body>
+        <div class="d-flex" id="wrapper">
+            {% include 'navbars/sidebar_usuarios.html' %}
+    
+            <div id="page-content-wrapper">
+                {% include 'navbars/navbar.html' %}
+
+                <h2>Preguntas Frecuentes</h2>
+                
+                <details>
+                    <summary>¿Cuál son las formas de pago?</summary>
+                    <p>Los pagos se realizan por Mercado Pago, y a través de él puede abonar con cualquiera de sus formas de pago: tarjetas de crédito, tarjetas de débito, con efectivo en puntos de pago o con dinero en Mercado Pago. </p>
+                </details>
+
+                <details>
+                    <summary>¿Cómo se realizan los envíos?</summary>
+                    <p>Los envíos se realizan a través de Correo Argentino, OCA o Andreani.</p>
+                </details>
+
+                <details>
+                    <summary>¿Los productos tienen garantía?</summary>
+                    <p>¡Si! Cada producto tiene indicado su tiempo de garantía.</p>
+                </details>
+
+                <details>
+                    <summary>¿Se permite evoluciones?</summary>
+                    <p>Si, en caso de no estar conforme con el producto, comunicarse al correo ventas@gmail.com.</p>
+                </details>
+
+                <details>
+                    <summary>¿Que hago si el producto fue dañado en el transporte?</summary>
+                    <p>En ese caso debe escribirnos al correo ventas@gmailcom.</p>
+                </details>
+                
+            </div>
+        
+            </div>
+    </body>
+</html>
