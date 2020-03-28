@@ -1198,6 +1198,10 @@ def cliente_home():
 def preguntas_frecuentes():
      return render_template('cliente/faq.html') 
 
+@app.route('/contacto')
+def contacto():
+     return render_template('cliente/contacto.html')
+
 #========================== Fin CLIENTE ===============================#
 
 
