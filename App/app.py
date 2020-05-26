@@ -23,6 +23,12 @@ def index():
     data = []
     return render_template('index.html', data=data)
 
+@app.route('/login')
+def login():
+    data = []
+    return render_template('login.html', data=data)
+
+
 #=========================ABMC===========================#
 
 #===========================
@@ -279,11 +285,26 @@ def editarTipoProducto():
 
     return render_template('tipoProducto/tipoProductoABMC.html', data=data)
 
-@app.route('/listarTipoProducto')
+
+@app.route('/listarTipoProducto') #### CATEGORIAS DE PRODUCTOS
 def listarTipoProducto():
     tipo_producto = TipoProducto()
     data = tipo_producto.consultar_tipo_producto()
     return render_template('tipoProducto/listadoTipoProducto.html', data=data)
+
+
+@app.route('/listarCategorias', methods=["POST"])
+def listarCategorias():
+    if request.method == 'POST':
+        tipoProducto = request.form['tipoProducto']
+    data = {}
+    producto = Producto()
+    data['productos'] = producto.consultar_producto_por_tipo(tipoProducto)
+    cant = producto.obtener_cantidad_productos()
+    for e in cant:
+        cantidad = e[0]
+    cantidad=int(cantidad)
+    return render_template('producto/productos.html', data=data, cantidad=cantidad)
 
 
 #====================
@@ -360,6 +381,29 @@ def listarMarca():
     marca = Marca()
     data = marca.consultar_marca()
     return render_template('marca/listadoMarca.html', data=data)
+
+
+@app.route('/listadoMarcas') #### Busqueda de productos por marca
+def listadoMarcas():
+    marca = Marca()
+    data = marca.listar_marca()
+    return render_template('marca/listadoMarca.html', data=data)
+
+
+@app.route('/productosPorMarca', methods=["POST"])
+def productosPorMarca():
+    if request.method == 'POST':
+        marca = request.form['marca']
+    data = {}
+    producto = Producto()
+    data['productos'] = producto.consultar_producto_por_marca(marca)
+    cant = producto.obtener_cantidad_productos()
+    for e in cant:
+        cantidad = e[0]
+    cantidad=int(cantidad)
+    return render_template('producto/productos.html', data=data, cantidad=cantidad)
+
+
 
 #==================
 # ABMC PRODUCTO
@@ -460,14 +504,29 @@ def editarProducto():
                                             nuevoTipoProducto,
                                             nuevaMarca)     
     return render_template('producto/productoModificado.html', data=data)
-'''
-@app.route('/listarProducto')
-def listarProducto():
-    data = []
+
+
+@app.route('/listarProductos')
+def listarProductos():
+    data = {}
     producto = Producto()
-    data = producto.consultar_producto() 
-    return render_template('producto/listadoProducto.html', data=data)
-'''
+    data['productos'] = producto.listar_productos()
+    cant = producto.obtener_cantidad_productos()
+    for e in cant:
+        cantidad = e[0]
+    cantidad=int(cantidad)
+    return render_template('producto/productos.html', data=data, cantidad=cantidad)
+
+@app.route('/verProducto')
+@app.route('/verProducto/<int:id>')
+def verProducto(id=None):
+    data = {}
+    producto = Producto()
+    producto.set_id(id)
+    data = producto.consultar_producto_por_id()
+    return render_template('producto/verProducto.html', data = data)
+
+
 #==================
 # ABMC EJEMPLAR
 #==================
@@ -616,6 +675,30 @@ def verCombo(id):
 
     return render_template('combo/cargarProductosAlCombo.html', dato=dato, id=id)
 
+
+@app.route('/mostrarComboAlUsuario')
+@app.route('/mostrarComboAlUsuario/<int:id>')
+def mostrarComboAlUsuario(id):
+    combo = Combo()
+    combo.set_id(id)
+    data = combo.consultar_combo_por_id()
+
+    dato = {}
+    dato['nombreCombo'] = data[0][1]
+    dato['idCombo'] = data[0][0]
+    dato['descuento']  = data[0][3] 
+    dato['total']  = data[0][2]
+    dato['totalConDescuento']  = data[0][4]
+    id=data[0][0]
+
+    producto = Producto()
+    producto.listar_productos()
+
+    dato['productos'] = producto.listar_productos()
+
+    return render_template('combo/mostrarComboAlUsuario.html', dato=dato, id=id)
+
+
 @app.route('/cargarProductos')
 @app.route('/cargarProductos', methods=["POST"])
 @app.route('/verCombo/cargarProductos', methods=["POST"])
@@ -755,7 +838,8 @@ def ejemplar_data_table():
 @app.route('/listarCombo')
 def listarCombo():
     combo = Combo()
-    data = combo.consultar_combo()
+    data = combo.listar_combos()
+    print(data)
     return render_template('combo/listadoCombo.html', data=data)
 
 
@@ -1116,6 +1200,15 @@ def  login():
 @app.route('/cliente/home')
 def cliente_home():
     return render_template ('cliente/home.html')
+
+
+@app.route('/preguntas_frecuentes')
+def preguntas_frecuentes():
+     return render_template('cliente/faq.html') 
+
+@app.route('/contacto')
+def contacto():
+     return render_template('cliente/contacto.html')
 
 #========================== Fin CLIENTE ===============================#
 

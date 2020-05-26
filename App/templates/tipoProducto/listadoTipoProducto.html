@@ -2,13 +2,32 @@
 <html lang="en">
 {% include 'header/header.html' %}
 
-<body>
-    <ul>
-        {% for e in data %}
-        <li>{{ e[1] }}</li>
-        {% endfor %}
-    </ul>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
+<body>
+  <div class="d-flex" id="wrapper">
+      {% include 'navbars/sidebar_usuarios.html' %}
+
+      <div id="page-content-wrapper">
+          {% include 'navbars/navbar.html' %}
+
+          <div class="container-fluid">
+              <center><h2>Categorías de productos</h2></center>
+              <form action="listarCategorias" method="POST">
+                <div class="form-group">
+                  <label for="tipoProducto"> Seleccione una categoría</label>
+                    <select name="tipoProducto" class="custom-select">
+                      {% for e in data %}                                                                            
+                        <option value="{{e[1]}}">{{e[1]}}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+                <center><button type="submit" class="btn btn-primary">Buscar</button></center>
+              </form>
+          </div>
+      </div>
+  </div>
+  {% include 'footer/footer-usuario.html' %}
 </body>
 
 </html>

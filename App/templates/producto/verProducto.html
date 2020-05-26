@@ -9,6 +9,7 @@
     margin-right:400px;
     margin-bottom:20px;
     margin-left:400px;
+    margin-top: 50px;
     border-bottom:50px;
     background-color: black;
   }
@@ -23,33 +24,32 @@
 </style>
 
 <body>
-
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar_usuarios.html' %}
-
         <div id="page-content-wrapper">
-            {% include 'navbars/navbar.html' %}
+            {% include 'navbars/navbar.html' %}        
+            <a href="{{ url_for('listarProductos') }}" class="btn btn-success"><span class="fa fa-arrow-left"></span></a>
             <div class="container p-2">
-              {% for e in data:%}
               <div class="card-deck">
                   <div class="card">
-                    <img src="static/img/g1_demos.png" class="card-img-top" alt="...">
+                    <img src="static/img/fondo-login.png" class="card-img-top" alt="...">
                     <div class="card-body">
                       <center>
-                        <h5 class="card-title">{{e[1]}}</h5>
-                        <p class="card-text"><h5>${{e[4]}}</h5></p>
-                        <a href="{{ url_for('mostrarComboAlUsuario')}}/{{e[0]}}" class="btn btn-success"><span class="fa fa-info-circle"></span></a>
+                        <h2 class="card-title">{{data[1]}}</h2>
+                        <p class="card-text">Descripción {{data[2]}}</p>
+                        <p class="card-text">Modelo {{data[4]}}</p>
+                        <p class="card-text">Garantía {{data[5]}} meses</p>
+                        <p class="card-text"><h5>${{data[3]}}</h5></p>
                         <a href="{{ url_for('verProducto') }}" class="btn btn-success"><span class="fa fa-cart-plus"></span></a>
                       </center>
                     </div>
                   </div>
               </div>
-              {%endfor%} 
             </div>
+            {% include 'footer/footer.html' %}
         </div>
     </div>
-    
-    {% include 'footer/footer-usuario.html' %}
+
 </body>
 
 </html>

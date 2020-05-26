@@ -169,3 +169,22 @@ class Producto:
             SELECT * FROM "vista_productos" WHERE "id" = {};
         '''.format(int(self.__id)))
         return data[0]
+
+    def obtener_cantidad_productos(self):
+        data =[]
+        data = db.querySelect('''
+                SELECT count(*) FROM producto;;
+            ''')
+        return data
+
+    def consultar_producto_por_tipo(self, tipoProducto):
+        data = db.querySelect('''
+            SELECT * FROM "vista_productos" WHERE "tipoProducto" = '{}';
+        '''.format(tipoProducto))
+        return data
+
+    def consultar_producto_por_marca(self, marca):
+        data = db.querySelect('''
+            SELECT * FROM "vista_productos" WHERE "marca" = '{}';
+        '''.format(marca))
+        return data

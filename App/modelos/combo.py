@@ -198,3 +198,10 @@ class Combo:
                 self.__id))
         return data
 
+    def listar_combos_detallados(self):
+        data = db.querySelect('''
+            SELECT * FROM "vista_ejemplar_combo";
+        '''.format(
+            self.__id))
+        return data
+
