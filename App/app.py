@@ -12,6 +12,8 @@ from modelos.compra import Compra
 from modelos.pago import Pago
 from modelos.ejemplar_combo import Ejemplar_combo
 
+
+
 db = Database()
 
 app = Flask(__name__)
@@ -1093,6 +1095,8 @@ def mostrarPago():
 
 #========================== LOGIN  ===================================#
 #PENDINTE --> Eliminar funcionalidad 
+
+"""
 @app.route('/login_google') 
 def  login_google():
     return render_template('login/google_login.html')
@@ -1100,6 +1104,10 @@ def  login_google():
 @app.route('/login_firebase')
 def  login_firebase():
     return render_template('login/login_firebase.html')
+"""
+@app.route('/login')
+def  login():
+    return render_template('login/login.html')
 
 #========================== Fin LOGIN  ===================================#
 
