@@ -23,12 +23,13 @@ def index():
     data = []
     return render_template('index.html', data=data)
 
+'''
 @app.route('/login')
 def login():
     data = []
     return render_template('login.html', data=data)
 
-
+'''
 #=========================ABMC===========================#
 
 #===========================
@@ -1190,7 +1191,7 @@ def  login_firebase():
     return render_template('login/login_firebase.html')
 """
 @app.route('/login')
-def  login():
+def  login_user():
     return render_template('login/login.html')
 
 #========================== Fin LOGIN  ===================================#
