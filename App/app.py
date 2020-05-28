@@ -13,7 +13,6 @@ from modelos.pago import Pago
 from modelos.ejemplar_combo import Ejemplar_combo
 
 
-
 db = Database()
 
 app = Flask(__name__)

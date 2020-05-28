@@ -25,6 +25,8 @@
     const btnLogin = document.getElementById("btnLogin");
     const btnSingIn = document.getElementById("btnSingIn");
     const btnSingOut = document.getElementById("btnSingOut");
+    const btnFacebookSingIn = document.getElementById("btnFacebookSingIn");
+    const btnGoogleSingIn = document.getElementById("btnGoogleSingIn");
 
 
     //Clic boton Login 
@@ -71,13 +73,8 @@
 
     });
 
-
     //boton Sing out 
     btnSingOut.addEventListener('click', e => {
-        //obtenego valor de los inputs
-        /*const email = inputEmail.value;
-        const password = inputPassword.value;*/
-
         const auth = firebase.auth();
         auth.signOut().then(function() {
             // Sign-out successful.
@@ -87,6 +84,17 @@
         });
     });
 
+
+    //Boton Facebook
+    btnFacebookSingIn.addEventListener('click', e => {
+        alert("Facebook");
+        console.log("Facebook")
+    });
+
+    //Boton Google
+    btnGoogleSingIn.addEventListener('click', e => {
+        alert("Google");
+    });
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
