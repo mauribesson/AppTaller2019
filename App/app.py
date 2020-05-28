@@ -40,6 +40,7 @@ def rolABMC():
     data =[]
     return render_template('rol/rolABMC.html', data=data)
 
+
 #datos para tabla Rol "JSON"
 @app.route('/rol_data_table')
 def rol_data_table():
@@ -47,10 +48,12 @@ def rol_data_table():
     data = rol.formato_datos_tabla()
     return jsonify(data)
 
+
 #Alta Rol 
 @app.route('/altaRol')
 def altaRol():
      return render_template('rol/altaRol.html') 
+
 
 @app.route('/guardarRol', methods=["POST"])
 def guardarRol():
@@ -70,6 +73,7 @@ def guardarRol():
     return render_template('rol/rolABMC.html', data=data, verificador=verificador)  
 #Fin Alta Rol
 
+
 @app.route('/eliminarRol')
 @app.route('/eliminarRol/<int:id_rol>')
 def eliminarRol(id_rol=None):
@@ -80,6 +84,7 @@ def eliminarRol(id_rol=None):
     return render_template('rol/RolABMC.html', data=data)    
 #Fin Baja Rol
 
+
 #Modificar Rol
 @app.route('/modificarRol') 
 @app.route('/modificarRol/<int:id_rol>') 
@@ -88,6 +93,7 @@ def modificarRol(id_rol=None):
     rol.set_id(id_rol)
     rol_a_mod = rol.consultar_rol_por_id()
     return render_template('rol/modificarRol.html',data=rol_a_mod)  
+
 
 @app.route('/editarRol', methods=["POST"])
 def editarRol():
@@ -100,6 +106,7 @@ def editarRol():
         data = rol.modificar_rol(nombreNuevo)     
     return render_template('rol/rolModificado.html', data=data)
 
+
 # Listar Rol
 @app.route('/listarRol')
 def listarRol():
@@ -107,6 +114,7 @@ def listarRol():
     data = rol.listar_rol()
     return render_template('rol/listadoRol.html', data=data)
 # Fin Listar Rol
+
 
 @app.route('/verRol/<int:id>')
 def verRol(id):
@@ -126,6 +134,7 @@ def usuarioABMC():
     data =[]
     return render_template('usuario/usuarioABMC.html', data=data)
 
+
 #datos para tabla Usuario "JSON"
 @app.route('/usuario_data_table')
 def usuario_data_table():
@@ -133,9 +142,11 @@ def usuario_data_table():
     data = usuario.formato_datos_tabla()
     return jsonify(data)
 
+
 @app.route('/altaUsuario')
 def altaUsuario():
      return render_template('usuario/altaUsuario.html') 
+
 
 @app.route('/guardarUsuario', methods=["POST"])
 def guardarUsuario():
@@ -161,6 +172,7 @@ def bajaUsuario():
     return render_template('usuario/bajaUsuario.html')  
 """
 
+
 @app.route('/eliminarUsuario')
 @app.route('/eliminarUsuario/<email>')
 def eliminarUsuario(email=None):
@@ -169,6 +181,7 @@ def eliminarUsuario(email=None):
     usuario.baja_usuario()
     data = "eliminado"
     return render_template('usuario/usuarioABMC.html', data=data)    
+
 
 @app.route('/modificarUsuario') 
 @app.route('/modificarUsuario/<email>') 
@@ -188,6 +201,7 @@ def modificarUsuario(email=None):
 
     return render_template('usuario/modificarUsuario.html', data=data)  
 
+
 @app.route('/editarUsuario', methods=["POST"])
 def editarUsuario():
     data = []
@@ -202,6 +216,7 @@ def editarUsuario():
         usuario.modificar_usuario(contraseniaNueva, contactoNuevo, RolNuevo)
 
     return render_template('usuario/usuarioModificado.html', data=data)
+
 
 @app.route('/listarUsuario')
 def listarUsuario():
@@ -220,16 +235,19 @@ def tipoProductoABMC():
     data =[]
     return render_template('tipoProducto/tipoProductoABMC.html', data=data)
 
- #datos para tabla Tipo de Producto "JSON"
+
+#datos para tabla Tipo de Producto "JSON"
 @app.route('/tipo_de_producto_data_table')
 def tipo_de_producto_data_table():
     tp = TipoProducto()
     data = tp.formato_datos_tabla()
     return jsonify(data)   
 
+
 @app.route('/altaTipoProducto')
 def altaTipoProducto():
      return render_template('tipoProducto/altaTipoProducto.html') 
+
 
 @app.route('/guardarTipoProducto', methods=["POST"])
 def guardarTipoProducto():
@@ -248,6 +266,7 @@ def guardarTipoProducto():
 
     return render_template('tipoProducto/tipoProductoABMC.html', data=data, verificador=verificador)  
 
+
 @app.route('/eliminarTipoProducto')
 @app.route('/eliminarTipoProducto/<int:id>')
 def eliminarTipoProducto(id=None):
@@ -259,6 +278,7 @@ def eliminarTipoProducto(id=None):
 
     return render_template('tipoProducto/tipoProductoABMC.html', data=data)    
 
+
 @app.route('/modificarTipoProducto') 
 @app.route('/modificarTipoProducto/<int:id>')
 def modificarTipoProducto(id=None):
@@ -267,6 +287,7 @@ def modificarTipoProducto(id=None):
     tp.set_id(id)
     data = tp.consultar_tipo_producto_por_id()
     return render_template('tipoProducto/modificarTipoProducto.html', data=data)  
+
 
 @app.route('/editarTipoProducto', methods=["POST"])
 def editarTipoProducto():
@@ -315,16 +336,19 @@ def marcaABMC():
     data =[]
     return render_template('marca/marcaABMC.html', data=data)
 
- #datos para Marca "JSON"
+
+#datos para Marca "JSON"
 @app.route('/marca_data_table')
 def marca_data_table():
     tp = Marca()
     data = tp.formato_datos_tabla()
     return jsonify(data)   
 
+
 @app.route('/altaMarca')
 def altaMarca():
      return render_template('marca/altaMarca.html') 
+
 
 @app.route('/guardarMarca', methods=["POST"])
 def guardarMarca():
@@ -341,6 +365,7 @@ def guardarMarca():
             data = "ya_existe"  
     return render_template('marca/marcaABMC.html', data=data, verificador=verificador)  
 
+
 @app.route('/eliminarMarca')
 @app.route('/eliminarMarca/<int:id>')
 def eliminarMarca(id=None):
@@ -351,6 +376,7 @@ def eliminarMarca(id=None):
     data = "eliminado"
     return render_template('marca/marcaABMC.html', data=data)    
 
+
 @app.route('/modificarMarca') 
 @app.route('/modificarMarca/<int:id>')
 def modificarMarca(id=None):
@@ -358,6 +384,7 @@ def modificarMarca(id=None):
     marca.set_id(id)
     data = marca.consultar_marca()
     return render_template('marca/modificarMarca.html', data=data)  
+
 
 @app.route('/editarMarca', methods=["POST"])
 def editarMarca():
@@ -374,6 +401,7 @@ def editarMarca():
         else:
             data = "no_modificado"
     return render_template('marca/marcaABMC.html', data=data)
+
 
 @app.route('/listarMarca')
 def listarMarca():
@@ -414,11 +442,13 @@ def productoABMC():
     data =[]
     return render_template('producto/productoABMC.html', data=data)
 
+
 @app.route('/producto_data_table')
 def producto_data_table():
     producto = Producto()
     data = producto.formato_datos_tabla()
     return jsonify(data)    
+
 
 @app.route('/altaProducto')
 def altaProducto():
@@ -428,6 +458,7 @@ def altaProducto():
     marca = Marca()
     data['marca'] = marca.listar_marca()
     return render_template('producto/altaProducto.html', data=data) 
+
 
 @app.route('/guardarProducto', methods=["POST"])
 def guardarProducto():
@@ -459,6 +490,7 @@ def guardarProducto():
             data="ya_existe"
     return render_template('producto/productoABMC.html', data=data)  
 
+
 @app.route('/eliminarProducto')
 @app.route('/eliminarProducto/<int:id>')
 def eliminarProducto(id=None):    
@@ -467,6 +499,7 @@ def eliminarProducto(id=None):
     producto.baja_producto() 
     data = "eliminado"
     return render_template('producto/productoABMC.html', data=data)    
+
 
 @app.route('/modificarProducto') 
 @app.route('/modificarProducto/<int:id>') 
@@ -481,6 +514,7 @@ def modificarProducto(id=None):
     data['marca'] = marca.listar_marca()
 
     return render_template('producto/modificarProducto.html', data=data)  
+
 
 @app.route('/editarProducto', methods=["POST"])
 def editarProducto():
@@ -517,6 +551,7 @@ def listarProductos():
     cantidad=int(cantidad)
     return render_template('producto/productos.html', data=data, cantidad=cantidad)
 
+
 @app.route('/verProducto')
 @app.route('/verProducto/<int:id>')
 def verProducto(id=None):
@@ -539,6 +574,7 @@ def altaEjemplar(id_prod=None):
     data['id_prod'] = id_prod
     return render_template('ejemplar/altaEjemplar.html', data=data) 
 
+
 @app.route('/guardarEjemplar', methods=["POST"])
 def guardarEjemplar():
     data, verificador = [], []
@@ -559,9 +595,11 @@ def guardarEjemplar():
             data = ejemplar.alta_ejemplar()            
     return render_template('ejemplar/ejemplarGuardado.html', data=data, verificador=verificador)  
 
+
 @app.route('/bajaEjemplar') 
 def bajaEjemplar():
     return render_template('ejemplar/bajaEjemplar.html')  
+
 
 @app.route('/eliminarEjemplar', methods=["POST"])
 def eliminarEjemplar():
@@ -572,9 +610,11 @@ def eliminarEjemplar():
         data = ejemplar.baja_ejemplar()
     return render_template('ejemplar/ejemplarEliminado.html', data=data)    
 
+
 @app.route('/modificarEjemplar') 
 def modificarEjemplar():
     return render_template('ejemplar/modificarEjemplar.html')  
+
 
 @app.route('/editarEjemplar', methods=["POST"])
 def editarEjemplar():
@@ -590,6 +630,7 @@ def editarEjemplar():
 
     return render_template('ejemplar/ejemplarModificado.html', data=data)
 
+
 @app.route('/listarEjemplar')
 def listarEjemplar():
     data = []
@@ -597,11 +638,13 @@ def listarEjemplar():
     data = ejemplar.consultar_ejemplar()
     return render_template('ejemplar/listadoEjemplar.html', data=data)
 
+
 #====COMBO
 @app.route('/comboABMC') 
 def comboABMC():
     data =[]
     return render_template('combo/comboABMC.html', data=data)
+
 
 #datos para tabla Combo "JSON"
 @app.route('/combo_data_table')
@@ -609,6 +652,7 @@ def combo_data_table():
     combo = Combo()
     data = combo.formato_datos_tabla()
     return jsonify(data)
+
 
 #datos para tabla Emplares del Combo "JSON"
 @app.route('/productos_combo_data_table')
@@ -618,9 +662,11 @@ def productos_combo_data_table(idCombo=None):
     data = combo.formato_datos_tabla_productos(idCombo)
     return jsonify(data)
 
+
 @app.route('/altaCombo')
 def altaCombo():
      return render_template('combo/altaCombo.html') 
+
 
 @app.route('/guardarCombo', methods=["POST"])
 def guardarCombo():
@@ -730,6 +776,7 @@ def cargarProductos():
 
     return render_template('combo/cargarEjemplaresAlCombo.html', data=data)
 
+
 @app.route('/cargarEjemplaresAlCombo', methods=["POST"])
 @app.route('/verCombo/cargarEjemplaresAlCombo', methods=["POST"])
 def cargarEjemplaresAlCombo():
@@ -761,6 +808,7 @@ def cargarEjemplaresAlCombo():
     dato['totalConDescuento'] = totalConDesc
 
     return render_template('combo/cargarProductosalCombo.html',data=data, dato=dato, id=id)
+
 
 @app.route('/cargarDescuentoAlCombo', methods=["POST"])
 @app.route('/verCombo/cargarDescuentoAlCombo', methods=["POST"])
@@ -795,7 +843,8 @@ def cargarDescuento():
 @app.route('/bajaCombo') 
 def bajaCombo():
     return render_template('combo/bajaCombo.html')  
- 
+
+
 @app.route('/eliminarCombo')
 @app.route('/eliminarCombo/<int:id_combo>')
 def eliminarCombo(id_combo=None):
@@ -808,6 +857,7 @@ def eliminarCombo(id_combo=None):
     data = "eliminado"
     return render_template('combo/comboABMC.html', data=data) 
 
+
 @app.route('/modificarCombo') 
 @app.route('/modificarCombo/<int:id>') 
 def modificarCombo(id=None):
@@ -815,6 +865,7 @@ def modificarCombo(id=None):
     combo.set_id(id)
     data = combo.consultar_combo_por_id()
     return render_template('combo/modificarCombo.html',data=data, id=id)  
+
 
 @app.route('/editarCombo', methods=["POST"])
 def editarCombo():
@@ -829,11 +880,13 @@ def editarCombo():
         data = combo.modificar_combo(nombreNuevo)     
     return render_template('combo/comboModificado.html', data=data)
 
+
 @app.route('/ejemplar_data_table')
 def ejemplar_data_table():
     ejemplar = Ejemplar()
     data = ejemplar.formato_datos_tabla()
     return jsonify(data)
+
 
 @app.route('/listarCombo')
 def listarCombo():
@@ -848,6 +901,7 @@ def listarCombo():
 def altaEjemplar_combo():
      return render_template('ejemplar_combo/altaEjemplar_combo.html') 
 
+
 @app.route('/guardarEjemplar_combo', methods=["POST"])
 def guardarEjemplar_combo():
     data = []
@@ -859,9 +913,11 @@ def guardarEjemplar_combo():
             '''.format(idCombo, numeroSerie)) 
     return render_template('index.html')   
 
+
 @app.route('/modificarEjemplar_combo') 
 def modificarEjemplar_combo():
     return render_template('ejemplar_combo/modificarEjemplar_combo.html')  
+
 
 @app.route('/editarEjemplar_combo', methods=["POST"])
 def editarEjemplar_combo():
@@ -877,6 +933,7 @@ def editarEjemplar_combo():
 	                WHERE "idCombo" = '{}' AND "numeroSerie" = '{}';
             '''.format(nuevoIdCombo, nuevoNumeroSerie, idCombo, numeroSerie))
     return render_template('index.html')
+
 
 @app.route('/listarEjemplar_combo')
 def listarEjemplar_combo():
@@ -932,12 +989,11 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
     return render_template('combo/cargarProductosAlCombo.html', dato=dato, id=id)
     
     
-
-
 #====CARRITO
 @app.route('/altaCarrito')
 def altaCarrito():
      return render_template('carrito/altaCarrito.html') 
+
 
 @app.route('/guardarCarrito', methods=["POST"])
 def guardarCarrito():
@@ -949,10 +1005,12 @@ def guardarCarrito():
         carrito.set_total(total)
         data = carrito.alta_carrito()
     return render_template('carrito/carritoGuardado.html', data=data)
-    
+
+
 @app.route('/bajaCarrito') 
 def bajaCarrito():
     return render_template('carrito/bajaCarrito.html')  
+
 
 @app.route('/eliminarCarrito', methods=["POST"])
 def eliminarCarrito():
@@ -964,9 +1022,11 @@ def eliminarCarrito():
         data = carrito.baja_carrito()
     return render_template('carrito/carritoEliminado.html', data=data)    
 
+
 @app.route('/modificarCarrito') 
 def modificarCarrito():
     return render_template('carrito/modificarCarrito.html')  
+
 
 @app.route('/editarCarrito', methods=["POST"])
 def editarCarrito():
@@ -981,6 +1041,7 @@ def editarCarrito():
 
     return render_template('carrito/carritoModificado.html', data=data)
 
+
 @app.route('/mostrarCarrito')
 def mostrarCarrito():
     data = []
@@ -994,6 +1055,7 @@ def mostrarCarrito():
 def altaEjemplar_carrito():
      return render_template('ejemplar_carrito/altaEjemplar_carrito.html') 
 
+
 @app.route('/guardarEjemplar_carrito', methods=["POST"])
 def guardarEjemplar_carrito():
     data = []
@@ -1005,9 +1067,11 @@ def guardarEjemplar_carrito():
             '''.format(idCarrito, numeroSerie))  
     return render_template('index.html')
 
+
 @app.route('/bajaEjemplar_carrito') 
 def bajaEjemplar_carrito():
     return render_template('ejemplar_carrito/bajaEjemplar_carrito.html')  
+
 
 @app.route('/eliminarEjemplar_carrito', methods=["POST"])
 def eliminarEjemplar_carrito():
@@ -1020,9 +1084,11 @@ def eliminarEjemplar_carrito():
             '''.format(idCarrito, numeroSerie))   
     return render_template('index.html')
 
+
 @app.route('/modificarEjemplar_carrito') 
 def modificarEjemplar_carrito():
     return render_template('ejemplar_carrito/modificarEjemplar_carrito.html')  
+
 
 @app.route('/editarEjemplar_carrito', methods=["POST"])
 def editarEjemplar_carrito():
@@ -1039,6 +1105,7 @@ def editarEjemplar_carrito():
             '''.format(nuevoIdCarrito, nuevoNumeroSerie, idCarrito, numeroSerie))
     return render_template('index.html')
 
+
 @app.route('/listarEjemplar_carrito')
 def listarEjemplar_carrito():
     data = db.querySelect('''
@@ -1051,6 +1118,7 @@ def listarEjemplar_carrito():
 @app.route('/altaCompra')
 def altaCompra():
      return render_template('compra/altaCompra.html') 
+
 
 @app.route('/guardarCompra', methods=["POST"])
 def guardarCompra():
@@ -1068,9 +1136,11 @@ def guardarCompra():
         data = compra.alta_compra()    
         return render_template('index.html')
 
+
 @app.route('/bajaCompra') 
 def bajaCompra():
     return render_template('compra/bajaCompra.html')  
+
 
 @app.route('/eliminarCompra', methods=["POST"])
 def eliminarCompra():
@@ -1083,9 +1153,11 @@ def eliminarCompra():
         data = compra.baja_compra()  
     return render_template('compra/compraEliminada.html', data=data)    
 
+
 @app.route('/modificarCompra') 
 def modificarCompra():
     return render_template('compra/modificarCompra.html')  
+
 
 @app.route('/editarCompra', methods=["POST"])
 def editarCompra():
@@ -1100,6 +1172,7 @@ def editarCompra():
         data = compra.modificar_compra(nuevoMontoCompra, nuevoEstadoConfirmacion)
     return render_template('compra/compraModificada.html', data=data)
 
+
 @app.route('/mostrarCompra')
 def mostrarCompra():
     compra = Compra()
@@ -1111,6 +1184,7 @@ def mostrarCompra():
 @app.route('/altaPago')
 def altaPago():
      return render_template('pago/altaPago.html') 
+
 
 @app.route('/guardarPago', methods=["POST"])
 def guardarPago():
@@ -1132,9 +1206,11 @@ def guardarPago():
         data = pago.alta_pago()
     return render_template('index.html')
 
+
 @app.route('/bajaPago') 
 def bajaPago():
     return render_template('pago/bajaPago.html')  
+
 
 @app.route('/eliminarPago', methods=["POST"])
 def eliminarPago():
@@ -1147,9 +1223,11 @@ def eliminarPago():
         data = pago.baja_pago()
     return render_template('pago/pagoEliminado.html', data=data)    
 
+
 @app.route('/modificarPago') 
 def modificarPago():
     return render_template('pago/modificarPago.html')  
+
 
 @app.route('/editarPago', methods=["POST"])
 def editarPago():
@@ -1165,6 +1243,7 @@ def editarPago():
 
         data = pago.modificar_pago(nuevoTotal, nuevoEstado, nuevaTarjeta, nuevoCuotas)        
     return render_template('pago/pagoModificado.html', data=data)
+
 
 @app.route('/mostrarPago')
 def mostrarPago():
