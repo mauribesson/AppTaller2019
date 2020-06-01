@@ -60,3 +60,7 @@ body {
 a.nuevo-abmc.btn.btn-success {
     position: absolute;
 }
+
+#login_form {
+    margin-top: 20px;
+}
