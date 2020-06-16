@@ -1257,17 +1257,7 @@ def mostrarPago():
 
 
 #========================== LOGIN  ===================================#
-#PENDINTE --> Eliminar funcionalidad 
 
-"""
-@app.route('/login_google') 
-def  login_google():
-    return render_template('login/google_login.html')
-
-@app.route('/login_firebase')
-def  login_firebase():
-    return render_template('login/login_firebase.html')
-"""
 @app.route('/login')
 def  login_user():
     return render_template('login/login.html')
@@ -1278,12 +1268,12 @@ def  login_user():
 @app.route('/cliente')
 @app.route('/cliente/home')
 def cliente_home():
-    return render_template ('cliente/home.html')
-
+    return render_template('cliente/home.html')
 
 @app.route('/preguntas_frecuentes')
 def preguntas_frecuentes():
      return render_template('cliente/faq.html') 
+
 
 @app.route('/contacto')
 def contacto():

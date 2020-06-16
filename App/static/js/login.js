@@ -56,7 +56,7 @@
 
     });
 
-    //TODO : 
+
     //boton Sing in (crear usuario)
     btnSingIn.addEventListener('click', e => {
         //obtenego valor de los inputs
@@ -70,8 +70,8 @@
             var errorMessage = error.message;
             console.log("error cear usuario", errorCode, errorMessage);
         });
-
     });
+
 
     //boton Sing out 
     btnSingOut.addEventListener('click', e => {
@@ -87,7 +87,6 @@
 
     //Boton Facebook
     btnFacebookSingIn.addEventListener('click', e => {
-        alert("Facebook");
         console.log("Facebook")
         var provider = new firebase.auth.FacebookAuthProvider();
 
@@ -111,9 +110,9 @@
         });
     });
 
+
     //Boton Google
     btnGoogleSingIn.addEventListener('click', e => {
-        alert("Google");
         console.log("Google")
         var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -130,12 +129,12 @@
             var errorMessage = error.message;
             // The email of the user's account used.
             var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
+
             var credential = error.credential;
             // ...
         });
-
     });
+
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -149,17 +148,46 @@
             var providerData = user.providerData;
 
             console.log("change if", user);
+            location.href = "/";
         } else {
             console.log("change else", user);
+
+            if (location.pathname !== "/login")
+                location.href = "/login";
         }
     });
 
+
     //Actualiza usuario al backend 
-    updateBackend = (pUuser, pPass) => {
+    //VER SI ME COVIENE USASR SESSION STORAGE:
+    //https://developer.mozilla.org/es/docs/Web/API/Window/sessionStorage
+
+    let updateBackend = () => {
         //TODO:
         /**
          * actualizar usario en el backend
          */
+        let usuarui_actual = sessionStorage.getItem('user');
     }
+
+
+    //====================================no se va a usar
+    let addStoreLocalUserLogin = (pUuser) => {
+        //TODO
+        sessionStorage.setItem('user', pUuser);
+
+    }
+
+    let deleteStoreLocalUserLogin = (pUuser) => {
+        //TODO
+        //sessionStorage.setItem('user', pUuser);
+
+        sessionStorage.removeItem('user');
+    }
+
+    //NUEVA PANTALLA
+    //VALIDAR SI HAY USUARIO LOGUEADO, DESDE SESSIONSTORAGE 
+    //OK : PASA Y MUESTA PAGINA 
+    //NO OK : REDIRECCIONA A LOGIN 
 
 })();

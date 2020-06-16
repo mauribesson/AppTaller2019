@@ -6,40 +6,44 @@
 <body background="/static/img/fondo-login.png">
     <div class="container">
         <div id="login_form" class="jumbotron">
-            <h5 style="color: red;">[ver login andrea: login_andrea.html]</h5>
-            <div class="form-signin form-group">
-                <h1 class="h3 mb-3 font-weight-normal">Binvenido</h1>
-                <div class="form-group">
-                    <label for="inputEmail " class="sr-only ">Email</label>
-                    <input type="email " id="inputEmail" class="form-control " placeholder="Email " required=" " autofocus=" ">
-                </div>
-                <div class="form-group ">
-                    <label for="inputPassword " class="sr-only ">Contraseña</label>
-                    <input type="password" id="inputPassword" class="form-control " placeholder="Contraseña">
-                </div>
-                <div class="row">
+            <div id="login_form">
+                <h5 style="color: red;">[ver login andrea: login_andrea.html]</h5>
+                <div class="form-signin form-group">
+                    <h1 class="h3 mb-3 font-weight-normal">Binvenido</h1>
+                    <div class="form-group">
+                        <label for="inputEmail " class="sr-only ">Email</label>
+                        <input type="email " id="inputEmail" class="form-control " placeholder="Email " required=" " autofocus=" ">
+                    </div>
+                    <div class="form-group ">
+                        <label for="inputPassword " class="sr-only ">Contraseña</label>
+                        <input type="password" id="inputPassword" class="form-control " placeholder="Contraseña">
+                    </div>
+                    <div class="row">
 
-                    <div class="col">
-                        <button id="btnLogin" class="btn btn-lg btn-primary btn-block ">login</button>
+                        <div class="col">
+                            <button id="btnLogin" class="btn btn-lg btn-primary btn-block ">Login</button>
+                        </div>
+                        <div class="col">
+                            <button id="btnSingIn" class="btn btn-lg btn-success btn-block ">Sign in</button>
+                        </div>
+                        <div class="col">
+                            <button id="btnSingOut" class="btn btn-lg btn-danger btn-block ">Sign Out</button>
+                        </div>
                     </div>
-                    <div class="col">
-                        <button id="btnSingIn" class="btn btn-lg btn-success btn-block ">Sign in</button>
-                    </div>
-                    <div class="col">
-                        <button id="btnSingOut" class="btn btn-lg btn-danger btn-block ">Sign Out</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button id="btnFacebookSingIn" class="btn btn-lg btn-primary">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button id="btnFacebookSingIn" class="btn btn-lg btn-primary">
                              <i class="fab fa-facebook-square"></i> Facebook
                         </button>
-                    </div>
-                    <div class="col-6">
-                        <button id="btnGoogleSingIn" class="btn btn-lg btn-primary"> 
+                            <button id="btnGoogleSingIn" class="btn btn-lg btn-primary"> 
                             <i class="fab fa-google"></i> Google
                         </button>
-
+                        </div>
+                        <!--<div class="col-6">
+                            <button id="btnGoogleSingIn" class="btn btn-lg btn-primary"> 
+                            <i class="fab fa-google"></i> Google
+                        </button>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -49,7 +53,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
 
 </html>
