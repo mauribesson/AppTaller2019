@@ -22,13 +22,12 @@ def index():
     data = []
     return render_template('index.html', data=data)
 
-'''
+#========================== LOGIN  ===================================#
 @app.route('/login')
-def login():
-    data = []
-    return render_template('login.html', data=data)
+def  login_user():
+    return render_template('login/login.html')
+#========================== Fin LOGIN  ===================================#
 
-'''
 #=========================ABMC===========================#
 
 #===========================
@@ -1254,15 +1253,6 @@ def mostrarPago():
     
 #=========================Fin ABMC===================================
 
-
-
-#========================== LOGIN  ===================================#
-
-@app.route('/login')
-def  login_user():
-    return render_template('login/login.html')
-
-#========================== Fin LOGIN  ===================================#
 
 #========================== CLIENTE ===================================#
 @app.route('/cliente')

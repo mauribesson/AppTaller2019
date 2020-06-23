@@ -57,12 +57,17 @@
 const btnSingOut = document.getElementById("btnSingOut");
 
 btnSingOut.addEventListener('click', e => {
-    alert('Esta salindo de la app!!!')
-    const auth = firebase.auth();
-    auth.signOut().then(function() {
-        // Sign-out successful.
-    }).catch(function(e) {
-        // An error happened.
-        console.log(e);
-    });
+    //alert('Esta salindo de la app... Chau! ')
+
+    let res = confirm("¿Desea salir?");
+    if (res) {
+        const auth = firebase.auth();
+        auth.signOut().then(function() {
+            // Sign-out successful.
+        }).catch(function(e) {
+            // An error happened.
+            console.log(e);
+        });
+    }
+
 });
