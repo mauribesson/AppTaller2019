@@ -5,48 +5,54 @@
 
 <body background="/static/img/fondo-login.png">
     <div class="container">
-        <div id="login_form" class="jumbotron">
-            <div id="login_form">
-                <h5 style="color: red;">[ver login andrea: login_andrea.html]</h5>
-                <div class="form-signin form-group">
-                    <h1 class="h3 mb-3 font-weight-normal">Binvenido</h1>
-                    <div class="form-group">
-                        <label for="inputEmail " class="sr-only ">Email</label>
-                        <input type="email " id="inputEmail" class="form-control " placeholder="Email " required=" " autofocus=" ">
-                    </div>
-                    <div class="form-group ">
-                        <label for="inputPassword " class="sr-only ">Contraseña</label>
-                        <input type="password" id="inputPassword" class="form-control " placeholder="Contraseña">
-                    </div>
-                    <div class="row">
+        <div class="row">
+            <div class="col-md-6 offset-3">
 
-                        <div class="col">
-                            <button id="btnLogin" class="btn btn-lg btn-primary btn-block ">Login</button>
-                        </div>
-                        <div class="col">
-                            <button id="btnSingIn" class="btn btn-lg btn-success btn-block ">Sign in</button>
-                        </div>
-                        <div class="col">
-                            <button id="btnSingOut" class="btn btn-lg btn-danger btn-block ">Sign Out</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button id="btnFacebookSingIn" class="btn btn-lg btn-primary">
+                <div id="login_form" class="card">
+                    <div id="login_form" class="card-body">
+
+                        <div class="form-signin form-group">
+                            <h1 class="h3 mb-3 font-weight-normal">Binvenido</h1>
+                            <div class="form-group">
+                                <label for="inputEmail " class="sr-only ">Email</label>
+                                <input type="email " id="inputEmail" class="form-control " placeholder="Email " required=" " autofocus=" ">
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputPassword " class="sr-only ">Contraseña</label>
+                                <input type="password" id="inputPassword" class="form-control " placeholder="Contraseña">
+                            </div>
+                            <div class="row">
+
+                                <div class="col">
+                                    <button id="btnLogin" class="btn btn-md btn-primary btn-block ">Login</button>
+                                </div>
+                                <div class="col">
+                                    <button id="btnSingIn" class="btn btn-md btn-success btn-block ">Sign in</button>
+                                </div>
+                                <div class="col">
+                                    <button id="btnSingOut" class="btn btn-md btn-danger btn-block ">Sign Out</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button id="btnFacebookSingIn" class="btn btn-md btn-primary">
                              <i class="fab fa-facebook-square"></i> Facebook
                         </button>
-                            <button id="btnGoogleSingIn" class="btn btn-lg btn-primary"> 
+                                    <button id="btnGoogleSingIn" class="btn btn-md btn-primary"> 
                             <i class="fab fa-google"></i> Google
                         </button>
-                        </div>
-                        <!--<div class="col-6">
+                                </div>
+                                <!--<div class="col-6">
                             <button id="btnGoogleSingIn" class="btn btn-lg btn-primary"> 
                             <i class="fab fa-google"></i> Google
                         </button>
                         </div>-->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 

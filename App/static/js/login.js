@@ -1,5 +1,8 @@
 /**
- * app.js: 
+ * login.js: 
+ * gentiona pantalla de login 
+ * permite autnticacion con redes sociales e email
+ * 
  * 
  */
 
@@ -93,20 +96,9 @@
         //firebase.auth().signInWithRedirect(provider);
 
         firebase.auth().signInWithPopup(provider).then(function(result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            // ...
+            console.log(result);
         }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
+            console.log(error);
         });
     });
 
@@ -118,42 +110,22 @@
 
         //firebase.auth().signInWithRedirect(provider);
         firebase.auth().signInWithPopup(provider).then(function(result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            // ...
+            console.log(result);
         }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-
-            var credential = error.credential;
-            // ...
+            console.log(error);
         });
     });
 
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            // User is signed in.
-            var displayName = user.displayName;
-            var email = user.email;
-            var emailVerified = user.emailVerified;
-            var photoURL = user.photoURL;
-            var isAnonymous = user.isAnonymous;
-            var uid = user.uid;
-            var providerData = user.providerData;
-
             console.log("change if", user);
             location.href = "/";
         } else {
             console.log("change else", user);
-
-            if (location.pathname !== "/login")
+            if (location.pathname !== "/login") {
                 location.href = "/login";
+            }
         }
     });
 
