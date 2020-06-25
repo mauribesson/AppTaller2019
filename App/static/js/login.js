@@ -119,7 +119,11 @@
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
+
+            validateUserRol(user.email); //--no se esta ejecutando
+
             console.log("change if", user);
+
             location.href = "/";
         } else {
             console.log("change else", user);
@@ -134,17 +138,38 @@
     //VER SI ME COVIENE USASR SESSION STORAGE:
     //https://developer.mozilla.org/es/docs/Web/API/Window/sessionStorage
 
-    let updateBackend = () => {
-        //TODO:
+    const updateBackend = async(user, password) => {
+        //TO DO 
         /**
-         * actualizar usario en el backend
+         * mandar al backen el nuevo usuario para agregarlo
+         * debe validar si existe. 
+         * 
+         * 
          */
-        let usuarui_actual = sessionStorage.getItem('user');
+        //let usuarui_actual = sessionStorage.getItem('user');
+        let url = "";
+        let userData = { "user": user, "password": password };
+        let res = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(userData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+    }
+
+    const validateUserRol = (user) => {
+        let url = window.location.href + "validarRolUsuario";
+        //let userData = { "user": user, "password": password };
+        let res = fetch(url);
+        console.log(res);
+        debugger;
     }
 
 
     //====================================no se va a usar
-    let addStoreLocalUserLogin = (pUuser) => {
+    const addStoreLocalUserLogin = (pUuser) => {
         //TODO
         sessionStorage.setItem('user', pUuser);
 

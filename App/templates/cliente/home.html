@@ -63,6 +63,29 @@
     </div>-->
     <nav class="nav"></nav>
     <div class="container ">
+
+    {% for producto  in  data["productos"] %}
+
+        <div class="card md">            
+            <div class="card-header">
+                {{ producto["id"] }} - 
+                <h2> {{producto["nombre"]}} </h2>
+            </div>
+            <img class="card-img-top" 
+                 src="/static/img/mouse-genius-nx-7000-wireless-negro.jpg" 
+                 alt="Imagen de producto">
+            <div class="card-body">
+                {{producto["descripcion"]}} -
+                {{producto["precio"]}}
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary">Comprar</button>
+                <button class="btn btn-primary">carrito</button>
+                <button class="btn btn-primary">Comprr</button>
+                </div>
+        </div>
+
+    {% endfor %}
         <div class="row row-cols-1 row-cols-md-3">
             <div class="col mb-4">
                 <div class="card">

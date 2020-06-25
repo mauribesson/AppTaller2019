@@ -13,35 +13,10 @@
     //Inicializa App Firebase 
     firebase.initializeApp(firebaseConfig);
 
-    //salir
-    /*  const btnSingOut = document.getElementById("btnSingOut");
-
-     btnSingOut.addEventListener('click', e => {
-         alert('ghjgj')
-         const auth = firebase.auth();
-         auth.signOut().then(function() {
-             // Sign-out successful.
-         }).catch(function(e) {
-             // An error happened.
-             console.log(e);
-         });
-     }); */
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            // User is signed in.
-            /*             var displayName = user.displayName;
-                        var email = user.email;
-                        var emailVerified = user.emailVerified;
-                        var photoURL = user.photoURL;
-                        var isAnonymous = user.isAnonymous;
-                        var uid = user.uid;
-                        var providerData = user.providerData; */
-
             console.log("Logueado", user);
-            //if (location.pathname !== "/")
-            //    location.href = "/";
-
         } else {
             console.log("No loguado", user);
 

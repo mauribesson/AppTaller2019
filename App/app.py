@@ -1258,7 +1258,10 @@ def mostrarPago():
 @app.route('/cliente')
 @app.route('/cliente/home')
 def cliente_home():
-    return render_template('cliente/home.html')
+    data = {}
+    producto = Producto()   
+    data["productos"] = producto.formato_datos_tabla()
+    return render_template('cliente/home.html', data=data)
 
 @app.route('/preguntas_frecuentes')
 def preguntas_frecuentes():
@@ -1270,6 +1273,16 @@ def contacto():
      return render_template('cliente/contacto.html')
 
 #========================== Fin CLIENTE ===============================#
+
+#========================== Sesion de usari ===============================#
+
+@app.route('/validarRolUsuario')
+def validarRolUsusario():
+    if request.method == 'GET':
+        return 'sarasas'
+#========================== CLIENTE ===============================#
+
+
 
 
 #Inicio de aplicacion
