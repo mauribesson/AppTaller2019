@@ -1280,7 +1280,7 @@ def contacto():
 def validarRolUsusario():
     if request.method == 'GET':
         res = request.args['usuario'] 
-    ### si el usario existe , si es nuevo falta afmar    
+    ### si el usario existe , si es nuevo falta ARMAR y ver flujos js    
         #usuario = Usuario()
         #usuario.set_nombre(res)
         #rol_id = usuario.validar_rol()
