@@ -128,7 +128,7 @@
             .then(
                 function(response) {
                     if (response.status !== 200) {
-                        console.log('Looks like there was a problem. Status Code: ' +
+                        console.log('estado de error: ' +
                             response.status);
                         return;
                     }
@@ -137,7 +137,7 @@
                     response.json().then(function(data) {
                         console.log(data);
                         //let res = JSON.parse(data);
-                        console.log('response js validar usuario', res);
+                        console.log('validar usuario', res);
                         if (data.rol_id === ADMIN_ROL_ID) {
                             location.href = ADMIN_PATH;
                         } else if (data.rol_id === CLIENT_ROL_ID) {
