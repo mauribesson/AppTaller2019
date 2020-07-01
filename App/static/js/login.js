@@ -34,6 +34,8 @@
 
     const ADMIN_PATH = "/";
     const CLIENT_PATH = "/cliente"
+    const ADMIN_ROL_ID = 1
+    const CLIENT_ROL_ID = 2
 
     //Clic boton Login 
     btnLogin.addEventListener('click', e => {
@@ -136,10 +138,12 @@
                         console.log(data);
                         //let res = JSON.parse(data);
                         console.log('response js validar usuario', res);
-                        if (data.rol_id === 1) {
+                        if (data.rol_id === ADMIN_ROL_ID) {
                             location.href = ADMIN_PATH;
-                        } else {
+                        } else if (data.rol_id === CLIENT_ROL_ID) {
                             location.href = CLIENT_PATH;
+                        } else {
+                            console.log("Rol ID", data.rol_id); //el id no es cliente ni admin
                         }
                     });
                 }
@@ -156,12 +160,9 @@
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-
-            validateUserRol(user.email); //--no se esta ejecutando
+            validateUserRol(user.email); // Valida rol y redirecciona --> se podria reducir compelgidad 
 
             console.log("change if", user);
-
-            //location.href = "/";
         } else {
             console.log("change else", user);
             if (location.pathname !== "/login") {
