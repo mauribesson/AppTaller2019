@@ -1280,10 +1280,11 @@ def contacto():
 def validarRolUsusario():
     if request.method == 'GET':
         res = request.args['usuario'] 
+    ### si el usario existe , si es nuevo falta afmar    
         #usuario = Usuario()
         #usuario.set_nombre(res)
         #rol_id = usuario.validar_rol()
-        data ={'rol_id': 3 } #consultar backend harcodeado 1: admin, 2: cliente, 3 o otro nada
+        data ={'rol_id': 1 } #consultar backend HARCODEADO 1: admin, 2: cliente, 3 o otro nada
         return jsonify(data)
 #========================== CLIENTE ===============================#
 

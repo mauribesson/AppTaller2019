@@ -13,12 +13,17 @@
     //Inicializa App Firebase 
     firebase.initializeApp(firebaseConfig);
 
+    //let body = document.getElementsByTagName("body")[0]
+    // body.style.visibility = "hidden";
+
+    //Armar un cargando o algo  
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             console.log("Logueado", user);
+            //body.style.visibility = ""; //muetra la admin solo si esta logueado
         } else {
-            console.log("No loguado", user);
+            console.log("No loguedo", user);
 
             if (location.pathname !== "/login")
                 location.href = "/login";

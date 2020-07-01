@@ -55,7 +55,7 @@
                 console.log(errorCode, errorMessage);
 
                 if (errorCode === 'auth/wrong-password') {
-                    alert('Wrong password.');
+                    alert('Contraseña incorrecta!!!');
                 } else {
                     alert(errorMessage);
                 }
@@ -124,7 +124,7 @@
     const validateUserRol = (user) => {
         let url = window.location.href + "/validarRolUsuario?usuario=" + user;
         let userData = { "user": user };
-        let res = fetch(url)
+        fetch(url)
             .then(
                 function(response) {
                     if (response.status !== 200) {
@@ -132,12 +132,9 @@
                             response.status);
                         return;
                     }
-
                     // Examine the text in the response
                     response.json().then(function(data) {
                         console.log(data);
-                        //let res = JSON.parse(data);
-                        console.log('validar usuario', res);
                         if (data.rol_id === ADMIN_ROL_ID) {
                             location.href = ADMIN_PATH;
                         } else if (data.rol_id === CLIENT_ROL_ID) {
@@ -151,23 +148,18 @@
             .catch(function(err) {
                 console.log('Fetch Error :-S', err);
             });
-
-
-        console.log(res);
-        debugger;
     }
 
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             validateUserRol(user.email); // Valida rol y redirecciona --> se podria reducir compelgidad 
-
-            console.log("change if", user);
+            console.log("Login", user);
         } else {
             console.log("change else", user);
-            if (location.pathname !== "/login") {
-                location.href = "/login";
-            }
+            /*  if (location.pathname !== "/login") {
+                 location.href = "/login";
+             } */
         }
     });
 
