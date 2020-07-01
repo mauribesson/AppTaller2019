@@ -68,7 +68,7 @@ class Usuario:
                         self.__nombre))
         return data
 
-    def consultar_usuario(self):
+    def consultar_usuarios(self):
         data = db.querySelect('''
                 SELECT * FROM "vista_usuarios";
                 ''')        
@@ -81,16 +81,21 @@ class Usuario:
                     SELECT * FROM "usuario"
                     WHERE "nombre" = '{}';
                 '''.format(nombre))
+            print(data)
             return data[0]#retorna la unica tupla 
         
     def formato_datos_tabla(self):
-        ListaUsuarios = self.consultar_usuario()
+        ListaUsuarios = self.consultar_usuarios()
         nueva_lista = []
 
         for e in ListaUsuarios:
             nueva_lista.append({'nombre':e[0],  'contacto':e[2], 'rol':e[3]})
         
         return nueva_lista
+
+    def validar_rol(self):
+        usuario = self.consultar_usuario_por_nombre()
+        return usuario[3] # return rol
 
     
 

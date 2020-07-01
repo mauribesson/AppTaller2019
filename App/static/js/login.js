@@ -7,6 +7,7 @@
  */
 
 //Se carga inmediatemente despues de ser creada 
+
 (function() {
 
     //Configura app Firebase
@@ -31,6 +32,8 @@
     const btnFacebookSingIn = document.getElementById("btnFacebookSingIn");
     const btnGoogleSingIn = document.getElementById("btnGoogleSingIn");
 
+    const ADMIN_PATH = "/";
+    const CLIENT_PATH = "/cliente"
 
     //Clic boton Login 
     btnLogin.addEventListener('click', e => {
@@ -116,6 +119,40 @@
         });
     });
 
+    const validateUserRol = (user) => {
+        let url = window.location.href + "/validarRolUsuario?usuario=" + user;
+        let userData = { "user": user };
+        let res = fetch(url)
+            .then(
+                function(response) {
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                            response.status);
+                        return;
+                    }
+
+                    // Examine the text in the response
+                    response.json().then(function(data) {
+                        console.log(data);
+                        //let res = JSON.parse(data);
+                        console.log('response js validar usuario', res);
+                        if (data.rol_id === 1) {
+                            location.href = ADMIN_PATH;
+                        } else {
+                            location.href = CLIENT_PATH;
+                        }
+                    });
+                }
+            )
+            .catch(function(err) {
+                console.log('Fetch Error :-S', err);
+            });
+
+
+        console.log(res);
+        debugger;
+    }
+
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -124,7 +161,7 @@
 
             console.log("change if", user);
 
-            location.href = "/";
+            //location.href = "/";
         } else {
             console.log("change else", user);
             if (location.pathname !== "/login") {
@@ -159,13 +196,7 @@
 
     }
 
-    const validateUserRol = (user) => {
-        let url = window.location.href + "validarRolUsuario";
-        //let userData = { "user": user, "password": password };
-        let res = fetch(url);
-        console.log(res);
-        debugger;
-    }
+
 
 
     //====================================no se va a usar

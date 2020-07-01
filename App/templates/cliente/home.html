@@ -7,10 +7,17 @@
 
     <div class="d-flex p-3 bg-dark text-white">
         <div class="container">
-            <h1 class=" justify-content-center">Electo</h1>
-            <p>Todo en electronica</p>
-            <form class="">
-
+            <div class="row">
+                <div class="col-md-4">
+                    <h1 class=" justify-content-center">Electo</h1>
+                    <p>Todo en electronica</p>
+                </div>
+                <div class="col-md-3 .offset-md-8">    
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-primary">Iniciar sesión</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-primary">Registrarse</a>
+                </div>
+            </div>
+            <form class="" methon='GET'>
                 <div class="row justify-content-center ">
                     <div class="col-md-2 p-0">
                         <div class="form-group">
@@ -34,58 +41,33 @@
             </form>
         </div>
     </div>
-    <!--<div class="jumbotron text-center">
-        <h1>Electo</h1>
-        <p>Todo en electronica</p>
-        <form class="">
-
-            <div class="row justify-content-center ">
-                <div class="col-md-2 p-0">
-                    <div class="form-group">
-                        <select name="nuevaMarca" class="custom-select">
-                            <option>Categoria 1 </option>
-                            <option>Categoria 1 </option>
-                            <option>Categoria 1 </option>
-                            <option>Categoria 1 </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 p-0">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="buscar" aria-describedby="Buscar..." placeholder="Buscar...">
-                    </div>
-                </div>
-                <div class="col-md-2 p-0">
-                    <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i>Buscar</button>
-                </div>
-            </div>
-        </form>
-    </div>-->
     <nav class="nav"></nav>
     <div class="container ">
 
+    <div class="row">
     {% for producto  in  data["productos"] %}
-
-        <div class="card md">            
-            <div class="card-header">
-                {{ producto["id"] }} - 
-                <h2> {{producto["nombre"]}} </h2>
-            </div>
-            <img class="card-img-top" 
-                 src="/static/img/mouse-genius-nx-7000-wireless-negro.jpg" 
-                 alt="Imagen de producto">
-            <div class="card-body">
-                {{producto["descripcion"]}} -
-                {{producto["precio"]}}
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-primary">Comprar</button>
-                <button class="btn btn-primary">carrito</button>
-                <button class="btn btn-primary">Comprr</button>
+        <div class ="col-md-4">
+            <div class="card producto-card" style="width:90%">            
+                <div class="card-header">
+                    {{ producto["id"] }} - 
+                    <h2> {{producto["nombre"]}} </h2>
                 </div>
+                <img class="card-img-top" 
+                    src="/static/img/mouse-genius-nx-7000-wireless-negro.jpg" 
+                    alt="Imagen de producto">
+                <div class="card-body">
+                    {{producto["descripcion"]}} - $
+                    {{producto["precio"]}}
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary">Comprar</button>
+                    <button class="btn btn-primary">carrito</button>
+                    <button class="btn btn-primary">Favoritos</button>
+                </div>
+            </div>
         </div>
-
     {% endfor %}
+    </div>
         <div class="row row-cols-1 row-cols-md-3">
             <div class="col mb-4">
                 <div class="card">

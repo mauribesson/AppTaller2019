@@ -24,7 +24,7 @@ def index():
 
 #========================== LOGIN  ===================================#
 @app.route('/login')
-def  login_user():
+def  login():
     return render_template('login/login.html')
 #========================== Fin LOGIN  ===================================#
 
@@ -221,7 +221,7 @@ def editarUsuario():
 def listarUsuario():
     data = []
     usuario = Usuario()
-    data = usuario.consultar_usuario() 
+    data = usuario.consultar_usuarios() 
     return render_template('usuario/listadoUsuario.html', data=data)   
     
 
@@ -1276,10 +1276,15 @@ def contacto():
 
 #========================== Sesion de usari ===============================#
 
-@app.route('/validarRolUsuario')
+@app.route('/login/validarRolUsuario')
 def validarRolUsusario():
     if request.method == 'GET':
-        return 'sarasas'
+        res = request.args['usuario'] 
+        #usuario = Usuario()
+        #usuario.set_nombre(res)
+        #rol_id = usuario.validar_rol()
+        data ={'rol_id': 2 } #consultar backend harcodeado
+        return jsonify(data)
 #========================== CLIENTE ===============================#
 
 
