@@ -56,8 +56,8 @@
 
                 if (errorCode === 'auth/wrong-password') {
                     alert('Contraseña incorrecta!!!');
-                } else {
-                    alert(errorMessage);
+                } else if (errorCode === 'auth/invalid-email') {
+                    alert('Debe ingresar un Email de Ususario ya registrado valido!!!');
                 }
                 console.log(error);
             });
@@ -141,6 +141,10 @@
                             location.href = CLIENT_PATH;
                         } else {
                             console.log("Rol ID", data.rol_id); //el id no es cliente ni admin
+
+                            //debe REGISTRAR el usuario
+                            //DEBE hacer redireccion a cliente porque es nuevo 
+
                         }
                     });
                 }

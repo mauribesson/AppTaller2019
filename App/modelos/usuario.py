@@ -81,8 +81,11 @@ class Usuario:
                     SELECT * FROM "usuario"
                     WHERE "nombre" = '{}';
                 '''.format(nombre))
-            print(data)
-            return data[0]#retorna la unica tupla 
+            print(len(data))
+            if len(data) > 0 :
+                return data[0]#retorna la unica tupla
+            else:
+                return []
         
     def formato_datos_tabla(self):
         ListaUsuarios = self.consultar_usuarios()
@@ -94,8 +97,13 @@ class Usuario:
         return nueva_lista
 
     def validar_rol(self):
+        usuario = ()
         usuario = self.consultar_usuario_por_nombre()
-        return usuario[3] # return rol
+        if len(usuario) > 0:
+            return usuario[3] # return rol
+        else:
+            return 0 #usuario no regitrado 
+
 
     
 

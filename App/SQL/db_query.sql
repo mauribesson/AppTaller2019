@@ -436,3 +436,8 @@ JOIN ejemplar AS "e" ON ec."numeroSerie" = e."numeroSerie"
 JOIN carrito AS "c" ON ec."idCarrito" = c."id"
 Join producto AS "p" ON e.producto = p."id";
 
+--INSERTs de inicio 
+-- admin por defecto
+INSERT INTO public.usuario(
+	nombre, contrasenia, contacto, rol)
+	VALUES ('admin@admin.com', '123456', '', 1);

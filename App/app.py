@@ -1281,10 +1281,11 @@ def validarRolUsusario():
     if request.method == 'GET':
         res = request.args['usuario'] 
     ### si el usario existe , si es nuevo falta ARMAR y ver flujos js    
-        #usuario = Usuario()
-        #usuario.set_nombre(res)
-        #rol_id = usuario.validar_rol()
-        data ={'rol_id': 1 } #consultar backend HARCODEADO 1: admin, 2: cliente, 3 o otro nada
+        usuario = Usuario()
+        usuario.set_nombre(res)
+        rol_id = usuario.validar_rol()
+        data ={'rol_id': rol_id }
+        #data ={'rol_id': 1 } #consultar backend HARCODEADO 1: admin (admin@admin.com), 2: cliente, 0 No registrado otro nada
         return jsonify(data)
 #========================== CLIENTE ===============================#
 
