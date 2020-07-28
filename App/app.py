@@ -20,6 +20,8 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     data = []
+    producto = Producto()
+    data = producto.listar_productos()
     return render_template('index.html', data=data)
 
 #========================== LOGIN  ===================================#
@@ -551,14 +553,26 @@ def listarProductos():
     return render_template('producto/productos.html', data=data, cantidad=cantidad)
 
 
-@app.route('/verProducto')
-@app.route('/verProducto/<int:id>')
-def verProducto(id=None):
+@app.route('/verProducto', methods=["POST"])
+def verProducto():
+    if request.method == 'POST':
+        id = request.form['id']
     data = {}
     producto = Producto()
     producto.set_id(id)
     data = producto.consultar_producto_por_id()
     return render_template('producto/verProducto.html', data = data)
+
+#ver producto viejo
+# @app.route('/verProducto')
+# @app.route('/verProducto/<int:id>')
+# def verProducto(id=None):
+#     data = {}
+#     producto = Producto()
+#     producto.set_id(id)
+#     data = producto.consultar_producto_por_id()
+#     return render_template('producto/verProducto.html', data = data)
+
 
 
 #==================

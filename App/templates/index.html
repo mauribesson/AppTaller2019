@@ -1,66 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
+<head>
+    <title>Inicio</title>
+    <style>
+        .contorno{
+            padding-top: 20px;
+            width: 270px;
+            padding-left: 22px;
+        }
+    
+        .card-content{
+            border: transparent;
+            border-radius: 20px;
+            padding: 10px;
+            background-color: #18BC9C;
+        }
+
+        .cliqueable{
+            display:block;
+            margin:auto;
+            border:none;
+            background-color: transparent;
+        }
+
+        .card-img{
+            text-align: center;
+        }
+
+        .nombre{
+            text-align: center;
+            height: 80px;
+        }
+
+        .precio{
+            font-size: 18px; 
+            overflow:hidden;
+            white-space:nowrap;
+            text-overflow: ellipsis;
+            text-align: center;
+        }
+
+        .comprar{
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-comprar{
+            display:block;
+            margin:auto;
+            border:none;
+            border-radius: 20px;
+            background-color: white;
+            font-size: 20px;
+            width: 200px;
+        }
+    </style>
+</head>
+
 
 {% include 'header/header.html' %}
 
 <body>
-
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar.html' %}
-
         <div id="page-content-wrapper">
             {% include 'navbars/navbar.html' %}
-            <div class="container-fluid">
-                <!--<h2>{{ data }}</h2>-->
-                <div class="row">
+            <section class="details-card">
+                <div class="container">
+                    <div style=" display: flex;justify-content: center;" class="row">
+                        {% for dato in data %}
+                        <!-- <div style="padding-bottom: 20px;padding-top: 20px;" class="col-md-4"> -->
+                        <div class="contorno">
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <form action="verProducto" method="POST">
+                                        <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                        <button class="cliqueable" type="submit">
+                                            <div class="card-img">
+                                                <img src="https://w7.pngwing.com/pngs/338/779/png-transparent-drawing-personal-computer-desktop-computers-computer-angle-furniture-rectangle.png" style="border-radius: 20px" width="150" height="200" alt="Ver detalles">
+                                            </div>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="card-desc">
+                                    <div class="form-group">
+                                        <form action="verProducto" method="POST">
+                                            <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                            <button class="cliqueable" type="submit">
+                                                <div class="nombre">
+                                                    <h4 style="text-align: center;">{% print(dato[1])%}</h4>
+                                                    <div class="precio">
+                                                        ${% print(dato[3])%}
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="comprar">
+                                        <form action="comprar" method="POST">
+                                            <div style="padding: 0px;padding-top: 2px;" class="form-group">
+                                            <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                            <button class="btn-comprar" type="submit">COMPRAR</button>
+                                            <!-- <button style="display:block;margin:auto;border:none;background-color: transparent;font-size: 30px;" type="submit"><i class="fa fa-cart-plus" aria-hidden="true"></i></button> -->
+                                            </div>
+                                        </form>
+                                    </div>
 
-
-                    <div class="col-md-4">
-                        <div class="card m-2 shadow" style="width: 18rem;">
-
-                            <div class="card-body">
-                                <h4>Ventas Semanales </h4>
-                                <h2 class="card-title">320</h2>
-                            </div>
-
-                            <div class="card-body">
-
+                                 </div>
                             </div>
                         </div>
+                        {%endfor%}
                     </div>
-                    <div class="col-md-4">
-                        <div class="card m-2 shadow" style="width: 18rem;">
-
-                            <div class="card-body">
-                                <h4>Ventas Mensuales </h4>
-                                <h2 class="card-title">980</h2>
-                            </div>
-
-                            <div class="card-body">
-
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card m-2 shadow" style="width: 18rem;">
-                        <img class="card-img-top" src="/static/img/g1_demos.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Prueba estetica</h5>
-
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            </section> 
         </div>
-
     </div>
     {% include 'footer/footer.html' %} 
     <!-- {% include 'sesion/sesion.html' %} -->

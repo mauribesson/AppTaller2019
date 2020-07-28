@@ -6,12 +6,9 @@
 
 <style>
   .card-deck{
-    margin-right:400px;
-    margin-bottom:20px;
-    margin-left:400px;
-    margin-top: 50px;
-    border-bottom:50px;
-    background-color: black;
+    width: 500px;
+    display:block;
+    margin:auto;
   }
   .btn-success{
     background-color: black;
@@ -21,6 +18,21 @@
     margin-bottom:5px;
     margin-top: 5px;
   }
+  .imagen{
+    display:block;
+    margin:auto;
+    width: 300px;
+    border-radius: 20px;
+    width: 150px;
+    height: 200px;
+  }
+  .card{
+    border-radius: 20px;
+    background-color: #18BC9C;
+    border: transparent;
+    margin-top: 20px;
+    padding-top: 10px;
+  }
 </style>
 
 <body>
@@ -28,15 +40,16 @@
         {% include 'navbars/sidebar_usuarios.html' %}
         <div id="page-content-wrapper">
             {% include 'navbars/navbar.html' %}        
-            <a href="{{ url_for('listarProductos') }}" class="btn btn-success"><span class="fa fa-arrow-left"></span></a>
+            <!-- <a href="{{ url_for('listarProductos') }}" class="btn btn-success"><span class="fa fa-arrow-left"></span></a> -->
             <div class="container p-2">
               <div class="card-deck">
                   <div class="card">
-                    <img src="static/img/fondo-login.png" class="card-img-top" alt="...">
+                    <img src="https://w7.pngwing.com/pngs/338/779/png-transparent-drawing-personal-computer-desktop-computers-computer-angle-furniture-rectangle.png" class="imagen" alt="">
+                    <!-- <img src="static/img/fondo-login.png" class="imagen" alt="..."> -->
                     <div class="card-body">
                       <center>
                         <h2 class="card-title">{{data[1]}}</h2>
-                        <p class="card-text">Descripción {{data[2]}}</p>
+                        <p class="card-text">{{data[2]}}</p>
                         <p class="card-text">Modelo {{data[4]}}</p>
                         <p class="card-text">Garantía {{data[5]}} meses</p>
                         <p class="card-text"><h5>${{data[3]}}</h5></p>
@@ -46,9 +59,9 @@
                   </div>
               </div>
             </div>
-            {% include 'footer/footer.html' %}
         </div>
     </div>
+    {% include 'footer/footer.html' %}
 
 </body>
 
