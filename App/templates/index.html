@@ -54,6 +54,15 @@
             font-size: 20px;
             width: 200px;
         }
+        .buscar{
+            display: inline;
+            border:none;
+            padding-top: 20px;
+            text-align: right;
+        }
+        .boton-buscar{
+            border: none;
+        }
     </style>
 </head>
 
@@ -65,6 +74,14 @@
         {% include 'navbars/sidebar.html' %}
         <div id="page-content-wrapper">
             {% include 'navbars/navbar.html' %}
+            <div style="padding-top: 10px;padding-right: 10px;">
+                <div class="buscar">
+                    <form action="buscarProducto" method="POST">
+                            <input type="text" name="palabra" id="palabra" placeholder="Buscar...">
+                            <button class="boton-buscar" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </div>
             <section class="details-card">
                 <div class="container">
                     <div style=" display: flex;justify-content: center;" class="row">

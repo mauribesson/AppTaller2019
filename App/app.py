@@ -563,6 +563,15 @@ def verProducto():
     data = producto.consultar_producto_por_id()
     return render_template('producto/verProducto.html', data = data)
 
+@app.route('/buscarProducto', methods=["POST"])
+def buscarProducto():
+    if request.method == 'POST':
+        palabra = request.form['palabra']
+    data = {}
+    producto = Producto()
+    data = producto.buscarProductos(palabra)
+    return render_template('index.html', data=data)
+
 #ver producto viejo
 # @app.route('/verProducto')
 # @app.route('/verProducto/<int:id>')
