@@ -323,7 +323,7 @@ def listarCategorias():
     data = {}
     producto = Producto()
     data = producto.consultar_producto_por_tipo(tipoProducto)
-    return render_template('producto/productos.html', data=data, categoria=tipoProducto)
+    return render_template('producto/productosPorCategoria.html', data=data, categoria=tipoProducto)
 
 
 #====================
@@ -422,12 +422,8 @@ def productosPorMarca():
         marca = request.form['marca']
     data = {}
     producto = Producto()
-    data['productos'] = producto.consultar_producto_por_marca(marca)
-    cant = producto.obtener_cantidad_productos()
-    for e in cant:
-        cantidad = e[0]
-    cantidad=int(cantidad)
-    return render_template('producto/productos.html', data=data, cantidad=cantidad)
+    data = producto.consultar_producto_por_marca(marca)
+    return render_template('producto/productosPorMarca.html', data=data, marca=marca)
 
 
 
