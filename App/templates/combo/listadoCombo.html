@@ -1,55 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+<head>
+    <title>Inicio</title>
+    <style>
+        .contorno{
+            padding-top: 20px;
+            width: 270px;
+            padding-left: 22px;
+        }
+    
+        .card-content{
+            border: transparent;
+            border-radius: 20px;
+            padding: 10px;
+            background-color: #18BC9C;
+        }
+
+        .cliqueable{
+            display:block;
+            margin:auto;
+            border:none;
+            background-color: transparent;
+        }
+
+        .card-img{
+            text-align: center;
+        }
+
+        .nombre{
+            text-align: center;
+            height: 80px;
+        }
+
+        .precio{
+            font-size: 18px; 
+            overflow:hidden;
+            white-space:nowrap;
+            text-overflow: ellipsis;
+            text-align: center;
+        }
+
+        .comprar{
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-comprar{
+            display:block;
+            margin:auto;
+            border:none;
+            border-radius: 20px;
+            background-color: white;
+            font-size: 20px;
+            width: 200px;
+        }
+        .titulo{
+          font-size: 30px;
+          margin-top: 10px;
+          margin-left: 20px;
+        }
+    </style>
+</head>
+
+
 {% include 'header/header.html' %}
 
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-<style>
-  .card-deck{
-    margin-right:400px;
-    margin-bottom:20px;
-    margin-left:400px;
-    border-bottom:50px;
-    background-color: black;
-  }
-  .btn-success{
-    background-color: black;
-    font-size: 20px;
-    margin-right:5px;
-    margin-left:5px;
-    margin-bottom:5px;
-    margin-top: 5px;
-  }
-</style>
-
 <body>
-
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar_usuarios.html' %}
-
         <div id="page-content-wrapper">
             {% include 'navbars/navbar.html' %}
-            <div class="container p-2">
-              {% for e in data:%}
-              <div class="card-deck">
-                  <div class="card">
-                    <img src="static/img/g1_demos.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <center>
-                        <h5 class="card-title">{{e[1]}}</h5>
-                        <p class="card-text"><h5>${{e[4]}}</h5></p>
-                        <a href="{{ url_for('mostrarComboAlUsuario')}}/{{e[0]}}" class="btn btn-success"><span class="fa fa-info-circle"></span></a>
-                        <a href="{{ url_for('verProducto') }}" class="btn btn-success"><span class="fa fa-cart-plus"></span></a>
-                      </center>
-                    </div>
-                  </div>
-              </div>
-              {%endfor%} 
+            <div class="titulo">
+              <span>Combos disponibles</span>
             </div>
+            <section class="details-card">
+                <div class="container">
+                    <div style=" display: flex;justify-content: center;" class="row">
+                        {% for dato in data %}
+                        <div class="contorno">
+                            <div class="card-content">
+                                <div class="form-group">
+                                    <form action="mostrarComboAlUsuario" method="POST">
+                                        <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                        <button class="cliqueable" type="submit">
+                                            <div class="card-img">
+                                                <img src="https://w7.pngwing.com/pngs/338/779/png-transparent-drawing-personal-computer-desktop-computers-computer-angle-furniture-rectangle.png" style="border-radius: 20px" width="150" height="200" alt="Ver detalles">
+                                            </div>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="card-desc">
+                                    <div class="form-group">
+                                        <form action="mostrarComboAlUsuario" method="POST">
+                                            <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                            <button class="cliqueable" type="submit">
+                                                <div class="nombre">
+                                                    <h4 style="text-align: center;">{% print(dato[1])%}</h4>
+                                                    <div class="precio">
+                                                        ${% print(dato[3])%}
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="comprar">
+                                        <form action="comprar" method="POST">
+                                            <div style="padding: 0px;padding-top: 2px;" class="form-group">
+                                            <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                            <button class="btn-comprar" type="submit">COMPRAR</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                 </div>
+                            </div>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </section> 
         </div>
     </div>
-    
-    {% include 'footer/footer-usuario.html' %}
+    {% include 'footer/footer.html' %} 
 </body>
 
 </html>

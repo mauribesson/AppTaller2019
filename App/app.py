@@ -738,8 +738,10 @@ def verCombo(id):
 
 
 @app.route('/mostrarComboAlUsuario')
-@app.route('/mostrarComboAlUsuario/<int:id>')
-def mostrarComboAlUsuario(id):
+@app.route('/mostrarComboAlUsuario', methods=["POST"])
+def mostrarComboAlUsuario():
+    if request.method == 'POST':
+        id  = request.form['id']
     combo = Combo()
     combo.set_id(id)
     data = combo.consultar_combo_por_id()
@@ -907,7 +909,6 @@ def ejemplar_data_table():
 def listarCombo():
     combo = Combo()
     data = combo.listar_combos()
-    print(data)
     return render_template('combo/listadoCombo.html', data=data)
 
 
