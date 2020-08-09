@@ -28,6 +28,7 @@ def index():
 @app.route('/login')
 def  login():
     return render_template('login/login.html')
+
 #========================== Fin LOGIN  ===================================#
 
 #=========================ABMC===========================#
@@ -321,12 +322,8 @@ def listarCategorias():
         tipoProducto = request.form['tipoProducto']
     data = {}
     producto = Producto()
-    data['productos'] = producto.consultar_producto_por_tipo(tipoProducto)
-    cant = producto.obtener_cantidad_productos()
-    for e in cant:
-        cantidad = e[0]
-    cantidad=int(cantidad)
-    return render_template('producto/productos.html', data=data, cantidad=cantidad)
+    data = producto.consultar_producto_por_tipo(tipoProducto)
+    return render_template('producto/productos.html', data=data, categoria=tipoProducto)
 
 
 #====================
