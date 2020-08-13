@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Acceso</title>
+    <style>
+        .fondo{
+            /* background-image: url("https://seoymedia.com/sites/default/files/portada_puntoofertas.jpg");
+            background-size: 25%; */
+            background-color: #18BC9C;
+        }
+        .cuadrado{ 
+            display:block;
+            margin: auto;
+            margin-top: 15px;
+            width: 400px;
+            background-color: white;
+            text-align: center;
+            border-radius: 3px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .formulario{
+            display:block;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        .form-group{
+            margin-bottom: 10px;
+            font-size: 30px;
+            display:block;
+            margin: auto;
+        }
+
+        .btn-primary{
+            margin-top: 10px;
+            background-color: #18BC9C;
+            width: 310px;
+            height: 35px;
+            border: none;
+            border-radius: 2px;
+            font-size: 20px;
+        }
+
+        .form-control{
+            margin-top: 3px;
+            margin-bottom: 5px;
+            font-size: 16px;
+            margin-left: -80px;
+            margin-right: -80px;
+            width: 300px;
+            height: 35px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+
+        .p1{
+            padding-top: 60px;
+        }
+
+        .texto1{
+            font-size: 16px;
+            margin-top: 30px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .redes{
+            padding-top: 30px;
+            width: 300px;
+            display:block;
+            margin: auto;
+        }
+
+        .iconos{
+            padding-left: 15px;
+        }
+
+        .ic{
+            display: inline;
+            text-decoration: none;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .texto2{
+            font-size: 16px;
+            padding-top: 80px;
+            padding-bottom: 20px;
+            width: 300px;
+            display:block;
+            margin: auto;
+            color: #18BC9C;
+            font-weight: bold;
+        }
+
+        .texto3{
+            color: #18BC9C;
+            font-weight: bold;
+        }
+        </style>
+</head>
+
+<body class="fondo"> 
+        <div class="cuadrado">
+            <div class="formulario">
+                <form action="loginAndrea" method="POST" class="p1">
+                    <h2 style="margin-bottom: 10px;">Inicia sesión</h2>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="contrasenia" id="contrasenia" placeholder="Contraseña">
+                    </div>
+                    <button type="submit" class="btn-primary">Ingresar</button>
+                </form>
+
+                <div class="redes">
+                    <div class="texto1">
+                        <span>
+                            O accede con
+                        </span>
+                    </div>
+
+                    <ul class="iconos">
+                        <li class="ic">
+                            <a href="#" style="text-decoration:none;">
+                                <img src="/static/img/icono-facebook.png" alt="" width="10%" height="10%">
+                            </a>
+                        </li>
+                        <li class="ic">
+                            <a href="#" class="ic">
+                                <img src="/static/img/icono-google.png" alt="" width="10%" height="10%">
+                            </a>
+                        </li>
+                        <li class="ic">
+                            <a href="#" class="ic">
+                                <img src="/static/img/icono-twitter.png" alt="" width="10%" height="10%">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="texto2">
+                        ¿No tienes una cuenta?
+                    <div>
+                        <a href="altaUsuario" class="texto3">
+                            Regístrate							
+                        </a>    
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

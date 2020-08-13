@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
 from db import Database
 from modelos.rol import Rol
 from modelos.usuario import Usuario
@@ -16,6 +16,8 @@ from modelos.ejemplar_combo import Ejemplar_combo
 db = Database()
 
 app = Flask(__name__)
+
+app.secret_key = 'apptaller2019'
 
 @app.route('/')
 def index():
@@ -147,7 +149,8 @@ def usuario_data_table():
 
 @app.route('/altaUsuario')
 def altaUsuario():
-     return render_template('usuario/altaUsuario.html') 
+    #  return render_template('usuario/altaUsuario.html') 
+    return render_template('usuario/crearUsuario.html') 
 
 
 @app.route('/guardarUsuario', methods=["POST"])
@@ -156,18 +159,23 @@ def guardarUsuario():
     if request.method == 'POST':
         nombre = request.form['nombreUsuario']
         contrasenia = request.form['contrasenia']
+        contrasenia_confirmacion = request.form['contrasenia_confirmacion']
         contacto = request.form['contacto']
 
-        usuario = Usuario()
-        usuario.set_nombre(nombre)
-        usuario.set_contrasenia(contrasenia)
-        usuario.set_contacto(contacto)
+        if contrasenia != contrasenia_confirmacion:
+            return render_template('usuario/contrasenias_no_coinciden.html', nombre=nombre, contacto=contacto)
+        else:
+            usuario = Usuario()
+            usuario.set_nombre(nombre)
+            usuario.set_contrasenia(contrasenia)
+            usuario.set_contacto(contacto)
 
-        verificador = usuario.verificar_unico_usuario()  
+            verificador = usuario.verificar_unico_usuario()  
 
-        if verificador == []:
-            data = usuario.alta_usuario() 
-    return render_template('usuario/usuarioGuardado.html', data=data, verificador=verificador)  
+            if verificador == []:
+                data = usuario.alta_usuario() 
+            return render_template('usuario/usuarioGuardado.html', data=data, verificador=verificador) 
+
 """
 @app.route('/bajaUsuario') 
 def bajaUsuario():
@@ -1304,6 +1312,50 @@ def validarRolUsusario():
         data ={'rol_id': rol_id }
         #data ={'rol_id': 1 } #consultar backend HARCODEADO 1: admin (admin@admin.com), 2: cliente, 0 No registrado otro nada
         return jsonify(data)
+
+@app.route('/iniciarSesion')
+def iniciarSesion():
+    return render_template('login/loginAndrea.html')
+    
+
+@app.route('/loginAndrea', methods=["POST"])
+def loginAndrea():
+    if request.method == 'POST':
+        email = request.form['email']
+        contrasenia = request.form['contrasenia']
+    ## Buscar el usuario en la base de datos
+    usuario = Usuario()
+    usuario.set_nombre(email)#La app usa el email como nombre de usuario 
+    data = usuario.consultar_usuario_por_nombre()
+    ## Si no encuentra el usuario le pide que se registre
+    if data == []:
+        return render_template('login/usuarioNoExiste.html')
+    ## Si el usuario existe, verifica que la contraseña es la correcta
+    elif data[1] != contrasenia:
+        return render_template('login/contraseniaIncorrecta.html')
+    ## Si encuentra en usuario y la contraseña es correcta, inicia sesion
+    else:
+        session['email'] = email
+        session['contraseña'] = contrasenia
+        ## Si es usuario es administrador, lo envía a la vista del admin
+        if data[3] == 1:
+            return render_template('admin/index_admin.html',data=data)
+        ## Si es usuario es comprador, lo envía a la vista del cliente
+        else:
+            datos = []
+            producto = Producto()
+            datos = producto.listar_productos()
+            return render_template('cliente/index_cliente_logueado.html',data=datos)
+
+@app.route('/miCuenta')
+def miCuenta():
+    return render_template('usuario/miCuenta.html')
+
+@app.route('/salir')
+def salir():
+    ## Elimina la sesion actual
+    session.clear()
+    return render_template('usuario/salir.html')
 #========================== CLIENTE ===============================#
 
 

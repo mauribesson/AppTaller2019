@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include 'header/header.html' %}
+<head>
+    <style>
+        .container{
+            width: 400px;
+            padding-top: 50px;
+        }
+        h2{
+            text-align: center;
+        }
+    </style>
+</head>
 
 <body>
     <div class="d-flex" id="wrapper">
-        {% include 'navbars/sidebar.html' %}
 
         <div id="page-content-wrapper">
-            {% include 'navbars/navbar.html' %}
-            <div class="container p-2">
-                <h2>Alta de usuario</h2>
+            <div class="container">
+                <h2>Registro de usuario</h2>
                 <form action="guardarUsuario" method="POST">
                     <div class="form-group">
                         <label for="nombreUsuario">Email</label>
-                        <input type="email" class="form-control" name="nombreUsuario" id="nombreUSuario" placeholder="Ingresar el nombre del usuario">
+                        <input type="email" class="form-control" name="nombreUsuario" id="nombreUSuario" placeholder="Ingresar su email">
                     </div>
                     <div class="form-group">
                         <label for="contrasenia">Contraseña</label>

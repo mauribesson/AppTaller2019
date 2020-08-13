@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Inicio</title>
+    <style>
+        .mensaje{
+            display:block;
+            margin:auto;
+            padding-top: 40px;
+            width: 270px;
+            font-size: 30px;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar.html' %}
+            <div class="mensaje">
+                Has cerrado sesión.
+            </div>
+        </div>
+    </div>
+    {% include 'footer/footer.html' %} 
+    <!-- {% include 'sesion/sesion.html' %} -->
+</body>
+
+</html>
