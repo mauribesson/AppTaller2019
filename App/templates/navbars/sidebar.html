@@ -1,13 +1,46 @@
 <!-- Sidebar -->
+
+<style>
+    *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    color: gray;
+    }
+                  
+    li{
+    list-style-type:none;
+    position: relative;
+    width:150px;
+    }
+                
+    li a{
+    text-decoration:none;
+    display:inline-block;
+    padding:15px 20px;
+    width:170px;
+    height:40px;
+    color: gray;
+    }
+    
+    nav li ul{
+        display:none;
+        position:absolute;
+        top:0px;
+        left:130px;
+    }
+            
+    nav li:hover ul{display:block;}
+
+</style>
 <div class="bg-light border-right" id="sidebar-wrapper">
     <!--<div class="sidebar-heading">Start Bootstrap </div>-->
-    <a class="navbar-brand mb-0 h1 p-2" href="/"> <i class="fas fa-keyboard"></i> App Taller 2019</a>
+    <a style="height: 50px;margin-top: 10px;" class="navbar-brand mb-0 h1 p-2" href="/"> <i class="fas fa-keyboard"></i> App Taller 2019</a>
     <div class="list-group list-group-flush">
-        <a href="{{ url_for('rolABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-users"></i> Rol <i class="fas fa-angle-right"></i> </a>
-        <a href="{{ url_for('usuarioABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-user"></i> Usuario <i class="fas fa-angle-right"></i> </a>
+        <a href="{{ url_for('usuarioABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-user"></i> Usuarios <i class="fas fa-angle-right"></i> </a>
         <a href="{{ url_for('tipoProductoABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-laptop"></i> Tipo de Productos <i class="fas fa-angle-right"></i></a>
-        <a href="{{ url_for('marcaABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-copyright"></i> Marca <i class="fas fa-angle-right"></i></a>
-        <a href="{{ url_for('productoABMC') }}" class="list-group-item list-group-item-action bg-light"> <i class="fab fa-product-hunt"></i> Producto <i class="fas fa-angle-right"></i></a>
+        <a href="{{ url_for('marcaABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-copyright"></i> Marcas <i class="fas fa-angle-right"></i></a>
+        <a href="{{ url_for('productoABMC') }}" class="list-group-item list-group-item-action bg-light"> <i class="fab fa-product-hunt"></i> Productos<i class="fas fa-angle-right"></i></a>
         <!--<a href="#" class="list-group-item list-group-item-action bg-light">----</a>-->
         <!--<li class="nav-item dropdown">-->
         <a class="list-group-item list-group-item-action bg-light  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -24,6 +57,20 @@
         </div>
         <!--</li>-->
         <a href="{{ url_for('comboABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-layer-group"></i> Combos <i class="fas fa-angle-right"></i></a>
+        <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-shopping-cart"></i> Compras <i class="fas fa-angle-right"></i></a>
+        
+        <nav>
+            <ul>
+                <li style="height: 150px;"><a href="#"><i class="fa fa-cog" aria-hidden="true"></i> Configuración <i class="fas fa-angle-right"></i></a>
+                    <ul>
+                        <li><a>  </a></li>
+                        <li style="width: 110px;"><a href="{{ url_for('rolABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-users"></i> Roles <i class="fas fa-angle-right"></i> </a></li>
+                        <li><a href="#">Servicio B</a></li>
+                        <li><a href="#">Servicio C</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
 
         <a href="#" class="list-group-item list-group-item-action bg-light"></a>
         <!--<a href="#" class="list-group-item list-group-item-action bg-light">----</a>

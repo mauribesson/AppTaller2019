@@ -26,7 +26,13 @@ def index():
     data = producto.listar_productos()
     ## Chequea si hay un usuario logueado
     if 'email' in session:
-        return render_template('cliente/index_cliente_logueado.html', data=data)
+        usuario = Usuario()
+        usuario.set_nombre(session['email'])
+        dato = usuario.consultar_usuario_por_nombre()
+        if dato[3] == 1:
+            return render_template('admin/index_admin.html',data=data)
+        else:
+            return render_template('cliente/index_cliente_logueado.html', data=data)
     else:
         return render_template('index.html', data=data)
 
