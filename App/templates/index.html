@@ -73,7 +73,7 @@
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar_usuarios.html' %}
         <div id="page-content-wrapper">
-            {% include 'navbars/navbar.html' %}
+            {% include 'navbars/navbar_nologueado.html' %}
             <div style="padding-top: 10px;padding-right: 10px;">
                 <div class="buscar">
                     <form action="buscarProducto" method="POST">
@@ -114,7 +114,7 @@
                                         </form>
                                     </div>
                                     <div class="comprar">
-                                        <form action="comprar" method="POST">
+                                        <form action="solicitarLogin" method="POST">
                                             <div style="padding: 0px;padding-top: 2px;" class="form-group">
                                             <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
                                             <button class="btn-comprar" type="submit">COMPRAR</button>

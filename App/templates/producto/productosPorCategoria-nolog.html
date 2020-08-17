@@ -56,7 +56,7 @@
         }
         .titulo{
           font-size: 30px;
-          margin-top: 70px;
+          margin-top: 10px;
           margin-left: 20px;
         }
     </style>
@@ -69,9 +69,9 @@
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar_usuarios.html' %}
         <div id="page-content-wrapper">
-            {% include 'navbars/navbar_usuario_logueado.html' %}
+            {% include 'navbars/navbar_nologueado.html' %}
             <div class="titulo">
-              <span>Productos de la marca "{{marca}}"</span>
+              <span>Productos de la categoría "{{categoria}}"</span>
             </div>
             <section class="details-card">
                 <div class="container">
@@ -104,7 +104,7 @@
                                         </form>
                                     </div>
                                     <div class="comprar">
-                                        <form action="comprar" method="POST">
+                                        <form action="solicitarLogin" method="POST">
                                             <div style="padding: 0px;padding-top: 2px;" class="form-group">
                                             <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
                                             <button class="btn-comprar" type="submit">COMPRAR</button>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Inicio</title>
+    <style>
+        .mensaje{
+            display:block;
+            margin:auto;
+            padding-top: 80px;
+            font-size: 30px;
+            font-style: italic;
+            text-align: center;
+        }
+        .btn-group{
+            justify-content: center;
+            display: block;
+            margin:auto;
+            text-align: center;
+            padding-top: 60px;
+        }
+        .btn1{
+            color:blue;
+            background-color: #18BC9C;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .btn2{
+            color: white;
+            background-color: #18BC9C;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        p{
+            font-style: oblique;
+            padding-left: 15px;
+            padding-right: 15px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_nologueado.html' %}
+             <div class="mensaje">
+              Para comprar nuestros productos debes registrarte  
+            </div>
+            <div style="text-align: center;">
+            <div class="btn-group">
+                <a class="btn1" href="/iniciarSesion">Iniciar sesión</a>
+                <p>o</p>
+                <a class="btn2" href="/altaUsuario">Crear cuenta</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer/footer.html' %} 
+</body>
+
+</html>

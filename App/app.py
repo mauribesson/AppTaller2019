@@ -24,7 +24,11 @@ def index():
     data = []
     producto = Producto()
     data = producto.listar_productos()
-    return render_template('index.html', data=data)
+    ## Chequea si hay un usuario logueado
+    if 'email' in session:
+        return render_template('cliente/index_cliente_logueado.html', data=data)
+    else:
+        return render_template('index.html', data=data)
 
 #========================== LOGIN  ===================================#
 @app.route('/login')
@@ -331,7 +335,11 @@ def listarCategorias():
     data = {}
     producto = Producto()
     data = producto.consultar_producto_por_tipo(tipoProducto)
-    return render_template('producto/productosPorCategoria.html', data=data, categoria=tipoProducto)
+    ## Verifica si hay algún usuario logueado para dirigirlo a la vista correspondiente
+    if 'email' in session:
+        return render_template('producto/productosPorCategoria.html', data=data, categoria=tipoProducto)
+    else:
+        return render_template('producto/productosPorCategoria-nolog.html', data=data, categoria=tipoProducto)
 
 
 #====================
@@ -431,7 +439,11 @@ def productosPorMarca():
     data = {}
     producto = Producto()
     data = producto.consultar_producto_por_marca(marca)
-    return render_template('producto/productosPorMarca.html', data=data, marca=marca)
+    ## Verifica si hay algún usuario logueado para dirigirlo a la vista correspondiente
+    if 'email' in session:
+        return render_template('producto/productosPorMarca.html', data=data, marca=marca)
+    else:
+        return render_template('producto/productosPorMarca-nolog.html', data=data, marca=marca)
 
 
 
@@ -917,7 +929,12 @@ def ejemplar_data_table():
 def listarCombo():
     combo = Combo()
     data = combo.listar_combos()
-    return render_template('combo/listadoCombo.html', data=data)
+    ## Verifica si hay algún usuario logueado para dirigirlo a la vista correspondiente
+    if 'email' in session:
+        return render_template('combo/listadoCombo.html', data=data)
+    else:
+        return render_template('combo/listadoCombo-nolog.html', data=data)
+    
 
 
 #======== ejemplar_combo
@@ -1290,12 +1307,20 @@ def cliente_home():
 
 @app.route('/preguntas_frecuentes')
 def preguntas_frecuentes():
-     return render_template('cliente/faq.html') 
+    ## Verifica si hay algún usuario logueado para dirigirlo a la vista correspondiente
+    if 'email' in session:
+        return render_template('cliente/faq.html')
+    else:
+        return render_template('cliente/faq-nolog.html')
 
 
 @app.route('/contacto')
 def contacto():
-     return render_template('cliente/contacto.html')
+    ## Verifica si hay algún usuario logueado para dirigirlo a la vista correspondiente
+    if 'email' in session:
+        return render_template('cliente/contacto.html')
+    else:
+        return render_template('cliente/contacto-nolog.html')
 
 #========================== Fin CLIENTE ===============================#
 
@@ -1356,6 +1381,11 @@ def salir():
     ## Elimina la sesion actual
     session.clear()
     return render_template('usuario/salir.html')
+
+@app.route('/solicitarLogin', methods=["POST"])
+def solicitarLogin():
+    return render_template('login/solicitarLogin.html')
+
 #========================== CLIENTE ===============================#
 
 
