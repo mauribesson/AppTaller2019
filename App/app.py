@@ -524,6 +524,8 @@ def eliminarProducto(id=None):
 @app.route('/modificarProducto') 
 @app.route('/modificarProducto/<int:id>') 
 def modificarProducto(id=None):
+    print(id)
+    id=int(id)
     data = {}
     producto = Producto()
     producto.set_id(id)
@@ -558,6 +560,17 @@ def editarProducto():
                                             nuevoTipoProducto,
                                             nuevaMarca)     
     return render_template('producto/productoModificado.html', data=data)
+
+@app.route('/fichaProducto')
+@app.route('/fichaProducto/<int:id>')
+def fichaProducto(id=None):
+    data = {}
+    producto = Producto()
+    producto.set_id(id)
+    data = producto.consultar_producto_por_id()
+    ejemplar = Ejemplar()
+    cantidad = ejemplar.cantidad_ejemplares_de_un_producto(id)
+    return render_template('producto/fichaProducto.html', data = data, stock = cantidad)
 
 
 @app.route('/listarProductos')

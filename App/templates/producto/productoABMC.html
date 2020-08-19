@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="m-2 alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Producto Eliminada!</strong>
+                            <strong>Producto Eliminado!</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -70,7 +70,7 @@
                 <div class="row">
                     <div class="col-lg-12 p-2">
 
-                        <h1 class="display-5">Producto</h1>
+                        <h1 class="display-5">Productos</h1>
                         <hr class="my-4">
                         <a class="nuevo-abmc btn btn-success" href="{{ url_for('altaProducto') }}"><i class="far fa-plus-square"></i> Nuevo</a>
 
@@ -90,37 +90,37 @@
 
 <script>
     $('document').ready(function() {
-        var columns = [{
+        var columns = [/* {
                 field: "id",
                 title: "ID",
                 sortable: true,
                 width: "20"
-            }, {
+            },  */{
                 field: "nombre",
                 title: "Nombre",
                 sortable: true,
                 width: "30"
-            }, {
+            }, /* {
                 field: "descripcion",
                 title: "Descripcion",
                 sortable: true,
                 width: "30"
-            }, {
+            }, */ {
                 field: "precio",
                 title: "Precio",
                 sortable: true,
                 width: "30"
-            }, {
+            }, /* {
                 field: "modelo",
                 title: "Modelo",
                 sortable: true,
                 width: "30"
-            }, {
+            }, *//*  {
                 field: "garantia",
                 title: "Garantia",
                 sortable: true,
                 width: "30"
-            }, {
+            }, */ {
                 field: "marca",
                 title: "Marca",
                 sortable: true,
@@ -130,16 +130,17 @@
                 title: "Tipo de Prod.",
                 sortable: true,
                 width: "30"
-            },
+            }, 
 
             {
                 field: 'operate',
                 title: 'Acciones',
-                width: "50",
+                width: "100",
                 // align: 'center',
                 //valign: 'middle',
                 clickToSelect: false,
                 formatter: function(value, row, index) {
+                    var urlVer = "{{ url_for('fichaProducto') }}"; //jinja Template
                     var urlModificar = "{{ url_for('modificarProducto') }}"; //jinja Template
                     var urlEliminar = '{{ url_for("eliminarProducto") }}'; //jinja Template
 
@@ -147,6 +148,7 @@
 
                     var html = '';
                     //html += '<a id="verRol' + row.nombre + '" class="btn btn-info m-2"><i class="fas fa-eye"></i></a>';
+                    html += '<a class="btn btn-primary m-2" href=' + urlVer + '/' + row.id + '><i class="fas fa-eye"></i></a>';
                     html += '<a class="btn btn-primary m-2" href=' + urlModificar + '/' + row.id + '><i class="fas fa-edit"></i></a>';
                     html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.id + '><i class="fas fa-trash"></i></a>';
 
