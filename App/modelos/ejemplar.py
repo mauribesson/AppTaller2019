@@ -77,7 +77,7 @@ class Ejemplar:
     def cantidad_ejemplares_de_un_producto(self, producto):
         data = db.querySelect('''
                 SELECT COUNT (*) FROM "ejemplar"
-                WHERE "producto" = '{}';
+                WHERE "producto" = '{}' AND "vendido" = 'False';
             '''.format(producto))
         return data
 

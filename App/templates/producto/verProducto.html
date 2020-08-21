@@ -9,6 +9,7 @@
     width: 500px;
     display:block;
     margin:auto;
+    margin-top: 60px;
   }
   .btn-success{
     background-color: black;
@@ -33,13 +34,18 @@
     margin-top: 20px;
     padding-top: 10px;
   }
+  .sinstock{
+    background-color: red;
+    width: 100%;
+    font-size: 20px;
+  }
 </style>
 
 <body>
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar_usuarios.html' %}
         <div id="page-content-wrapper">
-            {% include 'navbars/navbar.html' %}        
+            {% include 'navbars/navbar_usuario_logueado.html' %}        
             <!-- <a href="{{ url_for('listarProductos') }}" class="btn btn-success"><span class="fa fa-arrow-left"></span></a> -->
             <div class="container p-2">
               <div class="card-deck">
@@ -53,7 +59,14 @@
                         <p class="card-text">Modelo {{data[4]}}</p>
                         <p class="card-text">Garantía {{data[5]}} meses</p>
                         <p class="card-text"><h5>${{data[3]}}</h5></p>
-                        <a href="{{ url_for('verProducto') }}" class="btn btn-success"><span class="fa fa-cart-plus"></span></a>
+                        {% if stock[0][0] == 0 %}
+                          <div class="sinstock">
+                            Sin stock
+                          </div>
+                        {%endif%} 
+                        {% if stock[0][0] != 0 %}
+                          <a href="{{ url_for('verProducto') }}" class="btn btn-success"><span class="fa fa-cart-plus"></span></a>
+                        {%endif%}
                       </center>
                     </div>
                   </div>

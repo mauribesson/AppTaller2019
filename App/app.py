@@ -11,7 +11,7 @@ from modelos.carrito import Carrito
 from modelos.compra import Compra
 from modelos.pago import Pago
 from modelos.ejemplar_combo import Ejemplar_combo
-
+from tkinter import messagebox as MessageBox
 
 db = Database()
 
@@ -593,7 +593,9 @@ def verProducto():
     producto = Producto()
     producto.set_id(id)
     data = producto.consultar_producto_por_id()
-    return render_template('producto/verProducto.html', data = data)
+    ejemplar = Ejemplar()
+    cantidad = ejemplar.cantidad_ejemplares_de_un_producto(id)
+    return render_template('producto/verProducto.html', data = data, stock = cantidad)
 
 @app.route('/buscarProducto', methods=["POST"])
 def buscarProducto():
@@ -1050,10 +1052,22 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
     
     
 #====CARRITO
+
+
 @app.route('/altaCarrito')
 def altaCarrito():
      return render_template('carrito/altaCarrito.html') 
 
+@app.route('/agregarAlCarrito', methods=["POST"])
+def agregarAlCarrito():
+    if request.method == 'POST':
+        id = request.form['id']
+    ejemplar = Ejemplar()
+    cantidad = ejemplar.cantidad_ejemplares_de_un_producto(id)
+    if cantidad[0][0]==0:
+        return render_template('producto/sinStock.html')
+    else:
+        return render_template('carrito/agregarAlCarrito.html', id=id)
 
 @app.route('/guardarCarrito', methods=["POST"])
 def guardarCarrito():
