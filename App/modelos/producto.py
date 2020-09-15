@@ -194,3 +194,11 @@ class Producto:
             SELECT * FROM "vista_productos" WHERE LOWER("nombre") LIKE LOWER('%{}%');
         '''.format(palabra))
         return data
+
+    def buscarIdProducto(self, nombre):
+        data = db.querySelect('''
+            SELECT "id" FROM "producto" WHERE "nombre" = '{}';
+        '''.format(nombre))
+        return data
+
+    

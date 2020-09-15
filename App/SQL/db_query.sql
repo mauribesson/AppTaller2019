@@ -44,6 +44,14 @@ CREATE TABLE "producto" (
 	foreign key ("marca") references "marca" deferrable
 );
 
+CREATE TABLE "imagenes" (
+	"id" serial NOT NULL,
+	"idProducto" smallint NOT NULL,
+	"urlImagen" character varying (500) NOT NULL,
+	Primary key ("id"),
+	foreign key ("idProducto") references "producto" deferrable
+);
+
 CREATE TABLE "ejemplar" (
 	"numeroSerie" character varying(50) NOT NULL,
 	"vendido" boolean NOT NULL,
@@ -391,6 +399,7 @@ JOIN marca AS "m" ON m."idMarca" = p."marca"
 JOIN "tipoProducto" AS "tp" ON tp."idTipo" = p."tipoProducto";
 
 -----
+
 ----- Vista Usuarios 
 CREATE OR REPLACE VIEW vista_usuarios AS
 SELECT 

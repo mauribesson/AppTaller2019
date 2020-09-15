@@ -11,7 +11,7 @@
 
             <div class="container-fluid">
                 <h2>Alta producto</h2>
-                <form action="guardarProducto" method="POST">
+                <form action="guardarProducto" method="POST" enctype="multipart/form-data">
 
                     <div class="row">
                         <div class="col-md-6">
@@ -91,6 +91,14 @@
 
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="marca"> Imagen del producto</label>
+                                <input type="file" multiple name="imagenes" id="imagenes" class="form-control" style="padding:3px;color:#C11E34;"/>
+                            </div>
+                        </div>
+
                     </div>
                     <button type="submit" class="btn btn-primary">Aceptar</button>
                     <a class="btn btn-danger" href="/" role="button">Cancelar</a>

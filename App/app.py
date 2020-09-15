@@ -11,7 +11,8 @@ from modelos.carrito import Carrito
 from modelos.compra import Compra
 from modelos.pago import Pago
 from modelos.ejemplar_combo import Ejemplar_combo
-from tkinter import messagebox as MessageBox
+from modelos.storage import guardarImagen
+from modelos.imagenes import Imagenes
 
 db = Database()
 
@@ -19,11 +20,66 @@ app = Flask(__name__)
 
 app.secret_key = 'apptaller2019'
 
+@app.route('/cargarFoto')
+def cargarFoto():
+    nombre = "Monitor Led Philips"
+    producto = Producto()
+    idProducto = producto.buscarIdProducto(nombre)
+    print(idProducto[0][0])
+
+    return render_template('producto/imagen.html')
+
+@app.route('/cargar_foto', methods=["POST"])
+def cargar_foto():
+    # data = []
+    imagenes=[]
+    idProducto = 12
+    if request.method == 'POST':
+        for imagen in request.files.getlist('imagenes'):
+            imagenes.append(imagen)
+
+    guardarImagen(imagenes, idProducto)
+
+    # data = imagenes.consultar_vista_imagenes()
+
+    # imagenes=[]
+    # if request.method == 'POST':
+    #     for imagen in request.files.getlist('imagenes'):
+    #         imagenes.append(imagen)
+
+    # guardarImagen(imagenes) 
+
+    return render_template('producto/imagen.html')
+
+
 @app.route('/')
 def index():
     data = []
     producto = Producto()
     data = producto.listar_productos()
+
+    #cuenta los elementos del data
+    contador = 0
+    for e in data:
+        contador = contador+1
+    #agrega el stock y las imágenes de cada producto
+    for e in range(contador):
+
+        #guarda el stock del producto en la posición 8 del data
+        ejemplar = Ejemplar()
+        cantidad = ejemplar.cantidad_ejemplares_de_un_producto(data[e][0])
+        data[e] += (cantidad[0][0],)
+
+        #guarda la primer imagen del producto en la posición 9 del data
+        imagenes = Imagenes()
+        imgs = imagenes.imagenes_producto(data[e][0])
+        #Si no tiene imagen deja el campo vacio
+        if imgs == []:
+            data[e] += ()
+        #Sino guarda la primer imagen
+        else:
+            data[e] += (imgs[0])
+
     ## Chequea si hay un usuario logueado
     if 'email' in session:
         usuario = Usuario()
@@ -508,8 +564,16 @@ def guardarProducto():
             data="alta"
         else:
             data="ya_existe"
-    return render_template('producto/productoABMC.html', data=data)  
 
+    producto = Producto()
+    idProducto = producto.buscarIdProducto(nombre)
+    imagenes=[]
+    if request.method == 'POST':
+        for imagen in request.files.getlist('imagenes'):
+            imagenes.append(imagen)
+    guardarImagen(imagenes, idProducto[0][0])
+
+    return render_template('producto/productoABMC.html', data=data)  
 
 @app.route('/eliminarProducto')
 @app.route('/eliminarProducto/<int:id>')
@@ -1403,6 +1467,27 @@ def loginAndrea():
             datos = []
             producto = Producto()
             datos = producto.listar_productos()
+            #cuenta los elementos del data
+            contador = 0
+            for e in datos:
+                contador = contador+1
+            #agrega el stock y las imágenes de cada producto
+            for e in range(contador):
+
+                #guarda el stock del producto en la posición 8 del data
+                ejemplar = Ejemplar()
+                cantidad = ejemplar.cantidad_ejemplares_de_un_producto(datos[e][0])
+                datos[e] += (cantidad[0][0],)
+
+                #guarda la primer imagen del producto en la posición 9 del data
+                imagenes = Imagenes()
+                imgs = imagenes.imagenes_producto(datos[e][0])
+                #Si no tiene imagen deja el campo vacio
+                if imgs == []:
+                    datos[e] += ()
+                #Sino guarda la primer imagen
+                else:
+                    datos[e] += (imgs[0])
             return render_template('cliente/index_cliente_logueado.html',data=datos)
 
 @app.route('/miCuenta')
