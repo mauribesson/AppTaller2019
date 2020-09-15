@@ -394,9 +394,33 @@ def listarTipoProducto():
 def listarCategorias():
     if request.method == 'POST':
         tipoProducto = request.form['tipoProducto']
-    data = {}
+
+    data = []
     producto = Producto()
     data = producto.consultar_producto_por_tipo(tipoProducto)
+
+    #cuenta los elementos del data
+    contador = 0
+    for e in data:
+        contador = contador+1
+    #agrega el stock y las imágenes de cada producto
+    for e in range(contador):
+        #guarda el stock del producto en la posición 8 del data
+        ejemplar = Ejemplar()
+        cantidad = ejemplar.cantidad_ejemplares_de_un_producto(data[e][0])
+        data[e] += (cantidad[0][0],)
+
+        #guarda la primer imagen del producto en la posición 9 del data
+        imagenes = Imagenes()
+        imgs = imagenes.imagenes_producto(data[e][0])
+        #Si no tiene imagen deja el campo vacio
+        if imgs == []:
+            data[e] += ()
+        #Sino guarda la primer imagen
+        else:
+            data[e] += (imgs[0])
+
+
     ## Verifica si hay algún usuario logueado para dirigirlo a la vista correspondiente
     if 'email' in session:
         return render_template('producto/productosPorCategoria.html', data=data, categoria=tipoProducto)
@@ -498,9 +522,35 @@ def listadoMarcas():
 def productosPorMarca():
     if request.method == 'POST':
         marca = request.form['marca']
-    data = {}
+    # data = {}
+    # producto = Producto()
+    # data = producto.consultar_producto_por_marca(marca)
+
+    data = []
     producto = Producto()
     data = producto.consultar_producto_por_marca(marca)
+
+    #cuenta los elementos del data
+    contador = 0
+    for e in data:
+        contador = contador+1
+    #agrega el stock y las imágenes de cada producto
+    for e in range(contador):
+        #guarda el stock del producto en la posición 8 del data
+        ejemplar = Ejemplar()
+        cantidad = ejemplar.cantidad_ejemplares_de_un_producto(data[e][0])
+        data[e] += (cantidad[0][0],)
+
+        #guarda la primer imagen del producto en la posición 9 del data
+        imagenes = Imagenes()
+        imgs = imagenes.imagenes_producto(data[e][0])
+        #Si no tiene imagen deja el campo vacio
+        if imgs == []:
+            data[e] += ()
+        #Sino guarda la primer imagen
+        else:
+            data[e] += (imgs[0])
+
     ## Verifica si hay algún usuario logueado para dirigirlo a la vista correspondiente
     if 'email' in session:
         return render_template('producto/productosPorMarca.html', data=data, marca=marca)

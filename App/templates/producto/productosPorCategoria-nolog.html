@@ -84,7 +84,7 @@
                                         <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
                                         <button class="cliqueable" type="submit">
                                             <div class="card-img">
-                                                <img src="https://w7.pngwing.com/pngs/338/779/png-transparent-drawing-personal-computer-desktop-computers-computer-angle-furniture-rectangle.png" style="border-radius: 20px" width="150" height="200" alt="Ver detalles">
+                                                <img src="{{dato[9]}}" style="border-radius: 20px" width="150" height="200" alt="Ver detalles">
                                             </div>
                                         </button>
                                     </form>
@@ -103,14 +103,24 @@
                                             </button>
                                         </form>
                                     </div>
+                                    {% if dato[8] == 0 %}
                                     <div class="comprar">
-                                        <form action="solicitarLogin" method="POST">
-                                            <div style="padding: 0px;padding-top: 2px;" class="form-group">
-                                            <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
-                                            <button class="btn-comprar" type="submit">COMPRAR</button>
-                                            </div>
-                                        </form>
+                                        <div style="padding: 0px;padding-top: 2px;" class="form-group">
+                                            <div style="color: red;text-align: center;" class="btn-comprar">SIN STOCK</div>
+                                        </div>
                                     </div>
+                                    {%endif%} 
+                                    {% if dato[8] != 0 %}
+                                        <div class="comprar">
+                                            <form action="solicitarLogin" method="POST">
+                                                <div style="padding: 0px;padding-top: 2px;" class="form-group">
+                                                <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                                <button class="btn-comprar" type="submit">COMPRAR</button>
+                                                <!-- <button style="display:block;margin:auto;border:none;background-color: transparent;font-size: 30px;" type="submit"><i class="fa fa-cart-plus" aria-hidden="true"></i></button> -->
+                                                </div>
+                                            </form>
+                                        </div>
+                                    {%endif%}
 
                                  </div>
                             </div>
