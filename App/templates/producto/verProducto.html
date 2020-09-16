@@ -3,41 +3,93 @@
 {% include 'header/header.html' %}
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style>
   .card-deck{
-    width: 500px;
+    width: 90%;
+    margin-top: 60px;
     display:block;
     margin:auto;
-    margin-top: 60px;
+    margin-top: 80px;
   }
   .btn-success{
-    background-color: black;
+    background-color:  #18BC9C;
     font-size: 20px;
-    margin-right:5px;
-    margin-left:5px;
+    padding-right:25px;
+    padding-left:25px;
     margin-bottom:5px;
     margin-top: 5px;
+    border: #18BC9C;
+    margin-top: 20px;
   }
   .imagen{
     display:block;
     margin:auto;
-    width: 300px;
-    border-radius: 20px;
-    width: 150px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
   }
   .card{
     border-radius: 20px;
-    background-color: #18BC9C;
     border: transparent;
-    margin-top: 20px;
-    padding-top: 10px;
+  }
+  .card-body{
+    padding-left: 30px;
   }
   .sinstock{
     background-color: red;
     width: 100%;
     font-size: 20px;
+  }
+
+  section.awSlider{
+    margin:30px auto;
+    padding:30px;
+    position:relative;
+    display:table;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  section.awSlider img{
+    pointer-events: none;
+  }
+
+  section.awSlider > img{
+    position:absolute;
+    top:30px;
+    z-index:1;
+    transition:all .3s;
+    filter: blur(1.8vw);
+    -webkit-filter: blur(2vw);
+    -moz-filter: blur(2vw); 
+    -o-filter: blur(2vw); 
+    -ms-filter: blur(2vw);
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    opacity:.5;
+  }
+  .card-title{
+    text-align: center;
+    font-size: 40px;
+    padding-bottom: 15px;
+  }
+  .card-text{
+    font-size: 22px;
+  }
+  .card-text-precio{
+    font-size: 22px;
+    font-style:italic;
+    font-weight: bold;
   }
 </style>
 
@@ -50,26 +102,58 @@
             <div class="container p-2">
               <div class="card-deck">
                   <div class="card">
-                    <img src="https://w7.pngwing.com/pngs/338/779/png-transparent-drawing-personal-computer-desktop-computers-computer-angle-furniture-rectangle.png" class="imagen" alt="">
-                    <!-- <img src="static/img/fondo-login.png" class="imagen" alt="..."> -->
-                    <div class="card-body">
-                      <center>
-                        <h2 class="card-title">{{data[1]}}</h2>
-                        <p class="card-text">{{data[2]}}</p>
-                        <p class="card-text">Modelo {{data[4]}}</p>
-                        <p class="card-text">Garantía {{data[5]}} meses</p>
-                        <p class="card-text"><h5>${{data[3]}}</h5></p>
-                        {% if stock[0][0] == 0 %}
-                          <div class="sinstock">
-                            Sin stock
+                    <table>
+                      <tr>
+                        <td>
+                        <section class="awSlider">
+                        <div  class="carousel slide" data-ride="carousel">
+                          <div class="carousel-inner" role="listbox">
+                            {% for foto in range(cantidadFotos) %}
+                              {% if foto == 0 %}
+                                <div class="item active">
+                                  <img class="imagen" src="{{fotos[foto][0]}}">
+                                </div>
+                              {%endif%}
+                              {% if foto != 0 %}
+                                <div  class="item">
+                                  <img class="imagen" src="{{fotos[foto][0]}}">
+                                </div>
+                              {%endif%}
+                            {%endfor%}
                           </div>
-                        {%endif%} 
-                        {% if stock[0][0] != 0 %}
-                          <a href="{{ url_for('verProducto') }}" class="btn btn-success"><span class="fa fa-cart-plus"></span></a>
-                        {%endif%}
-                      </center>
+                      
+                          <!-- Controls -->
+                          <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Geri</span>
+                          </a>
+                          <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">İleri</span>
+                          </a>
+                        </div>
+                      </section>
+                    </td>
+                    <td style="vertical-align: top;">
+                      <div class="card-body">
+                          <h2 class="card-title">{{data[1]}}</h2>
+                          <p class="card-text">{{data[2]}}</p>
+                          <p class="card-text">Modelo {{data[4]}}</p>
+                          <p class="card-text">Garantía {{data[5]}} meses</p>
+                          <p class="card-text-precio">${{data[3]}}</p>
+                          {% if stock[0][0] == 0 %}
+                            <div class="sinstock">
+                              Sin stock
+                            </div>
+                          {%endif%} 
+                          {% if stock[0][0] != 0 %}
+                            <center><a href="{{ url_for('verProducto') }}" class="btn btn-success"><span class="fa fa-cart-plus"></span></a></center>
+                          {%endif%}
+                      </div>
+                    </td>
+                      </tr>
+                    </table>  
                     </div>
-                  </div>
               </div>
             </div>
         </div>

@@ -63,9 +63,9 @@ class Imagenes:
         '''.format(id))
         return data
 
-    def consultar_vista_producto_imagenes(self):
-        data = db.querySelect(
-            ''' 
-            SELECT * FROM public.vista_producto_imagenes;
-            ''')
-        return data  
+    def obtener_cantidad_imagenes(self,id):
+        data =[]
+        data = db.querySelect('''
+                SELECT count(*) FROM "imagenes" WHERE "idProducto" = '{}';
+            '''.format(id))
+        return data

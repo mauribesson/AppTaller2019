@@ -522,9 +522,6 @@ def listadoMarcas():
 def productosPorMarca():
     if request.method == 'POST':
         marca = request.form['marca']
-    # data = {}
-    # producto = Producto()
-    # data = producto.consultar_producto_por_marca(marca)
 
     data = []
     producto = Producto()
@@ -703,13 +700,23 @@ def listarProductos():
 def verProducto():
     if request.method == 'POST':
         id = request.form['id']
+    # Trae los datos del producto
     data = {}
     producto = Producto()
     producto.set_id(id)
     data = producto.consultar_producto_por_id()
+    # Trae el stock
     ejemplar = Ejemplar()
-    cantidad = ejemplar.cantidad_ejemplares_de_un_producto(id)
-    return render_template('producto/verProducto.html', data = data, stock = cantidad)
+    cantidadEjemplares = ejemplar.cantidad_ejemplares_de_un_producto(id)
+    # Busca las imagenes del producto
+    imagenes = Imagenes()
+    imgs = imagenes.imagenes_producto(id)
+    cantidadImagenes = imagenes.obtener_cantidad_imagenes(id)
+    cantidadImagenes=cantidadImagenes[0][0]
+    # for foto in range(cantidadImagenes):
+    #     print(foto)
+    #     print(imgs[foto])
+    return render_template('producto/verProducto.html', data = data, stock = cantidadEjemplares, fotos = imgs, cantidadFotos = cantidadImagenes)
 
 @app.route('/buscarProducto', methods=["POST"])
 def buscarProducto():
