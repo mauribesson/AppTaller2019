@@ -13,43 +13,13 @@ from modelos.pago import Pago
 from modelos.ejemplar_combo import Ejemplar_combo
 from modelos.storage import guardarImagen
 from modelos.imagenes import Imagenes
+from modelos.ejemplar_carrito import Ejemplar_carrito
 
 db = Database()
 
 app = Flask(__name__)
 
 app.secret_key = 'apptaller2019'
-
-@app.route('/cargarFoto')
-def cargarFoto():
-    nombre = "Monitor Led Philips"
-    producto = Producto()
-    idProducto = producto.buscarIdProducto(nombre)
-    print(idProducto[0][0])
-
-    return render_template('producto/imagen.html')
-
-@app.route('/cargar_foto', methods=["POST"])
-def cargar_foto():
-    # data = []
-    imagenes=[]
-    idProducto = 12
-    if request.method == 'POST':
-        for imagen in request.files.getlist('imagenes'):
-            imagenes.append(imagen)
-
-    guardarImagen(imagenes, idProducto)
-
-    # data = imagenes.consultar_vista_imagenes()
-
-    # imagenes=[]
-    # if request.method == 'POST':
-    #     for imagen in request.files.getlist('imagenes'):
-    #         imagenes.append(imagen)
-
-    # guardarImagen(imagenes) 
-
-    return render_template('producto/imagen.html')
 
 
 @app.route('/')
@@ -1184,11 +1154,89 @@ def agregarAlCarrito():
     if request.method == 'POST':
         id = request.form['id']
     ejemplar = Ejemplar()
+    ## Chequea si hay ejemplares disponibles
     cantidad = ejemplar.cantidad_ejemplares_de_un_producto(id)
     if cantidad[0][0]==0:
         return render_template('producto/sinStock.html')
     else:
-        return render_template('carrito/agregarAlCarrito.html', id=id)
+        # Chequea si el usuario tiene un carrito activo (con productos)
+        carrito = Carrito()
+        datosCarrito = carrito.carrito_actual(session['email'])
+        if (datosCarrito == []):
+            print("No hay carrito")
+            # Si no hay carrito, crea uno
+            nuevoCarrito = Carrito()
+            nuevoCarrito.set_usuario(session['email'])
+            data = nuevoCarrito.alta_carrito()
+            # Obtenemos los datos de nuevo carrito
+            datosCarrito = carrito.carrito_actual(session['email'])
+            id_carrito = datosCarrito[0][0]
+            # Obtenemos un ejemplar disponible
+            ejempleares_disponibles = ejemplar.seleccionarEjemplares(id)
+            for ej in ejempleares_disponibles:
+                # obtiene el numero de serie
+                ejemplar_seleccionado = ej[0]
+                break 
+            # Carga el ejemplar_carrito
+            ejemplar_carrito = Ejemplar_carrito()
+            ejemplar_carrito.set_idCarrito(id_carrito)
+            ejemplar_carrito.set_numero_serie(ejemplar_seleccionado)
+            data = ejemplar_carrito.alta_ejemplar_carrito()
+            # Se marca el ejemplar como vendido
+            ejemplar_vendido = Ejemplar()
+            ejemplar_vendido.marcar_ejemplar_vendido(ejemplar_seleccionado)
+            # Se suma el importe del producto al total del carrito
+            # Precio del ejemplar
+            precio_ejemplar = ejemplar.precio_ejemplar(ejemplar_seleccionado)
+            precio_ejemplar = precio_ejemplar[0][4]
+            # Total del carrito actual antes de agregarle el producto
+            total = carrito.carrito_actual(session['email'])
+            total = total[0][1]
+            nuevo_total = int(precio_ejemplar) + int(total)
+            carritoActualizado = Carrito()
+            carritoActualizado.actualizar_total_carrito(nuevo_total, id_carrito)
+
+        else:
+            # Si hay carrito activo, le agrega el ejemplar del producto
+            # obtenemos el id del carrito
+            id_carrito = datosCarrito[0][0]
+            # Selecciona un ejemplar
+            ejempleares_disponibles = ejemplar.seleccionarEjemplares(id)
+            for ej in ejempleares_disponibles:
+                # obtiene el numero de serie
+                ejemplar_seleccionado = ej[0]
+                break 
+            # Carga el ejemplar_carrito
+            ejemplar_carrito = Ejemplar_carrito()
+            ejemplar_carrito.set_idCarrito(id_carrito)
+            ejemplar_carrito.set_numero_serie(ejemplar_seleccionado)
+            data = ejemplar_carrito.alta_ejemplar_carrito()
+            # Se marca el ejemplar como vendido
+            ejemplar_vendido = Ejemplar()
+            ejemplar_vendido.marcar_ejemplar_vendido(ejemplar_seleccionado)
+            # Se suma el importe del producto al total del carrito
+            # Precio del ejemplar
+            precio_ejemplar = ejemplar.precio_ejemplar(ejemplar_seleccionado)
+            precio_ejemplar = precio_ejemplar[0][4]
+            # Total del carrito actual antes de agregarle el producto
+            total = carrito.carrito_actual(session['email'])
+            total = total[0][1]
+            nuevo_total = int(precio_ejemplar) + int(total)
+            carritoActualizado = Carrito()
+            carritoActualizado.actualizar_total_carrito(nuevo_total, id_carrito)
+        
+        # Traemos los datos actualiados del carrito para pasar a la vista
+        data = []
+        carritoCargado = Carrito()
+        # Obtenemos los datos del carrito actual
+        datos_carrito = carritoCargado.carrito_actual(session['email'])
+        # Seleccionamos el id del carrito y el total
+        id_carrito = datos_carrito[0][0]
+        total = datos_carrito[0][1]
+        ejemplaresCarrito = Ejemplar_carrito()
+        # Traemos los ejemplares del carrito
+        data = ejemplaresCarrito.ejemplares_de_un_carrito(id_carrito)
+        return render_template('carrito/mostrarCarrito.html', data=data, total=total)
 
 @app.route('/guardarCarrito', methods=["POST"])
 def guardarCarrito():
@@ -1241,17 +1289,27 @@ def editarCarrito():
 def mostrarCarrito():
     data = []
     carrito = Carrito()
-    data = carrito.consultar_carrito()
-    return render_template('carrito/mostrarCarrito.html', data=data)
+    # Obtenemos los datos del carrito actual
+    datos_carrito = carrito.carrito_actual(session['email'])
+    # Seleccionamos el id del carrito y el total
+    id_carrito = datos_carrito[0][0]
+    total = datos_carrito[0][1]
+    ejemplar_carrito = Ejemplar_carrito()
+    # Traemos los ejemplares del carrito
+    data = ejemplar_carrito.ejemplares_de_un_carrito(id_carrito)
+    print(data)
+    return render_template('carrito/mostrarCarrito.html', data=data, total=total)
 
 
 #======== ejemplar_carrito
-@app.route('/altaEjemplar_carrito')
+
+# No se usaría
+""" @app.route('/altaEjemplar_carrito')
 def altaEjemplar_carrito():
-     return render_template('ejemplar_carrito/altaEjemplar_carrito.html') 
+     return render_template('ejemplar_carrito/altaEjemplar_carrito.html')  """
 
-
-@app.route('/guardarEjemplar_carrito', methods=["POST"])
+# No se usaria
+""" @app.route('/guardarEjemplar_carrito', methods=["POST"])
 def guardarEjemplar_carrito():
     data = []
     if request.method == 'POST':
@@ -1260,24 +1318,49 @@ def guardarEjemplar_carrito():
         data = db.queryInsert('''
             INSERT INTO "ejemplar_carrito" ("idCarrito", "numeroSerie") values ('{}', '{}');
             '''.format(idCarrito, numeroSerie))  
-    return render_template('index.html')
+    return render_template('index.html') """
 
 
-@app.route('/bajaEjemplar_carrito') 
+### No se usaría
+""" @app.route('/bajaEjemplar_carrito') 
 def bajaEjemplar_carrito():
-    return render_template('ejemplar_carrito/bajaEjemplar_carrito.html')  
+    return render_template('ejemplar_carrito/bajaEjemplar_carrito.html')  """ 
 
 
 @app.route('/eliminarEjemplar_carrito', methods=["POST"])
 def eliminarEjemplar_carrito():
-    data = []
+    # Obtenemos los datos que vienen del formulario
+    if request.method == 'POST':
+        idCarrito = request.form['idCarrito']
+        numeroSerie = request.form['numeroSerie']
+        precioProducto = request.form['precioProducto']
+        totalCarrito = request.form['totalCarrito']
+    # Eliminamos el producto del carrito
+    ejemplar_carrito = Ejemplar_carrito()
+    ejemplar_carrito.set_idCarrito(idCarrito)
+    ejemplar_carrito.set_numero_serie(numeroSerie)
+    data = ejemplar_carrito.baja_ejemplar_carrito()
+    # Marcamos el ejemplar como disponible para la venta
+    ejemplar = Ejemplar()
+    ejemplar.marcar_ejemplar_disponible(numeroSerie)
+    # Descontamos el importe del producto al total carrito
+    total = float(totalCarrito) - float(precioProducto)
+    carrito = Carrito()
+    carrito.actualizar_total_carrito(total, idCarrito)
+    # Traemos los datos actualizados para refrescar la vista
+    carritoActual = Carrito()
+    datos_carrito = carritoActual.carrito_actual(session['email'])
+    # Traemos los ejemplares del carrito
+    ejemplaresCarrito = Ejemplar_carrito()
+    data = ejemplaresCarrito.ejemplares_de_un_carrito(idCarrito)
+    return render_template('carrito/mostrarCarrito.html', data=data, total=total)
+    """ data = []
     if request.method == 'POST':
         idCarrito = request.form['idCarrito']
         numeroSerie = request.form['numeroSerie']
         data = db.queryInsert('''
                DELETE FROM "ejemplar_carrito" WHERE "idCarrito" = '{}' AND "numeroSerie" = '{}'; 
-            '''.format(idCarrito, numeroSerie))   
-    return render_template('index.html')
+            '''.format(idCarrito, numeroSerie))  """  
 
 
 @app.route('/modificarEjemplar_carrito') 

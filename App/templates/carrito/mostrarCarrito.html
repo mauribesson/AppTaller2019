@@ -1,14 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <title>Carrito</title>
+    <style>
+        .titulo{
+          font-size: 30px;
+          margin-top: 70px;
+          text-align: center;
+          padding-bottom: 20px;
+          font-weight: bold;
+        }
+        .tabla{
+            display:block;
+            margin:auto;
+            text-align: center;
+            width: 60%;
+        }
+        .producto{
+            width: 800px;
+        }
+        .precio{
+            width: 150px;
+        }
+        .accion{
+            width: 250px;
+        }
+        th{
+            color: black;
+            font-size: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        td{
+            font-size: 20px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            border-color: green;
+            color: black;
+            border-top: gray 1px solid;
+            border-bottom: gray 1px solid;
+        }
+        .total{
+            text-align: right;
+            color: black;
+            font-size: 20px;
+            width: 60%;
+            display:block;
+            margin:auto;
+            padding-right: 10px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            font-weight: bold;
+        }
+        .verProducto{
+            background-color: transparent;
+            border: none;
+            font-size: 26px;
+        }
+        .quitarProducto{
+            background-color: transparent;
+            border: none;
+            color: red;
+            font-size: 26px;
+        }
+        .botones{
+            border: transparent;
+            text-align: center;
+            width: 100px;
+        }
+    </style>
+</head>
+
 {% include 'header/header.html' %}
 
 <body>
-    <ul>
-        {% for e in data %}
-        <li>ID Carrito: {{ e[0] }} - Total: {{ e[1] }}</li>
-        {% endfor %}
-    </ul>
-
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_usuario_logueado.html' %}
+            <div class="titulo">
+              <span>Carrito</span>
+            </div>
+            <table class="tabla">
+                <tr>
+                    <th class="producto">Producto</th>
+                    <th class="precio">Precio</th>
+                    <th class="accion">Acción</th>
+                </tr>
+                {% for e in data %}
+                    <tr>
+                        <td style="text-align:left;padding-left: 10px;">{{ e[4] }}</td>
+                        <td>${{ e[9] }}</td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td class="botones">
+                                        <form action="verProducto" method="POST">
+                                            <div>
+                                                <input value="{{e[3]}}" type="hidden" class="form-control" name="id" id="id">
+                                                <button class="verProducto" type="submit"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                    <td class="botones">
+                                        <form action="eliminarEjemplar_carrito" method="POST">
+                                            <div>
+                                                <input value="{{e[1]}}" type="hidden" class="form-control" name="numeroSerie" id="numeroSerie">
+                                                <input value="{{e[0]}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
+                                                <input value="{{e[9]}}" type="hidden" class="form-control" name="precioProducto" id="precioProducto">
+                                                <input value="{{total}}" type="hidden" class="form-control" name="totalCarrito" id="totalCarrito">
+                                                <button class="quitarProducto" type="submit"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="total">
+                <a>Total    ${{total}}</a>
+            </div>
+        </div>
+    </div>
+    {% include 'footer/footer.html' %} 
 </body>
 
 </html>

@@ -79,6 +79,8 @@ CREATE TABLE "ejemplar_combo" (
 CREATE TABLE "carrito" (
 	"id" serial NOT NULL,
 	"total" float,
+	"usuario" character varying(150),
+	"finalizado" boolean,
 	Primary key ("id")
 );
 
@@ -439,7 +441,10 @@ e."vendido",
 e."producto",
 p."nombre",
 c."id",
-c."total"
+c."usuario",
+c."finalizado",
+c."total",
+p."precio"
 FROM ejemplar_carrito AS ec
 JOIN ejemplar AS "e" ON ec."numeroSerie" = e."numeroSerie"
 JOIN carrito AS "c" ON ec."idCarrito" = c."id"
@@ -450,3 +455,9 @@ Join producto AS "p" ON e.producto = p."id";
 INSERT INTO public.usuario(
 	nombre, contrasenia, contacto, rol)
 	VALUES ('admin@admin.com', '123456', '', 1);
+
+--- AGREGA EL CAMPO USUARIO A LA TABLA CARRITO
+--- ALTER TABLE "carrito" ADD COLUMN "usuario" character varying(150);
+
+--- AGREGA EL CAMPO FINALIZADO A LA TABLA CARRITO
+--- ALTER TABLE "carrito" ADD COLUMN "finalizado" boolean;

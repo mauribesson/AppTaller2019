@@ -74,9 +74,18 @@ class Ejemplar:
             '''.format(producto))
         return data
 
+    # Devuelve la cantidad disponible de ejemplares de un producto
     def cantidad_ejemplares_de_un_producto(self, producto):
         data = db.querySelect('''
                 SELECT COUNT (*) FROM "ejemplar"
+                WHERE "producto" = '{}' AND "vendido" = 'False';
+            '''.format(producto))
+        return data
+
+    # Selecciona un ejemplar disponible para agregar al carrito
+    def seleccionarEjemplares(self, producto):
+        data = db.querySelect('''
+                SELECT * FROM "ejemplar"
                 WHERE "producto" = '{}' AND "vendido" = 'False';
             '''.format(producto))
         return data
@@ -96,7 +105,7 @@ class Ejemplar:
 
     def precioDelEjemplar(self):
         data = db.querySelect('''
-                SELECT precio FROM "vista_ejemplar_combo" where "numeroSerie" = '{}';
+                SELECT * FROM "vista_ejemplar_combo" where "numeroSerie" = '{}';
                 '''.format(
                     self.__numeroSerie))        
         return data
@@ -111,3 +120,29 @@ class Ejemplar:
                                 'vendido':e[1]})
         
         return nueva_lista
+
+    def marcar_ejemplar_vendido(self, numeroSerie):
+        data = db.queryInsert('''
+                    UPDATE "ejemplar"
+                            SET "vendido" = '{}'
+                            WHERE "numeroSerie" = '{}';
+                    '''.format(
+                        True, 
+                        numeroSerie))
+        return data
+
+    def marcar_ejemplar_disponible(self, numeroSerie):
+        data = db.queryInsert('''
+                    UPDATE "ejemplar"
+                            SET "vendido" = '{}'
+                            WHERE "numeroSerie" = '{}';
+                    '''.format(
+                        False, 
+                        numeroSerie))
+        return data
+
+    def precio_ejemplar(self, numeroSerie):
+        data = db.querySelect('''
+                SELECT * FROM "vista_ejemplares" where "numeroSerie" = '{}';
+                '''.format(numeroSerie))        
+        return data

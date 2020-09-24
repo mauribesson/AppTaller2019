@@ -8,6 +8,8 @@ class Carrito:
         self.__id= None
         self.__productos = []
         self.__total = None
+        self.__usuario = None
+        self.__finalizado = False
 
     #setter
     def set_id(self, pId):
@@ -19,6 +21,12 @@ class Carrito:
     def set_total(self, pTotal):
         self.__total = pTotal
 
+    def set_usuario(self, pUsuario):
+        self.__usuario = pUsuario
+
+    def set_finalizado(self, pFinalizado):
+        self.__finalizado = pFinalizado
+
     #getteres
     def get_id(self):
         return self.__id
@@ -29,11 +37,22 @@ class Carrito:
     def get_total(self):
         return self.__total
 
+    def get_usuario(self):
+        return self.__usuario
+
+    def get_finalizado(self):
+        return self.__finalizado
+
     #logica 
     def alta_carrito(self):
         data = db.queryInsert('''
-            INSERT INTO "carrito" ("total") values ('{}');
-            '''.format(self.__total))
+            INSERT INTO "carrito" 
+            ("total", "usuario", "finalizado") 
+            values ('{}','{}','{}');
+            '''.format(
+                0,
+                self.__usuario,
+                False))
         return data 
 
     def baja_carrito(self):
@@ -42,16 +61,25 @@ class Carrito:
             '''.format(self.__id)) 
         return data   
 
-    def modificar_carrito(self, pTotal):
-        data = db.queryInsert('''
-               UPDATE "carrito"
-	                SET "total" = '{}'
-	                WHERE "id" = '{}';
-            '''.format(pTotal, self.__id))
-        return data
     
     def consultar_carrito(self):
         data = db.querySelect('''
                 SELECT * FROM "carrito";
             ''')
+        return data
+
+    def carrito_actual(self, pUsuario):
+        data = db.querySelect('''
+                SELECT * FROM "carrito" 
+                WHERE "usuario" = '{}' AND "finalizado" = 'False';
+        '''.format(pUsuario))
+        return data
+
+
+    def actualizar_total_carrito(self, pTotal, idCarrito):
+        data = db.queryInsert('''
+               UPDATE "carrito"
+	                SET "total" = '{}'
+	                WHERE "id" = '{}';
+            '''.format(pTotal, idCarrito))
         return data
