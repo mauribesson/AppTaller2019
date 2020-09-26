@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Detalle de la compra</title>
+    <style>
+        .titulo{
+          font-size: 30px;
+          margin-top: 70px;
+          text-align: center;
+          padding-bottom: 20px;
+          font-weight: bold;
+        }
+        .tabla{
+            display:block;
+            margin:auto;
+            text-align: center;
+            width: 60%;
+        }
+        .producto{
+            width: 800px;
+        }
+        .precio{
+            width: 150px;
+        }
+        th{
+            color: black;
+            font-size: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        td{
+            font-size: 20px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            border-color: green;
+            color: black;
+            border-top: gray 1px solid;
+            border-bottom: gray 1px solid;
+        }
+        .total{
+            text-align: center;
+            color: rgb(77, 69, 69);
+            font-size: 26px;
+            width: 60%;
+            display:block;
+            margin:auto;
+            padding-right: 10px;
+            padding-top: 20px;
+            padding-bottom: 7px;
+            font-weight: bold;
+        }
+        .tabla2{
+            display:block;
+            margin:auto;
+            text-align: center;
+            width: 40%;
+            padding-top: 20px;
+        }
+        .btn-cancelar{
+            text-align: center;
+            display:block;
+            margin:auto;
+            width: 200px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 20px;
+            color: red;
+            border-color: red;
+            margin-right: 20px;
+        }
+        .btn-pagar{
+            text-align: center;
+            display:block;
+            margin:auto;
+            color: green;
+            border-color: green;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 20px;
+            width: 200px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_usuario_logueado.html' %}
+            <div class="titulo">
+              <span>Detalle de la compa</span>
+            </div>
+            <table class="tabla">
+                <tr>
+                    <th class="producto">Producto</th>
+                    <th class="precio">Precio</th>
+                </tr>
+                {% for e in data %}
+                    <tr>
+                        <td style="text-align:left;padding-left: 10px;">{{ e[4] }}</td>
+                        <td>${{ e[9] }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <div class="total">
+                <a>Total    ${{total}}</a>
+            </div>
+
+            {% if estado == 'False' %}
+                <table class="tabla2">
+                    <tr>
+                        <td style="border: none;">
+                            <form action="cancelarCompra" method="POST">
+                                <div>
+                                    <input value="{{idCarrito}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
+                                    <input value="{{idCompra}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                    <input value="{{total}}" type="hidden" class="form-control" name="total" id="total">
+                                    <button class="btn-cancelar" type="submit">Cancelar compra</button>
+                                </div>
+                            </form>
+                        </td>
+                        <td style="border: none;">
+                            <form action="pagar" method="POST">
+                                <div>
+                                    <input value="{{idCarrito}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
+                                    <input value="{{idCompra}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                    <input value="{{total}}" type="hidden" class="form-control" name="total" id="total">
+                                    <button class="btn-pagar" type="submit">Pagar</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+            </div>
+        {%endif%}
+
+        </div>
+    </div>
+</body>
+
+</html>

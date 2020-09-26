@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Carrito</title>
+    <style>
+        .mensaje1{
+          font-size: 30px;
+          margin-top: 120px;
+          text-align: center;
+          padding-bottom: 20px;
+          font-weight: bold;
+        }
+        .mensaje2{
+          font-size: 26px;
+          text-align: center;
+          padding-bottom: 20px;
+        }
+        .tabla{
+            display:block;
+            margin:auto;
+            text-align: center;
+            width: 40%;
+            padding-top: 20px;
+        }
+        .botones{
+            border: transparent;
+            text-align: center;
+            width: 100px;
+        }
+        .btn-cancelar{
+            text-align: center;
+            display:block;
+            margin:auto;
+            width: 200px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 20px;
+            color: red;
+            border-color: red;
+            margin-right: 20px;
+        }
+        .btn-pagar{
+            text-align: center;
+            display:block;
+            margin:auto;
+            color: green;
+            border-color: green;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 20px;
+            width: 200px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_usuario_logueado.html' %}
+            <div class="mensaje1">
+              Compra confirmada
+            </div>
+            <div class="mensaje2">
+                Debes pagar ${{total}} para recibir tu pedido
+            </div>
+            <table class="tabla">
+                <tr>
+                    <td>
+                        <form action="cancelarCompra" method="POST">
+                            <div>
+                                <input value="{{idCarrito}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
+                                <input value="{{idCompra}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                <input value="{{total}}" type="hidden" class="form-control" name="total" id="total">
+                                <button class="btn-cancelar" type="submit">Cancelar compra</button>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="pagar" method="POST">
+                            <div>
+                                <input value="{{idCarrito}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
+                                <input value="{{idCompra}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                <input value="{{total}}" type="hidden" class="form-control" name="total" id="total">
+                                <button class="btn-pagar" type="submit">Pagar</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+        </div>
+    </div>
+</body>
+
+</html>

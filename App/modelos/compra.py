@@ -44,13 +44,33 @@ class Compra:
             '''.format(self.__id_carrito, self.__monto_compra, self.__estado_confirmacion)) 
         return data
         
-    def baja_compra(self):
+    def baja_compra(self, idCompra):
         data = db.queryInsert('''
-               DELETE FROM "compra" WHERE "id" = '{}'; 
-            '''.format(self.__id))
+               DELETE FROM "compra" WHERE "id" = {}; 
+            '''.format(idCompra))
         return data
-        
-    def modificar_compra(self, pPuevoMontoCompra, pNuevoEstadoConfirmacion):       
+
+    def mis_compras(self, usuario):
+        data = db.querySelect('''
+                SELECT * FROM "vista_compras" WHERE "usuario" = '{}';
+            '''.format(usuario))
+        return data 
+
+    def id_compra(self, id_carrito):
+        data = db.querySelect('''
+                SELECT "id" FROM "compras" WHERE "idCarrito" = '{}';
+            '''.format(id_carrito))
+        return data  
+
+    def compra_pendiente_pago(self, pUsuario):
+            data = db.querySelect('''
+                    SELECT * FROM "vista_compras" 
+                    WHERE "usuario" = '{}' AND "estadoConfirmacion" = 'False';
+            '''.format(pUsuario))
+            return data
+
+    # No se usaría    
+    """ def modificar_compra(self, pPuevoMontoCompra, pNuevoEstadoConfirmacion):       
         data = db.queryInsert('''
                UPDATE "compra"
 	                SET "montoCompra" = '{}', 
@@ -59,10 +79,6 @@ class Compra:
             '''.format(pPuevoMontoCompra, 
                         pNuevoEstadoConfirmacion, 
                         self.__id))
-        return data        
+        return data  """       
     
-    def consultar_compra(self):
-        data = db.querySelect('''
-                SELECT * FROM "compra";
-            ''')
-        return data       
+          

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Ups</title>
+    <style>
+        .mensaje1{
+            color: red;
+            text-align: center;
+            font-size: 28px;
+            padding-top: 200px;
+        }
+        .mensaje2{
+            color: tomato;
+            text-align: center;
+            font-size: 22px;
+        }
+    </style>
+</head>
+    
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_usuario_logueado.html' %}
+
+                <div class="mensaje1">
+                    Lo sentimos, tienes una compra sin pagar.
+                </div>
+                <div class="mensaje2">
+                    Si quieres agregar más productos a esa compra, debes cancelarla y luego podrás agregarle lo que desees.
+                </div>
+
+            </div>
+        </div>
+        {% include 'footer/footer.html' %} 
+</body>
+
+</html>

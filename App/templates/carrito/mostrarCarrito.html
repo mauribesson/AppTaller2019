@@ -42,14 +42,14 @@
             border-bottom: gray 1px solid;
         }
         .total{
-            text-align: right;
-            color: black;
-            font-size: 20px;
+            text-align: center;
+            color: rgb(77, 69, 69);
+            font-size: 26px;
             width: 60%;
             display:block;
             margin:auto;
             padding-right: 10px;
-            padding-top: 7px;
+            padding-top: 20px;
             padding-bottom: 7px;
             font-weight: bold;
         }
@@ -68,6 +68,26 @@
             border: transparent;
             text-align: center;
             width: 100px;
+        }
+        .confirmarCompra{
+            text-align: center;
+            display:block;
+            margin:auto;
+            width: 300px;
+            background-color: black;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .btn-confirmar{
+            color: white;
+            background-color: black;
+            font-size: 25px;
+            border: none;
+        }
+        .sinProductos{
+            text-align: center;
+            color:tomato;
+            font-size: 25px;
         }
     </style>
 </head>
@@ -120,9 +140,27 @@
                     </tr>
                 {% endfor %}
             </table>
+
             <div class="total">
                 <a>Total    ${{total}}</a>
             </div>
+
+            {% if total == 0 %}
+                <div class="sinProductos">
+                    Aún no has seleccionado ningún producto
+                </div>
+            {%endif%}
+            {% if total != 0 %}
+                <div class="confirmarCompra">
+                    <form action="confirmarCompra" method="POST">
+                        <div>
+                            <input value="{{idCarrito}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
+                            <input value="{{total}}" type="hidden" class="form-control" name="totalCarrito" id="totalCarrito">
+                            <button class="btn-confirmar" type="submit">Confirmar compra</button>
+                        </div>
+                    </form>
+                </div>
+            {%endif%}
         </div>
     </div>
     {% include 'footer/footer.html' %} 

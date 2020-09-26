@@ -1163,39 +1163,47 @@ def agregarAlCarrito():
         carrito = Carrito()
         datosCarrito = carrito.carrito_actual(session['email'])
         if (datosCarrito == []):
-            print("No hay carrito")
-            # Si no hay carrito, crea uno
-            nuevoCarrito = Carrito()
-            nuevoCarrito.set_usuario(session['email'])
-            data = nuevoCarrito.alta_carrito()
-            # Obtenemos los datos de nuevo carrito
-            datosCarrito = carrito.carrito_actual(session['email'])
-            id_carrito = datosCarrito[0][0]
-            # Obtenemos un ejemplar disponible
-            ejempleares_disponibles = ejemplar.seleccionarEjemplares(id)
-            for ej in ejempleares_disponibles:
-                # obtiene el numero de serie
-                ejemplar_seleccionado = ej[0]
-                break 
-            # Carga el ejemplar_carrito
-            ejemplar_carrito = Ejemplar_carrito()
-            ejemplar_carrito.set_idCarrito(id_carrito)
-            ejemplar_carrito.set_numero_serie(ejemplar_seleccionado)
-            data = ejemplar_carrito.alta_ejemplar_carrito()
-            # Se marca el ejemplar como vendido
-            ejemplar_vendido = Ejemplar()
-            ejemplar_vendido.marcar_ejemplar_vendido(ejemplar_seleccionado)
-            # Se suma el importe del producto al total del carrito
-            # Precio del ejemplar
-            precio_ejemplar = ejemplar.precio_ejemplar(ejemplar_seleccionado)
-            precio_ejemplar = precio_ejemplar[0][4]
-            # Total del carrito actual antes de agregarle el producto
-            total = carrito.carrito_actual(session['email'])
-            total = total[0][1]
-            nuevo_total = int(precio_ejemplar) + int(total)
-            carritoActualizado = Carrito()
-            carritoActualizado.actualizar_total_carrito(nuevo_total, id_carrito)
-
+            # Si no hay carrito evalúa si tiene una compra pendiente de pago
+            compra = Compra()
+            datosCompra = compra.compra_pendiente_pago(session['email'])
+            # Si no hay compra pendiente de pago crea un carrito nuevo
+            if (datosCompra == []):
+                nuevoCarrito = Carrito()
+                nuevoCarrito.set_usuario(session['email'])
+                data = nuevoCarrito.alta_carrito()
+                # Obtenemos los datos de nuevo carrito
+                datosCarrito = carrito.carrito_actual(session['email'])
+                id_carrito = datosCarrito[0][0]
+                # Obtenemos un ejemplar disponible
+                ejempleares_disponibles = ejemplar.seleccionarEjemplares(id)
+                for ej in ejempleares_disponibles:
+                    # obtiene el numero de serie
+                    ejemplar_seleccionado = ej[0]
+                    break 
+                # Carga el ejemplar_carrito
+                ejemplar_carrito = Ejemplar_carrito()
+                ejemplar_carrito.set_idCarrito(id_carrito)
+                ejemplar_carrito.set_numero_serie(ejemplar_seleccionado)
+                data = ejemplar_carrito.alta_ejemplar_carrito()
+                # Se marca el ejemplar como vendido
+                ejemplar_vendido = Ejemplar()
+                ejemplar_vendido.marcar_ejemplar_vendido(ejemplar_seleccionado)
+                # Se suma el importe del producto al total del carrito
+                # Precio del ejemplar
+                precio_ejemplar = ejemplar.precio_ejemplar(ejemplar_seleccionado)
+                precio_ejemplar = precio_ejemplar[0][4]
+                # Total del carrito actual antes de agregarle el producto
+                total = carrito.carrito_actual(session['email'])
+                total = total[0][1]
+                nuevo_total = int(precio_ejemplar) + int(total)
+                carritoActualizado = Carrito()
+                carritoActualizado.actualizar_total_carrito(nuevo_total, id_carrito)
+            # Si hay compra pendiente de pago no crea un carrito nuevo
+            else:
+                idCompra = datosCompra[0][0]
+                totalCompra = datosCompra[0][2]
+                idCarrito = datosCompra[0][1]
+                return render_template('carrito/compra_pendiente_pago.html', total=totalCompra, idCarrito=idCarrito, idCompra = idCompra)
         else:
             # Si hay carrito activo, le agrega el ejemplar del producto
             # obtenemos el id del carrito
@@ -1236,7 +1244,7 @@ def agregarAlCarrito():
         ejemplaresCarrito = Ejemplar_carrito()
         # Traemos los ejemplares del carrito
         data = ejemplaresCarrito.ejemplares_de_un_carrito(id_carrito)
-        return render_template('carrito/mostrarCarrito.html', data=data, total=total)
+        return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=id_carrito)
 
 @app.route('/guardarCarrito', methods=["POST"])
 def guardarCarrito():
@@ -1291,14 +1299,21 @@ def mostrarCarrito():
     carrito = Carrito()
     # Obtenemos los datos del carrito actual
     datos_carrito = carrito.carrito_actual(session['email'])
-    # Seleccionamos el id del carrito y el total
-    id_carrito = datos_carrito[0][0]
-    total = datos_carrito[0][1]
-    ejemplar_carrito = Ejemplar_carrito()
-    # Traemos los ejemplares del carrito
-    data = ejemplar_carrito.ejemplares_de_un_carrito(id_carrito)
-    print(data)
-    return render_template('carrito/mostrarCarrito.html', data=data, total=total)
+    #Si no hay carrito activo
+    if (datos_carrito == []):
+        data = []
+        total = 0
+        id_carrito = []
+    # Si hay carrito
+    else:
+        # Seleccionamos el id del carrito y el total
+        id_carrito = datos_carrito[0][0]
+        total = datos_carrito[0][1]
+        ejemplar_carrito = Ejemplar_carrito()
+        # Traemos los ejemplares del carrito
+        data = ejemplar_carrito.ejemplares_de_un_carrito(id_carrito)
+        print(data)
+    return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=id_carrito)
 
 
 #======== ejemplar_carrito
@@ -1353,22 +1368,15 @@ def eliminarEjemplar_carrito():
     # Traemos los ejemplares del carrito
     ejemplaresCarrito = Ejemplar_carrito()
     data = ejemplaresCarrito.ejemplares_de_un_carrito(idCarrito)
-    return render_template('carrito/mostrarCarrito.html', data=data, total=total)
-    """ data = []
-    if request.method == 'POST':
-        idCarrito = request.form['idCarrito']
-        numeroSerie = request.form['numeroSerie']
-        data = db.queryInsert('''
-               DELETE FROM "ejemplar_carrito" WHERE "idCarrito" = '{}' AND "numeroSerie" = '{}'; 
-            '''.format(idCarrito, numeroSerie))  """  
-
-
-@app.route('/modificarEjemplar_carrito') 
+    return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=idCarrito)
+ 
+# No se usaría
+""" @app.route('/modificarEjemplar_carrito') 
 def modificarEjemplar_carrito():
-    return render_template('ejemplar_carrito/modificarEjemplar_carrito.html')  
+    return render_template('ejemplar_carrito/modificarEjemplar_carrito.html')   """
 
-
-@app.route('/editarEjemplar_carrito', methods=["POST"])
+# No se usaría
+""" @app.route('/editarEjemplar_carrito', methods=["POST"])
 def editarEjemplar_carrito():
     data = []
     if request.method == 'POST':
@@ -1381,63 +1389,98 @@ def editarEjemplar_carrito():
 	                SET "idCarrito" = '{}', "numeroSerie" = '{}'
 	                WHERE "idCarrito" = '{}' AND "numeroSerie" = '{}';
             '''.format(nuevoIdCarrito, nuevoNumeroSerie, idCarrito, numeroSerie))
-    return render_template('index.html')
+    return render_template('index.html') """
 
-
-@app.route('/listarEjemplar_carrito')
+# No se usaría
+""" @app.route('/listarEjemplar_carrito')
 def listarEjemplar_carrito():
     data = db.querySelect('''
                 SELECT * FROM "ejemplar_carrito";
             ''')
-    return render_template('ejemplar_carrito/listadoEjemplar_carrito.html', data=data)   
+    return render_template('ejemplar_carrito/listadoEjemplar_carrito.html', data=data)   """ 
 
 
 #====COMPRA
-@app.route('/altaCompra')
+
+# No se usaría
+""" @app.route('/altaCompra')
 def altaCompra():
-     return render_template('compra/altaCompra.html') 
+     return render_template('compra/altaCompra.html')  """
 
 
-@app.route('/guardarCompra', methods=["POST"])
-def guardarCompra():
+@app.route('/confirmarCompra', methods=["POST"])
+def confirmarCompra():
     data = []
     if request.method == 'POST':
         idCarrito = request.form['idCarrito']
-        montoCompra = request.form['montoCompra']
-        estadoConfirmacion = request.form['estadoConfirmacion']
-        
+        montoCompra = request.form['totalCarrito']  
+        # Se crea la compra
         compra = Compra()
         compra.set_id_carrito(idCarrito)
         compra.set_monto_compra(montoCompra)
-        compra.set_estado_confirmacion(estadoConfirmacion)
+        compra.set_estado_confirmacion(False)
+        data = compra.alta_compra() 
+        # Se obtiene el id de la compra  
+        ids = compra.id_compra(idCarrito)
+        idCompra = ids[0][0]
+        # Marcamos el carrito como finalizado
+        carrito = Carrito()
+        c = carrito.carrito_finalizado(idCarrito)
+        return render_template('compra/compraConfirmada.html', total=montoCompra, idCarrito=idCarrito, idCompra=idCompra)
 
-        data = compra.alta_compra()    
-        return render_template('index.html')
+@app.route('/misCompras')
+def misCompras():
+    usuario = session['email']
+    compra = Compra()
+    data = compra.mis_compras(usuario)
+    print(data)
+    return render_template('compra/misCompras.html', data=data)
 
-
-@app.route('/bajaCompra') 
-def bajaCompra():
-    return render_template('compra/bajaCompra.html')  
-
-
-@app.route('/eliminarCompra', methods=["POST"])
-def eliminarCompra():
+@app.route('/verCompra', methods=["POST"])
+def verCompra():
     if request.method == 'POST':
-        idCompra = request.form['id']
+        idCompra = request.form['idCompra']
+        idCarrito = request.form['idCarrito']
+        total = request.form['total']
+        estado = request.form['estado']
+    ejemplar_carrito = Ejemplar_carrito()
+    data = ejemplar_carrito.ejemplares_de_un_carrito(idCarrito)
+    print(estado)
+    return render_template('compra/detalleCompra.html', data=data, total=total, estado=estado, idCompra=idCompra, idCarrito=idCarrito)
 
-        compra = Compra()
-        compra.set_id(idCompra)
+# No se usaría
+""" @app.route('/bajaCompra') 
+def bajaCompra():
+    return render_template('compra/bajaCompra.html')  """ 
 
-        data = compra.baja_compra()  
-    return render_template('compra/compraEliminada.html', data=data)    
+
+@app.route('/cancelarCompra', methods=["POST"])
+def cancelarCompra():
+    if request.method == 'POST':
+        idCompra = request.form['idCompra']
+        idCarrito = request.form['idCarrito']
+        total = request.form['total']
+    # Eliminamos la compra
+    compra = Compra()
+    data = compra.baja_compra(idCompra)
+    # Volvemos a activar el carrito
+    carrito = Carrito()
+    data = carrito.carrito_activo(idCarrito)
+    # Vamos al carrito
+    # Traemos los ejemplares del carrito
+    ejemplar_carrito = Ejemplar_carrito()
+    data = ejemplar_carrito.ejemplares_de_un_carrito(idCarrito)
+    return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=idCarrito) 
+    
 
 
-@app.route('/modificarCompra') 
+# No se usaría
+""" @app.route('/modificarCompra') 
 def modificarCompra():
-    return render_template('compra/modificarCompra.html')  
+    return render_template('compra/modificarCompra.html')   """
 
-
-@app.route('/editarCompra', methods=["POST"])
+# No se usaría
+""" @app.route('/editarCompra', methods=["POST"])
 def editarCompra():
     if request.method == 'POST':
         idCompra = request.form['id']
@@ -1449,13 +1492,14 @@ def editarCompra():
 
         data = compra.modificar_compra(nuevoMontoCompra, nuevoEstadoConfirmacion)
     return render_template('compra/compraModificada.html', data=data)
+ """
 
-
-@app.route('/mostrarCompra')
+# No se usaría
+""" @app.route('/mostrarCompra')
 def mostrarCompra():
     compra = Compra()
     data = compra.consultar_compra()
-    return render_template('compra/mostrarCompra.html', data=data)
+    return render_template('compra/mostrarCompra.html', data=data) """
 
 
 #====PAGO

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Mis compras</title>
+    <style>
+        .titulo{
+          font-size: 30px;
+          margin-top: 70px;
+          text-align: center;
+          padding-bottom: 20px;
+          font-weight: bold;
+        }
+        .tabla{
+            display:block;
+            margin:auto;
+            text-align: center;
+            width: 60%;
+        }
+        .producto{
+            width: 150px;
+        }
+        .precio{
+            width: 150px;
+        }
+        .accion{
+            width: 250px;
+        }
+        th{
+            color: black;
+            font-size: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        td{
+            font-size: 20px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            border-color: green;
+            color: black;
+            border-top: gray 1px solid;
+            border-bottom: gray 1px solid;
+        }
+        .verCompra{
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            color: blue;
+        }
+        .pagar{
+            background-color: transparent;
+            border: none;
+            color: green;
+            font-size: 20px;
+        }
+        .botones{
+            border: transparent;
+            text-align: center;
+            width: 150px;
+        }
+    </style>
+</head>
+
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_usuario_logueado.html' %}
+            <div class="titulo">
+              <span>Mis compras</span>
+            </div>
+            <table class="tabla">
+                <tr>
+                    <th class="producto">Código</th>
+                    <th class="precio">Precio</th>
+                    <th class="precio">Estado</th>
+                </tr>
+                {% for e in data %}
+                    <tr>
+                        <td>{{ e[0] }}</td>
+                        <td>${{ e[2] }}</td>
+                        {% if e[3] == False %}
+                            <td>Pendiente</td>
+                        {%endif%}
+                        {% if e[3] == True %}
+                            <td>Pagado</td>
+                        {%endif%}
+                        <td>
+                            <table>
+                                <tr>
+                                    <td class="botones">
+                                        <form action="verCompra" method="POST">
+                                            <div>
+                                                <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                                <input value="{{e[1]}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
+                                                <input value="{{e[2]}}" type="hidden" class="form-control" name="total" id="total">
+                                                <input value="{{e[3]}}" type="hidden" class="form-control" name="estado" id="estado">
+                                                <button class="verCompra" type="submit">Ver</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                    {% if e[3] == False %}
+                                        <td class="botones">
+                                            <form action="pagar" method="POST">
+                                                <div>
+                                                    <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                                    <input value="{{e[2]}}" type="hidden" class="form-control" name="total" id="total">
+                                                    <button class="pagar" type="submit">Pagar</button>
+                                                </div>
+                                            </form>
+                                        </td>
+                                    {%endif%}
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% include 'footer/footer.html' %} 
+</body>
+
+</html>

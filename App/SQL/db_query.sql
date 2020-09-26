@@ -450,6 +450,19 @@ JOIN ejemplar AS "e" ON ec."numeroSerie" = e."numeroSerie"
 JOIN carrito AS "c" ON ec."idCarrito" = c."id"
 Join producto AS "p" ON e.producto = p."id";
 
+
+--------
+---Vista Ejemplar_combo
+CREATE OR REPLACE VIEW vista_compras AS
+SELECT
+co."id",
+co."idCarrito",
+co."montoCompra",
+co."estadoConfirmacion",
+ca."usuario"
+FROM compra AS co
+JOIN carrito AS "ca" ON ca."id" = co."idCarrito";
+
 --INSERTs de inicio 
 -- admin por defecto
 INSERT INTO public.usuario(

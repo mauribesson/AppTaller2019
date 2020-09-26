@@ -83,3 +83,19 @@ class Carrito:
 	                WHERE "id" = '{}';
             '''.format(pTotal, idCarrito))
         return data
+
+    def carrito_finalizado(self, idCarrito):
+        data = db.queryInsert('''
+                UPDATE "carrito"
+                    SET "finalizado" = '{}'
+                    WHERE "id" = '{}';
+            '''.format(True, idCarrito))
+        return data
+
+    def carrito_activo(self, idCarrito):
+        data = db.queryInsert('''
+                UPDATE "carrito"
+                    SET "finalizado" = '{}'
+                    WHERE "id" = '{}';
+            '''.format(False, idCarrito))
+        return data
