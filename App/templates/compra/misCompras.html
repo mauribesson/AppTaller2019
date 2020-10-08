@@ -85,7 +85,7 @@
                             <td>Pendiente</td>
                         {%endif%}
                         {% if e[3] == True %}
-                            <td>Pagado</td>
+                            <td>Confirmada</td>
                         {%endif%}
                         <td>
                             <table>
@@ -103,11 +103,21 @@
                                     </td>
                                     {% if e[3] == False %}
                                         <td class="botones">
-                                            <form action="pagar" method="POST">
+                                            <form action="guardarPago" method="POST">
                                                 <div>
                                                     <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
                                                     <input value="{{e[2]}}" type="hidden" class="form-control" name="total" id="total">
                                                     <button class="pagar" type="submit">Pagar</button>
+                                                </div>
+                                            </form>
+                                        </td>
+                                    {%endif%}
+                                    {% if e[3] == True %}
+                                        <td class="botones">
+                                            <form action="verCupon" method="POST">
+                                                <div>
+                                                    <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                                    <button class="pagar" type="submit">Ver cupón</button>
                                                 </div>
                                             </form>
                                         </td>

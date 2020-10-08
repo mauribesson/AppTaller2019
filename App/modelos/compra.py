@@ -69,6 +69,15 @@ class Compra:
             '''.format(pUsuario))
             return data
 
+    def compra_confirmada(self, idCompra):
+        data = db.queryInsert('''
+                UPDATE "compra"
+                    SET "estadoConfirmacion" = '{}'
+                    WHERE "id" = '{}';
+            '''.format(True, idCompra))
+        return data
+
+        
     # No se usaría    
     """ def modificar_compra(self, pPuevoMontoCompra, pNuevoEstadoConfirmacion):       
         data = db.queryInsert('''

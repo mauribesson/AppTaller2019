@@ -14,6 +14,9 @@ from modelos.ejemplar_combo import Ejemplar_combo
 from modelos.storage import guardarImagen
 from modelos.imagenes import Imagenes
 from modelos.ejemplar_carrito import Ejemplar_carrito
+from modelos.mercadoPago import MercadoPago
+from modelos.mercadoPago import nuevaReerencia_mercadoPago
+from modelos.mercadoPago import consultarReferencia_mercadoPago
 
 db = Database()
 
@@ -1144,10 +1147,10 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
     
 #====CARRITO
 
-
-@app.route('/altaCarrito')
+## No se usaria
+""" @app.route('/altaCarrito')
 def altaCarrito():
-     return render_template('carrito/altaCarrito.html') 
+     return render_template('carrito/altaCarrito.html')  """
 
 @app.route('/agregarAlCarrito', methods=["POST"])
 def agregarAlCarrito():
@@ -1246,7 +1249,31 @@ def agregarAlCarrito():
         data = ejemplaresCarrito.ejemplares_de_un_carrito(id_carrito)
         return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=id_carrito)
 
-@app.route('/guardarCarrito', methods=["POST"])
+@app.route('/mostrarCarrito')
+def mostrarCarrito():
+    data = []
+    carrito = Carrito()
+    # Obtenemos los datos del carrito actual
+    datos_carrito = carrito.carrito_actual(session['email'])
+    #Si no hay carrito activo
+    if (datos_carrito == []):
+        data = []
+        total = 0
+        id_carrito = []
+    # Si hay carrito
+    else:
+        # Seleccionamos el id del carrito y el total
+        id_carrito = datos_carrito[0][0]
+        total = datos_carrito[0][1]
+        ejemplar_carrito = Ejemplar_carrito()
+        # Traemos los ejemplares del carrito
+        data = ejemplar_carrito.ejemplares_de_un_carrito(id_carrito)
+        print(data)
+    return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=id_carrito)
+
+
+## No se usaria
+""" @app.route('/guardarCarrito', methods=["POST"])
 def guardarCarrito():
     data = []
     if request.method == 'POST':
@@ -1291,29 +1318,8 @@ def editarCarrito():
         data = carrito.modificar_carrito(total) 
 
     return render_template('carrito/carritoModificado.html', data=data)
+ """
 
-
-@app.route('/mostrarCarrito')
-def mostrarCarrito():
-    data = []
-    carrito = Carrito()
-    # Obtenemos los datos del carrito actual
-    datos_carrito = carrito.carrito_actual(session['email'])
-    #Si no hay carrito activo
-    if (datos_carrito == []):
-        data = []
-        total = 0
-        id_carrito = []
-    # Si hay carrito
-    else:
-        # Seleccionamos el id del carrito y el total
-        id_carrito = datos_carrito[0][0]
-        total = datos_carrito[0][1]
-        ejemplar_carrito = Ejemplar_carrito()
-        # Traemos los ejemplares del carrito
-        data = ejemplar_carrito.ejemplares_de_un_carrito(id_carrito)
-        print(data)
-    return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=id_carrito)
 
 
 #======== ejemplar_carrito
@@ -1511,22 +1517,41 @@ def altaPago():
 @app.route('/guardarPago', methods=["POST"])
 def guardarPago():
     data = []
+    # Traemos los datos del formulario html
     if request.method == 'POST':
         idCompra = request.form['idCompra']
         total = request.form['total']
-        estado = request.form['estado']
-        tarjeta = request.form['tarjeta']
-        cuotas = request.form['cuotas']
 
-        pago = Pago()
-        pago.set_id_compra(idCompra)
-        pago.set_total(total)
-        pago.set_estado(estado)
-        pago.set_tarjeta(tarjeta)
-        pago.set_cuotas(cuotas)
+    # Creamos una referencia en mercadopago
+    total = int(float(total))
+    resultado = nuevaReerencia_mercadoPago(idCompra, total)
+    id_mercadoPago = resultado['response']['id']
+    link_mercadoPago = resultado['response']['init_point']  
 
-        data = pago.alta_pago()
-    return render_template('index.html')
+    # Cargamos el pago a nuestra base de datos
+    mercadoPago = MercadoPago()
+    mercadoPago.set_id(id_mercadoPago)
+    mercadoPago.set_id_compra(idCompra)
+    mercadoPago.set_total(total)
+    mercadoPago.set_link_pago(link_mercadoPago)
+    mercadoPago.set_estado(False)
+    data = mercadoPago.alta_mercadopago() 
+
+    # Cerramos la compra, de forma que solo nos dirija al cupón de pago
+    compra = Compra()
+    C = compra.compra_confirmada(idCompra)
+
+    return render_template('pago/mercadoPago.html', link=link_mercadoPago)
+
+@app.route('/verCupon', methods=["POST"]) 
+def verCupon():
+    if request.method == 'POST':
+        idCompra = request.form['idCompra']
+    mercadoPago = MercadoPago()
+    # Obtenemos el link para mercado pago
+    link = mercadoPago.link_mercadopago(idCompra)
+    link = link[0][0]
+    return render_template('pago/mercadoPago.html', link=link)
 
 
 @app.route('/bajaPago') 

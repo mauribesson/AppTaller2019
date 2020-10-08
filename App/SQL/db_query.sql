@@ -111,6 +111,15 @@ CREATE TABLE "pago" (
 	foreign key ("idCompra") references "compra" deferrable
 );
 
+CREATE TABLE "mercadopago" (
+	"id" character varying (200),
+	"idCompra" integer NOT NULL,
+	"total" double precision NOT NULL,
+	"link_pago" character varying (1000),
+	"estado" boolean,
+	Primary key ("id"),
+	foreign key ("idCompra") references "compra" deferrable
+);
 
 --Setear datos por defecto 
 INSERT INTO "rol" ("nombreRol") values ('admin');
