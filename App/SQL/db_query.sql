@@ -66,6 +66,7 @@ CREATE TABLE "combo" (
 	"total" float,
 	"descuento" float,
 	"totalConDescuento" float,
+	"vendido" boolean,
 	Primary key ("id")
 );
 
@@ -89,6 +90,13 @@ CREATE TABLE "ejemplar_carrito" (
 	"numeroSerie" character varying(50) NOT NULL,
 	foreign key ("idCarrito") references "carrito" deferrable,
 	foreign key ("numeroSerie") references "ejemplar" deferrable
+);
+
+CREATE TABLE "combo_carrito" (
+	"idCarrito" integer NOT NULL,
+	"idCombo" integer NOT NULL,
+	foreign key ("idCarrito") references "carrito" deferrable,
+	foreign key ("idCombo") references "combo" deferrable
 );
 
 CREATE TABLE "compra" (
@@ -460,6 +468,18 @@ JOIN carrito AS "c" ON ec."idCarrito" = c."id"
 Join producto AS "p" ON e.producto = p."id";
 
 
+---VISTA COMBO CARRITO
+CREATE OR REPLACE VIEW vista_combo_carrito AS
+SELECT
+cc."idCarrito",
+cc."idCombo",
+co."nombre",
+co."totalConDescuento"
+FROM combo_carrito AS cc
+JOIN combo AS "co" ON cc."idCombo" = co."id"
+JOIN carrito AS "c" ON cc."idCarrito" = c."id";
+
+
 --------
 ---Vista Ejemplar_combo
 CREATE OR REPLACE VIEW vista_compras AS
@@ -483,3 +503,6 @@ INSERT INTO public.usuario(
 
 --- AGREGA EL CAMPO FINALIZADO A LA TABLA CARRITO
 --- ALTER TABLE "carrito" ADD COLUMN "finalizado" boolean;
+
+--- AGREGA EL CAMPO VENDIDO A LA TABLA COMBO
+--- ALTER TABLE "combo" ADD COLUMN "vendido" boolean;

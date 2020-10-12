@@ -11,6 +11,7 @@ class Combo:
         self.__total = None
         self.__descuento = None
         self.__totalConDescuento = None
+        self.__vendido = None
 
    #Setter
     def set_id(self, pId):
@@ -31,6 +32,9 @@ class Combo:
     def set_totalConDescuento(self, ptotalConDescuento):
         self.__totalConDescuento = ptotalConDescuento
 
+    def set_vendido(self, pVendido):
+        self.__vendido = pVendido
+
     #Getter
     def get_id(self):
         return self.__id
@@ -50,6 +54,9 @@ class Combo:
     def get_totalConDescuento(self):
         return self.__totalConDescuento
 
+    def get_vendido(self):
+        return self.__vendido
+
     #Logica
     def verificar_combo(self):
         verificador = db.querySelect('''
@@ -60,9 +67,9 @@ class Combo:
     def alta_combo(self):
         data = db.queryInsert('''
                 INSERT INTO "combo" 
-                ("nombre", "total", "descuento") 
-                values ('{}',0,0);
-                '''.format(self.__nombre))
+                ("nombre", "total", "descuento", "totalConDescuento", "vendido") 
+                values ('{}', '{}', '{}', '{}', '{}');
+                '''.format(self.__nombre, 0, 0, 0, False))
         return data
 
     def baja_combo(self):
@@ -103,8 +110,8 @@ class Combo:
 
     def listar_combos(self):
         data = db.querySelect('''
-                SELECT * FROM "combo";
-            ''')
+                SELECT * FROM "combo" where "vendido" = '{}';
+            '''.format(False))
         return data
 
     def listar_poductos_del_combo(self, idCombo):
@@ -128,7 +135,7 @@ class Combo:
         nueva_lista = []
 
         for e in ListaCombos:
-            nueva_lista.append({'id':e[0], 'nombre':e[1], 'total':e[2], 'descuento':e[3], 'totalConDescuento':e[4]})
+            nueva_lista.append({'id':e[0], 'nombre':e[1], 'total':e[2], 'descuento':e[3], 'totalConDescuento':e[4], 'vendido':e[5]})
         
         return nueva_lista
     
@@ -188,6 +195,12 @@ class Combo:
                 self.__id))
         return data
 
+    def total_combo(self, idCombo):
+        data = db.querySelect('''
+                SELECT "totalConDescuento" FROM "combo" WHERE "id" = '{}';
+            '''.format(idCombo))
+        return data
+
     def actualizarDescuento(self, totalConDesc):
         data = db.queryInsert('''
             UPDATE "combo"
@@ -205,3 +218,25 @@ class Combo:
             self.__id))
         return data
 
+
+    def marcar_combo_vendido(self, id):
+        data = db.queryInsert('''
+                    UPDATE "combo"
+                            SET "vendido" = '{}'
+                            WHERE "id" = '{}';
+                    '''.format(
+                        True, 
+                        id))
+        return data
+
+    def marcar_combo_disponible(self, id):
+        data = db.queryInsert('''
+                    UPDATE "combo"
+                            SET "vendido" = '{}'
+                            WHERE "id" = '{}';
+                    '''.format(
+                        False, 
+                        id))
+        return data
+
+    

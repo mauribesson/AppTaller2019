@@ -17,6 +17,7 @@ from modelos.ejemplar_carrito import Ejemplar_carrito
 from modelos.mercadoPago import MercadoPago
 from modelos.mercadoPago import nuevaReerencia_mercadoPago
 from modelos.mercadoPago import consultarReferencia_mercadoPago
+from modelos.combo_carrito import Combo_carrito
 
 db = Database()
 
@@ -830,6 +831,7 @@ def guardarCombo():
         combo.set_total(0)
         combo.set_descuento(0)
         combo.set_totalConDescuento(0)
+        combo.set_vendido(False)
         verificador = combo.verificar_combo() 
         if verificador == []:
             data = combo.alta_combo()  
@@ -842,6 +844,7 @@ def guardarCombo():
         dato['total'] = combo.get_total()
         dato['descuento'] = combo.get_descuento()
         dato['totalConDescuento'] = combo.get_totalConDescuento()
+        dato['vendido'] = combo.get_vendido()
         ListaCombos = combo.listar_combos()
         for e in ListaCombos:
             id= e[0]
@@ -1067,6 +1070,9 @@ def guardarEjemplar_combo():
         data = db.queryInsert('''
             INSERT INTO "ejemplar_combo" ("idCombo", "numeroSerie") values ('{}', '{}');
             '''.format(idCombo, numeroSerie)) 
+    # Se marca el ejemplar como vendido
+    ejemplar = Ejemplar()
+    ejemplar.marcar_ejemplar_vendido(numeroSerie)
     return render_template('index.html')   
 
 
@@ -1108,6 +1114,10 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
     total = total[0][0]
     ejemplar = Ejemplar()
     ejemplar.set_numero_serie(numeroSerie)
+
+    # Marcamos el ejemplar como disponible
+    ejemplar.marcar_ejemplar_disponible(numeroSerie)
+
     precioDelProducto = ejemplar.precioDelEjemplar()
     precioDelProducto = precioDelProducto[0][0]
     nuevoTotal = (int(total) - int(precioDelProducto))
@@ -1249,17 +1259,104 @@ def agregarAlCarrito():
         data = ejemplaresCarrito.ejemplares_de_un_carrito(id_carrito)
         return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=id_carrito)
 
+
+@app.route('/agregarComboAlCarrito', methods=["POST"])
+def agregarComboAlCarrito():
+    if request.method == 'POST':
+        idCombo= request.form['id']
+
+        # Chequea si el usuario tiene un carrito activo (con productos)
+        carrito = Carrito()
+        datosCarrito = carrito.carrito_actual(session['email'])
+        if (datosCarrito == []):
+            # Si no hay carrito evalúa si tiene una compra pendiente de pago
+            compra = Compra()
+            datosCompra = compra.compra_pendiente_pago(session['email'])
+            # Si no hay compra pendiente de pago crea un carrito nuevo
+            if (datosCompra == []):
+                nuevoCarrito = Carrito()
+                nuevoCarrito.set_usuario(session['email'])
+                data = nuevoCarrito.alta_carrito()
+                # Obtenemos los datos de nuevo carrito
+                datosCarrito = carrito.carrito_actual(session['email'])
+                id_carrito = datosCarrito[0][0]
+                # Carga el combo_carrito
+                combo_carrito = Combo_carrito()
+                combo_carrito.set_idCarrito(id_carrito)
+                combo_carrito.set_idCombo(idCombo)
+                data = combo_carrito.alta_combo_carrito()
+                # Se marca el combo como vendido
+                combo = Combo()
+                combo.marcar_combo_vendido(idCombo)
+                # Se suma el importe del combo al total del carrito
+                # Precio del combo 
+                precioCombo = combo.total_combo(idCombo)
+                precioCombo = precioCombo[0][0]
+                # Total del carrito actual antes de agregarle el producto
+                total = carrito.carrito_actual(session['email'])
+                total = total[0][1]
+                nuevo_total = int(precioCombo) + int(total)
+                carritoActualizado = Carrito()
+                carritoActualizado.actualizar_total_carrito(nuevo_total, id_carrito)
+            # Si hay compra pendiente de pago no crea un carrito nuevo
+            else:
+                idCompra = datosCompra[0][0]
+                totalCompra = datosCompra[0][2]
+                idCarrito = datosCompra[0][1]
+                return render_template('carrito/compra_pendiente_pago.html', total=totalCompra, idCarrito=idCarrito, idCompra = idCompra)
+        else:
+            # Si hay carrito activo, le agrega el ejemplar del producto
+            # obtenemos el id del carrito
+            id_carrito = datosCarrito[0][0]
+            # Carga el combo_carrito
+            combo_carrito = Combo_carrito()
+            combo_carrito.set_idCarrito(id_carrito)
+            combo_carrito.set_idCombo(idCombo)
+            data = combo_carrito.alta_combo_carrito()
+            # Se marca el combo como vendido
+            combo = Combo()
+            combo.marcar_combo_vendido(idCombo)
+            # Se suma el importe del combo al total del carrito
+            # Precio del combo
+            precioCombo = combo.total_combo(idCombo)
+            precioCombo = precioCombo[0][0]
+            # Total del carrito actual antes de agregarle el producto
+            total = carrito.carrito_actual(session['email'])
+            total = total[0][1]
+            nuevo_total = int(precioCombo) + int(total)
+            carritoActualizado = Carrito()
+            carritoActualizado.actualizar_total_carrito(nuevo_total, id_carrito)
+        
+        # Traemos los datos actualiados del carrito para pasar a la vista
+        ejempares_carrito = []
+        carritoCargado = Carrito()
+        # Obtenemos los datos del carrito actual
+        datos_carrito = carritoCargado.carrito_actual(session['email'])
+        # Seleccionamos el id del carrito y el total
+        id_carrito = datos_carrito[0][0]
+        total = datos_carrito[0][1]
+        ejemplaresCarrito = Ejemplar_carrito()
+        # Traemos los ejemplares del carrito
+        ejemplares_carrito = ejemplaresCarrito.ejemplares_de_un_carrito(id_carrito)
+        # Traemos los combos del carrito
+        combos_carrito = []
+        comboCarrito = Combo_carrito()
+        combos_carrito = comboCarrito.combos_de_un_carrito(id_carrito)
+        return render_template('carrito/mostrarCarrito.html', ejemplares=ejemplares_carrito, combos=combos_carrito,total=total, idCarrito=id_carrito)
+
+
 @app.route('/mostrarCarrito')
 def mostrarCarrito():
-    data = []
+    ejempares_carrito = []
     carrito = Carrito()
     # Obtenemos los datos del carrito actual
     datos_carrito = carrito.carrito_actual(session['email'])
     #Si no hay carrito activo
     if (datos_carrito == []):
-        data = []
+        ejempares_carrito = []
         total = 0
         id_carrito = []
+        combos_carrito = []
     # Si hay carrito
     else:
         # Seleccionamos el id del carrito y el total
@@ -1267,9 +1364,12 @@ def mostrarCarrito():
         total = datos_carrito[0][1]
         ejemplar_carrito = Ejemplar_carrito()
         # Traemos los ejemplares del carrito
-        data = ejemplar_carrito.ejemplares_de_un_carrito(id_carrito)
-        print(data)
-    return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=id_carrito)
+        ejempares_carrito = ejemplar_carrito.ejemplares_de_un_carrito(id_carrito)
+        # Traemos los combos del carrito
+        combos_carrito = []
+        comboCarrito = Combo_carrito()
+        combos_carrito = comboCarrito.combos_de_un_carrito(id_carrito)
+    return render_template('carrito/mostrarCarrito.html', ejemplares=ejempares_carrito, combos=combos_carrito, total=total, idCarrito=id_carrito)
 
 
 ## No se usaria
@@ -1373,9 +1473,47 @@ def eliminarEjemplar_carrito():
     datos_carrito = carritoActual.carrito_actual(session['email'])
     # Traemos los ejemplares del carrito
     ejemplaresCarrito = Ejemplar_carrito()
-    data = ejemplaresCarrito.ejemplares_de_un_carrito(idCarrito)
-    return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=idCarrito)
+    ejempares_carrito = ejemplaresCarrito.ejemplares_de_un_carrito(idCarrito)
+    # Traemos los combos del carrito
+    combos_carrito = []
+    comboCarrito = combo_carrito()
+    combos_carrito = comboCarrito.combos_de_un_carrito(idCarrito)
+    return render_template('carrito/mostrarCarrito.html', ejemplares=ejempares_carrito, combos=combos_carrito, total=total, idCarrito=id_carrito)
+
  
+@app.route('/eliminarCombo_carrito', methods=["POST"])
+def eliminarCombo_carrito():
+    # Obtenemos los datos que vienen del formulario
+    if request.method == 'POST':
+        idCarrito = request.form['idCarrito']
+        idCombo = request.form['idCombo']
+        totalConDescuento = request.form['totalConDescuento']
+        totalCarrito = request.form['totalCarrito']
+    # Eliminamos el combo del carrito
+    combo_carrito = Combo_carrito()
+    combo_carrito.set_idCarrito(idCarrito)
+    combo_carrito.set_idCombo(idCombo)
+    combo_carrito.baja_combo_carrito()
+    # Marcamos el combo como disponible para la venta
+    combo = Combo()
+    combo.marcar_combo_disponible(idCombo)
+    # Descontamos el importe del combo al total carrito
+    total = float(totalCarrito) - float(totalConDescuento)
+    carrito = Carrito()
+    carrito.actualizar_total_carrito(total, idCarrito)
+    # Traemos los datos actualizados para refrescar la vista
+    carritoActual = Carrito()
+    datos_carrito = carritoActual.carrito_actual(session['email'])
+    # Traemos los ejemplares del carrito
+    ejemplaresCarrito = Ejemplar_carrito()
+    ejempares_carrito = ejemplaresCarrito.ejemplares_de_un_carrito(idCarrito)
+    # Traemos los combos del carrito
+    combos_carrito = []
+    comboCarrito = Combo_carrito()
+    combos_carrito = comboCarrito.combos_de_un_carrito(idCarrito)
+    return render_template('carrito/mostrarCarrito.html', ejemplares=ejempares_carrito, combos=combos_carrito, total=total, idCarrito=idCarrito)
+
+
 # No se usaría
 """ @app.route('/modificarEjemplar_carrito') 
 def modificarEjemplar_carrito():
@@ -1436,11 +1574,14 @@ def confirmarCompra():
 
 @app.route('/misCompras')
 def misCompras():
-    usuario = session['email']
-    compra = Compra()
-    data = compra.mis_compras(usuario)
-    print(data)
-    return render_template('compra/misCompras.html', data=data)
+    if 'email' in session:
+        usuario = session['email']
+        compra = Compra()
+        data = compra.mis_compras(usuario)
+        print(data)
+        return render_template('compra/misCompras.html', data=data)
+    else:
+        return render_template('login/solicitarLogin.html')
 
 @app.route('/verCompra', methods=["POST"])
 def verCompra():

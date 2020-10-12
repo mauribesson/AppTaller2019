@@ -4,9 +4,19 @@
 
 <style>
     .btn-success{
-    font-size: 30px;
-    margin-right:5px;
-    margin-left:890px;
+    font-size: 24px;
+    padding: 1px;
+    }
+    .btn-comprar{
+        background-color: transparent;
+        border: none;
+    }
+    .btn-danger{
+        margin-top: 15px;
+        margin-left: 10px;
+    }
+    h2{
+        margin-top: 30px;
     }
 </style>
 
@@ -14,14 +24,9 @@
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar_usuarios.html' %}
         <div id="page-content-wrapper">
-            {% include 'navbars/navbar.html' %}
+            {% include 'navbars/navbar_usuario_logueado.html' %}
             <div class="container p-2">
-                <table class="egt">
-                    <tr>                  
-                      <td><a class="btn btn-danger" href="/listarCombo" role="button">Volver</a></td>                  
-                      <td style=float:right><a href="{{ url_for('verProducto') }}" class="btn btn-success"><span class="fa fa-cart-plus"></span></a></td>                  
-                    </tr>
-                  </table>
+                <a class="btn btn-danger" href="/listarCombo" role="button">Volver</a>
                 <center>        
                     <h2>{{dato['nombreCombo']}}</h2>
                     <div class="form-group">
@@ -39,6 +44,14 @@
                         <div class="form-group">
                             <label for="total">Total con descuento: ${{dato['totalConDescuento']}}</label>
                             <input readonly value="{{dato['totalConDescuento']}}" type="hidden" class="form-control" name="totalConDescuento" id="totalConDescuento" placeholder="Total con Descuento">
+                        </div>
+                        <div>
+                            <form action="agregarComboAlCarrito" method="POST">
+                                <div class="btn btn-success">
+                                    <input value="{{id}}" type="hidden" class="form-control" name="id" id="id">
+                                    <button class="btn-comprar" type="submit"><span class="fa fa-cart-plus"></span></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
