@@ -1804,7 +1804,7 @@ def loginAndrea():
         return render_template('login/usuarioNoExiste.html')
     ## Si el usuario existe, verifica que la contraseña es la correcta
     elif data[1] != contrasenia:
-        return render_template('login/contraseniaIncorrecta.html')
+        return render_template('login/contraseniaIncorrecta.html', email=email)
     ## Si encuentra en usuario y la contraseña es correcta, inicia sesion
     else:
         session['email'] = email
