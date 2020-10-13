@@ -654,8 +654,14 @@ def fichaProducto(id=None):
     producto.set_id(id)
     data = producto.consultar_producto_por_id()
     ejemplar = Ejemplar()
+    # Consulta el stock
     cantidad = ejemplar.cantidad_ejemplares_de_un_producto(id)
-    return render_template('producto/fichaProducto.html', data = data, stock = cantidad)
+    # Busca las imagenes del producto
+    imagenes = Imagenes()
+    imgs = imagenes.imagenes_producto(id)
+    cantidadImagenes = imagenes.obtener_cantidad_imagenes(id)
+    cantidadImagenes=cantidadImagenes[0][0]
+    return render_template('producto/fichaProducto.html', data = data, stock = cantidad, fotos = imgs, cantidadFotos = cantidadImagenes)
 
 
 @app.route('/listarProductos')
@@ -669,9 +675,10 @@ def listarProductos():
     cantidad=int(cantidad)
     return render_template('producto/productos.html', data=data, cantidad=cantidad)
 
-
-@app.route('/verProducto', methods=["POST"])
-def verProducto():
+## Vista del usuario
+@app.route('/verProducto')
+@app.route('/verProducto/<int:id>')
+def verProducto(id=None):
     if request.method == 'POST':
         id = request.form['id']
     # Trae los datos del producto
@@ -687,9 +694,6 @@ def verProducto():
     imgs = imagenes.imagenes_producto(id)
     cantidadImagenes = imagenes.obtener_cantidad_imagenes(id)
     cantidadImagenes=cantidadImagenes[0][0]
-    # for foto in range(cantidadImagenes):
-    #     print(foto)
-    #     print(imgs[foto])
     return render_template('producto/verProducto.html', data = data, stock = cantidadEjemplares, fotos = imgs, cantidadFotos = cantidadImagenes)
 
 @app.route('/buscarProducto', methods=["POST"])
