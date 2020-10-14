@@ -77,6 +77,12 @@ class MercadoPago:
             '''.format(idCompra))
         return data
 
+    def estado_pago(self, idCompra):
+        data = db.querySelect('''
+                SELECT "estado" FROM "mercadopago" WHERE "idCompra" = '{}';
+            '''.format(idCompra))
+        return data
+
 
 def nuevaReerencia_mercadoPago(idPago, total):
     mp = mercadopago.MP(4907324296549149, "hUM1unn6xSSpvIZkOVgkE6Yr3JG2t6b7")
@@ -97,6 +103,9 @@ def consultarReferencia_mercadoPago(id):
     mp = mercadopago.MP(4907324296549149, "hUM1unn6xSSpvIZkOVgkE6Yr3JG2t6b7")
     preferenceResult = mp.get_preference(id)
     return preferenceResult
+
+
+
 
 ## NO FUNCIONA, VER QUE ID SE DEBE PASAR
 ## Cancelar pago, solo para pagos pendientes

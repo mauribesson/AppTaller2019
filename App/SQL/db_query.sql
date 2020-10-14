@@ -492,6 +492,7 @@ ca."usuario"
 FROM compra AS co
 JOIN carrito AS "ca" ON ca."id" = co."idCarrito";
 
+
 --INSERTs de inicio 
 -- admin por defecto
 INSERT INTO public.usuario(

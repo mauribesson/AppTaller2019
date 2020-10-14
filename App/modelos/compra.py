@@ -77,7 +77,12 @@ class Compra:
             '''.format(True, idCompra))
         return data
 
-        
+    def ventas(self):
+        data = db.querySelect('''
+                SELECT * FROM "vista_compras";
+            ''')
+        return data 
+
     # No se usaría    
     """ def modificar_compra(self, pPuevoMontoCompra, pNuevoEstadoConfirmacion):       
         data = db.queryInsert('''

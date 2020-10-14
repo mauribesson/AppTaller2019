@@ -2,12 +2,38 @@
 <html lang="en">
 {% include 'header/header.html' %}
 
+<head>
+    <title>Compra eliminada</title>
+    <style>
+        .titulo{
+          font-size: 30px;
+          margin-top: 100px;
+          text-align: center;
+          padding-bottom: 20px;
+          font-weight: bold;
+        }
+        .btn{
+            font-size: 26px;
+            text-align: center;
+            text-decoration: none;
+            color: blue;
+            display:block;
+            margin:auto;
+        }
+    </style>
+</head>
+
 <body>
-    {% if data == 1 %}
-    <h2>Compra eliminado!</h2>
-    {% else %}
-    <h2>Compra no existe!</h2>
-    {% endif %}
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_usuario_logueado.html' %}
+            <div class="titulo">
+              <span>La compra fue eliminada</span>
+            </div>
+            <a href="{{ url_for('ventas') }}" class="btn"> Ir a ventas </a>
+        </div>
+    </div>
 </body>
 
 </html>

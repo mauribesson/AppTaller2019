@@ -648,7 +648,10 @@ def editarProducto():
 
 @app.route('/fichaProducto')
 @app.route('/fichaProducto/<int:id>')
+@app.route('/fichaProducto', methods=["POST"])
 def fichaProducto(id=None):
+    if request.method == 'POST':
+        id = request.form['id']
     data = {}
     producto = Producto()
     producto.set_id(id)
@@ -1582,7 +1585,6 @@ def misCompras():
         usuario = session['email']
         compra = Compra()
         data = compra.mis_compras(usuario)
-        print(data)
         return render_template('compra/misCompras.html', data=data)
     else:
         return render_template('login/solicitarLogin.html')
@@ -1596,15 +1598,41 @@ def verCompra():
         estado = request.form['estado']
     ejemplar_carrito = Ejemplar_carrito()
     data = ejemplar_carrito.ejemplares_de_un_carrito(idCarrito)
-    print(estado)
     return render_template('compra/detalleCompra.html', data=data, total=total, estado=estado, idCompra=idCompra, idCarrito=idCarrito)
 
-# No se usaría
-""" @app.route('/bajaCompra') 
+
+@app.route('/verVenta', methods=["POST"])
+def verVenta():
+    if request.method == 'POST':
+        idCompra = request.form['idCompra']
+        idCarrito = request.form['idCarrito']
+        total = request.form['total']
+        estado = request.form['estado']
+    # Traemos los ejemplares del carrito correspondiente a la compra
+    ejemplar_carrito = Ejemplar_carrito()
+    ejemplares_carrito = ejemplar_carrito.ejemplares_de_un_carrito(idCarrito)
+    # Treamos los combos del carrito correpondiente a la compra
+    combos_carrito = []
+    comboCarrito = Combo_carrito()
+    combos_carrito = comboCarrito.combos_de_un_carrito(idCarrito)
+    #Consultamos el estado del pago correspondiente al pago
+    mercado_pago = MercadoPago()
+    estado_pago = mercado_pago.estado_pago(idCompra)
+    estado_pago = estado_pago[0][0]
+    print(estado_pago)
+    return render_template('compra/detalleVenta.html', ejemplares=ejemplares_carrito, combos= combos_carrito, total=total, estado=estado_pago, idCompra=idCompra, idCarrito=idCarrito)
+
+# Elimina la compra desde admin
+@app.route('/bajaVenta', methods=["POST"]) 
 def bajaCompra():
-    return render_template('compra/bajaCompra.html')  """ 
+    if request.method == 'POST':
+        idCompra = request.form['idCompra']
+    compra = Compra()
+    compra.baja_compra(idCompra)
+    return render_template('compra/compraEliminada.html') 
 
 
+# Elimina la compra desde el comprador
 @app.route('/cancelarCompra', methods=["POST"])
 def cancelarCompra():
     if request.method == 'POST':
@@ -1623,7 +1651,11 @@ def cancelarCompra():
     data = ejemplar_carrito.ejemplares_de_un_carrito(idCarrito)
     return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=idCarrito) 
     
-
+@app.route('/ventas')
+def ventas():
+    compra = Compra()
+    data = compra.ventas()
+    return render_template('compra/ventas.html', data=data)
 
 # No se usaría
 """ @app.route('/modificarCompra') 
