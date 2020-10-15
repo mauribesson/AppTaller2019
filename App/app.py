@@ -881,6 +881,28 @@ def verCombo(id):
 
     return render_template('combo/cargarProductosAlCombo.html', dato=dato, id=id)
 
+#Muestra el combo al admin
+@app.route('/mostrarCombo')
+@app.route('/mostrarCombo/<int:id>')
+def mostrarCombo(id):
+    combo = Combo()
+    combo.set_id(id)
+    data = combo.consultar_combo_por_id()
+
+    dato = {}
+    dato['nombreCombo'] = data[0][1]
+    dato['idCombo'] = data[0][0]
+    dato['descuento']  = data[0][3] 
+    dato['total']  = data[0][2]
+    dato['totalConDescuento']  = data[0][4]
+    id=data[0][0]
+
+    producto = Producto()
+    producto.listar_productos()
+
+    dato['productos'] = producto.listar_productos()
+
+    return render_template('combo/mostrarCombo.html', dato=dato, id=id)
 
 @app.route('/mostrarComboAlUsuario')
 @app.route('/mostrarComboAlUsuario', methods=["POST"])
@@ -1596,9 +1618,14 @@ def verCompra():
         idCarrito = request.form['idCarrito']
         total = request.form['total']
         estado = request.form['estado']
+    # Traemos los ejemplares del carrito correspondiente a la compra
     ejemplar_carrito = Ejemplar_carrito()
-    data = ejemplar_carrito.ejemplares_de_un_carrito(idCarrito)
-    return render_template('compra/detalleCompra.html', data=data, total=total, estado=estado, idCompra=idCompra, idCarrito=idCarrito)
+    ejemplares_carrito = ejemplar_carrito.ejemplares_de_un_carrito(idCarrito)
+    # Treamos los combos del carrito correpondiente a la compra
+    combos_carrito = []
+    comboCarrito = Combo_carrito()
+    combos_carrito = comboCarrito.combos_de_un_carrito(idCarrito)
+    return render_template('compra/detalleCompra.html', ejemplares=ejemplar_carrito, combos=combos_carrito, total=total, estado=estado, idCompra=idCompra, idCarrito=idCarrito)
 
 
 @app.route('/verVenta', methods=["POST"])
