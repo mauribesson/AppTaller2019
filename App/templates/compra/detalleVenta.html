@@ -61,6 +61,7 @@
             display:block;
             margin:auto;
             padding-bottom: 7px;
+            margin-top: 20px;
         }
         .pagado{
             text-align: center;
@@ -70,6 +71,7 @@
             display:block;
             margin:auto;
             padding-bottom: 7px;
+            margin-top: 20px;
         }
         .verProducto{
             background-color: transparent;
@@ -80,6 +82,15 @@
             border: transparent;
             text-align: center;
             width: 100px;
+        }
+        .cancelar{
+            border: red;
+            background-color: red;
+            color: white;
+            border-radius: 10px;
+            margin: 20px;
+            padding-left: 5px;
+            padding-right: 5px;
         }
     </style>
 </head>
@@ -140,7 +151,11 @@
             
             {% if estado == False %}
                 <div class="pendiente">
-                    <a>El pago de esta compra está pendiente</a>
+                    <a>El pago de esta venta está pendiente</a>
+                    <form action="bajaVenta" method="POST">
+                        <input value="{{idCompra}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                        <button class="cancelar" type="submit">Cancelar compra</button>
+                    </form>
                 </div>
             {%endif%}
 

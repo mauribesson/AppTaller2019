@@ -1,13 +1,45 @@
+
 <!DOCTYPE html>
 <html lang="en">
 {% include 'header/header.html' %}
 
+<head>
+    <style>
+        .mensaje1{
+            text-align: center;
+            color: olive;
+            font-size: 30px;
+            display:block;
+            margin:auto;
+            margin-top: 90px;
+        }
+        .mensaje2{
+            text-align: center;
+            color: tomato;
+            font-size: 30px;
+            display:block;
+            margin:auto;
+            margin-top: 90px;
+        }
+    </style>
+</head>
+
 <body>
-    {% if verificador == [] %}
-    <h2>Ejemplar dado de alta!</h2>
-    {% else %}
-    <h2>El ejemplar ya existe</h2>
-    {% endif %}
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
+            
+            {% if verificador == [] %}
+                <div class="mensaje1">Se dió de alta el ejemplar {{numeroSerie}}</div>
+            {% else %}
+                <div class="mensaje1">El ejemplar {{numeroSerie}} ya existe</div>
+            {% endif %}
+
+        </div>
+    </div>
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>

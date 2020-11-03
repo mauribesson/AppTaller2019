@@ -18,6 +18,7 @@ from modelos.mercadoPago import MercadoPago
 from modelos.mercadoPago import nuevaReerencia_mercadoPago
 from modelos.mercadoPago import consultarReferencia_mercadoPago
 from modelos.combo_carrito import Combo_carrito
+from modelos.estadisticas import Estadistica
 
 db = Database()
 
@@ -59,8 +60,27 @@ def index():
         usuario = Usuario()
         usuario.set_nombre(session['email'])
         dato = usuario.consultar_usuario_por_nombre()
+        # Si el usuario es administrador
         if dato[3] == 1:
-            return render_template('admin/index_admin.html',data=data)
+            #Obtenemos el top 3 de productos
+            estadistica = Estadistica()
+            masvendidos = estadistica.obtener_masvendidos()
+            #Obtenemos el top 3 de combos
+            combosmasvendidos = estadistica.obtener_combosmasvendidos()
+            #Obtenemos los 3 mejores compradores
+            mejores_compradores = estadistica.obtener_mejorescompradores()
+            #Obtenemos los productos faltantes en stock
+            productosFaltantes = []
+            producto = Producto()
+            productos = producto.listar_productos()
+            #Determinamos el stock de cada producto
+            for p in productos:
+                ejemplar = Ejemplar()
+                stock = ejemplar.cantidad_ejemplares_de_un_producto(p[0])
+                if stock[0][0] == 0:
+                    productosFaltantes.append(p[1])
+            return render_template('admin/index_admin.html',data=data, top3=masvendidos, faltantes=productosFaltantes, top3Combos=combosmasvendidos, compradores=mejores_compradores)
+        # Sino, si es usuario comprador
         else:
             return render_template('cliente/index_cliente_logueado.html', data=data)
     else:
@@ -609,7 +629,6 @@ def eliminarProducto(id=None):
 @app.route('/modificarProducto') 
 @app.route('/modificarProducto/<int:id>') 
 def modificarProducto(id=None):
-    print(id)
     id=int(id)
     data = {}
     producto = Producto()
@@ -739,19 +758,19 @@ def guardarEjemplar():
 
     if request.method == 'POST':
         numeroSerie = request.form['numeroSerie']
-        vendido = request.form['vendido'] 
+        # vendido = request.form['vendido'] 
         producto = request.form['producto']
 
         ejemplar = Ejemplar()
         ejemplar.set_numero_serie(numeroSerie)
-        ejemplar.set_vendido(vendido)
+        ejemplar.set_vendido(False)
         ejemplar.set_producto(producto)
         
         verificador = ejemplar.verificar_ejemplar()
  
         if verificador == []:
             data = ejemplar.alta_ejemplar()            
-    return render_template('ejemplar/ejemplarGuardado.html', data=data, verificador=verificador)  
+    return render_template('ejemplar/ejemplarGuardado.html', data=data, verificador=verificador, numeroSerie=numeroSerie)  
 
 
 @app.route('/bajaEjemplar') 
@@ -1056,7 +1075,6 @@ def editarCombo():
     data=[]
     if request.method == 'POST':
         id = request.form['id']
-        print(id)
         nombre = request.form['nombre']
         nombreNuevo = request.form['nombreNuevo']
         combo = Combo()
@@ -1162,9 +1180,6 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
     desc = float(desc[0][0])
     importeDescuento = ((nuevoTotal * desc)/100)
     totalConDesc = nuevoTotal - importeDescuento
-    print(nuevoTotal)
-    print(desc)
-    print(totalConDesc)
     combo.actualizarDescuento(totalConDesc)
 
     data = combo.consultar_combo_por_id()
@@ -1276,7 +1291,7 @@ def agregarAlCarrito():
             carritoActualizado.actualizar_total_carrito(nuevo_total, id_carrito)
         
         # Traemos los datos actualiados del carrito para pasar a la vista
-        data = []
+        ejempares_carrito = []
         carritoCargado = Carrito()
         # Obtenemos los datos del carrito actual
         datos_carrito = carritoCargado.carrito_actual(session['email'])
@@ -1285,8 +1300,13 @@ def agregarAlCarrito():
         total = datos_carrito[0][1]
         ejemplaresCarrito = Ejemplar_carrito()
         # Traemos los ejemplares del carrito
-        data = ejemplaresCarrito.ejemplares_de_un_carrito(id_carrito)
-        return render_template('carrito/mostrarCarrito.html', data=data, total=total, idCarrito=id_carrito)
+        ejemplares_carrito = ejemplaresCarrito.ejemplares_de_un_carrito(id_carrito)
+        # Traemos los combos del carrito
+        combos_carrito = []
+        comboCarrito = Combo_carrito()
+        combos_carrito = comboCarrito.combos_de_un_carrito(id_carrito)
+        return render_template('carrito/mostrarCarrito.html', ejemplares=ejemplares_carrito, combos=combos_carrito,total=total, idCarrito=id_carrito)
+
 
 
 @app.route('/agregarComboAlCarrito', methods=["POST"])
@@ -1646,7 +1666,6 @@ def verVenta():
     mercado_pago = MercadoPago()
     estado_pago = mercado_pago.estado_pago(idCompra)
     estado_pago = estado_pago[0][0]
-    print(estado_pago)
     return render_template('compra/detalleVenta.html', ejemplares=ejemplares_carrito, combos= combos_carrito, total=total, estado=estado_pago, idCompra=idCompra, idCarrito=idCarrito)
 
 # Elimina la compra desde admin

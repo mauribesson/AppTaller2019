@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Carrito</title>
+    <title>Ventas</title>
     <style>
         .titulo{
           font-size: 30px;
@@ -119,30 +119,16 @@
                         <td>{{ e[0] }}</td>
                         <td>${{ e[2] }}</td>
                         <td>{{ e[4] }}</td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td class="botones">
-                                        <form action="verVenta" method="POST">
-                                            <div>
-                                                <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
-                                                <input value="{{e[1]}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
-                                                <input value="{{e[2]}}" type="hidden" class="form-control" name="total" id="total">
-                                                <input value="{{e[3]}}" type="hidden" class="form-control" name="estado" id="estado">
-                                                <button class="verCompra" type="submit"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                                            </div>
-                                        </form>
-                                    </td>
-                                    <td class="botones">
-                                        <form action="bajaVenta" method="POST">
-                                            <div>
-                                                <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
-                                                <button class="quitarCompra" type="submit"><i class="fa fa-times" aria-hidden="true"></i></button>
-                                            </div>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </table>
+                        <td class="botones">
+                            <form action="verVenta" method="POST">
+                                <div>
+                                    <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                    <input value="{{e[1]}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
+                                    <input value="{{e[2]}}" type="hidden" class="form-control" name="total" id="total">
+                                    <input value="{{e[3]}}" type="hidden" class="form-control" name="estado" id="estado">
+                                    <button class="verCompra" type="submit"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                </div>
+                            </form>
                         </td>
                     </tr>
                 {% endfor %}

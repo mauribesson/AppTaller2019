@@ -3,7 +3,48 @@
 <head>
     <title>Inicio</title>
     <style>
-
+        .contorno{
+            background-color: #18BC9C;
+            width: 500px;
+            border-radius: 10px;
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+        .botones{
+            background-color: transparent;
+            border-color: transparent;
+            text-align: center;
+            padding-left: 20px;
+            font-size: 20px;
+        }
+        .titulo{
+            text-align: center;
+            color: black;
+            font-size: 30px;
+        }
+        .card-desc{
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .card-content{
+            padding-top: 30px;
+            margin-top: 20px;
+        }
+        .faltantes{
+            background-color: transparent;
+            border-color: transparent;
+            padding-left: 20px;
+            font-size: 20px;
+            color:blanchedalmond;
+            padding-bottom: 20px;
+        }
+        .tabla{
+            margin-top: 150px;
+            margin-bottom: 30px;
+        }
+        .columna{
+            vertical-align: top;
+        }
     </style>
 </head>
 
@@ -15,6 +56,78 @@
         {% include 'navbars/sidebar.html' %}
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_admin.html' %}
+
+            <table class="tabla">
+                <tr class="fila">
+                    <td>
+                        <div class="contorno">
+                            <div class="card-content">
+                                <div class="titulo">Productos más vendidos</div>
+                                <div class="card-desc">
+                                    {% for dato in top3 %}
+                                    <div class="form-group">
+                                        <form action="verProducto" method="POST">
+                                            <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                            <button class="botones" type="submit">
+                                                    <div style="color: blanchedalmond;">{% print(dato[1])%}</div>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+                        </div> 
+                    </td>
+
+                    <td class="columna">
+                        <div class="contorno">
+                            <div class="card-content">
+                                <div class="titulo">Combos más vendidos</div>
+                                <div class="card-desc">
+                                    {% for dato in top3Combos %}
+                                    <div class="form-group">
+                                        <form action="verProducto" method="POST">
+                                            <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                            <button class="botones" type="submit">
+                                                    <div style="color: blanchedalmond;">{% print(dato[1])%}</div>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+                        </div> 
+                    </td>
+                </tr>
+
+                <tr class="fila">
+                    <td class="columna">
+                        <div class="contorno">
+                            <div class="card-content">
+                                <div class="titulo">Productos sin stock</div>
+                                <div class="card-desc">
+                                    {% for falta in faltantes %}
+                                        <div class="faltantes">{% print(falta)%}</div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+                        </div> 
+                    </td>
+                    <td class="columna">
+                        <div class="contorno">
+                            <div class="card-content">
+                                <div class="titulo">Usuarios con más compras</div>
+                                <div class="card-desc">
+                                    {% for dato in compradores %}
+                                        <div class="faltantes">{% print(dato[0])%}</div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+                        </div> 
+                    </td>
+                </tr>
+
+            </table>
         </div>
     </div>
     {% include 'footer/footer.html' %} 
