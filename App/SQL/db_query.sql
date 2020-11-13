@@ -37,11 +37,65 @@ CREATE TABLE "tipoProducto" (
 	Primary key ("idTipo")
 );
 
+---CARGA DE TIPOS DE PRODUCTOS
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('mouse'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('teclado'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('monitor'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('cpu'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('auriculares'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('parlantes'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('webcam'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('joystick'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('memoria'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('bateria'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('cable'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('cargador'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('cartucho'); 
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('disco');
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('fuente');
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('gabinete');
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('grabadora');
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('imporesora');
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('placa');
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('ups');
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('ventilador');
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('cartucho');
+
+
 CREATE TABLE "marca" (
 	"idMarca" serial NOT NULL,
 	"nombre" character varying(30) NOT NULL,
 	Primary key ("idMarca")
 );
+
+---CARGA DE MARCAS
+--INSERT INTO "marca" ("nombre") values ('Bangho');
+--INSERT INTO "marca" ("nombre") values ('Compaq');
+--INSERT INTO "marca" ("nombre") values ('Benq');
+--INSERT INTO "marca" ("nombre") values ('Acer');
+--INSERT INTO "marca" ("nombre") values ('Samsung');
+--INSERT INTO "marca" ("nombre") values ('Nikon');
+--INSERT INTO "marca" ("nombre") values ('Canon');
+--INSERT INTO "marca" ("nombre") values ('Epson');
+--INSERT INTO "marca" ("nombre") values ('Bangho');
+--INSERT INTO "marca" ("nombre") values ('Hewlett Packard');
+--INSERT INTO "marca" ("nombre") values ('Intel');
+--INSERT INTO "marca" ("nombre") values ('Biostar');
+--INSERT INTO "marca" ("nombre") values ('Kingston');
+--INSERT INTO "marca" ("nombre") values ('GoldRam');
+--INSERT INTO "marca" ("nombre") values ('Western Digital');
+--INSERT INTO "marca" ("nombre") values ('Seagate');
+--INSERT INTO "marca" ("nombre") values ('Maxtor');
+--INSERT INTO "marca" ("nombre") values ('Hitachi');
+--INSERT INTO "marca" ("nombre") values ('IOmega');
+--INSERT INTO "marca" ("nombre") values ('Genius');
+--INSERT INTO "marca" ("nombre") values ('Sony');
+--INSERT INTO "marca" ("nombre") values ('D-link');
+--INSERT INTO "marca" ("nombre") values ('SMC');
+--INSERT INTO "marca" ("nombre") values ('Energit');
+--INSERT INTO "marca" ("nombre") values ('Philips');
+--INSERT INTO "marca" ("nombre") values ('Platinium');
+--INSERT INTO "marca" ("nombre") values ('LG');
 
 CREATE TABLE "producto" (
 	"id" serial NOT NULL,
