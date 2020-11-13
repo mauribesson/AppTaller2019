@@ -15,28 +15,16 @@
                         <label for="numeroSerie">Número de serie del ejemplar</label>
                         <input type="text" class="form-control" name="numeroSerie" id="numeroSerie" placeholder="Ingresar el número de serie del ejemplar">
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="vendido">¿Producto vendido? (0: False - 1:True)</label>
-                        <select name="vendido" class="custom-select">
-                            <option value="0">No - (False)</option>
-                            <option value="1">Si - (True)</option>
-                        </select>
-                    </div> -->
+                    
                     <div class="form-group">
-                        <label for="producto">Producto</label>
-                        <select name="producto" class="custom-select">
-                    {% for e in data['lista_productos'] %}
-                    {% if data['id_prod'] == e[0] %}
-                        <option selected value="{{e[0]}}">{{e[1]}}</option>
-                    {% else %}    
-                        <option value="{{e[0]}}">{{e[1]}}</option>
-                    {% endif %}
-                {% endfor %}
-
-
-                </select>
-
+                        <label for="numeroSerie">Producto</label>
+                        <input readonly value="{{data['nombre_prod']}}" type="text" class="form-control" name="nombreproducto" id="nombreproducto" placeholder="{{data['nombre_prod']}}">
                     </div>
+
+                    <div class="form-group">
+                        <input value="{{data['id_prod']}}" type="hidden" class="form-control" name="producto" id="producto">
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Aceptar</button>
                     <a class="btn btn-danger" href="/" role="button">Cancelar</a>
                 </form>

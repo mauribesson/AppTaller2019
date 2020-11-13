@@ -8,15 +8,15 @@
 
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_admin.html' %}
-            <div class="container p-2">
-                <h2>Alta marca</h2>
+            <div class="container p-2" style="margin-top: 70px;">
+                <h2>Nueva marca</h2>
                 <form action="guardarMarca" method="POST">
                     <div class="form-group">
                         <label for="nombre">Nombre de la marca</label>
                         <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar el nombre de la marca">
                     </div>
                     <button type="submit" class="btn btn-primary">Aceptar</button>
-                    <a class="btn btn-danger" href="/" role="button">Cancelar</a>
+                    <a class="btn btn-danger" href="/marcaABMC" role="button">Cancelar</a>
                 </form>
 
 

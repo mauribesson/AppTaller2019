@@ -43,7 +43,7 @@ class Usuario:
                  "contrasenia",
                  "contacto",
                   "rol") 
-                values ('{}', '{}', '{}', 1);
+                values ('{}', '{}', '{}', 2);
                 '''.format(self.__nombre, self.__contrasenia,self.__contacto)) 
         return data
 

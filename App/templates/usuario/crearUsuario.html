@@ -15,35 +15,40 @@
 
 <body>
     <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
 
         <div id="page-content-wrapper">
-            <div class="container">
-                <h2>Registro de usuario</h2>
-                <form action="guardarUsuario" method="POST">
-                    <div class="form-group">
-                        <label for="nombreUsuario">Email</label>
-                        <input type="email" class="form-control" name="nombreUsuario" id="nombreUSuario" placeholder="Ingresar su email">
-                    </div>
-                    <div class="form-group">
-                        <label for="contrasenia">Contraseña</label>
-                        <input type="password" class="form-control" name="contrasenia" id="contrasenia" placeholder="Ingresar la contrasenia">
-                    </div>
-                    <div class="form-group">
-                        <label for="contrasenia_confirmacion">Confirmar contraseña</label>
-                        <input type="password" class="form-control" name="contrasenia_confirmacion" id="contrasenia_confirmacion" placeholder="Vuelve a ingresar la contrasenia">
-                    </div>
-                    <div class="form-group">
-                        <label for="contacto">Contacto</label>
-                        <textarea type="text" class="form-control" name="contacto" id="contacto" placeholder="Ingresar los datos de contacto">                            
-                        </textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Aceptar</button>
-                    <a class="btn btn-danger" href="/" role="button">Cancelar</a>
-                </form>
+            {% include 'navbars/navbar_admin.html' %}
 
-
+            <div id="page-content-wrapper" style="margin-top: 70px;">
+                <div class="container">
+                    <h2>Registro de usuario</h2>
+                    <form action="guardarUsuario" method="POST">
+                        <div class="form-group">
+                            <label for="nombreUsuario">Email</label>
+                            <input type="email" class="form-control" name="nombreUsuario" id="nombreUSuario" placeholder="Ingresar su email">
+                        </div>
+                        <div class="form-group">
+                            <label for="contrasenia">Contraseña</label>
+                            <input type="password" class="form-control" name="contrasenia" id="contrasenia" placeholder="Ingresar la contraseña">
+                        </div>
+                        <div class="form-group">
+                            <label for="contrasenia_confirmacion">Confirmar contraseña</label>
+                            <input type="password" class="form-control" name="contrasenia_confirmacion" id="contrasenia_confirmacion" placeholder="Vuelve a ingresar la contraseña">
+                        </div>
+                        <div class="form-group">
+                            <label for="contacto">Otros datos de contacto</label>
+                            <textarea type="text" class="form-control" name="contacto" id="contacto" placeholder="Ingresar los datos de contacto">                            
+                            </textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                        <a class="btn btn-danger" href="/usuarioABMC" role="button">Cancelar</a>
+                    </form>
+                </div>
             </div>
+
         </div>
+        
     </div>
 </body>
 

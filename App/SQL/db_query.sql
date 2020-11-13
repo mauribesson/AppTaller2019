@@ -18,6 +18,19 @@ CREATE TABLE "usuario" (
 	foreign key ("rol") references "rol" deferrable
 );
 
+---CARGA DE USUARIOS
+--INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('Mario@aaa', '123', 'etrada 10030', 1); 
+--INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('andreaabrigo@gmail.com', '123456789', 'Andrea', 1); 
+--INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('andrea@gmail.com', '1234', 'andrea@gmail.com', 2); 
+--INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('estebanl@gmail.com', 'narciso45', '15497875', 2); 
+--INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('perezh@gmail.com', 'horacio1979', 'Sanders 779', 2); 
+--INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('emet@gmail.com', 'emetraul', 'Rocamora 1181', 2); 
+--INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('chinaramirez@gmail.com', 'china2020', '15872571 ', 2); 
+--INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('scott1990@gmail.com', '123456789', 'Estrada 1949', 2); 
+--INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('nicktower@gmail.com', 'nick1234', 'Cazadores 231', 2); 
+--INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('rosamartineza@gmail.com', 'rosemarie', '15560350 ', 2); 
+
+
 CREATE TABLE "tipoProducto" (
 	"idTipo" serial NOT NULL,
 	"nombreTipo" character varying(30) NOT NULL,
@@ -157,9 +170,6 @@ CREATE TRIGGER verificarContrasenia
 BEFORE INSERT ON "usuario"
 FOR EACH ROW
 EXECUTE PROCEDURE nuevaContrasenia();
-
----Test trigger Contraseña 
---INSERT INTO "usuario" ("nombre", "contrasenia", "contacto", "rol" ) values ('Mario@aaa', '123', 'etrada 10030', 1); 
 
 
 ---Actualizar La contraseña de usuario no puede tener menos de 5 caracteres de longitud ni más de 20.

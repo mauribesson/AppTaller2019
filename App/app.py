@@ -751,6 +751,15 @@ def altaEjemplar(id_prod=None):
     data['id_prod'] = id_prod
     return render_template('ejemplar/altaEjemplar.html', data=data) 
 
+@app.route('/cargarEjemplar')
+@app.route('/cargarEjemplar/<int:id_prod>/<string:nombre_prod>')
+def cargarEjemplar(id_prod=None, nombre_prod=None):
+    data = {}
+    prod = Producto()
+    data['lista_productos'] = prod.listar_productos()
+    data['id_prod'] = id_prod
+    data['nombre_prod'] = nombre_prod
+    return render_template('ejemplar/cargarEjemplar.html', data=data) 
 
 @app.route('/guardarEjemplar', methods=["POST"])
 def guardarEjemplar():
@@ -771,6 +780,17 @@ def guardarEjemplar():
         if verificador == []:
             data = ejemplar.alta_ejemplar()            
     return render_template('ejemplar/ejemplarGuardado.html', data=data, verificador=verificador, numeroSerie=numeroSerie)  
+
+
+@app.route('/ejemplaresDeUnProducto')
+@app.route('/ejemplaresDeUnProducto/<int:id_prod>/<string:nombre_prod>')
+def ejemplaresDeUnProducto(id_prod=None, nombre_prod=None):
+    data = {}
+    ejemplar = Ejemplar()
+    data['ejemplares'] = ejemplar.ejemplares_de_un_producto(id_prod)
+    data['id_prod'] = id_prod
+    data['nombre_prod'] = nombre_prod
+    return render_template('ejemplar/ejemplaresDeUnProducto.html', data=data) 
 
 
 @app.route('/bajaEjemplar') 
@@ -1893,7 +1913,24 @@ def loginAndrea():
         session['contraseña'] = contrasenia
         ## Si es usuario es administrador, lo envía a la vista del admin
         if data[3] == 1:
-            return render_template('admin/index_admin.html',data=data)
+            #Obtenemos el top 3 de productos
+            estadistica = Estadistica()
+            masvendidos = estadistica.obtener_masvendidos()
+            #Obtenemos el top 3 de combos
+            combosmasvendidos = estadistica.obtener_combosmasvendidos()
+            #Obtenemos los 3 mejores compradores
+            mejores_compradores = estadistica.obtener_mejorescompradores()
+            #Obtenemos los productos faltantes en stock
+            productosFaltantes = []
+            producto = Producto()
+            productos = producto.listar_productos()
+            #Determinamos el stock de cada producto
+            for p in productos:
+                ejemplar = Ejemplar()
+                stock = ejemplar.cantidad_ejemplares_de_un_producto(p[0])
+                if stock[0][0] == 0:
+                    productosFaltantes.append(p[1])
+            return render_template('admin/index_admin.html',data=data, top3=masvendidos, faltantes=productosFaltantes, top3Combos=combosmasvendidos, compradores=mejores_compradores)
         ## Si es usuario es comprador, lo envía a la vista del cliente
         else:
             datos = []

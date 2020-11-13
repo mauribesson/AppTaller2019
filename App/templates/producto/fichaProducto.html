@@ -24,6 +24,16 @@
     margin-top: 5px;
     border: none;
   }
+  .btn-ej{
+    background-color: #18BC9C;
+    font-size: 20px;
+    margin-right:5px;
+    margin-left:5px;
+    margin-bottom:15px;
+    margin-top: 5px;
+    border: none;
+    color:whitesmoke;
+  }
   .imagen{
     display:block;
     margin:auto;
@@ -32,10 +42,8 @@
   }
   .card{
     border-radius: 20px;
-    background-color: #18BC9C;
-    border: transparent;
-    margin-top: 10px;
-    padding-top: 10px;
+    background-color: transparent;
+    border-color: gray;
   }
   .card-text{
     text-align: left;
@@ -82,7 +90,7 @@
         {% include 'navbars/sidebar.html' %}
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_admin.html' %}        
-            <div class="container p-2">
+            <div class="container p-2" style="margin-top: 70px;">
               <div class="card-deck">
                   <div class="card">
                     <section class="awSlider">
@@ -116,6 +124,7 @@
                     <div class="card-body">
                       <center>
                         <h2  style="color: black;" class="card-title">{{data[1]}}</h2>
+                        <a href="{{ url_for('ejemplaresDeUnProducto')}}/{{data[0]}}/{{data[1]}}" class="btn btn-ej">Ejemplares</a>
                         <p class="card-text">Descripción: {{data[2]}}</p>
                         <p class="card-text">Modelo: {{data[4]}}</p>
                         <p class="card-text">Garantía: {{data[5]}} meses</p>

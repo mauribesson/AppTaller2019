@@ -10,11 +10,11 @@
             {% include 'navbars/navbar_admin.html' %}
             <div class="container-fluid p-2">
                 <div class="card p-3 shadow">
-                    <h2>Alta Rol</h2>
+                    <h2>Nuevo rol de usuario</h2>
                     <form action="guardarRol" method="POST">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nombre del rol</label>
-                            <input type="text" class="form-control" name="nombreRol" id="nombreRol" placeholder="ingresar nombre del rol">
+                            <input type="text" class="form-control" name="nombreRol" id="nombreRol" placeholder="Ingresar nombre del rol">
                         </div>
                         <button type="submit" class="btn btn-primary">Aceptar</button>
                         <a class="btn btn-danger" href="/" role="button">Cancelar</a>
@@ -22,9 +22,10 @@
 
                 </div>
             </div>
-            {% include 'footer/footer.html' %}
         </div>
     </div>
+    
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>

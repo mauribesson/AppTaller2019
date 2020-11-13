@@ -67,13 +67,12 @@
                 </div>
                 {%endif%}
 
-                <div class="row">
+                <div class="row" style="margin-top: 70px;">
                     <div class="col-lg-12 p-2">
 
                         <h1 class="display-5">Productos</h1>
                         <hr class="my-4">
                         <a class="nuevo-abmc btn btn-success" href="{{ url_for('altaProducto') }}"><i class="far fa-plus-square"></i> Nuevo</a>
-
                         <table id="tablaProducto" data-classes="table table-bordered table-hover  table-striped" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500">
                         </table>
                     </div>
@@ -99,7 +98,7 @@
                 field: "nombre",
                 title: "Nombre",
                 sortable: true,
-                width: "30"
+                width: "120"
             }, /* {
                 field: "descripcion",
                 title: "Descripcion",
@@ -109,7 +108,7 @@
                 field: "precio",
                 title: "Precio",
                 sortable: true,
-                width: "30"
+                width: "25"
             }, /* {
                 field: "modelo",
                 title: "Modelo",
@@ -129,18 +128,19 @@
                 field: "tipoProducto",
                 title: "Tipo de Prod.",
                 sortable: true,
-                width: "30"
+                width: "10"
             }, 
 
             {
                 field: 'operate',
                 title: 'Acciones',
-                width: "100",
+                width: "130",
                 // align: 'center',
                 //valign: 'middle',
                 clickToSelect: false,
                 formatter: function(value, row, index) {
                     var urlVer = "{{ url_for('fichaProducto') }}"; //jinja Template
+                    var urlAltaEjemplar = "{{ url_for('cargarEjemplar') }}"; //jinja Template
                     var urlModificar = "{{ url_for('modificarProducto') }}"; //jinja Template
                     var urlEliminar = '{{ url_for("eliminarProducto") }}'; //jinja Template
 
@@ -149,6 +149,7 @@
                     var html = '';
                     //html += '<a id="verRol' + row.nombre + '" class="btn btn-info m-2"><i class="fas fa-eye"></i></a>';
                     html += '<a class="btn btn-primary m-2" href=' + urlVer + '/' + row.id + '><i class="fas fa-eye"></i></a>';
+                    html += '<a class="btn btn-primary m-2" href=' + urlAltaEjemplar + '/' + row.id + '/' + row.nombre + '><i class="far fa-plus-square"></i></a>';
                     html += '<a class="btn btn-primary m-2" href=' + urlModificar + '/' + row.id + '><i class="fas fa-edit"></i></a>';
                     html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.id + '><i class="fas fa-trash"></i></a>';
 
