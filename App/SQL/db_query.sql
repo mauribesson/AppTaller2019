@@ -59,8 +59,7 @@ CREATE TABLE "tipoProducto" (
 --INSERT INTO "tipoProducto" ("nombreTipo") values ('placa');
 --INSERT INTO "tipoProducto" ("nombreTipo") values ('ups');
 --INSERT INTO "tipoProducto" ("nombreTipo") values ('ventilador');
---INSERT INTO "tipoProducto" ("nombreTipo") values ('cartucho');
-
+--INSERT INTO "tipoProducto" ("nombreTipo") values ('Notebook');
 
 CREATE TABLE "marca" (
 	"idMarca" serial NOT NULL,
@@ -96,6 +95,7 @@ CREATE TABLE "marca" (
 --INSERT INTO "marca" ("nombre") values ('Philips');
 --INSERT INTO "marca" ("nombre") values ('Platinium');
 --INSERT INTO "marca" ("nombre") values ('LG');
+--INSERT INTO "marca" ("nombre") values ('Logitech');
 
 CREATE TABLE "producto" (
 	"id" serial NOT NULL,
@@ -111,6 +111,60 @@ CREATE TABLE "producto" (
 	foreign key ("marca") references "marca" deferrable
 );
 
+--- CARGA DE PRODUCTOS
+--- ATENCION CAMBIAR LOS ID DEL TIPO DE PRODUCTO Y DE LA MARCA
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Monitor Led Philips', 'Monitor Led 18.5 pulgadas con SmartControl Lite', 7500, 'Philips P2', 12, 29, 52);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Disco duro portatil', 'Disco duro portatil', 5800, '42wd', 12, 40, 41);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Mouse inalambrigo Genius', 'Mouse inalámbrigo Genius modelo NX-7000 2.4 GHz de radio frecuencia 1200 dpi de resolucion del sensor', 900, 'NX-7000', 6, 27, 46);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Auriculares inalambricos Sony', 'Conexion mediante Bluetooh. Su enlace inalámbrico es de 10m. Su batería dura 35 horas. Con micrófono incorporado', 5000, 'WH-CH510', 12, 31, 48);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Impresora Epson XP-211', 'Impresora inalámbrica con escaner y copiadora. Utiiza cartuchos individuales. Imprime hasta 27 ppm3 en texto negro y 15 ppm3 en texto a color', 16000, 'XP-211', 24, 44, 35);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Teclado Genius', 'Forma de las teclas: cilíndrica. Tipo de conector: USB. Peso: 450g. Medidas de 139.67mm de alto, 440.51mm de ancho y 20.07mm de profundidad.', 755, 'Smart KB-100', 6, 28, 46);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Parlantes Genius', 'Descripción: Genius SP-Q160 ofrece un sonido natural, con una gran claridad y precisión, que se dispersa uniformemente por toda la habitación. Un parlante que aseg', 1370, 'SP-Q160', 9, 32, 46);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Joystick inalámbrico Sony', 'Inalámbrico. Largo x Ancho x Altura: 92.2 mm x 141.22 mm x 215.9 mm', 2240, 'Dualshock 3', 12, 34, 49);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Cable micro usb', 'Largo del cable: 1.5 m. Velocidad máxima de transferencia de datos: 60 MB/s', 210, 'JA109', 3, 37, 39);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Cable micro usb', 'Largo del cable: 1.5 m. Velocidad máxima de transferencia de datos: 60 MB/s', 210, 'JA109', 3, 37, 39);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Disco rigido', 'Capacidad 1024 GB. Velocidad 7200 rpm. Peso 0.45 g. Cache 64 MB', 5380, 'WD10EZEX', 18, 40, 41);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Impresora multifunción', 'Wifi. USB. Velocidad del procesador: 360 MHz Velocidad de impresión en blanco y negro: 8 ppm Velocidad de impresión en color: 5 ppm', 19725, '415', 12, 44, 36);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Notebook Bangho', 'Procesador: Procesador Intel Celeron N4020, caché de 4 MB, hasta 2,80 GHz Memoria: 4GB DDR4 Almacenamiento: 240GB M.2', 45000, 'L4 i1', 24, 49, 28);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Mouse Logitech', 'Con cable. Alcance máximo: 2.1 m. Sensor óptico. Con luces.', 1200, 'Prodigy', 9, 27, 55);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Teclado Logitech', 'Arquitectura: Membrana. Largo del cable: 1.5 m.  Tipo de conector: USB', 1500, 'K120', 12, 28, 55);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Monitor Acer', 'Pantalla Led. Tamaño 19.5". Resolución 1600px-900px. Tipos de conexión: VGA, HDMI.', 13500, 'V206HQL', 24, 29, 31);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('CPU Intel', '16 GIGAS MEMORIA RAM DISCO RIGIDO 1 TERA GAB ATX 500W', 53000, 'core i 7 intel XEON', 24, 30, 37);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Auriculares Samsung', 'Longitud del cable: 1,2 m. Peso: 11,2 g. Con micrófono. Formato del auricular: In-ear.', 800, 'YJ', 3, 31, 32);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Parlantes HP', '2 parlantes para pc. Tipos de filtros del parlante: 2.0', 2350, 'UC230', 6, 32, 36);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Webcam Philips', 'Con micrófono incorporado. Resolución de imagen: 2 Mpx. Resolución de imagen: 2 Mpx', 5800, 'spg9406', 18, 33, 52);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Joystick Logitech', 'Inalámbrico. Tipo de control: Gamepad.', 5400, 'F710', 12, 34, 55);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Memoria RAM 8GB', 'Tecnología: DDR4 SDRAM. Velocidad: 2400 MHz. Cantidad de pines: 288', 3700, 'KVR24N17S8/8', 6, 35, 39);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Memoria RAM 4GB', 'Tecnología: DDR3 SDRAM. Velocidad: 1600 MHz. Cantidad de pines: 240', 2500, 'KVR16N11S8/4', 6, 35, 39);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Memoria RAM 2GB', 'Tecnología: DDR3 SDRAM. Velocidad: 1333 MHz. Cantidad de pines: 288', 1800, 'KVR1333D3N9/2G', 6, 35, 39);
+--INSERT INTO "producto"("nombre", "descripcion", "precio", "modelo","garantia", "tipoProducto","marca" )
+--values ('Cable HDMI Sony', 'Largo del cable: 2 m. Cantidad de conectores de salida: 1 y de entrada 1', 2500, '3dt2', 6, 37, 48);
+
+
 CREATE TABLE "imagenes" (
 	"id" serial NOT NULL,
 	"idProducto" smallint NOT NULL,
@@ -118,6 +172,97 @@ CREATE TABLE "imagenes" (
 	Primary key ("id"),
 	foreign key ("idProducto") references "producto" deferrable
 );
+
+--- CARGA DE IMAGENES DE PRODUCTOS
+--- ATENCION CAMBIAR LOS ID DEL TIPO DE PRODUCTO
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (8, 'https://storage.googleapis.com/apptaller-18740.appspot.com/monitor-led2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (8, 'https://storage.googleapis.com/apptaller-18740.appspot.com/monitor-led.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (10, 'https://storage.googleapis.com/apptaller-18740.appspot.com/discorigido.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (10, 'https://storage.googleapis.com/apptaller-18740.appspot.com/discorigido1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (11, 'https://storage.googleapis.com/apptaller-18740.appspot.com/mouse1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (11, 'https://storage.googleapis.com/apptaller-18740.appspot.com/mouse2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (12, 'https://storage.googleapis.com/apptaller-18740.appspot.com/auricularSony1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (12, 'https://storage.googleapis.com/apptaller-18740.appspot.com/auricularSony2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (13, 'https://storage.googleapis.com/apptaller-18740.appspot.com/impresoraEpsonXP211.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (13, 'https://storage.googleapis.com/apptaller-18740.appspot.com/impresoraEpsonXP211-2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (14, 'https://storage.googleapis.com/apptaller-18740.appspot.com/tecladoGenius1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (14, 'https://storage.googleapis.com/apptaller-18740.appspot.com/tecladoGenius2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (15, 'https://storage.googleapis.com/apptaller-18740.appspot.com/parlantegenius1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (15, 'https://storage.googleapis.com/apptaller-18740.appspot.com/parlantegenius2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (15, 'https://storage.googleapis.com/apptaller-18740.appspot.com/parlantegenius3.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (16, 'https://storage.googleapis.com/apptaller-18740.appspot.com/joystick1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (16, 'https://storage.googleapis.com/apptaller-18740.appspot.com/joystick2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (17, 'https://storage.googleapis.com/apptaller-18740.appspot.com/cableusb.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (17, 'https://storage.googleapis.com/apptaller-18740.appspot.com/cableusb2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (18, 'https://storage.googleapis.com/apptaller-18740.appspot.com/discorigido1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (18, 'https://storage.googleapis.com/apptaller-18740.appspot.com/discorigido2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (19, 'https://storage.googleapis.com/apptaller-18740.appspot.com/impresora1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (19, 'https://storage.googleapis.com/apptaller-18740.appspot.com/impresora2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (20, 'https://storage.googleapis.com/apptaller-18740.appspot.com/pcbangho1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (20, 'https://storage.googleapis.com/apptaller-18740.appspot.com/pcbangho2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (21, 'https://storage.googleapis.com/apptaller-18740.appspot.com/mouseLogitech1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (21, 'https://storage.googleapis.com/apptaller-18740.appspot.com/mouseLogitech2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (22, 'https://storage.googleapis.com/apptaller-18740.appspot.com/tecladoLogitech.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (22, 'https://storage.googleapis.com/apptaller-18740.appspot.com/tecladoLogitech2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (23, 'https://storage.googleapis.com/apptaller-18740.appspot.com/monitorAcer1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (23, 'https://storage.googleapis.com/apptaller-18740.appspot.com/monitorAcer2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (24, 'https://storage.googleapis.com/apptaller-18740.appspot.com/cpuintel1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (25, 'https://storage.googleapis.com/apptaller-18740.appspot.com/auricularessamsung1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (25, 'https://storage.googleapis.com/apptaller-18740.appspot.com/auricularessamsung2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (26, 'https://storage.googleapis.com/apptaller-18740.appspot.com/parlantesHP1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (27, 'https://storage.googleapis.com/apptaller-18740.appspot.com/webcamphilips1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (27, 'https://storage.googleapis.com/apptaller-18740.appspot.com/webcamphilips2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (28, 'https://storage.googleapis.com/apptaller-18740.appspot.com/joystickLogitech1.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (28, 'https://storage.googleapis.com/apptaller-18740.appspot.com/joystickLogitech2.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (29, 'https://storage.googleapis.com/apptaller-18740.appspot.com/memoria.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (30, 'https://storage.googleapis.com/apptaller-18740.appspot.com/memoria.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (31, 'https://storage.googleapis.com/apptaller-18740.appspot.com/memoria.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (32, 'https://storage.googleapis.com/apptaller-18740.appspot.com/cablehdmiSony.jpg');
+--INSERT INTO "imagenes"("idProducto", "urlImagen")
+--values (32, 'https://storage.googleapis.com/apptaller-18740.appspot.com/cablehdmiSony2.jpg');
 
 CREATE TABLE "ejemplar" (
 	"numeroSerie" character varying(50) NOT NULL,
