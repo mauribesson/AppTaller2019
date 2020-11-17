@@ -2,7 +2,7 @@
 <html lang="es">
 
     <head>
-        <title>Ventas</title>
+        <title>Ejemplares</title>
         <style>
             .titulo{
               font-size: 30px;
@@ -16,6 +16,7 @@
                 margin:auto;
                 text-align: center;
                 width: 80%;
+                padding-top: 15px;
             }
             .numero{
                 width: 300px;
@@ -51,7 +52,23 @@
             border: none;
             font-size: 26px;
             padding: 10px;
-        }
+            }
+            .btn-ej{
+                background-color: #18BC9C;
+                font-size: 20px;
+                margin-right:5px;
+                margin-left:5px;
+                margin-bottom:15px;
+                margin-top: 5px;
+                padding: 5px 10px 5px 10px;
+                border: none;
+                border-radius: 10px;
+                color:whitesmoke;
+                display:block;
+                margin:auto;
+                text-align: center;
+                width: 200px;
+            }
         </style>
     </head>
 {% include 'header/header.html' %}
@@ -66,6 +83,7 @@
             <div class="titulo">
                 <span>Ejemplares del producto "{{data['nombre_prod']}}"</span>
               </div>
+              <a href="{{ url_for('cargarEjemplar')}}/{{data['id_prod']}}/{{data['nombre_prod']}}" class="btn-ej">Cargar ejemplares</a>
               <table class="tabla">
                   <tr>
                       <th class="numero">N° de serie</th>

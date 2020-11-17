@@ -272,6 +272,220 @@ CREATE TABLE "ejemplar" (
 	foreign key ("producto") references "producto" deferrable
 );
 
+--- CARGA DE EJEMPLARES DE PRODUCTOS
+--- ATENCION CAMBIAR LOS ID DEL PRODUCTO
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MLP01', 'false', 8);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MLP02', 'false', 8);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MLP03', 'false', 8);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MLP04', 'false', 8);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MLP05', 'false', 8);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('DDP001', 'false', 10);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('DDP002', 'false', 10);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('DDP003', 'false', 10);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('DDP004', 'false', 10);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MI0001', 'false', 11);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MI0002', 'false', 11);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MI0003', 'false', 11);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MI0004', 'false', 11);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AIS001', 'false', 12);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AIS002', 'false', 12);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AIS003', 'false', 12);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AIS004', 'false', 12);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AIS005', 'false', 12);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('IEXP01', 'false', 13);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('IEXP02', 'false', 13);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('IEXP03', 'false', 13);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('IEXP04', 'false', 13);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLA006', 'false', 14);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLA006', 'false', 14);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLA006', 'false', 14);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLA006', 'false', 14);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLA006', 'false', 14);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLA006', 'false', 14);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PG0001', 'false', 15);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PG0002', 'false', 15);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PG0003', 'false', 15);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PG0004', 'false', 15);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PG0005', 'false', 15);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PG0006', 'false', 15);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PG0007', 'false', 15);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('JIS001', 'false', 16);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('JIS002', 'false', 16);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('JIS003', 'false', 16);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CMU0001', 'false', 17);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CMU0002', 'false', 17);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CMU0003', 'false', 17);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CMU0004', 'false', 17);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CMU0005', 'false', 17);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CMU0006', 'false', 17);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CMU0007', 'false', 17);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CMU0008', 'false', 17);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CMU0009', 'false', 17);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CMU0010', 'false', 17);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('NOTB001', 'false', 20);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('NOTB002', 'false', 20);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('NOTB003', 'false', 20);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MOL0001', 'false', 21);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MOL0002', 'false', 21);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MOL0003', 'false', 21);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MOL0004', 'false', 21);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MOL0005', 'false', 21);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MOL0006', 'false', 21);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLOG01', 'false', 22);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLOG02', 'false', 22);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLOG03', 'false', 22);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLOG04', 'false', 22);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLOG05', 'false', 22);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLOG06', 'false', 22);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('TECLOG07', 'false', 22);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MOAC01', 'false', 23);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MOAC02', 'false', 23);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MOAC03', 'false', 23);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('MOAC04', 'false', 23);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CPU01', 'false', 24);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CPU02', 'false', 24);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CPU03', 'false', 24);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('CPU04', 'false', 24);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AS001', 'false', 25);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AS002', 'false', 25);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AS003', 'false', 25);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AS004', 'false', 25);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AS005', 'false', 25);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AS006', 'false', 25);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('AS007', 'false', 25);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PHP001', 'false', 26);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PHP002', 'false', 26);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PHP003', 'false', 26);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('PHP004', 'false', 26);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('WCPH01', 'false', 27);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('WCPH02', 'false', 27);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('WCPH03', 'false', 27);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('WCPH04', 'false', 27);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('JOLO001', 'false', 28);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('JOLO002', 'false', 28);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('JOLO003', 'false', 28);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM8001', 'false', 29);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM8002', 'false', 29);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM8003', 'false', 29);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM8004', 'false', 29);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM8005', 'false', 29);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM8006', 'false', 29);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM4001', 'false', 30);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM4002', 'false', 30);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM4003', 'false', 30);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM4004', 'false', 30);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM2001', 'false', 31);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM2002', 'false', 31);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM2003', 'false', 31);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM2004', 'false', 31);
+--INSERT INTO "ejemplar"("numeroSerie", "vendido", "producto")
+--values ('RAM2005', 'false', 31);
+
+
 CREATE TABLE "combo" (
 	"id" serial NOT NULL,
 	"nombre" character varying (50),

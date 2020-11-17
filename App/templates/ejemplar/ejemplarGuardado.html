@@ -11,7 +11,8 @@
             font-size: 30px;
             display:block;
             margin:auto;
-            margin-top: 90px;
+            margin-top: 130px;
+            margin-bottom: 50px;
         }
         .mensaje2{
             text-align: center;
@@ -19,8 +20,24 @@
             font-size: 30px;
             display:block;
             margin:auto;
-            margin-top: 90px;
+            margin-top: 130px;
+            margin-bottom: 50px;
         }
+        .btn-ej{
+                background-color: #18BC9C;
+                font-size: 20px;
+                margin-right:5px;
+                margin-left:5px;
+                margin-bottom:15px;
+                padding: 5px 10px 5px 10px;
+                border: none;
+                border-radius: 10px;
+                color:whitesmoke;
+                display:block;
+                margin:auto;
+                text-align: center;
+                width: 150px;
+            }
     </style>
 </head>
 
@@ -32,10 +49,12 @@
             {% include 'navbars/navbar_admin.html' %}
             
             {% if verificador == [] %}
-                <div class="mensaje1">Se dió de alta el ejemplar {{numeroSerie}}</div>
+                <div class="mensaje1">Se dió de alta el ejemplar {{numeroSerie}} del producto {{nombreProducto}}</div>
             {% else %}
                 <div class="mensaje1">El ejemplar {{numeroSerie}} ya existe</div>
             {% endif %}
+
+            <a href="{{ url_for('ejemplaresDeUnProducto')}}/{{producto}}/{{nombreProducto}}" class="btn btn-ej">Volver</a>
 
         </div>
     </div>

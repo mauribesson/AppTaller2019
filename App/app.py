@@ -769,6 +769,7 @@ def guardarEjemplar():
         numeroSerie = request.form['numeroSerie']
         # vendido = request.form['vendido'] 
         producto = request.form['producto']
+        nombreProducto = request.form['nombreproducto']
 
         ejemplar = Ejemplar()
         ejemplar.set_numero_serie(numeroSerie)
@@ -779,7 +780,7 @@ def guardarEjemplar():
  
         if verificador == []:
             data = ejemplar.alta_ejemplar()            
-    return render_template('ejemplar/ejemplarGuardado.html', data=data, verificador=verificador, numeroSerie=numeroSerie)  
+    return render_template('ejemplar/ejemplarGuardado.html', data=data, verificador=verificador, numeroSerie=numeroSerie, producto=producto, nombreProducto=nombreProducto)  
 
 
 @app.route('/ejemplaresDeUnProducto')
