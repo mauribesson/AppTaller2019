@@ -201,6 +201,12 @@ class Combo:
             '''.format(idCombo))
         return data
 
+    def id_combo(self, nombreCombo):
+        data = db.querySelect('''
+                SELECT "id" FROM "combo" WHERE "nombre" = '{}';
+            '''.format(nombreCombo))
+        return data
+
     def actualizarDescuento(self, totalConDesc):
         data = db.queryInsert('''
             UPDATE "combo"

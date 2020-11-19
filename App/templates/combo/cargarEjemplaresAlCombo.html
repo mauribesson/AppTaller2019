@@ -11,7 +11,7 @@
             {% include 'navbars/navbar_admin.html' %}
             <div class="container p-2">
                 <center>
-                    <h2>{{data['nombreCombo']}}</h2>
+                    <h2 style="padding-top: 70px;">{{data['nombreCombo']}}</h2>
                     <form action="cargarEjemplaresAlCombo" method="POST">
                         <div class="form-group">
                             <input readonly value="{{data['nombreCombo']}}" type="hidden" class="form-control" name="nombreCombo" id="nombreCombo" placeholder="Nombre del combo">
@@ -47,7 +47,7 @@
                         </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Aceptar</button>
-                <a class="btn btn-danger" href="/" role="button">Cancelar</a>
+                <!-- <a class="btn btn-danger" href="/" role="button">Cancelar</a> -->
                 </form>
             </div>
 

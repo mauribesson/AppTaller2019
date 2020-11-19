@@ -883,20 +883,31 @@ def guardarCombo():
         if verificador == []:
             data = combo.alta_combo()  
 
+        ##Se seleccionan solo los productos disponibles
+        todosLosProductos = {}
+        productosDisponibles = []
         producto = Producto()
         producto.listar_productos()
+        todosLosProductos = producto.listar_productos()
+        for e in todosLosProductos:
+            ejemplar=Ejemplar()
+            canti=ejemplar.cantidad_ejemplares_de_un_producto(e[0])
+            if (canti[0][0]!=0):
+                productosDisponibles.append(e)
 
-        dato['productos'] = producto.listar_productos()
         dato['nombreCombo'] = combo.get_nombre()
         dato['total'] = combo.get_total()
         dato['descuento'] = combo.get_descuento()
         dato['totalConDescuento'] = combo.get_totalConDescuento()
         dato['vendido'] = combo.get_vendido()
-        ListaCombos = combo.listar_combos()
+        id = combo.id_combo(nombre)
+        id = id[0][0]
+        print(id)
+        """ ListaCombos = combo.listar_combos()
         for e in ListaCombos:
-            id= e[0]
+            id= e[0] """
 
-    return render_template('combo/cargarProductosalCombo.html', dato=dato,id=id)  
+    return render_template('combo/cargarProductosalCombo.html', dato=dato,id=id, productos=productosDisponibles)  
     
 
 @app.route('/verCombo')
@@ -972,6 +983,7 @@ def mostrarComboAlUsuario():
 @app.route('/cargarProductos')
 @app.route('/cargarProductos', methods=["POST"])
 @app.route('/verCombo/cargarProductos', methods=["POST"])
+@app.route('/editarProductosDelCombo/cargarProductos', methods=["POST"])
 # @app.route('/cargarProductos/<int:id>')
 def cargarProductos():
     data = {}
@@ -996,13 +1008,14 @@ def cargarProductos():
     
     ejemplar = Ejemplar()
 
-    data['ejemplares'] = ejemplar.ejemplares_de_un_producto(data['producto'])
+    data['ejemplares'] = ejemplar.ejemplares_de_un_producto_disponibles(data['producto'])
 
     return render_template('combo/cargarEjemplaresAlCombo.html', data=data)
 
 
 @app.route('/cargarEjemplaresAlCombo', methods=["POST"])
 @app.route('/verCombo/cargarEjemplaresAlCombo', methods=["POST"])
+@app.route('/editarProductosDelCombo/cargarEjemplaresAlCombo', methods=["POST"])
 def cargarEjemplaresAlCombo():
     dato = {}
     data = []
@@ -1016,26 +1029,42 @@ def cargarEjemplaresAlCombo():
         dato['totalConDescuento'] = request.form['totalConDescuento']
         id=request.form['idCombo']
 
+    # Se agrega el ejemplar al combo
     ejemplacombo = Ejemplar_combo()
     ejemplacombo.set_idCombo(dato['idCombo'])
     ejemplacombo.set_numero_serie(dato['ejemplar'])
     data = ejemplacombo.alta_ejemplar_combo()
 
+    # Se marca el ejemplar como vendido, para evitar la sobreventa
+    ejem = Ejemplar()
+    ejem.marcar_ejemplar_vendido(dato['ejemplar'])
+    """ producto = Producto()
+    producto.listar_productos()
+    dato['productos'] = producto.listar_productos() """
+
+    ##Se seleccionan solo los productos disponibles
+    todosLosProductos = {}
+    productosDisponibles = []
     producto = Producto()
     producto.listar_productos()
-    dato['productos'] = producto.listar_productos()
-
+    todosLosProductos = producto.listar_productos()
+    for e in todosLosProductos:
+        ejemplar=Ejemplar()
+        canti=ejemplar.cantidad_ejemplares_de_un_producto(e[0])
+        if (canti[0][0]!=0):
+            productosDisponibles.append(e)
     total = float(dato['total'])   
     desc = float(dato['descuento'])
     importeDescuento = ((total * desc)/100)
     totalConDesc = total - importeDescuento
     dato['totalConDescuento'] = totalConDesc
 
-    return render_template('combo/cargarProductosalCombo.html',data=data, dato=dato, id=id)
+    return render_template('combo/cargarProductosalCombo.html',data=data, dato=dato, id=id, productos=productosDisponibles)
 
 
 @app.route('/cargarDescuentoAlCombo', methods=["POST"])
 @app.route('/verCombo/cargarDescuentoAlCombo', methods=["POST"])
+@app.route('/editarProductosDelCombo/cargarDescuentoAlCombo', methods=["POST"])
 def cargarDescuento():
     dato = {}
     if request.method == 'POST':
@@ -1060,8 +1089,20 @@ def cargarDescuento():
     producto.listar_productos()
     dato['productos'] = producto.listar_productos()
 
+    ##Se seleccionan solo los productos disponibles
+    todosLosProductos = {}
+    productosDisponibles = []
+    producto = Producto()
+    producto.listar_productos()
+    todosLosProductos = producto.listar_productos()
+    for e in todosLosProductos:
+        ejemplar=Ejemplar()
+        canti=ejemplar.cantidad_ejemplares_de_un_producto(e[0])
+        if (canti[0][0]!=0):
+            productosDisponibles.append(e)
 
-    return render_template('combo/cargarProductosalCombo.html', dato=dato, id=id)    
+
+    return render_template('combo/cargarProductosalCombo.html', dato=dato, id=id, productos=productosDisponibles)    
 
 
 @app.route('/bajaCombo') 
@@ -1072,6 +1113,14 @@ def bajaCombo():
 @app.route('/eliminarCombo')
 @app.route('/eliminarCombo/<int:id_combo>')
 def eliminarCombo(id_combo=None):
+    # Los ejemplares del combo vuelven a estar disponibles
+    ejemplar_combo = Ejemplar_combo()
+    ejemplar_combo.set_idCombo(id_combo)
+    ejemplares=ejemplar_combo.ejemplares_de_un_combo(id_combo)
+    for e in ejemplares:
+        ejemplar = Ejemplar()
+        ejemplar.marcar_ejemplar_disponible(e[1])
+    # Se elimina el combo
     ejemplar_combo = Ejemplar_combo()
     ejemplar_combo.set_idCombo(id_combo)
     ejemplar_combo.eliminar_ejemplares_combo()
@@ -1081,6 +1130,11 @@ def eliminarCombo(id_combo=None):
     data = "eliminado"
     return render_template('combo/comboABMC.html', data=data) 
 
+@app.route('/prueba')
+def prueba():
+    ejemplar = Ejemplar()
+    ejemplar.marcar_ejemplar_disponible("CMU0001")
+    return "heco"
 
 @app.route('/modificarCombo') 
 @app.route('/modificarCombo/<int:id>') 
@@ -1103,6 +1157,37 @@ def editarCombo():
         data = combo.modificar_combo(nombreNuevo)     
     return render_template('combo/comboModificado.html', data=data)
 
+
+@app.route('/editarProductosDelCombo')
+@app.route('/editarProductosDelCombo/<int:id>')
+def editarProductosDelCombo(id=None):
+    combo = Combo()
+    combo.set_id(id)
+    data = combo.consultar_combo_por_id()
+
+    dato = {}
+    dato['nombreCombo'] = data[0][1]
+    dato['idCombo'] = data[0][0]
+    dato['descuento']  = data[0][3] 
+    dato['total']  = data[0][2]
+    dato['totalConDescuento']  = data[0][4]
+    id=data[0][0]
+
+    ##Se seleccionan solo los productos disponibles
+    todosLosProductos = {}
+    productosDisponibles = []
+    producto = Producto()
+    producto.listar_productos()
+    todosLosProductos = producto.listar_productos()
+    for e in todosLosProductos:
+        ejemplar=Ejemplar()
+        canti=ejemplar.cantidad_ejemplares_de_un_producto(e[0])
+        if (canti[0][0]!=0):
+            productosDisponibles.append(e)
+
+    dato['productos'] = producto.listar_productos()
+
+    return render_template('combo/cargarProductosAlCombo.html', dato=dato, id=id, productos=productosDisponibles)
 
 @app.route('/ejemplar_data_table')
 def ejemplar_data_table():
@@ -1187,7 +1272,7 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
     ejemplar.marcar_ejemplar_disponible(numeroSerie)
 
     precioDelProducto = ejemplar.precioDelEjemplar()
-    precioDelProducto = precioDelProducto[0][0]
+    precioDelProducto = precioDelProducto[0][5]
     nuevoTotal = (int(total) - int(precioDelProducto))
     combo.cambiar_total(nuevoTotal)
 
@@ -1212,12 +1297,19 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
     dato['totalConDescuento']  = data[0][4]
     id=data[0][0]
 
+    ##Se seleccionan solo los productos disponibles
+    todosLosProductos = {}
+    productosDisponibles = []
     producto = Producto()
     producto.listar_productos()
+    todosLosProductos = producto.listar_productos()
+    for e in todosLosProductos:
+        ejemplar=Ejemplar()
+        canti=ejemplar.cantidad_ejemplares_de_un_producto(e[0])
+        if (canti[0][0]!=0):
+            productosDisponibles.append(e)
 
-    dato['productos'] = producto.listar_productos()
-
-    return render_template('combo/cargarProductosAlCombo.html', dato=dato, id=id)
+    return render_template('combo/cargarProductosAlCombo.html', dato=dato, id=id, productos=productosDisponibles)
     
     
 #====CARRITO

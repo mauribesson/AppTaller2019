@@ -74,6 +74,13 @@ class Ejemplar:
             '''.format(producto))
         return data
 
+    def ejemplares_de_un_producto_disponibles(self, producto):
+        data = db.querySelect('''
+                SELECT * FROM "ejemplar"
+                WHERE "producto" = '{}' AND "vendido" = 'False';
+            '''.format(producto))
+        return data
+
     # Devuelve la cantidad disponible de ejemplares de un producto
     def cantidad_ejemplares_de_un_producto(self, producto):
         data = db.querySelect('''
@@ -81,6 +88,7 @@ class Ejemplar:
                 WHERE "producto" = '{}' AND "vendido" = 'False';
             '''.format(producto))
         return data
+        
 
     # Selecciona un ejemplar disponible para agregar al carrito
     def seleccionarEjemplares(self, producto):

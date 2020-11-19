@@ -10,7 +10,7 @@
             {% include 'navbars/navbar_admin.html' %}
             <div class="container p-2">
                 <center>
-                    <h2>{{dato['nombreCombo']}}</h2>
+                    <h2 style="padding-top: 70px;">{{dato['nombreCombo']}}</h2>
                     <div class="form-group">
                         <input readonly value="{{dato['nombreCombo']}}" type="hidden" class="form-control" name="nombreCombo" id="nombreCombo" placeholder="Nombre del combo">
                     </div>
@@ -35,7 +35,7 @@
                                 <div class="form-group">
                                     <label for="nuevoProducto">Agregar producto</label>
                                     <select name="producto" class="custom-select">
-                                            {% for e in dato['productos'] %}   
+                                            {% for e in productos %}   
                                                 <option value="{{e[0]}}">{{e[1]}}</option>
                                             {% endfor %}
                                         </select>
@@ -109,6 +109,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <a href="{{ url_for('comboABMC')}}" class="btn-ej">Volver</a>
                 </center>
             </div>
         </div>

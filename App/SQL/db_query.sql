@@ -496,12 +496,64 @@ CREATE TABLE "combo" (
 	Primary key ("id")
 );
 
+--- CARGA DE COMBOS
+--INSERT INTO "combo"("nombre", "total", "descuento", "totalConDescuento", "vendido")
+--values ('Computadora completa', 1700, 10, 11970, 'False');
+--INSERT INTO "combo"("nombre", "total", "descuento", "totalConDescuento", "vendido")
+--values ('Combo notebook', 45800, 20, 36640, 'False');
+--INSERT INTO "combo"("nombre", "total", "descuento", "totalConDescuento", "vendido")
+--values ('Combo accesorios', 7270, 15, 6179.5, 'False');
+--INSERT INTO "combo"("nombre", "total", "descuento", "totalConDescuento", "vendido")
+--values ('Combo Logitech', 8100, 20, 6480, 'False');
+--INSERT INTO "combo"("nombre", "total", "descuento", "totalConDescuento", "vendido")
+--values ('Combo Philips', 13300, 30, 9310, 'False');
+--INSERT INTO "combo"("nombre", "total", "descuento", "totalConDescuento", "vendido")
+--values ('PC completa', 69200, 25, 51900, 'False');
+--INSERT INTO "combo"("nombre", "total", "descuento", "totalConDescuento", "vendido")
+--values ('Combo gamer', 9590, 20, 7672, 'False');
+--INSERT INTO "combo"("nombre", "total", "descuento", "totalConDescuento", "vendido")
+--values ('Accesorios computadora', 8025, 15, 6821.25, 'False');
+--INSERT INTO "combo"("nombre", "total", "descuento", "totalConDescuento", "vendido")
+--values ('Combo pc', 62455, 25, 46841.25, 'False');
+
 CREATE TABLE "ejemplar_combo" (
 	"idCombo" smallint NOT NULL,
 	"numeroSerie" character varying(50) NOT NULL,
 	foreign key ("idCombo") references "combo" deferrable,
 	foreign key ("numeroSerie") references "ejemplar" deferrable
 );
+
+--- CARGA DE EJEMPLARES AL COMBO
+--- ATENCION CAMBIAR LOS ID DEL COMBO
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (33, '12345');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (33, '6789');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (34, 'JIS001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (34, 'AIS001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (34, 'PHP001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (37, 'MI0002');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (37, 'AIS002');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (37, 'TECLA001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (37, 'PG0001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (38, 'CPU01');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (38, 'MLP01');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (38, 'TECLA001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (38, 'MOL0001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (33, 'RAM8001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (44, 'NOTB001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (44, 'AS001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (45, 'CPU01');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (45, 'MOAC01');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (45, 'TECLOG01');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (45, 'MOL0001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (46, 'MI0002');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (46, 'AIS002');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (46, 'PG0001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (47, 'MOL0002');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (47, 'TECLOG02');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (47, 'JOLO001');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (48, 'MLP01');
+--INSERT INTO "ejemplar_combo"("idCombo", "numeroSerie") values (48, 'WCPH01');
+
 
 CREATE TABLE "carrito" (
 	"id" serial NOT NULL,

@@ -2,6 +2,26 @@
 <html lang="en">
 {% include 'header/header.html' %}
 
+<head>
+    <title>Combo modificado</title>
+    <style>
+        .mensaje{
+            display:block;
+            margin:auto;
+            text-align: center;
+            font-size: 30px;
+            margin-top: 120px;
+        }
+        .boton{
+            display:block;
+            margin:auto;
+            text-align: center;
+            font-size: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
 <body>
 
     <div class="d-flex" id="wrapper">
@@ -9,12 +29,12 @@
 
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_admin.html' %} {% if data == 1 %}
-            <h2>Combo Modificado!</h2>
+            <h2 class="mensaje">Combo Modificado</h2>
             {% else %}
-            <h2>Combo no existe!</h2>
+            <h2 class="mensaje">Combo no existe</h2>
             {% endif %}
 
-            <a href="/comboABMC"> Volver </a>
+            <a class="boton" href="/comboABMC"> Volver </a>
         </div>
     </div>
 
