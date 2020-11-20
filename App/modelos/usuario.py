@@ -67,6 +67,17 @@ class Usuario:
                         int(nuevoRol),
                         self.__nombre))
         return data
+    
+    def modificar_contrasenia(self, email, contrasenia):
+        data = db.queryInsert('''
+               UPDATE "usuario"
+	                SET 
+                    "contrasenia" = '{}'
+	                WHERE "nombre" = '{}';
+            '''.format(
+                contrasenia,
+                email))
+        return data
 
     def consultar_usuarios(self):
         data = db.querySelect('''

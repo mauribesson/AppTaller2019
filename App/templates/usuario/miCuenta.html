@@ -29,6 +29,16 @@
             color: burlywood;
             font-size: 18px;
         }
+        .btn-ej{
+            background-color: white;
+            font-size: 20px;
+            padding: 5px 5px 5px 5px;
+            margin-top: 60px;
+            border: none;
+            border-radius: 5px;
+            color:burlywood;
+            width: 280px;
+        }
     </style>
 </head>
 
@@ -44,6 +54,9 @@
                 <div class="titulo"> Mi cuenta </div>
                 <div class="cuerpo">
                     Email: {{session['email']}}
+                    <div style="margin-top: 150px;text-align: center;">
+                        <a href="{{ url_for('cambiarContrasenia')}}/{{session['email']}}" class="btn-ej">Cambiar contraseña</a>
+                    </div>
                 </div>
             </div>
         </div>

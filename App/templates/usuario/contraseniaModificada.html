@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<head>
+    <title>Usuario modificado</title>
+    <style>
+        .mensaje{
+            display:block;
+            margin:auto;
+            text-align: center;
+            font-size: 30px;
+            margin-top: 120px;
+        }
+        .boton{
+            display:block;
+            margin:auto;
+            text-align: center;
+            font-size: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
+
+                <div class="mensaje">Contraseña modificada</div>
+
+                <a class="boton" href="/miCuenta"> Volver </a>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

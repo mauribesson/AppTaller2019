@@ -268,6 +268,7 @@ def modificarUsuario(email=None):
     data['roles'] = rol.listar_rol()
     data['rolUsario'] = uAux[3]
     data['Contacto'] = uAux[2]
+    data['contrasenia'] = uAux[1]
 
     return render_template('usuario/modificarUsuario.html', data=data)  
 
@@ -295,6 +296,24 @@ def listarUsuario():
     data = usuario.consultar_usuarios() 
     return render_template('usuario/listadoUsuario.html', data=data)   
     
+
+@app.route('/cambiarContrasenia')
+@app.route('/cambiarContrasenia/<string:email>')
+def cambiarContrasenia(email=None):
+    return render_template('usuario/modificarContrasenia.html', email=email)
+    
+    
+@app.route('/modificarContrasenia', methods=["POST"])
+@app.route('/cambiarContrasenia/modificarContrasenia', methods=["POST"])
+def modificarContrasenia():
+    if request.method == 'POST':
+        email = request.form['email']
+        nuevaContrasenia = request.form['contraseniaNueva']
+    usuario = Usuario()
+    usuario.set_nombre(email)
+    usuario.modificar_contrasenia(email,nuevaContrasenia)
+    return render_template('usuario/contraseniaModificada.html')
+
 
 #====================
 # ABM tipoProducto

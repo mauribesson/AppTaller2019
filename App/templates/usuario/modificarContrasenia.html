@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+
+            <div class="container p-2" style="margin-top: 70px;">
+                <h2>Modificación de contraseña</h2>
+                <form action="modificarContrasenia" method="POST">
+                    <div class="form-group">
+                        <input readonly value="{{email}}" type="hidden" class="form-control" name="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="contraseniaNueva">Nueva contraseña</label>
+                        <input required type="password" class="form-control" name="contraseniaNueva" id="contraseniaNueva" placeholder="Ingresar la nueva contraseña">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                    <a class="btn btn-danger" href="/miCuenta" role="button">Cancelar</a>
+                </form>
+
+        </div>
+    </div>
+</body>
+
+</html>
