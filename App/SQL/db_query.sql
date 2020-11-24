@@ -968,6 +968,16 @@ FROM compra AS co
 JOIN carrito AS "ca" ON ca."id" = co."idCarrito";
 
 
+---VISTA EJEMPLAR COMPRA
+CREATE OR REPLACE VIEW vista_ejemplar_compra AS
+SELECT
+ec."idCarrito",
+ec."numeroSerie",
+co."id"
+FROM ejemplar_carrito AS ec
+JOIN carrito AS "c" ON ec."idCarrito" = c."id"
+Join compra AS "co" ON co."idCarrito" = c."id";
+
 --INSERTs de inicio 
 -- admin por defecto
 INSERT INTO public.usuario(

@@ -59,10 +59,10 @@ class MercadoPago:
              self.__estado)) 
         return data
 
-    def baja_mercadopago(self):
+    def baja_mercadopago(self, id):
         data = db.queryInsert('''
-               DELETE FROM "mercadopago" WHERE "id" = '{}'; 
-            '''.format(self.__id))
+               DELETE FROM "mercadopago" WHERE "idCompra" = '{}'; 
+            '''.format(id))
         return data    
 
     def consultar_mercadopago(self):
@@ -84,7 +84,7 @@ class MercadoPago:
         return data
 
 
-def nuevaReerencia_mercadoPago(idPago, total):
+def nuevaReferencia_mercadoPago(idPago, total):
     mp = mercadopago.MP(4907324296549149, "hUM1unn6xSSpvIZkOVgkE6Yr3JG2t6b7")
     preference = {
         "items": [
@@ -97,7 +97,7 @@ def nuevaReerencia_mercadoPago(idPago, total):
         ]
     }
     preferenceResult = mp.create_preference(preference)
-    return preferenceResult,
+    return preferenceResult
 
 def consultarReferencia_mercadoPago(id):
     mp = mercadopago.MP(4907324296549149, "hUM1unn6xSSpvIZkOVgkE6Yr3JG2t6b7")

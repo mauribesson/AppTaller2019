@@ -58,7 +58,7 @@ class Compra:
 
     def id_compra(self, id_carrito):
         data = db.querySelect('''
-                SELECT "id" FROM "compras" WHERE "idCarrito" = '{}';
+                SELECT "id" FROM "compra" WHERE "idCarrito" = '{}';
             '''.format(id_carrito))
         return data  
 
@@ -81,6 +81,13 @@ class Compra:
         data = db.querySelect('''
                 SELECT * FROM "vista_compras";
             ''')
+        return data 
+
+
+    def ejemplares_venta(self, idCompra):
+        data = db.querySelect('''
+                select * from "vista_ejemplar_compra" where "id" = '{}';
+            '''.format(idCompra))
         return data 
 
     # No se usaría    

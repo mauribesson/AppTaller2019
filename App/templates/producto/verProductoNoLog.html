@@ -91,23 +91,13 @@
     font-style:italic;
     font-weight: bold;
   }
-  .btn-comprar{
-    display:block;
-    margin:auto;
-    border: none;
-    background-color: transparent;
-    font-size: 40px;
-    padding-top: 10px;
-    color: #18BC9C;
-  }
 </style>
 
 <body>
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar_usuarios.html' %}
         <div id="page-content-wrapper">
-            {% include 'navbars/navbar_usuario_logueado.html' %}        
-            <!-- <a href="{{ url_for('listarProductos') }}" class="btn btn-success"><span class="fa fa-arrow-left"></span></a> -->
+            {% include 'navbars/navbar_nologueado.html' %}        
             <div class="container p-2">
               <div class="card-deck">
                   <div class="card">
@@ -155,14 +145,6 @@
                               Sin stock
                             </div>
                           {%endif%} 
-                          {% if stock[0][0] != 0 %}
-                            <form action="agregarAlCarrito" method="POST">
-                              <div style="padding: 0px;padding-top: 2px;" class="form-group">
-                              <input value="{{data[0]}}" type="hidden" class="form-control" name="id" id="id">
-                              <button class="btn-comprar" type="submit"><span class="fa fa-cart-plus"></span></button>
-                            </form>
-                          <div class="comprar">
-                          {%endif%}
                       </div>
                     </td>
                       </tr>

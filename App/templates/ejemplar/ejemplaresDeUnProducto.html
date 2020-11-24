@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-
+{% include 'header/header.html' %}
     <head>
         <title>Ejemplares</title>
         <style>
@@ -71,14 +71,12 @@
             }
         </style>
     </head>
-{% include 'header/header.html' %}
 
 <body>
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar.html' %}
 
         <div id="page-content-wrapper">
-            {% include 'navbars/navbar_admin.html' %}
 
             <div class="titulo">
                 <span>Ejemplares del producto "{{data['nombre_prod']}}"</span>
