@@ -210,7 +210,13 @@ def usuario_data_table():
 @app.route('/altaUsuario')
 def altaUsuario():
     #  return render_template('usuario/altaUsuario.html') 
-    return render_template('usuario/crearUsuario.html') 
+    # Si el usuario fue creado por el admin
+            if 'email' in session:
+                return render_template('usuario/crearUsuario.html')  
+            # Si el usuario fue creado por el usuario
+            else:
+                return render_template('usuario/crearUsuarioPorUsuario.html') 
+    
 
 
 @app.route('/guardarUsuario', methods=["POST"])
@@ -234,7 +240,13 @@ def guardarUsuario():
 
             if verificador == []:
                 data = usuario.alta_usuario() 
-            return render_template('usuario/usuarioGuardado.html', data=data, verificador=verificador) 
+            # Si el usuario fue creado por el admin
+            if 'email' in session:
+                return render_template('usuario/usuarioGuardado.html', data=data, verificador=verificador) 
+            # Si el usuario fue creado por el usuario
+            else:
+                return render_template('usuario/usuarioGuardadoPorUsuario.html') 
+
 
 """
 @app.route('/bajaUsuario') 
