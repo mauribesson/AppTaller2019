@@ -61,7 +61,10 @@ def index():
         usuario.set_nombre(session['email'])
         dato = usuario.consultar_usuario_por_nombre()
         # Si el usuario es administrador
-        if dato[3] == 1:
+        print("id")
+        print(dato[3])
+        if dato[3] == 1 or dato[3] == 3:
+            print("ingreso")
             #Obtenemos el top 3 de productos
             estadistica = Estadistica()
             masvendidos = estadistica.obtener_masvendidos()
@@ -141,11 +144,22 @@ def guardarRol():
 @app.route('/eliminarRol')
 @app.route('/eliminarRol/<int:id_rol>')
 def eliminarRol(id_rol=None):
-    rol =  Rol()
-    rol.set_id(id_rol)
-    rol.baja_rol()
-    data = "eliminado"
-    return render_template('rol/RolABMC.html', data=data)    
+        ## Chequea si hay un usuario logueado
+    if 'email' in session:
+        usuario = Usuario()
+        usuario.set_nombre(session['email'])
+        dato = usuario.consultar_usuario_por_nombre()
+        # Si el usuario es administrador le permite eliminar
+        if dato[3] == 1:
+            rol =  Rol()
+            rol.set_id(id_rol)
+            rol.baja_rol()
+            data = "eliminado"
+            return render_template('rol/RolABMC.html', data=data) 
+        # Si no es admin no le permite eliminar
+        else:
+            return render_template('admin/soloAdmin.html') 
+    
 #Fin Baja Rol
 
 
@@ -153,10 +167,20 @@ def eliminarRol(id_rol=None):
 @app.route('/modificarRol') 
 @app.route('/modificarRol/<int:id_rol>') 
 def modificarRol(id_rol=None):
-    rol = Rol()
-    rol.set_id(id_rol)
-    rol_a_mod = rol.consultar_rol_por_id()
-    return render_template('rol/modificarRol.html',data=rol_a_mod)  
+    ## Chequea si hay un usuario logueado
+    if 'email' in session:
+        usuario = Usuario()
+        usuario.set_nombre(session['email'])
+        dato = usuario.consultar_usuario_por_nombre()
+        # Si el usuario es administrador le permite modificar
+        if dato[3] == 1:
+            rol = Rol()
+            rol.set_id(id_rol)
+            rol_a_mod = rol.consultar_rol_por_id()
+            return render_template('rol/modificarRol.html',data=rol_a_mod) 
+        # Si no es admin no le permite modificar
+        else:
+            return render_template('admin/soloAdmin.html') 
 
 
 @app.route('/editarRol', methods=["POST"])
@@ -198,6 +222,11 @@ def usuarioABMC():
     data =[]
     return render_template('usuario/usuarioABMC.html', data=data)
 
+# Gestión de usuarios - Solo para administradors
+@app.route('/gestionarUsuarios') 
+def gestionarUsuarios():
+    data =[]
+    return render_template('usuario/usuarioABMC.html', data=data)
 
 #datos para tabla Usuario "JSON"
 @app.route('/usuario_data_table')
@@ -258,31 +287,49 @@ def bajaUsuario():
 @app.route('/eliminarUsuario')
 @app.route('/eliminarUsuario/<email>')
 def eliminarUsuario(email=None):
-    usuario = Usuario()
-    usuario.set_nombre(email)
-    usuario.baja_usuario()
-    data = "eliminado"
-    return render_template('usuario/usuarioABMC.html', data=data)    
+    ## Chequea si hay un usuario logueado
+    if 'email' in session:
+        usuario = Usuario()
+        usuario.set_nombre(session['email'])
+        dato = usuario.consultar_usuario_por_nombre()
+        # Si el usuario es administrador le permite eliminar
+        if dato[3] == 1:
+            usuario = Usuario()
+            usuario.set_nombre(email)
+            usuario.baja_usuario()
+            data = "eliminado"
+            return render_template('usuario/usuarioABMC.html', data=data)  
+        # Si no es admin no le permite eliminar
+        else:
+            return render_template('admin/soloAdmin.html')
+   
 
 
 @app.route('/modificarUsuario') 
 @app.route('/modificarUsuario/<email>') 
 def modificarUsuario(email=None):
-    data = {}
-    usuario = Usuario()
-    usuario.set_nombre(email)#La app usa el email como nombre de usuario 
-    uAux = usuario.consultar_usuario_por_nombre()
-    
-    rol = Rol()
-    rol.listar_rol()
-
-    data['email'] = email
-    data['roles'] = rol.listar_rol()
-    data['rolUsario'] = uAux[3]
-    data['Contacto'] = uAux[2]
-    data['contrasenia'] = uAux[1]
-
-    return render_template('usuario/modificarUsuario.html', data=data)  
+    ## Chequea si hay un usuario logueado
+    if 'email' in session:
+        usuario = Usuario()
+        usuario.set_nombre(session['email'])
+        dato = usuario.consultar_usuario_por_nombre()
+        # Si el usuario es administrador le permite modificar
+        if dato[3] == 1:
+            data = {}
+            usuario = Usuario()
+            usuario.set_nombre(email)#La app usa el email como nombre de usuario 
+            uAux = usuario.consultar_usuario_por_nombre()
+            rol = Rol()
+            rol.listar_rol()
+            data['email'] = email
+            data['roles'] = rol.listar_rol()
+            data['rolUsario'] = uAux[3]
+            data['Contacto'] = uAux[2]
+            data['contrasenia'] = uAux[1]
+            return render_template('usuario/modificarUsuario.html', data=data)  
+        # Si no es admin no le permite modificar
+        else:
+            return render_template('admin/soloAdmin.html')
 
 
 @app.route('/editarUsuario', methods=["POST"])
@@ -968,10 +1015,6 @@ def guardarCombo():
         dato['vendido'] = combo.get_vendido()
         id = combo.id_combo(nombre)
         id = id[0][0]
-        print(id)
-        """ ListaCombos = combo.listar_combos()
-        for e in ListaCombos:
-            id= e[0] """
 
     return render_template('combo/cargarProductosalCombo.html', dato=dato,id=id, productos=productosDisponibles)  
     
@@ -1850,32 +1893,42 @@ def verVenta():
 # Elimina la compra desde admin
 @app.route('/bajaVenta', methods=["POST"]) 
 def bajaCompra():
-    if request.method == 'POST':
-        idCompra = request.form['idCompra']
-    #Eliminamos la referencia de mercadopago
-    mercadopego = MercadoPago()
-    mercadopego.baja_mercadopago(idCompra)
-    #Marcamos todos los ejemplares como disponibles y los vamos eliminando del carrito
-    compra = Compra()
-    data = compra.ejemplares_venta(idCompra)
-    idCarrito = data[0][0]
-    for e in data:
-        ejemplar_carrito = Ejemplar_carrito()
-        ejemplar_carrito.set_idCarrito(idCarrito)
-        ejemplar_carrito.set_numero_serie(e[1])
-        ejemplar_carrito. baja_ejemplar_carrito()
-        ejemplar = Ejemplar()
-        ejemplar.marcar_ejemplar_disponible(e[1])
-    #Eliminamos la compra
-    compra = Compra()
-    compra.baja_compra(idCompra)
-    #Eliminamos el carrito
-    carrito = Carrito()
-    carrito.set_id(idCarrito)
-    carrito.baja_carrito()
-    return render_template('compra/compraEliminada.html') 
+    ## Chequea si hay un usuario logueado
+    if 'email' in session:
+        usuario = Usuario()
+        usuario.set_nombre(session['email'])
+        dato = usuario.consultar_usuario_por_nombre()
+        # Si el usuario es administrador le permite eliminar
+        if dato[3] == 1:
+            if request.method == 'POST':
+                idCompra = request.form['idCompra']
+            #Eliminamos la referencia de mercadopago
+            mercadopego = MercadoPago()
+            mercadopego.baja_mercadopago(idCompra)
+            #Marcamos todos los ejemplares como disponibles y los vamos eliminando del carrito
+            compra = Compra()
+            data = compra.ejemplares_venta(idCompra)
+            idCarrito = data[0][0]
+            for e in data:
+                ejemplar_carrito = Ejemplar_carrito()
+                ejemplar_carrito.set_idCarrito(idCarrito)
+                ejemplar_carrito.set_numero_serie(e[1])
+                ejemplar_carrito. baja_ejemplar_carrito()
+                ejemplar = Ejemplar()
+                ejemplar.marcar_ejemplar_disponible(e[1])
+            #Eliminamos la compra
+            compra = Compra()
+            compra.baja_compra(idCompra)
+            #Eliminamos el carrito
+            carrito = Carrito()
+            carrito.set_id(idCarrito)
+            carrito.baja_carrito()
+            return render_template('compra/compraEliminada.html')
+        # Si no es admin no le permite eliminar
+        else:
+            return render_template('admin/soloAdmin.html')
 
-
+     
 # Elimina la compra desde el comprador
 @app.route('/cancelarCompra', methods=["POST"])
 def cancelarCompra():
@@ -1904,6 +1957,12 @@ def cancelarCompra():
     
 @app.route('/ventas')
 def ventas():
+    compra = Compra()
+    data = compra.ventas()
+    return render_template('compra/ventas.html', data=data)
+
+@app.route('/gestionarVentas')
+def gestionarVentas():
     compra = Compra()
     data = compra.ventas()
     return render_template('compra/ventas.html', data=data)
@@ -2056,6 +2115,20 @@ def contacto():
     else:
         return render_template('cliente/contacto-nolog.html')
 
+
+@app.route('/administracion')
+def administracion():
+    ## Chequea si hay un usuario logueado
+    if 'email' in session:
+        usuario = Usuario()
+        usuario.set_nombre(session['email'])
+        dato = usuario.consultar_usuario_por_nombre()
+        # Si el usuario es administrador
+        if dato[3] == 1:
+            return render_template('admin/administracion.html')
+        else:
+            return render_template('admin/soloAdmin.html')
+
 #========================== Fin CLIENTE ===============================#
 
 #========================== Sesion de usari ===============================#
@@ -2096,8 +2169,8 @@ def loginAndrea():
     else:
         session['email'] = email
         session['contraseña'] = contrasenia
-        ## Si es usuario es administrador, lo envía a la vista del admin
-        if data[3] == 1:
+        ## Si es usuario es administrador o vendedor, lo envía a su vista
+        if data[3] == 1 or data[3] == 3:
             #Obtenemos el top 3 de productos
             estadistica = Estadistica()
             masvendidos = estadistica.obtener_masvendidos()

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Inicio</title>
+    <style>
+        .banner{
+            margin-top: 90px;
+            text-align: center;
+            font-size: 26px;
+            color: red;
+        }
+    </style>
+</head>
+
+
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
+
+            <div class="banner">
+                No puedes acceder a esta sección, debes ser administrador
+            </div>
+
+            
+        </div>
+    </div>
+    {% include 'footer/footer.html' %} 
+</body>
+
+</html>

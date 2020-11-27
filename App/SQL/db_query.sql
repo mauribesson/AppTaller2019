@@ -8,6 +8,14 @@ CREATE TABLE "rol" (
 	"nombreRol" character varying (30) NOT NULL,
 	Primary Key ("idRol")
 );
+--ROLES
+--ADMIN ID 1
+--COMPRADOR ID 2
+--VENDEDOR ID 3
+---CARGA DE ROLES
+--INSERT INTO "rol" ("nombreRol") values ('admin');
+--INSERT INTO "rol" ("nombreRol") values ('comprador');
+--INSERT INTO "rol" ("nombreRol") values ('vendedor');
 
 CREATE TABLE "usuario" (
 	"nombre" character varying(30) NOT NULL,

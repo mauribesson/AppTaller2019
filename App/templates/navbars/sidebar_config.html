@@ -1,0 +1,44 @@
+<!-- Sidebar -->
+
+<style>
+    *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    color: gray;
+    }
+                  
+    li{
+    list-style-type:none;
+    position: relative;
+    width:150px;
+    }
+                
+    li a{
+    text-decoration:none;
+    display:inline-block;
+    padding:15px 20px;
+    width:170px;
+    height:40px;
+    color: gray;
+    }
+    
+    nav li ul{
+        display:none;
+        position:absolute;
+        top:0px;
+        left:130px;
+    }
+            
+    nav li:hover ul{display:block;}
+
+</style>
+<div class="bg-light border-right" id="sidebar-wrapper">
+    <a href="/"> <img src="..\static\img\banner.png" height="58px"> </a>
+    <div class="list-group list-group-flush">
+        <a href="{{ url_for('rolABMC') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-users"></i> Gestionar roles <i class="fas fa-angle-right"></i> </a>
+        <a href="{{ url_for('gestionarUsuarios') }}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-user"></i> Gestionar usuarios <i class="fas fa-angle-right"></i> </a>
+        <a href="{{ url_for('gestionarVentas') }}" class="list-group-item list-group-item-action bg-light"><i class="fa fa-shopping-cart"></i> Gestionar ventas <i class="fas fa-angle-right"></i></a>
+        
+    </div>
+</div>
