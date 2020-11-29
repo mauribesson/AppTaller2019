@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Configuración</title>
+    <style>
+        .titulo{
+            font-size: 40px;
+            padding-top: 60px;
+            padding-left: 20px;
+            color: black;
+        }
+        .faltantes{
+            padding-left: 20px;
+            font-size: 20px;
+        }
+        .filtrar{
+            background-color: transparent;
+            border-color: black;
+            border-radius: 5px;
+            font-size: 18px;
+            padding-left: 5px;
+            padding-right: 5px;
+            color:black;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_admin.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
+
+            <div class="titulo">Productos sin stock</div>
+            <div>
+                {% for falta in faltantes %}
+                    <div class="faltantes">{% print(falta)%}</div>
+                {%endfor%}
+            </div>
+
+            <div class="titulo">Consultar el stock de cada producto</div>
+
+            <div class="container-fluid" style="margin-top: 10px;">
+                <form action="stockDeUnProducto" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <select name="producto" class="custom-select">
+                                {% for e in productos %}                                     
+                                    <option value="{{e[0]}}">{{e[1]}}</option>   
+                                {% endfor %}
+                            </select>
+                        </div>
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'footer/footer.html' %} 
+</body>
+
+</html>

@@ -2158,11 +2158,40 @@ def administracion():
             return render_template('admin/soloAdmin.html')
 
 
-@app.route('/reportes')
-def reportes():
+@app.route('/reporte_ventas')
+def reporte_ventas():
     # Se obtiene la fecha de hoy
     fecha = date.today()
-    return render_template('admin/reportes.html', hoy=fecha)
+    return render_template('admin/reporte_ventas.html', hoy=fecha)
+
+@app.route('/reporte_stock')
+def reporte_stock():
+    #Obtenemos los productos faltantes en stock
+    productosFaltantes = []
+    producto = Producto()
+    productos = producto.listar_productos()
+    #Determinamos el stock de cada producto
+    for p in productos:
+        ejemplar = Ejemplar()
+        stock = ejemplar.cantidad_ejemplares_de_un_producto(p[0])
+        if stock[0][0] == 0:
+            productosFaltantes.append(p[1])
+    return render_template('admin/reporte_stock.html', faltantes=productosFaltantes, productos=productos)
+
+@app.route('/stockDeUnProducto', methods=["POST"])
+def stockDeUnProducto():
+    if request.method == 'POST':
+        idProducto = request.form['producto']
+    # Se obtiene el stock del producto
+    ejemplar = Ejemplar()
+    stock = ejemplar.cantidad_ejemplares_de_un_producto(idProducto)
+    stock = stock[0][0]
+    # Se obtiene el nombre del producto
+    producto = Producto()
+    producto.set_id(idProducto)
+    datosDelProducto = producto.consultar_producto_por_id()
+    nombreDelProducto = datosDelProducto[1]
+    return render_template('admin/stockDelProducto.html', nombre=nombreDelProducto, stock=stock)
 
 #========================== Fin CLIENTE ===============================#
 

@@ -173,7 +173,7 @@ class Producto:
     def obtener_cantidad_productos(self):
         data =[]
         data = db.querySelect('''
-                SELECT count(*) FROM producto;;
+                SELECT count(*) FROM producto;
             ''')
         return data
 

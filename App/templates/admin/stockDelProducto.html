@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Configuración</title>
+    <style>
+        .titulo{
+            font-size: 30px;
+            padding-top: 80px;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_admin.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
+
+            <div class="titulo">Stock del producto {{nombre}}: {{stock}}</div>
+
+        </div>
+    </div>
+    {% include 'footer/footer.html' %} 
+</body>
+
+</html>
