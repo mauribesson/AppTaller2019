@@ -19,13 +19,13 @@ from modelos.mercadoPago import nuevaReferencia_mercadoPago
 from modelos.mercadoPago import consultarReferencia_mercadoPago
 from modelos.combo_carrito import Combo_carrito
 from modelos.estadisticas import Estadistica
+from datetime import date
 
 db = Database()
 
 app = Flask(__name__)
 
 app.secret_key = 'apptaller2019'
-
 
 @app.route('/')
 def index():
@@ -1821,6 +1821,8 @@ def altaCompra():
 
 @app.route('/confirmarCompra', methods=["POST"])
 def confirmarCompra():
+    # Se obtiene la fecha de hoy
+    fecha = date.today()
     data = []
     if request.method == 'POST':
         idCarrito = request.form['idCarrito']
@@ -1830,6 +1832,7 @@ def confirmarCompra():
         compra.set_id_carrito(idCarrito)
         compra.set_monto_compra(montoCompra)
         compra.set_estado_confirmacion(False)
+        compra.set_fecha(fecha)
         data = compra.alta_compra() 
         # Se obtiene el id de la compra  
         ids = compra.id_compra(idCarrito)
@@ -1966,6 +1969,31 @@ def gestionarVentas():
     compra = Compra()
     data = compra.ventas()
     return render_template('compra/ventas.html', data=data)
+
+@app.route('/ventasPorFecha', methods=["POST"])
+def ventasPorFecha():
+    datos = {}
+    if request.method == 'POST':
+        desde = request.form['desde']
+        hasta = request.form['hasta']
+    compra = Compra()
+    # Trae las ventas en esas fechas
+    data = compra.ventas_por_fecha(desde,hasta)
+    total = 0
+    cantidad = 0
+    for e in data:
+        # Calcula el total de ventas del período
+        total = total + e[2]
+        # Calcula la cantidad de ventas del período
+        cantidad = cantidad + 1
+    # Calcula el promedio de venta
+    promedio = total/cantidad
+    datos['desde'] = desde
+    datos['hasta'] = hasta
+    datos['total'] = total
+    datos['cantidad'] = cantidad
+    datos['promedio'] = promedio
+    return render_template('admin/ventasPorFecha.html', data=data, datos=datos)
 
 # No se usaría
 """ @app.route('/modificarCompra') 
@@ -2128,6 +2156,13 @@ def administracion():
             return render_template('admin/administracion.html')
         else:
             return render_template('admin/soloAdmin.html')
+
+
+@app.route('/reportes')
+def reportes():
+    # Se obtiene la fecha de hoy
+    fecha = date.today()
+    return render_template('admin/reportes.html', hoy=fecha)
 
 #========================== Fin CLIENTE ===============================#
 

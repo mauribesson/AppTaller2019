@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Configuración</title>
+    <style>
+        .msj{
+            font-size: 40px;
+            padding-top: 50px;
+            text-align: center;
+        }
+        .fechas{
+            padding-top: 40px;
+            padding-left: 20px;
+        }
+        .filtrar{
+            background-color: transparent;
+            border-color: black;
+            border-radius: 5px;
+            font-size: 18px;
+            padding-left: 5px;
+            padding-right: 5px;
+            color:black;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_admin.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
+
+            <div class="msj">Reporte de ventas</div>
+            <div class="fechas">
+                <form action="ventasPorFecha" method="POST">
+                    <label for="start">Desde:</label>
+                    <input type="date" id="desde" name="desde" value="{{hoy}}" min="2018-01-01" max="{{hoy}}">
+                    <label for="start">Hasta:</label>
+                    <input type="date" id="hasta" name="hasta" value="{{hoy}}" min="2018-01-01" max="{{hoy}}">
+                    <button class="filtrar" type="submit">Filtrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'footer/footer.html' %} 
+</body>
+
+</html>

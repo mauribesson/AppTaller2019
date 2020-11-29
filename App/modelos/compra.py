@@ -8,6 +8,7 @@ class Compra:
         self.__id = None
         self.__id_carrito = None
         self.__monto_compra = None
+        self.__fecha = None
         self.__estado_confirmacion = None #Bool 
 
     #setter
@@ -19,6 +20,9 @@ class Compra:
 
     def set_monto_compra(self, pMontoCompra):
         self.__monto_compra = pMontoCompra
+
+    def set_fecha(self, pFecha):
+        self.__fecha = pFecha
 
     def set_estado_confirmacion(self, pEstadpConfirmacion):
         self.__estado_confirmacion = pEstadpConfirmacion
@@ -33,15 +37,18 @@ class Compra:
     def get_monto_compra(self):
         return self.__monto_compra
 
+    def get_fecha(self):
+        return self.__fecha
+
     def get_estado_confirmacion(self):
         return self.__estado_confirmacion
 
     #logica 
     def alta_compra(self):
         data = db.queryInsert('''
-            INSERT INTO "compra" ("idCarrito", "montoCompra", "estadoConfirmacion") 
-            values ('{}', '{}','{}');
-            '''.format(self.__id_carrito, self.__monto_compra, self.__estado_confirmacion)) 
+            INSERT INTO "compra" ("idCarrito", "montoCompra", "estadoConfirmacion", "fecha") 
+            values ('{}', '{}','{}', '{}');
+            '''.format(self.__id_carrito, self.__monto_compra, self.__estado_confirmacion, self.__fecha)) 
         return data
         
     def baja_compra(self, idCompra):
@@ -88,6 +95,12 @@ class Compra:
         data = db.querySelect('''
                 select * from "vista_ejemplar_compra" where "id" = '{}';
             '''.format(idCompra))
+        return data 
+
+    def ventas_por_fecha(self, fechaDesde, fechaHasta):
+        data = db.querySelect('''
+                select * from "vista_compras" where "fecha" between '{}' and '{}';
+            '''.format(fechaDesde, fechaHasta))
         return data 
 
     # No se usaría    

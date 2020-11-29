@@ -970,6 +970,7 @@ SELECT
 co."id",
 co."idCarrito",
 co."montoCompra",
+co."fecha",
 co."estadoConfirmacion",
 ca."usuario"
 FROM compra AS co
@@ -1000,3 +1001,6 @@ INSERT INTO public.usuario(
 
 --- AGREGA EL CAMPO VENDIDO A LA TABLA COMBO
 --- ALTER TABLE "combo" ADD COLUMN "vendido" boolean;
+
+--- AGREGA EL CAMPO FECHA A LA TABLA COMPRA
+--- ALTER TABLE "compra" ADD COLUMN "fecha" date;

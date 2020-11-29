@@ -95,6 +95,16 @@
             color:tomato;
             font-size: 25px;
         }
+        .reportes{
+            display:block;
+            margin:auto;
+            font-size: 22px;
+            padding-top: 10px;
+            text-align: center;
+            padding-bottom: 20px;
+            width: 50%;
+            color: blanchedalmond;
+        }
     </style>
 </head>
 
@@ -102,12 +112,17 @@
 
 <body>
     <div class="d-flex" id="wrapper">
-        {% include 'navbars/sidebar.html' %}
+        {% include 'navbars/sidebar_admin.html' %}
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_admin.html' %}
             <div class="titulo">
-              <span>Ventas</span>
+              <span>Ventas desde {{datos['desde']}} hasta {{datos['hasta']}}</span>
             </div>
+            <div class="reportes"> 
+                <div style="padding-bottom: 5px;"> Cantidad de ventas en este período: {{datos['cantidad']}}</div>
+                <div style="padding-bottom: 5px;"> Total de ventas en este período: ${{datos['total']}}</div>
+                <div> Promedio de ventas en este período: ${{datos['promedio']}}</div>
+            </div> 
             <table class="tabla">
                 <tr>
                     <th class="numero">N° de venta</th>
@@ -134,7 +149,7 @@
                             </form>
                         </td>
                     </tr>
-                {% endfor %}
+                {% endfor %} 
             </table>
 
         </div>
