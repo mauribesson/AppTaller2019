@@ -2143,6 +2143,13 @@ def contacto():
     else:
         return render_template('cliente/contacto-nolog.html')
 
+@app.route('/manual_vendedor')
+def manual_vendedor():
+    return render_template('admin/manual_vendedor.html')
+
+@app.route('/manual_comprador')
+def manual_comprador():
+    return render_template('cliente/manual_comprador.html')
 
 @app.route('/administracion')
 def administracion():

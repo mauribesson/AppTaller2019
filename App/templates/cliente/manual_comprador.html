@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+    <head>
+        <title>Manual de usuario</title>
+    </head>
+    <style>
+        details{
+        font-size: 20px;
+        font-family: Arial;
+        margin-bottom:30px;
+        margin-top: 20px;
+        margin-left:30px;
+        width:100%;
+        }
+        summary{
+            border: none;
+        }
+        p{
+        font-size: 16px;
+        color: #666;
+        margin-bottom:20px;
+        margin-top: 20px;
+        margin-left:5px;
+        width: 90%;
+        }
+        h2{
+            font-family: Verdana, Arial;
+            text-align: center;
+            font-size: 38px;
+            padding-top: 70px;
+        }
+        .subtitulo{
+            margin-top: 20px;
+            width: 100%;
+            background-color: black;
+            color: blanchedalmond;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 20px;
+        }
+    </style>
+    <body>
+        <div class="d-flex" id="wrapper">
+            {% include 'navbars/sidebar_usuarios.html' %}
+    
+            <div id="page-content-wrapper">
+                {% include 'navbars/navbar_usuario_logueado.html' %}
+
+                <h2>Guía de uso </h2>
+                
+                <details>
+                    <summary>PRODUCTOS</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo ver los productos?</summary>
+                            <p>
+                                Ve a la sección de <b>Inicio</b>, allí están todos nuestros productos. </br>
+                            </p>
+                        </details>
+                        <details>
+                            <summary>¿Cómo ver toda la información de un producto?</summary>
+                            <p>
+                                Ir a la sección de <b>Inicio</b>, allí están todos nuestros productos. 
+                                Hacer click sobre alguno de ellos para ver su ficha de datos completos.</br>
+                            </p>
+                        </details>
+                        <details>
+                            <summary>¿Cómo comprar un producto?</summary>
+                            <p>
+                                Para comprar un producto, <b>agregarlo al carrito de compras</b>, haciendo click en el botón <b>comprar</b> o en el ícono de agregar al carrito <span class="fa fa-cart-plus"></span> </br>
+                            </p>
+                        </details>
+                        <details>
+                            <summary>¿Cómo buscar un producto?</summary>
+                            <p>
+                                Ir a la sección de <b>Inicio</b>./br>
+                                En la parte superior derecha, en el campo <b>Buscar</b>, escribir el producto que deseas buscar.
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>BÚSQUEDAS</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo buscar todos los productos de una marca?</summary>
+                            <p>
+                                Ir a la sección <b>Marcas</b>. </br>
+                                Seleccionar una <b>marca</b> de la lista despleglable.</br>
+                                Hacer click en <b>Buscar</b>. </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo buscar todos los productos de una categoría de productos?</summary>
+                            <p>
+                                Ir a la sección <b>Categorías</b>. </br>
+                                Seleccionar una <b>categoría</b> de la lista despleglable.</br>
+                                Hacer click en <b>Buscar</b>. </br>
+                            </p>
+                        </details>
+                    </p>
+                </details>
+                
+                <details>
+                <summary>COMBOS</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo ver los combos?</summary>
+                            <p>
+                                Ve a la sección de <b>Combos</b>. </br>
+                            </p>
+                        </details>
+                        <details>
+                            <summary>¿Cómo ver toda la información de un combo?</summary>
+                            <p>
+                                Ir a la sección de <b>Combos</b>. 
+                                Hacer click sobre alguno de ellos para ver qué productos lo componen y cuál es el descuento.</br>
+                            </p>
+                        </details>
+                        <details>
+                            <summary>¿Cómo comprar un combo?</summary>
+                            <p>
+                                Para comprar un combo, <b>agregarlo al carrito de compras</b>, haciendo click en el botón <b>comprar</b> o en el ícono de agregar al carrito <span class="fa fa-cart-plus"></span> </br>
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+                <details>
+                    <summary>COMPRAS</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo ver mi carrito?</summary>
+                            <p>
+                                En el extremo superior derecho, hacer click sobre el ícono <i class='fa fa-shopping-cart'></i>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo quitar productos del carrito?</summary>
+                            <p>
+                                Ir al <b>carrito</b> <i class='fa fa-shopping-cart'></i></br>
+                                Para quitarlo, hacer click sobre la cruz roja a la derecha de cada producto. <i class="fa fa-times" aria-hidden="true"></i> </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo confirmar la compra?</summary>
+                            <p>
+                                Ir al <b>carrito</b> <i class='fa fa-shopping-cart'></i></br>
+                                Hacer click en el botón <b>Confirmar compra</b></br>
+                                Seleccionar la opción <b>Pagar</b></br>
+                                Serás redirigido a Mercadopago para seleccionar tu forma abonar</br>
+                                Hacer click en el botón <b>Continuar a Mercadopago</b></br>
+                                Una vez en la plataforma de Mercadopago podrás seleccionar la forma de pago y concretar el mismo.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo ver las compras realizadas?</summary>
+                            <p>
+                                Ir a la sección <b>Compras</b>. </br>
+                            </p>
+                        </details>
+
+                    </p>
+                </details>
+
+                <details>
+                    <summary>CUENTA</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo veo los datos de mi cuenta?</summary>
+                            <p>
+                                En el extremo superior derecho, posicionarse sobre el ícono <i class='fas fa-user'></i> </br>
+                                En el menú que se desplega, seleccionar la opción <b>Mi cuenta</b>, allí apareceran tus datos. </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo cambio mi contraseña?</summary>
+                            <p>
+                                En el extremo superior derecho, posicionarse sobre el ícono <i class='fas fa-user'></i> </br>
+                                En el menú que se desplega, seleccionar la opción <b>Mi cuenta</b>. </br>
+                                Hacer click en el botón <b>Cambiar contraseña</b>. </br>
+                                Serás dirigido a un formulario que te permitirá ingresar una nueva contraseña. </br>
+                                Hacer click en <b>Aceptar</b>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo cerrar sesión?</summary>
+                            <p>
+                                En el extremo superior derecho, posicionarse sobre el ícono <i class='fas fa-user'></i> </br>
+                                En el menú que se desplega, seleccionar la opción <b>Salir</b>. </br>
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+            </div>
+            
+            </div>
+            {% include 'footer/footer.html' %}
+    </body>
+</html>

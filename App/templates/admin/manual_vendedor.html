@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+    <head>
+        <title>Manual de usuario</title>
+    </head>
+    <style>
+        details{
+        font-size: 20px;
+        font-family: Arial;
+        margin-bottom:30px;
+        margin-top: 20px;
+        margin-left:30px;
+        width:100%;
+        }
+        summary{
+            border: none;
+        }
+        p{
+        font-size: 16px;
+        color: #666;
+        margin-bottom:20px;
+        margin-top: 20px;
+        margin-left:5px;
+        width: 90%;
+        }
+        h2{
+            font-family: Verdana, Arial;
+            text-align: center;
+            font-size: 38px;
+            padding-top: 70px;
+        }
+        .subtitulo{
+            margin-top: 20px;
+            width: 100%;
+            background-color: black;
+            color: blanchedalmond;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 20px;
+        }
+    </style>
+    <body>
+        <div class="d-flex" id="wrapper">
+            {% include 'navbars/sidebar.html' %}
+    
+            <div id="page-content-wrapper">
+                {% include 'navbars/navbar_admin.html' %}
+
+                <h2>Guía de uso </h2>
+                
+                <details>
+                    <summary>USUARIOS</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo crear un nuevo usuario?</summary>
+                            <p>
+                                Ir a la opción <b>Usuarios</b>. </br>
+                                Hacer click en el botón <b>Nuevo</b>.</br>
+                                En el formulario de registro de usuario completar los campos <em>email</em>, <em>contraseña</em>, vuelve a repetir la contraseña y agrega otros datos de <em>contacto</em> (puede ser numero telefónico, dirección, etc.). </br>
+                                Finalmente, hacer click en <b>Aceptar</b>. </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo ver el listado de todos los usuarios que existen?</summary>
+                            <p>
+                                Ir a la opción <b>Usuarios</b>, allí figura el listado de todos los usuarios.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo editar los datos de un usuario?</summary>
+                            <p>
+                                Ir a la opción <b>Usuarios</b>, allí figura el listado de todos los usuarios. </br>
+                                Buscar el usuario que quieres editar y hacer click sobre el botón de edición <i class="fas fa-edit"></i> </br>
+                                Serás dirigido a un formulario donde podrás sobreescribir los datos que quieres cambiar. </br>
+                                Hacer click en <b>Aceptar</b>.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo eliminar un usuario?</summary>
+                            <p>
+                                <b> Esta función puede ser realizada sólo por los administradores,</b> y hay dos opciones para realizarla: </br>
+                                OPCIÓN 1: </br>
+                                Ir a la opción <b>Usuarios</b>, allí figura el listado de todos los usuarios. </br>
+                                Buscar el usuario que quieres quitar y hacer click sobre el botón de eliminación <i class="fas fa-trash"></i> </br>
+                                OPCIÓN 2:</br>
+                                Ir a la opción <b>Administración</b>. </br>
+                                Seleccionar la opción <b>Gestionar usuarios</b>. </br>
+                                Buscar el usuario que quieres quitar y hacer click sobre el botón de eliminación <i class="fas fa-trash"></i> </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo buscar a un usuario?</summary>
+                            <p>
+                                Ir a la opción <b>Usuarios</b>. </br>
+                                En la parte superior derecha, en el campo <b>Buscar</b>, escribir el usuario que deseas buscar.
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+                <details>
+                    <summary>TIPOS DE PRODUCTOS</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo crear un nuevo tipo de producto?</summary>
+                            <p>
+                                Ir a la opción <b>Tipos de productos</b>. </br>
+                                Hacer click en el botón <b>Nuevo</b>.</br>
+                                Serás dirigido a un formulario donde debes completar el campo <em>nombre del tipo de producto</em>. </br>
+                                Finalmente, hacer click en <b>Aceptar</b>. </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo ver el listado de todos los tipos de productos que existen?</summary>
+                            <p>
+                                Ir a la opción <b>Tipos de productos</b>, allí figura el listado de todos los tipos.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo editar un tipo de producto?</summary>
+                            <p>
+                                Ir a la opción <b>Tipos de productos</b>, allí figura el listado de todos los tipos. </br>
+                                Buscar el tipo de producto que quieres editar y hacer click sobre el botón de edición <i class="fas fa-edit"></i> </br>
+                                Serás dirigido a un formulario donde podrás sobreescribir su nombre. </br>
+                                Hacer click en <b>Aceptar</b>.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo eliminar un tipo de producto?</summary>
+                            <p>
+                                Ir a la opción <b>Tipos de productos</b>, allí figura el listado de todos los tipos. </br>
+                                Buscar el tipo de producto que quieres quitar y hacer click sobre el botón de eliminación <i class="fas fa-trash"></i> </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo buscar un tipo de producto?</summary>
+                            <p>
+                                Ir a la opción <b>Tipos de productos</b>. </br>
+                                En la parte superior derecha, en el campo <b>Buscar</b>, escribir el tipo que deseas buscar.
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+                <details>
+                    <summary>MARCAS</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo crear una nueva marca?</summary>
+                            <p>
+                                Ir a la opción <b>Marcas</b>. </br>
+                                Hacer click en el botón <b>Nuevo</b>.</br>
+                                Serás dirigido a un formulario donde debes completar el campo <em>nombre de la marca</em>. </br>
+                                Finalmente, hacer click en <b>Aceptar</b>. </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo ver el listado de todas las marcas que existen?</summary>
+                            <p>
+                                Ir a la opción <b>Marcas</b>, allí figura el listado de todas las marcas.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo editar una marca?</summary>
+                            <p>
+                                Ir a la opción <b>Marcas</b>, allí figura el listado de todas las marcas. </br>
+                                Buscar la marca que quieres editar y hacer click sobre el botón de edición <i class="fas fa-edit"></i> </br>
+                                Serás dirigido a un formulario donde podrás sobreescribir su nombre. </br>
+                                Hacer click en <b>Aceptar</b>.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo eliminar una marca?</summary>
+                            <p>
+                                Ir a la opción <b>Marcas</b>, allí figura el listado de todas las marcas. </br>
+                                Buscar la marca que quieres quitar y hacer click sobre el botón de eliminación <i class="fas fa-trash"></i> </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo buscar una marca?</summary>
+                            <p>
+                                Ir a la opción <b>Marcas</b>. </br>
+                                En la parte superior derecha, en el campo <b>Buscar</b>, escribir la marca que deseas buscar.
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>PRODUCTOS</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo crear un nuevo producto?</summary>
+                            <p>
+                                Ir a la opción <b>Productos</b>. </br>
+                                Cliquear en el botón <b>Nuevo</b>.</br>
+                                Serás dirigido a un formulario donde debes completar los campos <em>nombre, descripción, precio, modelo, garantía,</em> seleccionar un <em>tipo de producto</em> y una <em>marca</em>, y cargar las <em>imágenes</em> deseadas. </br>
+                                Finalmente, hacer click en <b>Aceptar</b>. </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo ver el listado de todos los productos que existen?</summary>
+                            <p>
+                                Ir a la opción <b>Productos</b>, allí figura el listado de todos productos.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo editar los datos de un producto?</summary>
+                            <p>
+                                Ir a la opción <b>Productos</b>, allí figura el listado de todos los productos. </br>
+                                Buscar el producto que quieres editar y hacer click sobre el botón de edición <i class="fas fa-edit"></i> </br>
+                                Serás dirigido a un formulario donde podrás sobreescribir los datos que quieres. </br>
+                                Hacer click en <b>Aceptar</b>.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo eliminar un producto?</summary>
+                            <p>
+                                Ir a la opción <b>Productos</b>, allí figura el listado de todos los productos. </br>
+                                Buscar el producto que quieres quitar y hacer click sobre el botón de eliminación <i class="fas fa-trash"></i> </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo buscar un producto?</summary>
+                            <p>
+                                Ir a la opción <b>Productos</b>. </br>
+                                En la parte superior derecha, en el campo <b>Buscar</b>, escribir el producto que deseas buscar.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo ver toda la información de un producto?</summary>
+                            <p>
+                                Ir a la opción <b>Productos</b>, allí figura el listado de todos los productos. </br>
+                                Buscar el producto que quieres ver y hacer click sobre el botón de ver detalles <i class="fas fa-eye"></i> </br>
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>COMBOS</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo crear un nuevo combo?</summary>
+                            <p>
+                                Ir a la opción <b>Combos</b>. </br>
+                                Cliquear en el botón <b>Nuevo</b>.</br>
+                                Serás dirigido a un formulario donde debes completar el campo <em>nombre</em>. Luego, podrás <em>cargarle los productos</em> que desees y asignarle un <em>descuento</em> </br>
+                                Finalmente, hacer click en <b>Aceptar</b>. </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo ver el listado de todos los combos que existen?</summary>
+                            <p>
+                                Ir a la opción <b>Combos</b>, allí figura el listado de todos combos.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo modificar un combo?</summary>
+                            <p>
+                                Ir a la opción <b>Combos</b>, allí figura el listado de todos los combos. </br>
+                                Buscar el combo que quieres editar y hacer click sobre el botón de edición <i class="fas fa-edit"></i> </br>
+                                Serás dirigido a un formulario donde podrás sobreescribir el <em>nombre</em>, agregar y quitar <em>productos</em> y modificar el <em>descuento</em>. </br>
+                                Hacer click en <b>Aceptar</b>.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo eliminar un combo?</summary>
+                            <p>
+                                Ir a la opción <b>Combos</b>, allí figura el listado de todos los combos. </br>
+                                Buscar el combo que quieres quitar y hacer click sobre el botón de eliminación <i class="fas fa-trash"></i> </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo buscar un combo?</summary>
+                            <p>
+                                Ir a la opción <b>Combos</b>. </br>
+                                En la parte superior derecha, en el campo <b>Buscar</b>, escribir el combo que deseas buscar.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo ver toda la información de un combo?</summary>
+                            <p>
+                                Ir a la opción <b>Combos</b>, allí figura el listado de todos los combos. </br>
+                                Buscar el combo que quieres ver y hacer click sobre el botón de ver detalles <i class="fas fa-eye"></i> </br>
+                            </p>
+                        </details>
+                    </p>
+                </details>
+                
+
+                <details>
+                    <summary>VENTAS</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo ver todas las ventas?</summary>
+                            <p>
+                                Ir a la opción <b>Ventas</b>, allí figura el listado de todas las ventas.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo ver los detalles de una venta?</summary>
+                            <p>
+                                Ir a la opción <b>Ventas</b>, allí figura el listado de todas ventas. </br>
+                                Buscar la venta que quieres ver y hacer click sobre el botón de ver detalles <i class="fas fa-eye"></i> </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo eliminar una venta?</summary>
+                            <p>
+                                <b> Esta función puede ser realizada sólo por los administradores:</b>  </br>
+                                Ir a la opción <b>Administración</b>. </br>
+                                Seleccionar la opción <b>Gestionar ventas</b>. </br>
+                                Buscar la venta que quieres cancelar y hacer click sobre el botón de ver detalles <i class="fas fa-eye"></i> </br>
+                                Hacer click sobre el botón <b>Cancelar venta</b>.
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>ROLES</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo crear un nuevo rol?</summary>
+                            <p>
+                                <b> Esta función puede ser realizada sólo por los administradores:</b></br>
+                                Ir a la opción <b>Administración</b>. </br>
+                                Seleccionar la opción <b>Gestionar roles</b>. </br>
+                                Hacer click en el botón <b>Nuevo</b>.</br>
+                                En el formulario de registro de usuario completar el campo <em>nombre</em>. </br>
+                                Finalmente, hacer click en <b>Aceptar</b>. </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo ver el listado de todos los roles que existen?</summary>
+                            <p>
+                                <b> Esta función puede ser realizada sólo por los administradores:</b></br>
+                                Ir a la opción <b>Administración</b>. </br>
+                                Seleccionar la opción <b>Gestionar roles</b>, allí figura el listado de todos los roles.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo editar un rol?</summary>
+                            <p>
+                                <b> Esta función puede ser realizada sólo por los administradores:</b></br>
+                                Ir a la opción <b>Administración</b>. </br>
+                                Seleccionar la opción <b>Gestionar roles</b>, allí figura el listado de todos los roles. </br>
+                                Buscar el rol que quieres editar y hacer click sobre el botón de edición <i class="fas fa-edit"></i> </br>
+                                Serás dirigido a un formulario donde podrás sobreescribir su nombre. </br>
+                                Hacer click en <b>Aceptar</b>.
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo eliminar un rol?</summary>
+                            <p>
+                                <b> Esta función puede ser realizada sólo por los administradores:</b></br>
+                                Ir a la opción <b>Administración</b>. </br>
+                                Seleccionar la opción <b>Gestionar roles</b>, allí figura el listado de todos los roles. </br>
+                                Buscar el rol que quieres quitar y hacer click sobre el botón de eliminación <i class="fas fa-trash"></i> </br>
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>REPORTES</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo generar un reporte de ventas?</summary>
+                            <p>
+                                <b> Esta función puede ser realizada sólo por los administradores:</b></br>
+                                Ir a la opción <b>Administración</b>. </br>
+                                Seleccionar la opción <b>Reporte de ventas</b>. </br>
+                                Serás dirigido a un formulario para completar el rango de fechas en el que quieres hacer la consulta. </br>
+                                Hacer click en <b>Filtrar</b> y se generará el reporte. </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo generar un reporte de stock?</summary>
+                            <p>
+                                <b> Esta función puede ser realizada sólo por los administradores:</b></br>
+                                Ir a la opción <b>Administración</b>. </br>
+                                Seleccionar la opción <b>Reporte de stock</b>. </br>
+                                Se mostrarán los productos que se encuentren agotados.</br>
+                                También se muestra un campo que permite seleccionar un producto y saber su stock actual.
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+                <details>
+                    <summary>CUENTA</summary>
+                    <p>
+                        <details>
+                            <summary>¿Cómo veo los datos de mi cuenta?</summary>
+                            <p>
+                                En el extremo superior derecho, posicionarse sobre el ícono <i class='fas fa-user'></i> </br>
+                                En el menú que se desplega, seleccionar la opción <b>Mi cuenta</b>, allí apareceran tus datos. </br>
+                            </p>
+                        </details>
+
+                        <details>
+                            <summary>¿Cómo cambio mi contraseña?</summary>
+                            <p>
+                                En el extremo superior derecho, posicionarse sobre el ícono <i class='fas fa-user'></i> </br>
+                                En el menú que se desplega, seleccionar la opción <b>Mi cuenta</b>. </br>
+                                Hacer click en el botón <b>Cambiar contraseña</b>. </br>
+                                Serás dirigido a un formulario que te permitirá ingresar una nueva contraseña. </br>
+                                Hacer click en <b>Aceptar</b>
+                            </p>
+                        </details>
+                    </p>
+                </details>
+
+            </div>
+            
+            </div>
+            {% include 'footer/footer.html' %}
+    </body>
+</html>
