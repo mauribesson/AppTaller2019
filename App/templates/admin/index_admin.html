@@ -90,14 +90,14 @@
                     <td class="columna">
                         <div class="contorno">
                             <div class="card-content">
-                                <div class="titulo">Combos más vendidos</div>
+                                <div class="titulo">Últimos combos vendidos</div>
                                 <div class="card-desc">
-                                    {% for dato in top3Combos %}
+                                    {% for dato in ultimos3Combos %}
                                     <div class="form-group">
-                                        <form action="verProducto" method="POST">
-                                            <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                        <form action="mostrarCombo" method="POST">
+                                            <input value="{{dato[1]}}" type="hidden" class="form-control" name="id" id="id">
                                             <button class="botones" type="submit">
-                                                    <div style="color: blanchedalmond;">{% print(dato[1])%}</div>
+                                                    <div style="color: blanchedalmond;">{% print(dato[2])%}</div>
                                             </button>
                                         </form>
                                     </div>

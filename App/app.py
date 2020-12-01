@@ -61,15 +61,12 @@ def index():
         usuario.set_nombre(session['email'])
         dato = usuario.consultar_usuario_por_nombre()
         # Si el usuario es administrador
-        print("id")
-        print(dato[3])
         if dato[3] == 1 or dato[3] == 3:
-            print("ingreso")
             #Obtenemos el top 3 de productos
             estadistica = Estadistica()
             masvendidos = estadistica.obtener_masvendidos()
-            #Obtenemos el top 3 de combos
-            combosmasvendidos = estadistica.obtener_combosmasvendidos()
+            #Obtenemos ultimos 3 de combos vendidos
+            ultimoscombosvendidos = estadistica.obtener_ultimoscombosvendidos()
             #Obtenemos los 3 mejores compradores
             mejores_compradores = estadistica.obtener_mejorescompradores()
             #Obtenemos los productos faltantes en stock
@@ -82,7 +79,7 @@ def index():
                 stock = ejemplar.cantidad_ejemplares_de_un_producto(p[0])
                 if stock[0][0] == 0:
                     productosFaltantes.append(p[1])
-            return render_template('admin/index_admin.html',data=data, top3=masvendidos, faltantes=productosFaltantes, top3Combos=combosmasvendidos, compradores=mejores_compradores)
+            return render_template('admin/index_admin.html',data=data, top3=masvendidos, faltantes=productosFaltantes, ultimos3Combos=ultimoscombosvendidos, compradores=mejores_compradores)
         # Sino, si es usuario comprador
         else:
             return render_template('cliente/index_cliente_logueado.html', data=data)
@@ -1044,7 +1041,10 @@ def verCombo(id):
 #Muestra el combo al admin
 @app.route('/mostrarCombo')
 @app.route('/mostrarCombo/<int:id>')
-def mostrarCombo(id):
+@app.route('/mostrarCombo', methods=["POST"])
+def mostrarCombo(id=None):
+    if request.method == 'POST':
+        id  = request.form['id']
     combo = Combo()
     combo.set_id(id)
     data = combo.consultar_combo_por_id()
@@ -2246,7 +2246,7 @@ def loginAndrea():
             estadistica = Estadistica()
             masvendidos = estadistica.obtener_masvendidos()
             #Obtenemos el top 3 de combos
-            combosmasvendidos = estadistica.obtener_combosmasvendidos()
+            ultimoscombosvendidos = estadistica.obtener_ultimoscombosvendidos()
             #Obtenemos los 3 mejores compradores
             mejores_compradores = estadistica.obtener_mejorescompradores()
             #Obtenemos los productos faltantes en stock
@@ -2259,7 +2259,7 @@ def loginAndrea():
                 stock = ejemplar.cantidad_ejemplares_de_un_producto(p[0])
                 if stock[0][0] == 0:
                     productosFaltantes.append(p[1])
-            return render_template('admin/index_admin.html',data=data, top3=masvendidos, faltantes=productosFaltantes, top3Combos=combosmasvendidos, compradores=mejores_compradores)
+            return render_template('admin/index_admin.html',data=data, top3=masvendidos, faltantes=productosFaltantes, ultimos3Combos=ultimoscombosvendidos, compradores=mejores_compradores)
         ## Si es usuario es comprador, lo envía a la vista del cliente
         else:
             datos = []

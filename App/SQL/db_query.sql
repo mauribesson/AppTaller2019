@@ -589,6 +589,7 @@ CREATE TABLE "compra" (
 	"id" serial NOT NULL,
 	"idCarrito" integer NOT NULL,
 	"montoCompra" float NOT NULL, 
+	"fecha" date,
 	"estadoConfirmacion" boolean,
 	Primary key ("id"),
 	foreign key ("idCarrito") references "carrito" deferrable

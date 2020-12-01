@@ -15,12 +15,10 @@ class Estadistica:
         return data
 
     
-    def obtener_combosmasvendidos(self):
+    def obtener_ultimoscombosvendidos(self):
         data = db.querySelect(
                 '''
-                SELECT DISTINCT "idCombo","nombre"
-                from "vista_combo_carrito" 
-                order by "nombre" asc fetch first 3 rows only
+                select * from "vista_combo_carrito" ORDER BY "idCarrito" DESC LIMIT 3
                 ''') 
         return data
 
