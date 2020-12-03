@@ -96,6 +96,17 @@
                           {% if e[1] == True %}
                           <td>Vendido</td>
                           {%endif%}
+                          
+                          <td class="botones">
+                            <form action="modificarEjemplar" method="POST">
+                                <div>
+                                    <input value="{{e[0]}}" type="hidden" class="form-control" name="numeroSerie" id="numeroSerie">
+                                    <input value="{{data['id_prod']}}" type="hidden" class="form-control" name="idProducto" id="idProducto">
+                                    <button class="eliminar" type="submit"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                                </div>
+                            </form>
+                          </td>
+
                           <td class="botones">
                             <form action="eliminarEjemplar" method="POST">
                                 <div>

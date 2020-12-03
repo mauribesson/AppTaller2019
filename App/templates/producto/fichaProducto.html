@@ -124,7 +124,13 @@
                     <div class="card-body">
                       <center>
                         <h2  style="color: black;" class="card-title">{{data[1]}}</h2>
-                        <a href="{{ url_for('ejemplaresDeUnProducto')}}/{{data[0]}}/{{data[1]}}" class="btn btn-ej">Ejemplares</a>
+                        <form action="ejemplaresDeUnProducto" method="POST">
+                          <div>
+                              <input value="{{data[0]}}" type="hidden" class="form-control" name="id_prod" id="id_prod">
+                              <input value="{{data[1]}}" type="hidden" class="form-control" name="nombre_prod" id="nombre_prod">
+                              <button class="btn btn-ej" type="submit">Ejemplares</button>
+                          </div>
+                      </form>
                         <p class="card-text">Descripción: {{data[2]}}</p>
                         <p class="card-text">Modelo: {{data[4]}}</p>
                         <p class="card-text">Garantía: {{data[5]}} meses</p>

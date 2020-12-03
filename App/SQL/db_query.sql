@@ -18,7 +18,7 @@ CREATE TABLE "rol" (
 --INSERT INTO "rol" ("nombreRol") values ('vendedor');
 
 CREATE TABLE "usuario" (
-	"nombre" character varying(30) NOT NULL,
+	"nombre" character varying(150) NOT NULL,
 	"contrasenia" character varying (20) NOT NULL, 
 	"contacto" character varying (70),
 	"rol" smallint NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE "marca" (
 CREATE TABLE "producto" (
 	"id" serial NOT NULL,
 	"nombre" character varying (30) NOT NULL,
-	"descripcion" character varying (150) NOT NULL,
+	"descripcion" character varying (1000) NOT NULL,
 	"precio" float NOT NULL,
 	"modelo" character varying (30),
 	"garantia" smallint,

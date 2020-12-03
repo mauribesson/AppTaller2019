@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include 'header/header.html' %}
+<head>
+    <style>
+        .container{
+            width: 600px;
+            padding-top: 50px;
+        }
+        h3{
+            text-align: center;
+            color: red;
+        }
+        h4{
+            text-align: center;
+            color:red;
+        }
+    </style>
+</head>
 
 <body>
     <div class="d-flex" id="wrapper">
 
-            <div class="container p-2" style="margin-top: 70px;">
-                <h2>Modificación de contraseña</h2>
+        <div id="page-content-wrapper">
+            <div class="container">
+                <h3>Las contraseñas ingresadas no coiciden</h3>
+                <h4>Vuelve a intentarlo</h4>
                 <form action="modificarContrasenia" method="POST">
                     <div class="form-group">
                         <input readonly value="{{email}}" type="hidden" class="form-control" name="email" id="email">
@@ -23,6 +41,8 @@
                     <a class="btn btn-danger" href="/miCuenta" role="button">Cancelar</a>
                 </form>
 
+
+            </div>
         </div>
     </div>
 </body>

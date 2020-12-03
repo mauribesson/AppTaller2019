@@ -2,12 +2,47 @@
 <html lang="en">
 {% include 'header/header.html' %}
 
+<head>
+    <title>Ejemplar modificado</title>
+    <style>
+        .mensaje{
+            display:block;
+            margin:auto;
+            text-align: center;
+            font-size: 30px;
+            margin-top: 120px;
+        }
+        .boton{
+            display:block;
+            margin:auto;
+            text-align: center;
+            font-size: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
 <body>
-    {% if data == 1 %}
-    <h2>Ejemplar modificado!</h2>
-    {% else %}
-    <h2>Ejemplar no existe!</h2>
-    {% endif %}
+
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
+
+            {% if data == 1 %}
+            <div class="mensaje">El ejemplar fue modificado</div>
+            {% else %}
+            <div class="mensaje">Ejemplar no existe!</div>
+            {% endif %}
+
+            <a class="boton" href="{{ url_for('fichaProducto')}}/{{id}}" class="btn btn-success">Volver</a>
+
+        </div>
+
+    </div>
+    {% include 'footer/footer.html' %}
+
 </body>
 
 </html>

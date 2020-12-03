@@ -365,10 +365,14 @@ def modificarContrasenia():
     if request.method == 'POST':
         email = request.form['email']
         nuevaContrasenia = request.form['contraseniaNueva']
-    usuario = Usuario()
-    usuario.set_nombre(email)
-    usuario.modificar_contrasenia(email,nuevaContrasenia)
-    return render_template('usuario/contraseniaModificada.html')
+        repetirContraseniaNueva = request.form['repetirContraseniaNueva']
+    if nuevaContrasenia != repetirContraseniaNueva:
+            return render_template('usuario/nosePudoCambiarContrasenia.html', email=email)
+    else:
+        usuario = Usuario()
+        usuario.set_nombre(email)
+        usuario.modificar_contrasenia(email,nuevaContrasenia)
+        return render_template('usuario/contraseniaModificada.html')
 
 
 #====================
@@ -738,7 +742,7 @@ def editarProducto():
                                             nuevaGarantia,
                                             nuevoTipoProducto,
                                             nuevaMarca)     
-    return render_template('producto/productoModificado.html', data=data)
+    return render_template('producto/productoModificado.html', data=data, id=idProd)
 
 @app.route('/fichaProducto')
 @app.route('/fichaProducto/<int:id>')
@@ -895,7 +899,12 @@ def guardarEjemplar():
 
 @app.route('/ejemplaresDeUnProducto')
 @app.route('/ejemplaresDeUnProducto/<int:id_prod>/<string:nombre_prod>')
+@app.route('/ejemplaresDeUnProducto', methods=["POST"])
+@app.route('/fichaProducto/ejemplaresDeUnProducto', methods=["POST"])
 def ejemplaresDeUnProducto(id_prod=None, nombre_prod=None):
+    if request.method == 'POST':
+        id_prod = request.form['id_prod']
+        nombre_prod = request.form['nombre_prod']
     data = {}
     ejemplar = Ejemplar()
     data['ejemplares'] = ejemplar.ejemplares_de_un_producto(id_prod)
@@ -919,24 +928,27 @@ def eliminarEjemplar():
     return render_template('ejemplar/ejemplarEliminado.html', data=data)    
 
 
-@app.route('/modificarEjemplar') 
+@app.route('/modificarEjemplar', methods=["POST"]) 
+@app.route('/fichaProducto/modificarEjemplar', methods=["POST"]) 
 def modificarEjemplar():
-    return render_template('ejemplar/modificarEjemplar.html')  
+    if request.method == 'POST':
+        numeroSerie = request.form['numeroSerie']
+        idProducto = request.form['idProducto']
+    return render_template('ejemplar/modificarEjemplar.html', numeroSerie=numeroSerie, idProducto=idProducto)  
 
 
-@app.route('/editarEjemplar', methods=["POST"])
+@app.route('/fichaProducto/editarEjemplar', methods=["POST"])
 def editarEjemplar():
     if request.method == 'POST':
         numeroSerie = request.form['numeroSerie']
         nuevoNumeroSerie = request.form['nuevoNumeroSerie']
-        nuevoVendido = request.form['nuevoVendido']
-        nuevoProducto = request.form['nuevoProducto']
+        idProducto = request.form['idProducto']
         
         ejemplar = Ejemplar()
         ejemplar.set_numero_serie(numeroSerie)
-        data = ejemplar.modificar_ejemplar(nuevoNumeroSerie, nuevoVendido, nuevoProducto )
+        data = ejemplar.modificar_ejemplar(nuevoNumeroSerie, False, idProducto)
 
-    return render_template('ejemplar/ejemplarModificado.html', data=data)
+    return render_template('ejemplar/ejemplarModificado.html', data=data, id=idProducto)
 
 
 @app.route('/listarEjemplar')

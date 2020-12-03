@@ -17,13 +17,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre">Nombre del producto</label>
-                                <input type="text" class="form-control" required name="nombre" id="nombre" placeholder="Ingresar el nombre del producto">
+                                <input type="text" class="form-control" required name="nombre" id="nombre" placeholder="Ingresar el nombre del producto" maxlength="30">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="descripcion">Descripcion del producto</label>
-                                <input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Ingresar la descripcion del producto" maxlength="150">
+                                <input type="text" class="form-control" required name="descripcion" id="descripcion" placeholder="Ingresar la descripcion del producto" minlength="1">
                             </div>
                         </div>
                     </div>
@@ -32,13 +32,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="precio">Precio del producto</label>
-                                <input type="number" class="form-control" required name="precio" id="precio" placeholder="Ingresar el precio del producto">
+                                <input type="number" class="form-control" required name="precio" id="precio" placeholder="Ingresar el precio del producto" min="1">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="modelo">Modelo del producto</label>
-                                <input type="text" class="form-control" name="modelo" id="modelo" placeholder="Ingresar el modelo del producto">
+                                <input type="text" class="form-control" name="modelo" id="modelo" placeholder="Ingresar el modelo del producto" maxlength="30">
                             </div>
                         </div>
                     </div>
