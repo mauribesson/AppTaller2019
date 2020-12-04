@@ -2304,6 +2304,10 @@ def loginAndrea():
 def miCuenta():
     return render_template('usuario/miCuenta.html')
 
+@app.route('/miCuenta_admin')
+def miCuenta_admin():
+    return render_template('admin/miCuenta_admin.html')
+
 @app.route('/salir')
 def salir():
     ## Elimina la sesion actual
