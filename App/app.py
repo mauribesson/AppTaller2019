@@ -1541,9 +1541,10 @@ def agregarAlCarrito():
 
 @app.route('/agregarComboAlCarrito', methods=["POST"])
 def agregarComboAlCarrito():
-    if request.method == 'POST':
-        idCombo= request.form['id']
-
+    # Si esta logueado
+    if 'email' in session:
+        if request.method == 'POST':
+            idCombo= request.form['id']
         # Chequea si el usuario tiene un carrito activo (con productos)
         carrito = Carrito()
         datosCarrito = carrito.carrito_actual(session['email'])
@@ -1622,7 +1623,11 @@ def agregarComboAlCarrito():
         comboCarrito = Combo_carrito()
         combos_carrito = comboCarrito.combos_de_un_carrito(id_carrito)
         return render_template('carrito/mostrarCarrito.html', ejemplares=ejemplares_carrito, combos=combos_carrito,total=total, idCarrito=id_carrito)
+    # Si no esta logueado
+    else:
+        return render_template('login/solicitarLogin.html')
 
+    
 
 @app.route('/mostrarCarrito')
 def mostrarCarrito():
