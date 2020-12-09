@@ -1098,7 +1098,11 @@ def mostrarComboAlUsuario():
 
     dato['productos'] = producto.listar_productos()
 
-    return render_template('combo/mostrarComboAlUsuario.html', dato=dato, id=id)
+    ## Verifica si hay algún usuario logueado para dirigirlo a la vista correspondiente
+    if 'email' in session:
+        return render_template('combo/mostrarComboAlUsuario.html', dato=dato, id=id)
+    else:
+        return render_template('combo/mostrarComboAlUsuarioNoLog.html', dato=dato, id=id)
 
 
 @app.route('/cargarProductos')

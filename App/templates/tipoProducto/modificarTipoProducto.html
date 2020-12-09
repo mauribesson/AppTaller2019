@@ -6,7 +6,6 @@
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar.html' %}
         <div id="page-content-wrapper">
-            {% include 'navbars/navbar_admin.html' %}
                 <div class="container p-2" style="margin-top: 70px;">
                     <h2>Modificación del tipo de producto</h2>
                     <form action="{{ url_for('editarTipoProducto') }}" method="POST">
