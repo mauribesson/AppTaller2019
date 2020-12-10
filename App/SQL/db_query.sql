@@ -13,9 +13,9 @@ CREATE TABLE "rol" (
 --COMPRADOR ID 2
 --VENDEDOR ID 3
 ---CARGA DE ROLES
---INSERT INTO "rol" ("nombreRol") values ('admin');
---INSERT INTO "rol" ("nombreRol") values ('comprador');
---INSERT INTO "rol" ("nombreRol") values ('vendedor');
+INSERT INTO "rol" ("nombreRol") values ('admin');
+INSERT INTO "rol" ("nombreRol") values ('comprador');
+INSERT INTO "rol" ("nombreRol") values ('vendedor');
 
 CREATE TABLE "usuario" (
 	"nombre" character varying(150) NOT NULL,
@@ -1005,3 +1005,19 @@ INSERT INTO public.usuario(
 
 --- AGREGA EL CAMPO FECHA A LA TABLA COMPRA
 --- ALTER TABLE "compra" ADD COLUMN "fecha" date;
+
+
+
+
+--- correcciones de rol
+UPDATE public.rol
+	SET "idRol"=1, "nombreRol"='admin'
+	WHERE "nombreRol"='admin';
+
+UPDATE public.rol
+	SET "idRol"=2, "nombreRol"='comprador'
+	WHERE "nombreRol"='comprador';
+
+UPDATE public.rol
+	SET "idRol"=3, "nombreRol"='vendedor'
+	WHERE "nombreRol"='vendedor';

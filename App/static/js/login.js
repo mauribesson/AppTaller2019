@@ -24,11 +24,13 @@
     firebase.initializeApp(firebaseConfig);
 
     //Vincular elementos del DOM
+    /*
     const inputEmail = document.getElementById("inputEmail");
     const inputPassword = document.getElementById("inputPassword");
     const btnLogin = document.getElementById("btnLogin");
     const btnSingIn = document.getElementById("btnSingIn");
     const btnSingOut = document.getElementById("btnSingOut");
+    */
     const btnFacebookSingIn = document.getElementById("btnFacebookSingIn");
     const btnGoogleSingIn = document.getElementById("btnGoogleSingIn");
 
@@ -36,64 +38,64 @@
     const CLIENT_PATH = "/cliente"
     const ADMIN_ROL_ID = 1
     const CLIENT_ROL_ID = 2
+        /*
+            //Clic boton Login 
+            btnLogin.addEventListener('click', e => {
+                //obtenego valor de los inputs
+                const email = inputEmail.value;
+                const password = inputPassword.value;
 
-    //Clic boton Login 
-    btnLogin.addEventListener('click', e => {
-        //obtenego valor de los inputs
-        const email = inputEmail.value;
-        const password = inputPassword.value;
+                const auth = firebase.auth();
+                auth.signInWithEmailAndPassword(email, password)
+                    .then(function(e) {
+                        console.log("usuario logueado", e);
+                    })
+                    .catch(function(error) {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log(errorCode, errorMessage);
 
-        const auth = firebase.auth();
-        auth.signInWithEmailAndPassword(email, password)
-            .then(function(e) {
-                console.log("usuario logueado", e);
-            })
-            .catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorCode, errorMessage);
+                        if (errorCode === 'auth/wrong-password') {
+                            alert('Contraseña incorrecta!!!');
+                        } else if (errorCode === 'auth/invalid-email') {
+                            alert('Debe ingresar un Email de Ususario ya registrado valido!!!');
+                        }
+                        console.log(error);
+                    });
 
-                if (errorCode === 'auth/wrong-password') {
-                    alert('Contraseña incorrecta!!!');
-                } else if (errorCode === 'auth/invalid-email') {
-                    alert('Debe ingresar un Email de Ususario ya registrado valido!!!');
-                }
-                console.log(error);
             });
 
-    });
+
+            //boton Sing in (crear usuario)
+            btnSingIn.addEventListener('click', e => {
+                //obtenego valor de los inputs
+                const email = inputEmail.value;
+                const password = inputPassword.value;
+
+                const auth = firebase.auth();
+                auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log("error cear usuario", errorCode, errorMessage);
+                });
+            });
 
 
-    //boton Sing in (crear usuario)
-    btnSingIn.addEventListener('click', e => {
-        //obtenego valor de los inputs
-        const email = inputEmail.value;
-        const password = inputPassword.value;
+            //boton Sing out 
+            btnSingOut.addEventListener('click', e => {
+                const auth = firebase.auth();
+                auth.signOut().then(function() {
+                    // Sign-out successful.
+                }).catch(function(e) {
+                    // An error happened.
+                    console.log(e);
+                });
+            });
 
-        const auth = firebase.auth();
-        auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log("error cear usuario", errorCode, errorMessage);
-        });
-    });
-
-
-    //boton Sing out 
-    btnSingOut.addEventListener('click', e => {
-        const auth = firebase.auth();
-        auth.signOut().then(function() {
-            // Sign-out successful.
-        }).catch(function(e) {
-            // An error happened.
-            console.log(e);
-        });
-    });
-
-
-    //Boton Facebook
+        */
+        //Boton Facebook
     btnFacebookSingIn.addEventListener('click', e => {
         console.log("Facebook")
         var provider = new firebase.auth.FacebookAuthProvider();
