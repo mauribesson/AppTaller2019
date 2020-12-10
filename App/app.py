@@ -93,8 +93,6 @@ def  login():
 
 #========================== Fin LOGIN  ===================================#
 
-#=========================ABMC===========================#
-
 #===========================
 #         ROL
 #===========================
@@ -232,38 +230,34 @@ def usuario_data_table():
     data = usuario.formato_datos_tabla()
     return jsonify(data)
 
-
 @app.route('/altaUsuario')
 def altaUsuario():
-    #  return render_template('usuario/altaUsuario.html') 
-    # Si el usuario fue creado por el admin
-            if 'email' in session:
-                return render_template('usuario/crearUsuario.html')  
-            # Si el usuario fue creado por el usuario
-            else:
-                return render_template('usuario/crearUsuarioPorUsuario.html') 
+    # Si el usuario es creado por el admin
+    if 'email' in session:
+        return render_template('usuario/crearUsuario.html')  
+    # Si el usuario es creado por el usuario
+    else:
+        return render_template('usuario/crearUsuarioPorUsuario.html') 
     
-
-
 @app.route('/guardarUsuario', methods=["POST"])
 def guardarUsuario():
     data = []
+    #Obtenemos los datos que vienen del formulario
     if request.method == 'POST':
         nombre = request.form['nombreUsuario']
         contrasenia = request.form['contrasenia']
         contrasenia_confirmacion = request.form['contrasenia_confirmacion']
         contacto = request.form['contacto']
-
+        # Si las contraseñas no son iguales, vuelve a pedir que las ingrese
         if contrasenia != contrasenia_confirmacion:
             return render_template('usuario/contrasenias_no_coinciden.html', nombre=nombre, contacto=contacto)
+        # Si las contraseñas coinciden, se crea el usuario
         else:
             usuario = Usuario()
             usuario.set_nombre(nombre)
             usuario.set_contrasenia(contrasenia)
             usuario.set_contacto(contacto)
-
             verificador = usuario.verificar_unico_usuario()  
-
             if verificador == []:
                 data = usuario.alta_usuario() 
             # Si el usuario fue creado por el admin
@@ -273,13 +267,11 @@ def guardarUsuario():
             else:
                 return render_template('usuario/usuarioGuardadoPorUsuario.html') 
 
-
 """
 @app.route('/bajaUsuario') 
 def bajaUsuario():
     return render_template('usuario/bajaUsuario.html')  
 """
-
 
 @app.route('/eliminarUsuario')
 @app.route('/eliminarUsuario/<email>')
@@ -300,8 +292,6 @@ def eliminarUsuario(email=None):
         else:
             return render_template('admin/soloAdmin.html')
    
-
-
 @app.route('/modificarUsuario') 
 @app.route('/modificarUsuario/<email>') 
 def modificarUsuario(email=None):
@@ -328,52 +318,51 @@ def modificarUsuario(email=None):
         else:
             return render_template('admin/soloAdmin.html')
 
-
 @app.route('/editarUsuario', methods=["POST"])
 def editarUsuario():
     data = []
+    # Obtenemos los datos que vienen del formulario
     if request.method == 'POST':
         nombre = request.form['nombre']      
         contraseniaNueva = request.form['contraseniaNueva']
         contactoNuevo = request.form['contactoNuevo'] 
         RolNuevo = request.form['NuevoRol']  
-
+        # Modificamos el usuario
         usuario = Usuario()
         usuario.set_nombre(nombre)    
         usuario.modificar_usuario(contraseniaNueva, contactoNuevo, RolNuevo)
-
     return render_template('usuario/usuarioModificado.html', data=data)
-
 
 @app.route('/listarUsuario')
 def listarUsuario():
     data = []
+    # Traemos todos los usuariosy y sus datos
     usuario = Usuario()
     data = usuario.consultar_usuarios() 
     return render_template('usuario/listadoUsuario.html', data=data)   
     
-
 @app.route('/cambiarContrasenia')
 @app.route('/cambiarContrasenia/<string:email>')
 def cambiarContrasenia(email=None):
     return render_template('usuario/modificarContrasenia.html', email=email)
-    
-    
+        
 @app.route('/modificarContrasenia', methods=["POST"])
 @app.route('/cambiarContrasenia/modificarContrasenia', methods=["POST"])
 def modificarContrasenia():
+    # Obtenemos los datos que vienen del formulario
     if request.method == 'POST':
         email = request.form['email']
         nuevaContrasenia = request.form['contraseniaNueva']
         repetirContraseniaNueva = request.form['repetirContraseniaNueva']
+    # Si las contraseñas no coinciden vuelve a pedir que las ingrese
     if nuevaContrasenia != repetirContraseniaNueva:
             return render_template('usuario/nosePudoCambiarContrasenia.html', email=email)
+    # Si las contraseñas coinciden realiza la modificacion
     else:
         usuario = Usuario()
         usuario.set_nombre(email)
         usuario.modificar_contrasenia(email,nuevaContrasenia)
         return render_template('usuario/contraseniaModificada.html')
-
 
 #====================
 # ABM tipoProducto
@@ -384,7 +373,6 @@ def tipoProductoABMC():
     data =[]
     return render_template('tipoProducto/tipoProductoABMC.html', data=data)
 
-
 #datos para tabla Tipo de Producto "JSON"
 @app.route('/tipo_de_producto_data_table')
 def tipo_de_producto_data_table():
@@ -392,29 +380,27 @@ def tipo_de_producto_data_table():
     data = tp.formato_datos_tabla()
     return jsonify(data)   
 
-
 @app.route('/altaTipoProducto')
 def altaTipoProducto():
+    # Se dirige al formulario de alta de tipo de producto
      return render_template('tipoProducto/altaTipoProducto.html') 
-
 
 @app.route('/guardarTipoProducto', methods=["POST"])
 def guardarTipoProducto():
     data = []
+    # Obtiene los datos que vienen del formulario de alta
     if request.method == 'POST':
         nombre = request.form['nombre']
+        # Crea el tipo de producto
         tipo_producto = TipoProducto()
         tipo_producto.set_nombre_tipo(nombre)
         verificador = tipo_producto.verificar_unico_tipo_producto()
-
         if verificador == []: 
             tipo_producto.alta_tipo_producto()   
             data = "alta"
         else:
             data = "ya_existe"
-
     return render_template('tipoProducto/tipoProductoABMC.html', data=data, verificador=verificador)  
-
 
 @app.route('/eliminarTipoProducto')
 @app.route('/eliminarTipoProducto/<int:id>')
@@ -424,9 +410,7 @@ def eliminarTipoProducto(id=None):
     tipo_producto.set_id(id)
     tipo_producto.baja_tipo_producto()
     data = "eliminado"
-
     return render_template('tipoProducto/tipoProductoABMC.html', data=data)    
-
 
 @app.route('/modificarTipoProducto') 
 @app.route('/modificarTipoProducto/<int:id>')
@@ -437,24 +421,22 @@ def modificarTipoProducto(id=None):
     data = tp.consultar_tipo_producto_por_id()
     return render_template('tipoProducto/modificarTipoProducto.html', data=data)  
 
-
 @app.route('/editarTipoProducto', methods=["POST"])
 def editarTipoProducto():
     data = []
+    # Obtenemos los datos que vienen del formulario de edición
     if request.method == 'POST':
         nombre = request.form['nombre']
         nombreNuevo = request.form['nombreNuevo']
+        # Modificamos el tipo de producto
         tipo_producto = TipoProducto()
         tipo_producto.set_nombre_tipo(nombre)
         result = tipo_producto.modificar_tipo_producto(nombreNuevo)
-
         if result == 1:
             data = "modificado"
         else:
             data = "no_modificado"
-
     return render_template('tipoProducto/tipoProductoABMC.html', data=data)
-
 
 @app.route('/listarTipoProducto') #### CATEGORIAS DE PRODUCTOS
 def listarTipoProducto():
@@ -462,16 +444,13 @@ def listarTipoProducto():
     data = tipo_producto.consultar_tipo_producto()
     return render_template('tipoProducto/listadoTipoProducto.html', data=data)
 
-
 @app.route('/listarCategorias', methods=["POST"])
 def listarCategorias():
     if request.method == 'POST':
         tipoProducto = request.form['tipoProducto']
-
     data = []
     producto = Producto()
     data = producto.consultar_producto_por_tipo(tipoProducto)
-
     #cuenta los elementos del data
     contador = 0
     for e in data:
@@ -482,7 +461,6 @@ def listarCategorias():
         ejemplar = Ejemplar()
         cantidad = ejemplar.cantidad_ejemplares_de_un_producto(data[e][0])
         data[e] += (cantidad[0][0],)
-
         #guarda la primer imagen del producto en la posición 9 del data
         imagenes = Imagenes()
         imgs = imagenes.imagenes_producto(data[e][0])
@@ -492,8 +470,6 @@ def listarCategorias():
         #Sino guarda la primer imagen
         else:
             data[e] += (imgs[0])
-
-
     ## Verifica si hay algún usuario logueado para dirigirlo a la vista correspondiente
     if 'email' in session:
         return render_template('producto/productosPorCategoria.html', data=data, categoria=tipoProducto)
@@ -509,7 +485,6 @@ def marcaABMC():
     data =[]
     return render_template('marca/marcaABMC.html', data=data)
 
-
 #datos para Marca "JSON"
 @app.route('/marca_data_table')
 def marca_data_table():
@@ -517,15 +492,15 @@ def marca_data_table():
     data = tp.formato_datos_tabla()
     return jsonify(data)   
 
-
 @app.route('/altaMarca')
 def altaMarca():
+    # Dirige al formulario de alta de marca
      return render_template('marca/altaMarca.html') 
-
 
 @app.route('/guardarMarca', methods=["POST"])
 def guardarMarca():
     data = []
+    # Obtiene los datos 
     if request.method == 'POST':
         nombre = request.form['nombre']
         marca = Marca()
@@ -649,16 +624,20 @@ def producto_data_table():
 @app.route('/altaProducto')
 def altaProducto():
     data = {}
+    # Guardamos todos los tipos de productos para que se listen en el formulario de alta del producto
     tp = TipoProducto()
     data['TipoProducto'] = tp.consultar_tipo_producto()
+    # Guardamos todas las marcas para que se listen en el formulario de alta del producto
     marca = Marca()
     data['marca'] = marca.listar_marca()
+    # Se dirige al formulario de alta del producto
     return render_template('producto/altaProducto.html', data=data) 
 
 
 @app.route('/guardarProducto', methods=["POST"])
 def guardarProducto():
     data = []
+    # Obtenemos los datos que vienen del formulario de alta de producto
     if request.method == 'POST':
         nombre = request.form['nombre']
         descripcion = request.form['descripcion'] 
@@ -667,7 +646,7 @@ def guardarProducto():
         garantia = request.form['garantia']
         tipo_producto = request.form['tipoProducto']
         marca = request.form['marca'] 
-
+        # Se da de alta el producto
         producto = Producto()
         producto.set_nombre(nombre)
         producto.set_descripcion(descripcion)
@@ -676,23 +655,25 @@ def guardarProducto():
         producto.set_garantia(garantia)
         producto.set_tipo_producto(tipo_producto)
         producto.set_marca(marca)
-
         verificador = producto.verificar_unico_producto()
- 
         if verificador == []:
             data = producto.alta_producto()
             data="alta"
         else:
             data="ya_existe"
-
+    # Obtenemos el id del nuevo producto para asignarle sus imagenes
     producto = Producto()
     idProducto = producto.buscarIdProducto(nombre)
     imagenes=[]
     if request.method == 'POST':
-        for imagen in request.files.getlist('imagenes'):
-            imagenes.append(imagen)
-    guardarImagen(imagenes, idProducto[0][0])
-
+        # Comprueba que se hayan cargado imagenes
+        if (len(request.files.getlist('imagenes')) > 1):
+            for imagen in request.files.getlist('imagenes'):
+                imagenes.append(imagen)
+    # Si hay imagenes las guarda en el Storage y en la bbdd
+    if (imagenes != [] ):
+        guardarImagen(imagenes, idProducto[0][0])
+        
     return render_template('producto/productoABMC.html', data=data)  
 
 @app.route('/eliminarProducto')
