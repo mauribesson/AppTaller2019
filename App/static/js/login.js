@@ -123,6 +123,7 @@
         });
     });
 
+    /*
     const validateUserRol = (user) => {
         let url = window.location.href + "/validarRolUsuario?usuario=" + user;
         let userData = { "user": user };
@@ -155,12 +156,12 @@
                 console.log('Fetch Error :-S', err);
             });
     }
-
+*/
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            validateUserRol(user.email); // Valida rol y redirecciona --> se podria reducir compelgidad 
-            console.log("Login", user);
+            //validateUserRol(user.email); // Valida rol y redirecciona --> se podria reducir compelgidad 
+            console.log("Login", user.mail);
         } else {
             console.log("change else", user);
             /*  if (location.pathname !== "/login") {

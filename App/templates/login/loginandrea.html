@@ -2,7 +2,13 @@
 <html lang="es">
 
 <head>
-    <title>Acceso</title>
+    <title>e-Shop Acceso</title>
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/fontawesome/css/all.min.css') }}">
+    <!-- Fontawesome -->
+    <script src="{{ url_for('static', filename='lib/fontawesome/js/all.min.js') }}"></script>
+
+
     <style>
         .fondo {
             /* background-image: url("https://seoymedia.com/sites/default/files/portada_puntoofertas.jpg");
@@ -104,7 +110,9 @@
     </style>
 </head>
 
+
 <body class="fondo">
+
     <div class="cuadrado">
         <div class="formulario">
             <form action="loginAndrea" method="POST" class="p1">
@@ -126,6 +134,7 @@
                 </div>
 
                 <ul class="iconos">
+                    <!--
                     <li class="ic">
                         <a href="#" style="text-decoration:none;">
                             <img src="/static/img/icono-facebook.png" alt="" width="10%" height="10%">
@@ -141,6 +150,8 @@
                             <img src="/static/img/icono-twitter.png" alt="" width="10%" height="10%">
                         </a>
                     </li>
+                -->
+
                 </ul>
             </div>
             <div class="row">
@@ -163,6 +174,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- {% include 'footer/footer.html' %} -->
 
         <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
