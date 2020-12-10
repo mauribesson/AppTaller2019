@@ -7,7 +7,7 @@
         {% include 'navbars/sidebar.html' %}
 
         <div id="page-content-wrapper">
-            {% include 'navbars/navbar_admin.html' %}
+            {% include 'navbars/navbar_admin_horizontal.html' %}
 
             <div class="container-fluid">
                 {% if data == "eliminado" %}
@@ -73,8 +73,8 @@
                         <h1 class="display-5">Tipos de productos</h1>
                         <hr class="my-4">
                         <a class="nuevo-abmc btn btn-success" href="{{ url_for('altaTipoProducto') }}"><i class="far fa-plus-square"></i> Nuevo</a>
-
-                        <table id="tablaTipoProducto" data-classes="table table-bordered table-hover  table-striped" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500">
+                        <table id="tablaTipoProducto" data-classes="table table-bordered table-hover  table-striped" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-height="500"></table>
+                        <!-- <table id="tablaTipoProducto" data-classes="table table-bordered table-hover  table-striped" data-thead-classes="thead-dark" data-toggle="false" data-toolbar="#toolbar" data-search="true" data-show-columns="false" data-pagination="true" data-height="500"> -->
                         </table>
                     </div>
                 </div>
