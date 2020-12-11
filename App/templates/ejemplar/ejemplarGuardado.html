@@ -54,8 +54,11 @@
                 <div class="mensaje1">El ejemplar {{numeroSerie}} ya existe</div>
             {% endif %}
 
-            <a href="{{ url_for('ejemplaresDeUnProducto')}}/{{producto}}/{{nombreProducto}}" class="btn btn-ej">Volver</a>
-
+            <form action="ejemplaresDeUnProducto" method="POST">
+                <input value="{{producto}}" type="hidden" class="form-control" name="id_prod" id="id_prod">
+                <input value="{{nombreProducto}}" type="hidden" class="form-control" name="nombre_prod" id="nombre_prod">
+                <button class="btn btn-ej" type="submit">Volver</button>
+            </form>
         </div>
     </div>
     {% include 'footer/footer.html' %}

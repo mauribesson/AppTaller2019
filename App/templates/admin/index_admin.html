@@ -74,7 +74,7 @@
                                 <div class="card-desc">
                                     {% for dato in top3 %}
                                     <div class="form-group">
-                                        <form action="verProducto" method="POST">
+                                        <form action="fichaProducto" method="POST">
                                             <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
                                             <button class="botones" type="submit">
                                                     <div style="color: blanchedalmond;">{% print(dato[1])%}</div>

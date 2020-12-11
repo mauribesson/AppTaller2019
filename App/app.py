@@ -899,7 +899,7 @@ def ejemplaresDeUnProducto(id_prod=None, nombre_prod=None):
 def bajaEjemplar():
     return render_template('ejemplar/bajaEjemplar.html')  
 
-
+@app.route('/fichaProducto/eliminarEjemplar', methods=["POST"])
 @app.route('/eliminarEjemplar', methods=["POST"])
 def eliminarEjemplar():
     if request.method == 'POST':
@@ -920,6 +920,7 @@ def modificarEjemplar():
 
 
 @app.route('/fichaProducto/editarEjemplar', methods=["POST"])
+@app.route('/editarEjemplar', methods=["POST"])
 def editarEjemplar():
     if request.method == 'POST':
         numeroSerie = request.form['numeroSerie']
