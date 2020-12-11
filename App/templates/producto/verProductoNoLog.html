@@ -107,6 +107,13 @@
                         <section class="awSlider">
                         <div  class="carousel slide" data-ride="carousel">
                           <div class="carousel-inner" role="listbox">
+                            {% if cantidadFotos == 0 %}
+                              <div class="item active">
+                                <img class="imagen" src="..\static\img\producto-default.png">
+                              </div>
+                            {%endif%}
+
+                          {% if cantidadFotos != 0 %}
                             {% for foto in range(cantidadFotos) %}
                               {% if foto == 0 %}
                                 <div class="item active">
@@ -119,6 +126,7 @@
                                 </div>
                               {%endif%}
                             {%endfor%}
+                          {%endif%}
                           </div>
                       
                           <!-- Controls -->

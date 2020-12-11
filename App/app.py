@@ -83,6 +83,7 @@ def index():
         # Sino, si es usuario comprador
         else:
             return render_template('cliente/index_cliente_logueado.html', data=data)
+    # Si no hay usuario logueado
     else:
         return render_template('index.html', data=data)
 
@@ -745,8 +746,8 @@ def fichaProducto(id=None):
     cantidadImagenes=cantidadImagenes[0][0]
     return render_template('producto/fichaProducto.html', data = data, stock = cantidad, fotos = imgs, cantidadFotos = cantidadImagenes)
 
-
-@app.route('/listarProductos')
+# No se usaría, asi como tampoco el template
+""" @app.route('/listarProductos')
 def listarProductos():
     data = {}
     producto = Producto()
@@ -755,7 +756,7 @@ def listarProductos():
     for e in cant:
         cantidad = e[0]
     cantidad=int(cantidad)
-    return render_template('producto/productos.html', data=data, cantidad=cantidad)
+    return render_template('producto/productos.html', data=data, cantidad=cantidad) """
 
 ## Vista del usuario
 @app.route('/verProducto')

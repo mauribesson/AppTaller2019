@@ -4,7 +4,7 @@ class Database:
     def __init__(self):  
         self.host = "localhost" 
         self.port = "5432" 
-        self.database = "AppTaller2019_2" # AppTaller2019_2: db nueva (07/12/2020)
+        self.database = "AppTaller2019" # AppTaller2019_2: db nueva (07/12/2020)
         self.user = "postgres" 
         self.password = "admin"
         pass

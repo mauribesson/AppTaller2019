@@ -93,7 +93,12 @@
                                         <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
                                         <button class="cliqueable" type="submit">
                                             <div class="card-img">
-                                                <img src="{{dato[9]}}" style="border-radius: 20px" width="150" height="200" alt="Ver detalles">
+                                                {% if dato[9] %}
+                                                    <img src="{{dato[9]}}" style="border-radius: 20px" width="150" height="200" alt="Ver detalles">
+                                                {%endif%}
+                                                {% if not(dato[9]) %}
+                                                    <img src="..\static\img\producto-default.png" style="border-radius: 20px" width="150" height="200" alt="Ver detalles">
+                                                {%endif%}
                                             </div>
                                         </button>
                                     </form>

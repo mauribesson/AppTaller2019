@@ -101,7 +101,12 @@
                                         <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
                                         <button class="cliqueable" type="submit">
                                             <div class="card-img">
-                                                <img src="{{dato[9]}}" style="border-radius: 20px" width="150" height="200" alt="Ver detalles">
+                                                {% if dato[9] %}
+                                                    <img src="{{dato[9]}}" style="border-radius: 20px" width="180" height="200" alt="Ver detalles">
+                                                {%endif%}
+                                                {% if not(dato[9]) %}
+                                                    <img src="..\static\img\producto-default.png" style="border-radius: 20px" width="150" height="200" alt="Ver detalles">
+                                                {%endif%}
                                                 <!-- <img src="https://storage.googleapis.com/apptaller-18740.appspot.com/Emprendedor-Digital.jpg" style="border-radius: 20px" width="150" height="200" alt="Ver detalles"> -->
                                                 <!-- <img src="https://w7.pngwing.com/pngs/338/779/png-transparent-drawing-personal-computer-desktop-computers-computer-angle-furniture-rectangle.png" style="border-radius: 20px" width="150" height="200" alt="Ver detalles"> -->
                                             </div>
