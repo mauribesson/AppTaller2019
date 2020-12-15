@@ -4,11 +4,12 @@ class Database:
     def __init__(self):  
         self.host = "localhost" 
         self.port = "5432" 
-        self.database = "AppTaller2019" # AppTaller2019_2: db nueva (07/12/2020)
+        self.database = "AppTaller2019" 
         self.user = "postgres" 
-        self.password = "admin"
+        self.password = "12345678"  # Mauricio: 12345678 ; andrea: admin
         pass
 
+    #para hacer querys tipo select que retornan 0 o mas elemntos
     def querySelect(self, query=""):  
         self.connect = psycopg2.connect(host=self.host, 
                                         port=self.port, 
@@ -24,7 +25,7 @@ class Database:
         self.connect.close()
         return result
 
-
+    #para hacer querys tipo insert update delete, consultas que retornan catidad do rows afectada.
     def queryInsert(self, query=""):  
         self.connect = psycopg2.connect(host=self.host, 
                                         port=self.port, 

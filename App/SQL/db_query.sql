@@ -988,6 +988,15 @@ FROM ejemplar_carrito AS ec
 JOIN carrito AS "c" ON ec."idCarrito" = c."id"
 Join compra AS "co" ON co."idCarrito" = c."id";
 
+
+
+-- ====================================fin vistas
+
+
+
+
+
+
 --INSERTs de inicio 
 -- admin por defecto
 INSERT INTO public.usuario(

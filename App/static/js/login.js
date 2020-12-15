@@ -118,6 +118,7 @@
         //firebase.auth().signInWithRedirect(provider);
         firebase.auth().signInWithPopup(provider).then(function(result) {
             console.log(result);
+            console.log(result.user.email);
         }).catch(function(error) {
             console.log(error);
         });
