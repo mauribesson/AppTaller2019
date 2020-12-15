@@ -39,12 +39,14 @@
                         <label for="nombreNuevo">Nuevo nombre del combo</label>
                         <input type="text" class="form-control" name="nombreNuevo" id="nombreNuevo" placeholder="Nuevo nombre del combo" maxlength="50">
                     </div>
-                    <div></div>
-                    <a href="{{ url_for('editarProductosDelCombo')}}/{{id}}" class="btn btn-ej">Modificar los productos del combo</a>
-                    <div></div>
                     <button type="submit" class="btn btn-primary">Aceptar</button>
                     <a class="btn btn-danger" href="/" role="button">Cancelar</a>
                 </form>
+
+                
+                <div style="margin-top: 40px;">
+                <a href="{{ url_for('editarProductosDelCombo')}}/{{id}}" class="btn btn-ej">Modificar los productos del combo</a>
+                </div>
 
 
             </div>

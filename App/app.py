@@ -1110,9 +1110,9 @@ def cargarProductos():
     precio =int(precio)
     total = float(total)
     data['total'] = total + precio
-
+    nuevoTotal = total + precio
     combo = Combo()
-    combo.cambiar_precio((data['idCombo']), (data['total']))
+    combo.cambiar_precio((data['idCombo']), nuevoTotal)
     
     ejemplar = Ejemplar()
 
@@ -1136,20 +1136,28 @@ def cargarEjemplaresAlCombo():
         dato['descuento'] = request.form['descuento']
         dato['totalConDescuento'] = request.form['totalConDescuento']
         id=request.form['idCombo']
-
     # Se agrega el ejemplar al combo
     ejemplacombo = Ejemplar_combo()
     ejemplacombo.set_idCombo(dato['idCombo'])
     ejemplacombo.set_numero_serie(dato['ejemplar'])
     data = ejemplacombo.alta_ejemplar_combo()
-
     # Se marca el ejemplar como vendido, para evitar la sobreventa
     ejem = Ejemplar()
     ejem.marcar_ejemplar_vendido(dato['ejemplar'])
-    """ producto = Producto()
-    producto.listar_productos()
-    dato['productos'] = producto.listar_productos() """
-
+    # Actualizamos el total con descuento
+    combo = Combo()
+    combo.set_id(dato['idCombo'])
+    total = combo.total_combo(dato['idCombo'])
+    total = total[0][0]
+    precioDelProducto = ejem.precio_ejemplar(dato['ejemplar'])
+    precioDelProducto = precioDelProducto[0][4]
+    desc = combo.consultar_descuento_combo()
+    desc = float(desc[0][0])
+    importeDescuento = ((total * desc)/100)
+    totalConDesc = total - importeDescuento
+    combo.actualizarDescuento(totalConDesc)
+    # Obtenemos los ejemplares del combo
+    dato['ejemplares'] = combo.listar_poductos_del_combo(id)
     ##Se seleccionan solo los productos disponibles
     todosLosProductos = {}
     productosDisponibles = []
@@ -1174,6 +1182,7 @@ def cargarEjemplaresAlCombo():
 @app.route('/verCombo/cargarDescuentoAlCombo', methods=["POST"])
 @app.route('/editarProductosDelCombo/cargarDescuentoAlCombo', methods=["POST"])
 def cargarDescuento():
+    #Obtenemos los datos que vienen del formulario
     dato = {}
     if request.method == 'POST':
         dato['nombreCombo'] = request.form['nombreCombo']
@@ -1182,21 +1191,20 @@ def cargarDescuento():
         dato['total']  = request.form['total']
         dato['totalConDescuento']  = request.form['totalConDescuento']
         id=request.form['idCombo']
-
+    # Obtenemos el nuevo total con descuento
     total = float(dato['total'])   
     desc = float(dato['descuento'])
     importeDescuento = ((total * desc)/100)
     totalConDesc = total - importeDescuento
-
     combo = Combo()
     combo.aplicarDescuento(dato['idCombo'], totalConDesc, dato['descuento'])
-
     dato['totalConDescuento']  = totalConDesc
 
     producto = Producto()
     producto.listar_productos()
     dato['productos'] = producto.listar_productos()
-
+    # Obtenemos los ejemplares del combo
+    dato['ejemplares'] = combo.listar_poductos_del_combo(id)
     ##Se seleccionan solo los productos disponibles
     todosLosProductos = {}
     productosDisponibles = []
@@ -1208,8 +1216,6 @@ def cargarDescuento():
         canti=ejemplar.cantidad_ejemplares_de_un_producto(e[0])
         if (canti[0][0]!=0):
             productosDisponibles.append(e)
-
-
     return render_template('combo/cargarProductosalCombo.html', dato=dato, id=id, productos=productosDisponibles)    
 
 
@@ -1265,10 +1271,10 @@ def editarCombo():
 @app.route('/editarProductosDelCombo')
 @app.route('/editarProductosDelCombo/<int:id>')
 def editarProductosDelCombo(id=None):
+    # Obtenemos todos los datos del combo
     combo = Combo()
     combo.set_id(id)
     data = combo.consultar_combo_por_id()
-
     dato = {}
     dato['nombreCombo'] = data[0][1]
     dato['idCombo'] = data[0][0]
@@ -1276,7 +1282,8 @@ def editarProductosDelCombo(id=None):
     dato['total']  = data[0][2]
     dato['totalConDescuento']  = data[0][4]
     id=data[0][0]
-
+    # Obtenemos los ejemplares del combo
+    dato['ejemplares'] = combo.listar_poductos_del_combo(id)
     ##Se seleccionan solo los productos disponibles
     todosLosProductos = {}
     productosDisponibles = []
@@ -1361,30 +1368,36 @@ def listarEjemplar_combo():
             ''')
     return render_template('ejemplar_combo/listadoEjemplar_combo.html', data=data) 
 
-
 @app.route('/eliminarEjemplar_combo')
+@app.route('/eliminarEjemplar_combo', methods=["POST"])
 @app.route('/eliminarEjemplar_combo/<string:numeroSerie>/<int:idCombo>')
-def eliminarEjemplar_combo(numeroSerie, idCombo):
+@app.route('/editarProductosDelCombo/eliminarEjemplar_combo', methods=["POST"])
+def eliminarEjemplar_combo(numeroSerie=None, idCombo=None):
+    #Obtenemos los datos del formulario
+    if request.method == 'POST':
+        idCombo = request.form['idCombo']
+        numeroSerie = request.form['numeroSerie']
     combo = Combo()
     combo.set_id(idCombo)
-    total = combo.consultar_precio_combo()
+    # Obtenemos el total para actualizarlo
+    total = combo.total_combo(idCombo)
     total = total[0][0]
     ejemplar = Ejemplar()
     ejemplar.set_numero_serie(numeroSerie)
-
     # Marcamos el ejemplar como disponible
     ejemplar.marcar_ejemplar_disponible(numeroSerie)
-
+    # Obtenemos el precio del producto para descontarselo al combo
     precioDelProducto = ejemplar.precioDelEjemplar()
     precioDelProducto = precioDelProducto[0][5]
-    nuevoTotal = (int(total) - int(precioDelProducto))
+    # Actualizamos el total del combo descontando el producto eliminado
+    nuevoTotal = (float(total) - float(precioDelProducto))
     combo.cambiar_total(nuevoTotal)
-
+    # Eliminamos el ejemplar del combo
     ejemplar_combo = Ejemplar_combo()
     ejemplar_combo.set_idCombo(idCombo)
     ejemplar_combo.set_numero_serie(numeroSerie)
     ejemplar_combo.baja_ejemplar_combo()
-
+    # Actualizamos el total con descuento
     nuevoTotal = float(nuevoTotal)   
     desc = combo.consultar_descuento_combo()
     desc = float(desc[0][0])
@@ -1392,6 +1405,7 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
     totalConDesc = nuevoTotal - importeDescuento
     combo.actualizarDescuento(totalConDesc)
 
+    # Obtenemos todos los datos actualizados del combo para enviar a la vista
     data = combo.consultar_combo_por_id()
     dato = {}
     dato['nombreCombo'] = data[0][1]
@@ -1400,8 +1414,9 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
     dato['total']  = data[0][2]
     dato['totalConDescuento']  = data[0][4]
     id=data[0][0]
-
-    ##Se seleccionan solo los productos disponibles
+    # Obtenemos los ejemplares del combo
+    dato['ejemplares'] = combo.listar_poductos_del_combo(idCombo)
+    ##Se seleccionan solo los productos disponibles para que puedan ser agregados al combo
     todosLosProductos = {}
     productosDisponibles = []
     producto = Producto()
@@ -1412,9 +1427,8 @@ def eliminarEjemplar_combo(numeroSerie, idCombo):
         canti=ejemplar.cantidad_ejemplares_de_un_producto(e[0])
         if (canti[0][0]!=0):
             productosDisponibles.append(e)
-
     return render_template('combo/cargarProductosAlCombo.html', dato=dato, id=id, productos=productosDisponibles)
-    
+    return("hecho")
     
 #====CARRITO
 
@@ -1557,7 +1571,7 @@ def agregarComboAlCarrito():
                 combo.marcar_combo_vendido(idCombo)
                 # Se suma el importe del combo al total del carrito
                 # Precio del combo 
-                precioCombo = combo.total_combo(idCombo)
+                precioCombo = combo.total_combo_conDescuento(idCombo)
                 precioCombo = precioCombo[0][0]
                 # Total del carrito actual antes de agregarle el producto
                 total = carrito.carrito_actual(session['email'])
@@ -1585,7 +1599,7 @@ def agregarComboAlCarrito():
             combo.marcar_combo_vendido(idCombo)
             # Se suma el importe del combo al total del carrito
             # Precio del combo
-            precioCombo = combo.total_combo(idCombo)
+            precioCombo = combo.total_combo_conDescuento(idCombo)
             precioCombo = precioCombo[0][0]
             # Total del carrito actual antes de agregarle el producto
             total = carrito.carrito_actual(session['email'])
@@ -2312,8 +2326,11 @@ def solicitarLogin():
 
 #========================== CLIENTE ===============================#
 
-
-
+#========================== MANEJO DE ERRORES ===============================#
+# MANEJO DEL ERROR 404
+""" @app.errorhandler(404)
+def page_not_found(e):
+    return render_template('admin/miCuenta_admin.html') """
 
 #Inicio de aplicacion
 if __name__ == '__main__':

@@ -195,9 +195,15 @@ class Combo:
                 self.__id))
         return data
 
-    def total_combo(self, idCombo):
+    def total_combo_conDescuento(self, idCombo):
         data = db.querySelect('''
                 SELECT "totalConDescuento" FROM "combo" WHERE "id" = '{}';
+            '''.format(idCombo))
+        return data
+
+    def total_combo(self, idCombo):
+        data = db.querySelect('''
+                SELECT "total" FROM "combo" WHERE "id" = '{}';
             '''.format(idCombo))
         return data
 
