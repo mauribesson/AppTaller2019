@@ -87,12 +87,7 @@ def index():
     else:
         return render_template('index.html', data=data)
 
-#========================== LOGIN  ===================================#
-@app.route('/login')
-def  login():
-    return render_template('login/login.html')
 
-#========================== Fin LOGIN  ===================================#
 
 #===========================
 #         ROL
@@ -2220,8 +2215,8 @@ def stockDeUnProducto():
 
 #========================== Fin CLIENTE ===============================#
 
-#========================== Sesion de usari ===============================#
-
+#========================== Sesion de usario ===============================#
+'''
 @app.route('/login/validarRolUsuario')
 def validarRolUsusario():
     if request.method == 'GET':
@@ -2233,6 +2228,7 @@ def validarRolUsusario():
         data ={'rol_id': rol_id }
         #data ={'rol_id': 1 } #consultar backend HARCODEADO 1: admin (admin@admin.com), 2: cliente, 0 No registrado otro nada
         return jsonify(data)
+'''
 
 @app.route('/iniciarSesion')
 def iniciarSesion():
@@ -2325,6 +2321,32 @@ def solicitarLogin():
     return render_template('login/solicitarLogin.html')
 
 #========================== CLIENTE ===============================#
+
+#========================== LOGIN REDES SOCIALES ===================================#
+@app.route('/loginRedes')
+def  login():
+    return render_template('login/login_redes.html')
+
+@app.route('/SignInRedes', methods=["POST"])
+def signin():
+    # validar si el usuario existe
+    if request.method == 'POST':
+        json_data = request.get_json()
+        print(type(json_data))
+        usuario = Usuario()
+        usuario.set_nombre(json_data['email'])        
+        usuario_data = usuario.consultar_usuario_por_nombre()
+
+        if usuario_data != []: # usuario existe 
+            print('usuario logueado')
+        else:
+            print('usario nuevo, debe registrar')
+        
+        return 'OK'
+    pass
+#========================== Fin LOGIN REDES SOCIALES  ===================================#
+
+
 
 #========================== MANEJO DE ERRORES ===============================#
 # MANEJO DEL ERROR 404

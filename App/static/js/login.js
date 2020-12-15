@@ -119,8 +119,26 @@
         firebase.auth().signInWithPopup(provider).then(function(result) {
             console.log(result);
             console.log(result.user.email);
+            console.log(result.operationType);
+
+            let url = window.location.origin + "/SignInRedes";
+            let userData = { "email": result.user.email }
+            let res = fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(userData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
         }).catch(function(error) {
             console.log(error);
+            //Si el usario cierra el la ventana emergente de red social 
+            if (error.code == "auth/popup-closed-by-user") {
+                alert('Ha cerrado el login de Red Social!!!')
+            }
+
+
         });
     });
 
@@ -162,9 +180,10 @@
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             //validateUserRol(user.email); // Valida rol y redirecciona --> se podria reducir compelgidad 
-            console.log("Login", user.mail);
+            console.log("LoginRedes", user.email);
+
         } else {
-            console.log("change else", user);
+            console.log("no Logueado", user);
             /*  if (location.pathname !== "/login") {
                  location.href = "/login";
              } */
@@ -176,43 +195,43 @@
     //VER SI ME COVIENE USASR SESSION STORAGE:
     //https://developer.mozilla.org/es/docs/Web/API/Window/sessionStorage
 
-    const updateBackend = async(user, password) => {
-        //TO DO 
-        /**
-         * mandar al backen el nuevo usuario para agregarlo
-         * debe validar si existe. 
-         * 
-         * 
-         */
-        //let usuarui_actual = sessionStorage.getItem('user');
-        let url = "";
-        let userData = { "user": user, "password": password };
-        let res = await fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(userData),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+    // const updateBackend = async(user, password) => {
+    //     //TO DO 
+    //     /**
+    //      * mandar al backen el nuevo usuario para agregarlo
+    //      * debe validar si existe. 
+    //      * 
+    //      * 
+    //      */
+    //     //let usuarui_actual = sessionStorage.getItem('user');
+    //     let url = "";
+    //     let userData = { "user": user, "password": password };
+    //     let res = await fetch(url, {
+    //         method: 'POST',
+    //         body: JSON.stringify(userData),
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     });
 
-    }
+    // }
 
 
 
 
     //====================================no se va a usar
-    const addStoreLocalUserLogin = (pUuser) => {
-        //TODO
-        sessionStorage.setItem('user', pUuser);
+    // const addStoreLocalUserLogin = (pUuser) => {
+    //     //TODO
+    //     sessionStorage.setItem('user', pUuser);
 
-    }
+    // }
 
-    let deleteStoreLocalUserLogin = (pUuser) => {
-        //TODO
-        //sessionStorage.setItem('user', pUuser);
+    // let deleteStoreLocalUserLogin = (pUuser) => {
+    //     //TODO
+    //     //sessionStorage.setItem('user', pUuser);
 
-        sessionStorage.removeItem('user');
-    }
+    //     sessionStorage.removeItem('user');
+    // }
 
     //NUEVA PANTALLA
     //VALIDAR SI HAY USUARIO LOGUEADO, DESDE SESSIONSTORAGE 

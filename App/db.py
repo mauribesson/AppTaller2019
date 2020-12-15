@@ -25,7 +25,7 @@ class Database:
         self.connect.close()
         return result
 
-    #para hacer querys tipo insert update delete, consultas que retornan catidad do rows afectada.
+    #para hacer querys tipo insert update delete, consultas que retornan catidad de rows afectada.
     def queryInsert(self, query=""):  
         self.connect = psycopg2.connect(host=self.host, 
                                         port=self.port, 

@@ -25,8 +25,8 @@
         } else {
             console.log("No loguedo", user);
 
-            if (location.pathname !== "/login")
-                location.href = "/login";
+            if (location.pathname !== "/loginRedes")
+                location.href = "/loginRedes";
         }
     });
 
