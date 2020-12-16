@@ -114,7 +114,12 @@ class Usuario:
             return usuario[3] # return rol
         else:
             return 0 #usuario no regitrado 
-
+            
+    def rolDeUsuario(self, email):
+        data = db.querySelect('''
+                select "nombreRol" from "vista_usuarios" where "nombre" = '{}';
+                '''.format(email))        
+        return data
 
     
 

@@ -20,6 +20,7 @@ from modelos.mercadoPago import consultarReferencia_mercadoPago
 from modelos.combo_carrito import Combo_carrito
 from modelos.estadisticas import Estadistica
 from datetime import date
+import psycopg2
 
 db = Database()
 
@@ -2304,11 +2305,17 @@ def loginAndrea():
 
 @app.route('/miCuenta')
 def miCuenta():
-    return render_template('usuario/miCuenta.html')
+    usuario = Usuario()
+    rol = usuario.rolDeUsuario(session['email'])
+    rol = rol[0][0]
+    return render_template('usuario/miCuenta.html', rol=rol)
 
 @app.route('/miCuenta_admin')
 def miCuenta_admin():
-    return render_template('admin/miCuenta_admin.html')
+    usuario = Usuario()
+    rol = usuario.rolDeUsuario(session['email'])
+    rol = rol[0][0]
+    return render_template('admin/miCuenta_admin.html', rol=rol)
 
 @app.route('/salir')
 def salir():
@@ -2353,9 +2360,13 @@ def signin():
 
 #========================== MANEJO DE ERRORES ===============================#
 # MANEJO DEL ERROR 404
-""" @app.errorhandler(404)
+@app.errorhandler(404)
 def page_not_found(e):
-    return render_template('admin/miCuenta_admin.html') """
+    return render_template('errors/error_404.html') 
+
+@app.errorhandler(psycopg2.errors.ForeignKeyViolation)
+def page_not_found(e):
+    return render_template('errors/error_foreignKeyViolation.html') 
 
 #Inicio de aplicacion
 if __name__ == '__main__':

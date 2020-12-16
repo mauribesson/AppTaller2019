@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Atencion</title>
+    <style>
+        .mensaje{
+            text-align: center;
+            font-size: 20px;
+            color: black;
+            padding-top: 100px;
+            padding-bottom: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+
+{% include 'header/header.html' %}
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
+            <div class="mensaje">
+                <img src="..\static\img\alert.jpg"><br>
+                No puedes eliminar este elemento, ya que otros elementos dependen de él.<br>
+                Para poder eliminarlo, debes eliminar primero sus dependencias.
+            </div>
+        </div>
+    </div>
+    {% include 'footer/footer.html' %} 
+</body>
+
+</html>
