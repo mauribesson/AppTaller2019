@@ -121,15 +121,7 @@
             console.log(result.user.email);
             console.log(result.operationType);
 
-            let url = window.location.origin + "/SignInRedes";
-            let userData = { "email": result.user.email }
-            let res = fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(userData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+
 
         }).catch(function(error) {
             console.log(error);
@@ -182,6 +174,16 @@
             //validateUserRol(user.email); // Valida rol y redirecciona --> se podria reducir compelgidad 
             console.log("LoginRedes", user.email);
 
+            let url = window.location.origin + "/SignInRedes";
+            let userData = { "email": user.email }
+            let res = fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(userData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            //window.location.href = window.location;
         } else {
             console.log("no Logueado", user);
             /*  if (location.pathname !== "/login") {

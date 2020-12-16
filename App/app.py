@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from db import Database
 from modelos.rol import Rol
 from modelos.usuario import Usuario
@@ -2341,8 +2341,11 @@ def signin():
             print('usuario logueado')
         else:
             print('usario nuevo, debe registrar')
+            #return redirect(url_for('index'))
+            #return render_template('usuario/crearUsuarioPorUsuario.html')
         
         return 'OK'
+        
     pass
 #========================== Fin LOGIN REDES SOCIALES  ===================================#
 
