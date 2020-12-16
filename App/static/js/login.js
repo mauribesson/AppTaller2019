@@ -186,8 +186,8 @@
             //window.location.href = window.location;
         } else {
             console.log("no Logueado", user);
-            /*  if (location.pathname !== "/login") {
-                 location.href = "/login";
+            /*  if (location.pathname !== "/loginRedes") {
+                 location.href = "/loginRedes";
              } */
         }
     });
