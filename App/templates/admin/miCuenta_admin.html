@@ -52,7 +52,8 @@
             <div class="contorno">
                 <div class="titulo"> Mi cuenta </div>
                 <div class="cuerpo">
-                    Email: {{session['email']}}
+                    Email: {{session['email']}}<br>
+                    <br>Tipo de usuario: {{rol}}
                     <div style="margin-top: 30px;">
                         <a href="{{ url_for('cambiarContrasenia')}}/{{session['email']}}" class="btn-ej">Cambiar contraseña</a>
                     </div>
