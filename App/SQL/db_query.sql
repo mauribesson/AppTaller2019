@@ -651,7 +651,7 @@ CREATE OR REPLACE FUNCTION actualizarContrasenia()
 RETURNS trigger AS $verificarActualizarContrasenia$
 BEGIN
 IF (char_length(NEW.contrasenia)<5) THEN
-RAISE EXCEPTION 'La contraseña es muy corta, debe superar los 5 caracteres ';
+RAISE EXCEPTION 'La contraseña es muy corta, debe ser igual o superar los 5 caracteres ';
 rollback transaction;
 ELSE
 IF (20 < char_length(NEW.contrasenia)) THEN
