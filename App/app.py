@@ -2331,13 +2331,13 @@ def solicitarLogin():
 
 #========================== LOGIN REDES SOCIALES ===================================#
 @app.route('/loginRedes')
-def  login():
+def  loginRedes():
     return render_template('login/login_redes.html')
 
-#Hace la validacion del usuario ingesa por Red Social
-@app.route('/SignInRedes', methods=["POST"])
-def signin():
-    # validar si el usuario existe o si ya esta registrado
+#Hace la validacion del usuario ingesado por Red Social
+@app.route('/validarSignInRedes', methods=["POST"])
+def validarSignInRedes():
+    # validar si el usuiario ya esta registrado
     if request.method == 'POST':
         #Se obtiene el usario ingresado
         json_data = request.get_json()
@@ -2346,18 +2346,19 @@ def signin():
         usuario.set_nombre(json_data['email'])        
         usuario_data = usuario.consultar_usuario_por_nombre()
 
-
         if usuario_data != []: # usuario existe 
-            print('usuario Registrado')            
-            return jsonify({'usuario_regitrado': True})
+            print('usuario Registrado') 
+            #Incorpora usuario a la sesion 
+            session['email'] = json_data['email']# Email del login por Red social 
+            print ('contraseña del usario: {}'.format(usuario_data[1]))
+            session['contraseña'] = usuario_data[1] #Se coloca la sesion del usario de DB           
+            return jsonify({'usuario_regitrado': True}),200
 
-        else: #usuario no existe
+        else: #usuario no existe, no esta regitrado 
             print('usario nuevo, debe registrar')
-            return jsonify({'usuario_regitrado': False})
+            return jsonify({'usuario_regitrado': False}), 200  
 
-        
-        return 400 
-        
+        #return 400 #Bad request         
     pass
 #========================== Fin LOGIN REDES SOCIALES  ===================================#
 

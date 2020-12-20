@@ -20,7 +20,7 @@
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            console.log("Logueado", user);
+            console.log("Logueado/cargado en red social firebase", user);
             //body.style.visibility = ""; //muetra la admin solo si esta logueado
         } else {
             console.log("No loguedo", user);
@@ -34,6 +34,7 @@
 
 })();
 
+/*
 const btnSingOut = document.getElementById("btnSingOut");
 
 btnSingOut.addEventListener('click', e => {
@@ -50,4 +51,6 @@ btnSingOut.addEventListener('click', e => {
         });
     }
 
+
 });
+*/

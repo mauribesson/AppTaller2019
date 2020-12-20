@@ -98,7 +98,7 @@
 
     let CosultarUsuarioBackend = (usuario) => {
         // se Arma la url para validar el usuario contra el backend
-        let url = window.location.origin + "/SignInRedes";
+        let url = window.location.origin + "/validarSignInRedes";
         //Se arma el json para enviar el email del usuario al backend
         let userData = { "email": usuario }
 
@@ -115,12 +115,12 @@
             response.json().then(data => {
                 console.log('data', data);
 
-                if (data.usuario_regitrado === true) {
-                    console.log("Redirigir al inicio con la sesion guardada en el backend")
-                    location.href = '/'
-                } else { //usuario no regitrado 
+                if (data.usuario_regitrado === true) { //el usario esta regitrado en el backend 
+                    console.log("Redirigir al inicio con la sesion guardada en el backend");
+                    location.href = '/'; //Redirecciona al inicio 
+                } else { //usuario no regitrado en el Backend
                     console.log("Redirección a registro de usuario");
-                    location.href = "/altaUsuario";
+                    location.href = "/altaUsuario"; //redirecciona al Alta de usuario
                 }
 
             });
@@ -131,19 +131,7 @@
     }
 
 
-    //Boton Facebook
-    btnFacebookSingIn.addEventListener('click', e => {
-        console.log("Facebook")
-        var provider = new firebase.auth.FacebookAuthProvider();
 
-        //firebase.auth().signInWithRedirect(provider);
-
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-            console.log(result);
-        }).catch(function(error) {
-            console.log(error);
-        });
-    });
 
 
     //Boton Google
@@ -154,7 +142,7 @@
         //firebase.auth().signInWithRedirect(provider);
         firebase.auth().signInWithPopup(provider).then(function(result) {
             console.log(result);
-            console.log('usuario:', result.user.email);
+            console.log('usuario Google:', result.user.email);
             console.log(result.operationType);
 
             //CONSULTA AL BACKEND POR EL USUARIO
@@ -168,6 +156,32 @@
                 alert('Ha cerrado el login de Red Social!!!')
             }
 
+        });
+    });
+
+
+    //Boton Facebook
+    btnFacebookSingIn.addEventListener('click', e => {
+        console.log("Facebook")
+        var provider = new firebase.auth.FacebookAuthProvider();
+
+        //firebase.auth().signInWithRedirect(provider);
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            console.log(result);
+            console.log('usuario Facebook:', result.user.email);
+            console.log(result.operationType);
+
+            //CONSULTA AL BACKEND POR EL USUARIO
+            CosultarUsuarioBackend(result.user.email);
+
+
+        }).catch(function(error) {
+            console.log(error);
+            //Si el usario cierra el la ventana emergente de red social 
+            if (error.code == "auth/popup-closed-by-user") {
+                alert('Ha cerrado el login de Red Social!!!')
+            }
 
         });
     });
