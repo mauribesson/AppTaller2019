@@ -2334,24 +2334,29 @@ def solicitarLogin():
 def  login():
     return render_template('login/login_redes.html')
 
+#Hace la validacion del usuario ingesa por Red Social
 @app.route('/SignInRedes', methods=["POST"])
 def signin():
-    # validar si el usuario existe
+    # validar si el usuario existe o si ya esta registrado
     if request.method == 'POST':
+        #Se obtiene el usario ingresado
         json_data = request.get_json()
-        print(type(json_data))
+      
         usuario = Usuario()
         usuario.set_nombre(json_data['email'])        
         usuario_data = usuario.consultar_usuario_por_nombre()
 
+
         if usuario_data != []: # usuario existe 
-            print('usuario logueado')
-        else:
+            print('usuario Registrado')            
+            return jsonify({'usuario_regitrado': True})
+
+        else: #usuario no existe
             print('usario nuevo, debe registrar')
-            #return redirect(url_for('index'))
-            #return render_template('usuario/crearUsuarioPorUsuario.html')
+            return jsonify({'usuario_regitrado': False})
+
         
-        return 'OK'
+        return 400 
         
     pass
 #========================== Fin LOGIN REDES SOCIALES  ===================================#

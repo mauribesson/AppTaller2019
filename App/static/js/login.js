@@ -34,68 +34,104 @@
     const btnFacebookSingIn = document.getElementById("btnFacebookSingIn");
     const btnGoogleSingIn = document.getElementById("btnGoogleSingIn");
 
-    const ADMIN_PATH = "/";
-    const CLIENT_PATH = "/cliente"
-    const ADMIN_ROL_ID = 1
-    const CLIENT_ROL_ID = 2
-        /*
-            //Clic boton Login 
-            btnLogin.addEventListener('click', e => {
-                //obtenego valor de los inputs
-                const email = inputEmail.value;
-                const password = inputPassword.value;
+    //const ADMIN_PATH = "/";
+    //const CLIENT_PATH = "/cliente"
+    //const ADMIN_ROL_ID = 1
+    //const CLIENT_ROL_ID = 2
+    /*
+        //Clic boton Login 
+        btnLogin.addEventListener('click', e => {
+            //obtenego valor de los inputs
+            const email = inputEmail.value;
+            const password = inputPassword.value;
 
-                const auth = firebase.auth();
-                auth.signInWithEmailAndPassword(email, password)
-                    .then(function(e) {
-                        console.log("usuario logueado", e);
-                    })
-                    .catch(function(error) {
-                        // Handle Errors here.
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        console.log(errorCode, errorMessage);
-
-                        if (errorCode === 'auth/wrong-password') {
-                            alert('Contraseña incorrecta!!!');
-                        } else if (errorCode === 'auth/invalid-email') {
-                            alert('Debe ingresar un Email de Ususario ya registrado valido!!!');
-                        }
-                        console.log(error);
-                    });
-
-            });
-
-
-            //boton Sing in (crear usuario)
-            btnSingIn.addEventListener('click', e => {
-                //obtenego valor de los inputs
-                const email = inputEmail.value;
-                const password = inputPassword.value;
-
-                const auth = firebase.auth();
-                auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
+            const auth = firebase.auth();
+            auth.signInWithEmailAndPassword(email, password)
+                .then(function(e) {
+                    console.log("usuario logueado", e);
+                })
+                .catch(function(error) {
                     // Handle Errors here.
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    console.log("error cear usuario", errorCode, errorMessage);
+                    console.log(errorCode, errorMessage);
+
+                    if (errorCode === 'auth/wrong-password') {
+                        alert('Contraseña incorrecta!!!');
+                    } else if (errorCode === 'auth/invalid-email') {
+                        alert('Debe ingresar un Email de Ususario ya registrado valido!!!');
+                    }
+                    console.log(error);
                 });
+
+        });
+
+
+        //boton Sing in (crear usuario)
+        btnSingIn.addEventListener('click', e => {
+            //obtenego valor de los inputs
+            const email = inputEmail.value;
+            const password = inputPassword.value;
+
+            const auth = firebase.auth();
+            auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log("error cear usuario", errorCode, errorMessage);
+            });
+        });
+
+
+        //boton Sing out 
+        btnSingOut.addEventListener('click', e => {
+            const auth = firebase.auth();
+            auth.signOut().then(function() {
+                // Sign-out successful.
+            }).catch(function(e) {
+                // An error happened.
+                console.log(e);
+            });
+        });
+
+    */
+
+    let CosultarUsuarioBackend = (usuario) => {
+        // se Arma la url para validar el usuario contra el backend
+        let url = window.location.origin + "/SignInRedes";
+        //Se arma el json para enviar el email del usuario al backend
+        let userData = { "email": usuario }
+
+        //Se hace la consulta al backend 
+        let res = fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(userData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            console.log(response);
+
+            response.json().then(data => {
+                console.log('data', data);
+
+                if (data.usuario_regitrado === true) {
+                    console.log("Redirigir al inicio con la sesion guardada en el backend")
+                    location.href = '/'
+                } else { //usuario no regitrado 
+                    console.log("Redirección a registro de usuario");
+                    location.href = "/altaUsuario";
+                }
+
             });
 
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
-            //boton Sing out 
-            btnSingOut.addEventListener('click', e => {
-                const auth = firebase.auth();
-                auth.signOut().then(function() {
-                    // Sign-out successful.
-                }).catch(function(e) {
-                    // An error happened.
-                    console.log(e);
-                });
-            });
 
-        */
-        //Boton Facebook
+    //Boton Facebook
     btnFacebookSingIn.addEventListener('click', e => {
         console.log("Facebook")
         var provider = new firebase.auth.FacebookAuthProvider();
@@ -118,9 +154,11 @@
         //firebase.auth().signInWithRedirect(provider);
         firebase.auth().signInWithPopup(provider).then(function(result) {
             console.log(result);
-            console.log(result.user.email);
+            console.log('usuario:', result.user.email);
             console.log(result.operationType);
 
+            //CONSULTA AL BACKEND POR EL USUARIO
+            CosultarUsuarioBackend(result.user.email);
 
 
         }).catch(function(error) {
@@ -134,55 +172,14 @@
         });
     });
 
-    /*
-    const validateUserRol = (user) => {
-        let url = window.location.href + "/validarRolUsuario?usuario=" + user;
-        let userData = { "user": user };
-        fetch(url)
-            .then(
-                function(response) {
-                    if (response.status !== 200) {
-                        console.log('estado de error: ' +
-                            response.status);
-                        return;
-                    }
-                    // Examine the text in the response
-                    response.json().then(function(data) {
-                        console.log(data);
-                        if (data.rol_id === ADMIN_ROL_ID) {
-                            location.href = ADMIN_PATH;
-                        } else if (data.rol_id === CLIENT_ROL_ID) {
-                            location.href = CLIENT_PATH;
-                        } else {
-                            console.log("Rol ID", data.rol_id); //el id no es cliente ni admin
 
-                            //debe REGISTRAR el usuario
-                            //DEBE hacer redireccion a cliente porque es nuevo 
-
-                        }
-                    });
-                }
-            )
-            .catch(function(err) {
-                console.log('Fetch Error :-S', err);
-            });
-    }
-*/
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             //validateUserRol(user.email); // Valida rol y redirecciona --> se podria reducir compelgidad 
-            console.log("LoginRedes", user.email);
+            console.log("LoginRedes usuario logueado", user.email);
 
-            let url = window.location.origin + "/SignInRedes";
-            let userData = { "email": user.email }
-            let res = fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(userData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+
             //window.location.href = window.location;
         } else {
             console.log("no Logueado", user);
@@ -193,51 +190,7 @@
     });
 
 
-    //Actualiza usuario al backend 
-    //VER SI ME COVIENE USASR SESSION STORAGE:
-    //https://developer.mozilla.org/es/docs/Web/API/Window/sessionStorage
-
-    // const updateBackend = async(user, password) => {
-    //     //TO DO 
-    //     /**
-    //      * mandar al backen el nuevo usuario para agregarlo
-    //      * debe validar si existe. 
-    //      * 
-    //      * 
-    //      */
-    //     //let usuarui_actual = sessionStorage.getItem('user');
-    //     let url = "";
-    //     let userData = { "user": user, "password": password };
-    //     let res = await fetch(url, {
-    //         method: 'POST',
-    //         body: JSON.stringify(userData),
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     });
-
-    // }
 
 
-
-
-    //====================================no se va a usar
-    // const addStoreLocalUserLogin = (pUuser) => {
-    //     //TODO
-    //     sessionStorage.setItem('user', pUuser);
-
-    // }
-
-    // let deleteStoreLocalUserLogin = (pUuser) => {
-    //     //TODO
-    //     //sessionStorage.setItem('user', pUuser);
-
-    //     sessionStorage.removeItem('user');
-    // }
-
-    //NUEVA PANTALLA
-    //VALIDAR SI HAY USUARIO LOGUEADO, DESDE SESSIONSTORAGE 
-    //OK : PASA Y MUESTA PAGINA 
-    //NO OK : REDIRECCIONA A LOGIN 
 
 })();
