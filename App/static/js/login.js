@@ -131,9 +131,6 @@
     }
 
 
-
-
-
     //Boton Google
     btnGoogleSingIn.addEventListener('click', e => {
         console.log("Google")
@@ -187,7 +184,6 @@
     });
 
 
-
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             //validateUserRol(user.email); // Valida rol y redirecciona --> se podria reducir compelgidad 
@@ -202,9 +198,5 @@
              } */
         }
     });
-
-
-
-
 
 })();
