@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            {% include 'footer/footer.html' %}
+
         </div>
     </div>
 
@@ -57,78 +57,79 @@
         </div>
     </div>
 
-
+    {% include 'footer/footer.html' %}
     <!-- {% include 'sesion/sesion.html' %} -->
 
-<script>
-    $('document').ready(function() {
-        var columns = [{
-                field: "nombre",
-                title: "Usuario",
-                sortable: true,
-                width: "20"
-            }, {
-                field: "contacto",
-                title: "Contacto",
-                sortable: true,
-                width: "30"
-            }, {
-                field: "rol",
-                title: "Rol",
-                sortable: true,
-                width: "30"
-            },
+    <script>
+        $('document').ready(function() {
+            var columns = [{
+                    field: "nombre",
+                    title: "Usuario",
+                    sortable: true,
+                    width: "20"
+                }, {
+                    field: "contacto",
+                    title: "Contacto",
+                    sortable: true,
+                    width: "30"
+                }, {
+                    field: "rol",
+                    title: "Rol",
+                    sortable: true,
+                    width: "30"
+                },
 
-            {
-                field: 'operate',
-                title: 'Acciones',
-                width: "50",
-                // align: 'center',
-                //valign: 'middle',
-                clickToSelect: false,
-                formatter: function(value, row, index) {
-                    var urlModificar = "{{ url_for('modificarUsuario') }}"; //jinja Template
-                    var urlEliminar = '{{ url_for("eliminarUsuario") }}'; //jinja Template
-
-
-
-                    var html = '';
-                    //html += '<a id="verRol' + row.nombre + '" class="btn btn-info m-2"><i class="fas fa-eye"></i></a>';
-                    html += '<a class="btn btn-primary m-2" href=' + urlModificar + '/' + row.nombre + '><i class="fas fa-edit"></i></a>';
-                    html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.nombre + '><i class="fas fa-trash"></i></a>';
+                {
+                    field: 'operate',
+                    title: 'Acciones',
+                    width: "50",
+                    // align: 'center',
+                    //valign: 'middle',
+                    clickToSelect: false,
+                    formatter: function(value, row, index) {
+                        var urlModificar = "{{ url_for('modificarUsuario') }}"; //jinja Template
+                        var urlEliminar = '{{ url_for("eliminarUsuario") }}'; //jinja Template
 
 
-                    return html;
+
+                        var html = '';
+                        //html += '<a id="verRol' + row.nombre + '" class="btn btn-info m-2"><i class="fas fa-eye"></i></a>';
+                        html += '<a class="btn btn-primary m-2" href=' + urlModificar + '/' + row.nombre + '><i class="fas fa-edit"></i></a>';
+                        html += '<a class="eliminar btn btn-danger m-2" href=' + urlEliminar + '/' + row.nombre + '><i class="fas fa-trash"></i></a>';
+
+
+                        return html;
+                    }
                 }
-            }
-        ]
+            ]
 
-        $('#tablaUsuario').bootstrapTable({
-            url: "{{ url_for('usuario_data_table') }}", //Obrtine los datos desde el backend, formato json 
-            columns: columns,
-            locale: "es-ES",
-            showRefresh: false,
+            $('#tablaUsuario').bootstrapTable({
+                url: "{{ url_for('usuario_data_table') }}", //Obrtine los datos desde el backend, formato json 
+                columns: columns,
+                locale: "es-ES",
+                showRefresh: false,
+            });
+
+
+            $('#verRol1').click(function(e) {
+                $('#myModal').modal('toggle');
+            });
+
+            $('.eliminar').click(function(e) {
+                alert()
+                var r = confirm("¿Desea eliminar el Rol?");
+
+                if (r == true) {
+                    location.href('/eliminarRol/' + id)
+                } else {
+                    e.preventDefault();
+                }
+            });
+
+
+
         });
-
-
-        $('#verRol1').click(function(e) {
-            $('#myModal').modal('toggle');
-        });
-
-        $('.eliminar').click(function(e) {
-            alert()
-            var r = confirm("¿Desea eliminar el Rol?");
-
-            if (r == true) {
-                location.href('/eliminarRol/' + id)
-            } else {
-                e.preventDefault();
-            }
-        });
-
-
-
-    });
-</script>
+    </script>
 </body>
+
 </html>

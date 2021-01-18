@@ -1,5 +1,6 @@
 body {
     overflow-x: hidden;
+    color: black;
 }
 
 #sidebar-wrapper {
@@ -52,6 +53,8 @@ body {
     position: sticky;
     bottom: 0;
     overflow: auto;
+    height: 40px;
+    color: black;
 }
 
 
