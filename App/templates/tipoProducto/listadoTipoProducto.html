@@ -6,28 +6,30 @@
 
 
 <body>
-  <div class="d-flex" id="wrapper">
-      {% include 'navbars/sidebar_usuarios.html' %}
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
 
-      <div id="page-content-wrapper">
+        <div id="page-content-wrapper">
 
-          <div class="container-fluid">
-              <center><h2 style="margin-top: 60px;">Categorías de productos</h2></center>
-              <form action="listarCategorias" method="POST">
-                <div class="form-group">
-                  <label for="tipoProducto"> Seleccione una categoría</label>
-                    <select name="tipoProducto" class="custom-select">
+            <div class="container-fluid">
+                <center>
+                    <h2 style="margin-top: 60px;">Categorías de productos</h2>
+                </center>
+                <form action="listarCategorias" method="POST">
+                    <div class="form-group">
+                        <label for="tipoProducto"> Seleccione una categoría</label>
+                        <select name="tipoProducto" class="custom-select">
                       {% for e in data %}                                                                            
                         <option value="{{e[1]}}">{{e[1]}}</option>
                       {% endfor %}
                     </select>
-                </div>
-                <center><button type="submit" class="btn btn-primary">Buscar</button></center>
-              </form>
-          </div>
-      </div>
-  </div>
-  {% include 'footer/footer-usuario.html' %}
+                    </div>
+                    <center><button type="submit" class="btn btn-primary">Buscar</button></center>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>

@@ -1,63 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <title>Inicio</title>
     <style>
-        .contorno{
+        .contorno {
             padding-top: 20px;
             width: 270px;
             padding-left: 22px;
         }
-    
-        .card-content{
+        
+        .card-content {
             border: transparent;
             border-radius: 20px;
             padding: 10px;
             background-color: #18BC9C;
         }
-
-        .cliqueable{
-            display:block;
-            margin:auto;
-            border:none;
+        
+        .cliqueable {
+            display: block;
+            margin: auto;
+            border: none;
             background-color: transparent;
         }
-
-        .card-img{
+        
+        .card-img {
             text-align: center;
         }
-
-        .nombre{
+        
+        .nombre {
             text-align: center;
             height: 80px;
         }
-
-        .precio{
-            font-size: 18px; 
-            overflow:hidden;
-            white-space:nowrap;
+        
+        .precio {
+            font-size: 18px;
+            overflow: hidden;
+            white-space: nowrap;
             text-overflow: ellipsis;
             text-align: center;
         }
-
-        .comprar{
+        
+        .comprar {
             display: flex;
             justify-content: center;
         }
-
-        .btn-comprar{
-            display:block;
-            margin:auto;
-            border:none;
+        
+        .btn-comprar {
+            display: block;
+            margin: auto;
+            border: none;
             border-radius: 20px;
             background-color: white;
             font-size: 20px;
             width: 200px;
         }
-        .titulo{
-          font-size: 30px;
-          margin-top: 10px;
-          margin-left: 20px;
+        
+        .titulo {
+            font-size: 30px;
+            margin-top: 10px;
+            margin-left: 20px;
         }
     </style>
 </head>
@@ -71,7 +73,7 @@
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_nologueado.html' %}
             <div class="titulo">
-              <span>Combos disponibles</span>
+                <span>Combos disponibles</span>
             </div>
             <section class="details-card">
                 <div class="container">
@@ -106,22 +108,22 @@
                                     <div class="comprar">
                                         <form action="solicitarLogin" method="POST">
                                             <div style="padding: 0px;padding-top: 2px;" class="form-group">
-                                            <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
-                                            <button class="btn-comprar" type="submit">COMPRAR</button>
+                                                <input value="{{dato[0]}}" type="hidden" class="form-control" name="id" id="id">
+                                                <button class="btn-comprar" type="submit">COMPRAR</button>
                                             </div>
                                         </form>
                                     </div>
 
-                                 </div>
+                                </div>
                             </div>
                         </div>
                         {%endfor%}
                     </div>
                 </div>
-            </section> 
+            </section>
         </div>
     </div>
-    {% include 'footer/footer.html' %} 
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>

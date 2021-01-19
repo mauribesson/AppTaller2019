@@ -5,34 +5,38 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 <style>
-    .titulo{
-        font-family: Verdana,sans-serif;
+    .titulo {
+        font-family: Verdana, sans-serif;
         text-align: center;
         margin-bottom: 50px;
         margin-top: 70px;
     }
-    .cuerpo{
+    
+    .cuerpo {
         margin-left: 30px;
     }
-    .item{
+    
+    .item {
         margin-bottom: 30px;
     }
-    .redes{
-        font-size:40px;
+    
+    .redes {
+        font-size: 40px;
     }
 </style>
+
 <head>
     <title> Contacto </title>
 </head>
 
 <body>
-    
+
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar_usuarios.html' %}
 
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_usuario_logueado.html' %}
-    
+
             <h2 class="titulo"> Contáctate con nosotros </h2>
 
             <div class="cuerpo">
@@ -47,12 +51,12 @@
                     <h6>Ventas: ventas@gmail.com</h6>
                     <h6>Soporte técnico: soporte@gmail.com</h6>
                 </div>
-                
+
                 <div class="item">
                     <h4>Redes sociales</h4>
                     <table class="cd">
-                        <tr><a href="#" style="font-size: 50px;margin-left: 10px;"><i class="fab fa-facebook"></i></a> </tr> 
-                        <tr><a href="#" style="font-size: 50px;margin-left: 10px;"><i class="fab fa-instagram"></i></a> </tr> 
+                        <tr><a href="#" style="font-size: 50px;margin-left: 10px;"><i class="fab fa-facebook"></i></a> </tr>
+                        <tr><a href="#" style="font-size: 50px;margin-left: 10px;"><i class="fab fa-instagram"></i></a> </tr>
                         <tr><a href="#" style="font-size: 50px;margin-left: 10px;"><i class="fab fa-twitter"></i></a> </tr>
                     </table>
                 </div>
@@ -60,7 +64,7 @@
         </div>
     </div>
 
-    {% include 'footer/footer-usuario.html' %}
+    {% include 'footer/footer.html' %}
 
 </body>
 
