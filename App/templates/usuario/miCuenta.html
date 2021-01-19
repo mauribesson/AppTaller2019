@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <title>Mi cuenta</title>
     <style>
-        .contorno{
-            display:block;
-            margin:auto;
+        .contorno {
+            display: block;
+            margin: auto;
             width: 400px;
             height: 400px;
             margin-top: 100px;
             background-color: #ebf3f3;
             border-radius: 20px;
         }
-        .titulo{
+        
+        .titulo {
             text-align: center;
             font-size: 30px;
             color: black;
@@ -20,23 +22,25 @@
             padding-bottom: 20px;
             font-style: italic;
         }
-        .cuerpo{
-            display:block;
-            margin:auto;
+        
+        .cuerpo {
+            display: block;
+            margin: auto;
             width: 300px;
             height: 300px;
             background-color: transparent;
             color: #8797a3;
             font-size: 18px;
         }
-        .btn-ej{
+        
+        .btn-ej {
             background-color: white;
             font-size: 20px;
             padding: 5px 5px 5px 5px;
             margin-top: 20px;
             border: none;
             border-radius: 5px;
-            color:#8797a3;
+            color: #8797a3;
         }
     </style>
 </head>
@@ -52,8 +56,7 @@
             <div class="contorno">
                 <div class="titulo"> Mi cuenta </div>
                 <div class="cuerpo">
-                    Email: {{session['email']}}
-                    Tipo de usuario: {{rol}}
+                    Email: {{session['email']}} <br/> Tipo de usuario: {{rol}}
                     <div style="margin-top: 30px;">
                         <a href="{{ url_for('cambiarContrasenia')}}/{{session['email']}}" class="btn-ej">Cambiar contraseña</a>
                     </div>
@@ -61,7 +64,7 @@
             </div>
         </div>
     </div>
-    {% include 'footer/footer.html' %} 
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>
