@@ -1,45 +1,49 @@
 <style>
     .menuUsuario ul {
-		display: flex;
-		padding-top: 10px;
-		padding-left: 0;
-		margin: 0;
-		list-style: none;
-		float: right;
-	}
-	.menuUsuario a {
-		display: block;
-		padding: 10px;
-		padding-right: 40px;
-		background-color: transparent;
-		text-decoration: none;
-		color: black;
-		font-size: 18px;
-		text-align: right;
-		width: 130px;
-	}
-	.menuUsuario a:hover {
-		background-color: transparent;
-		color: #18BC9C;
-	}
-	.menuUsuario ul li ul {
-		display: none;
-	}
-	.menuUsuario ul li a:hover + ul, .menuUsuario ul li ul:hover {
-		display: block;
-	}
+        display: flex;
+        padding-top: 10px;
+        padding-left: 0;
+        margin: 0;
+        list-style: none;
+        float: right;
+    }
+    /*.menuUsuario a {
+        display: block;
+        padding: 10px;
+        padding-right: 40px;
+        background-color: transparent;
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        text-align: right;
+        width: 130px;
+    }*/
+    /*
+    .menuUsuario a:hover {
+        background-color: transparent;
+        color: #18BC9C;
+    }*/
+    /*
+    .menuUsuario ul li ul {
+        display: none;
+    }*/
+    /*.menuUsuario ul li a:hover+ul,
+    .menuUsuario ul li ul:hover {
+        display: block;
+    }*/
 </style>
-		<nav class="menuUsuario">
-			<ul>
-				<li><a href="#"><i style="font-size: 30px;" class='fas fa-user'></i></a>
-					<ul>
-						<li><a href="miCuenta">Mi cuenta</a></li>
-						<li><a href="salir">Salir</a></li>
-					</ul>
-				</li>
-			</ul>
-			<ul>
-				<a href="mostrarCarrito"><i style="font-size: 30px;" class='fa fa-shopping-cart'></i></a>
-			</ul>
-		</nav>
+<!--<nav class="menuUsuario">-->
+<nav class="menuUsuario  navbar navbar-expand-lg navbar-light bg-dark p-1">
+    <ul class="navbar-nav mr-auto mr-sm-2">
+        <li class="nav-item dropdown mr-sm-2"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i style="font-size: 30px;" class="fas fa-user"></i></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="miCuenta">Mi cuenta</a>
+                <a class="dropdown-item" href="salir">Salir</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="mostrarCarrito"><i style="font-size: 30px;" class='fa fa-shopping-cart'></i></a>
+        </li>
+    </ul>
+</nav>
 {% include 'sesion/sesion.html' %}
