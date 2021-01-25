@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header/header.html' %}
+
+
+<head>
+    <title>Pago realizado con éxito</title>
+    <style>
+        .mensaje{
+            display:block;
+            margin:auto;
+            text-align: center;
+            font-size: 30px;
+            margin-top: 120px;
+        }
+        .boton{
+            display:block;
+            margin:auto;
+            text-align: center;
+            font-size: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_usuario_logueado.html' %}
+
+            <div class="mensaje">El pago se realizó exitosamente</div>
+
+            <a class="boton" href="{{ url_for('misCompras')}}" class="btn btn-success">Ver mis compras</a>
+
+        </div>
+
+    </div>
+    {% include 'footer/footer.html' %}
+</body>
+
+</html>

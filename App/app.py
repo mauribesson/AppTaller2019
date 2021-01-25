@@ -2054,8 +2054,9 @@ def guardarPago():
     # Creamos una referencia en mercadopago
     total = int(float(total))
     resultado = nuevaReferencia_mercadoPago(idCompra, total)
+    print(resultado)
     id_mercadoPago = resultado['response']['id']
-    link_mercadoPago = resultado['response']['init_point']  
+    link_mercadoPago = resultado['response']['sandbox_init_point']  
 
     # Cargamos el pago a nuestra base de datos
     mercadoPago = MercadoPago()
@@ -2064,13 +2065,33 @@ def guardarPago():
     mercadoPago.set_total(total)
     mercadoPago.set_link_pago(link_mercadoPago)
     mercadoPago.set_estado(False)
-    data = mercadoPago.alta_mercadopago() 
+    data = mercadoPago.alta_mercadopago()
 
     # Cerramos la compra, de forma que solo nos dirija al cupón de pago
     compra = Compra()
     C = compra.compra_confirmada(idCompra)
 
     return render_template('pago/mercadoPago.html', link=link_mercadoPago)
+
+@app.route('/confirmarPago', methods=['GET'])
+def confirmarPago():
+    # Obtenemos el id de mercadopago que nos devuelve al realizar el pago
+    id_mercadoPago = request.args.get('preference_id')
+    # Obtenemos el estado de la operacion que nos devuelve mercadopago
+    estado_pago = request.args.get('collection_status')
+    # Si el estado es APPROVED, marcamos el pago como confirmado
+    if (estado_pago == 'approved'):
+        mercadoPago = MercadoPago()
+        mercadoPago.set_id(id_mercadoPago)
+        mercadoPago.confirmar_pago(id_mercadoPago)
+        return render_template('pago/pagoConfirmado.html')
+    else:
+        return render_template('pago/pagoFallido.html')
+
+@app.route('/prueba')
+def prueba():
+    return render_template('pago/pagoFallido.html')
+    
 
 @app.route('/verCupon', methods=["POST"]) 
 def verCupon():

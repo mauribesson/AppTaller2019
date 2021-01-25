@@ -82,6 +82,14 @@ class MercadoPago:
                 SELECT "estado" FROM "mercadopago" WHERE "idCompra" = '{}';
             '''.format(idCompra))
         return data
+    
+    def confirmar_pago(self, id):
+        data = db.queryInsert('''
+                UPDATE "mercadopago"
+                    SET "estado" = '{}'
+                    WHERE "id" = '{}';
+            '''.format(True, id))
+        return data
 
 
 def nuevaReferencia_mercadoPago(idPago, total):
@@ -94,13 +102,21 @@ def nuevaReferencia_mercadoPago(idPago, total):
                 "currency_id": "ARS",
                 "unit_price": total
             }
-        ]
+        ], 
+        'back_urls': 
+            {'pending': 'http://localhost:5000/misCompras',
+             'success': 'http://localhost:5000/confirmarPago',
+             'failure': 'http://localhost:5000/page_not_found'
+        },
+        'auto_return': 'approved'
     }
+    mp.sandbox_mode(True)
     preferenceResult = mp.create_preference(preference)
     return preferenceResult
 
 def consultarReferencia_mercadoPago(id):
     mp = mercadopago.MP(4907324296549149, "hUM1unn6xSSpvIZkOVgkE6Yr3JG2t6b7")
+    mp.sandbox_mode(True)
     preferenceResult = mp.get_preference(id)
     return preferenceResult
 
