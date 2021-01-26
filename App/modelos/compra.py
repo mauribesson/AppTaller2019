@@ -59,7 +59,7 @@ class Compra:
 
     def mis_compras(self, usuario):
         data = db.querySelect('''
-                SELECT * FROM "vista_compras" WHERE "usuario" = '{}';
+                SELECT * FROM "compra_pago" WHERE "usuario" = '{}';
             '''.format(usuario))
         return data 
 

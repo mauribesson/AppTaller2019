@@ -2087,10 +2087,6 @@ def confirmarPago():
         return render_template('pago/pagoConfirmado.html')
     else:
         return render_template('pago/pagoFallido.html')
-
-@app.route('/prueba')
-def prueba():
-    return render_template('pago/pagoFallido.html')
     
 
 @app.route('/verCupon', methods=["POST"]) 

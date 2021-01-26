@@ -15,7 +15,7 @@
             display:block;
             margin:auto;
             text-align: center;
-            width: 60%;
+            width: 80%;
         }
         .producto{
             width: 150px;
@@ -73,19 +73,19 @@
             </div>
             <table class="tabla">
                 <tr>
-                    <th class="producto">Código</th>
+                    <th class="precio">Fecha</th>
                     <th class="precio">Precio</th>
                     <th class="precio">Estado</th>
                 </tr>
                 {% for e in data %}
                     <tr>
-                        <td>{{ e[0] }}</td>
+                        <td>{{ e[3] }}</td>
                         <td>${{ e[2] }}</td>
-                        {% if e[3] == False %}
+                        {% if e[6] == False %}
                             <td>Pendiente</td>
                         {%endif%}
-                        {% if e[3] == True %}
-                            <td>Confirmada</td>
+                        {% if e[6] == True %}
+                            <td>Pagada</td>
                         {%endif%}
                         <td>
                             <table>
@@ -93,15 +93,15 @@
                                     <td class="botones">
                                         <form action="verCompra" method="POST">
                                             <div>
-                                                <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                                <input value="{{e[5]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
                                                 <input value="{{e[1]}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
                                                 <input value="{{e[2]}}" type="hidden" class="form-control" name="total" id="total">
-                                                <input value="{{e[3]}}" type="hidden" class="form-control" name="estado" id="estado">
-                                                <button class="verCompra" type="submit">Ver</button>
+                                                <input value="{{e[4]}}" type="hidden" class="form-control" name="estado" id="estado">
+                                                <button class="verCompra" type="submit">Ver Compra</button>
                                             </div>
                                         </form>
                                     </td>
-                                    {% if e[3] == False %}
+                                    {% if e[4] == False %}
                                         <td class="botones">
                                             <form action="guardarPago" method="POST">
                                                 <div>
@@ -112,7 +112,7 @@
                                             </form>
                                         </td>
                                     {%endif%}
-                                    {% if e[3] == True %}
+                                    {% if e[6] == False %}
                                         <td class="botones">
                                             <form action="verCupon" method="POST">
                                                 <div>

@@ -965,7 +965,7 @@ JOIN carrito AS "c" ON cc."idCarrito" = c."id";
 
 
 --------
----Vista Ejemplar_combo
+---Vista compras
 CREATE OR REPLACE VIEW vista_compras AS
 SELECT
 co."id",
@@ -989,6 +989,20 @@ JOIN carrito AS "c" ON ec."idCarrito" = c."id"
 Join compra AS "co" ON co."idCarrito" = c."id";
 
 
+--------
+CREATE OR REPLACE VIEW compra_pago AS
+SELECT
+co."id",
+co."idCarrito",
+co."montoCompra",
+co."fecha",
+co."estadoConfirmacion",
+pa."idCompra",
+pa."estado",
+ca."usuario"
+FROM compra AS co
+JOIN carrito AS "ca" ON ca."id" = co."idCarrito"
+JOIN mercadopago AS "pa" ON pa."idCompra" = co."id";
 
 -- ====================================fin vistas
 
