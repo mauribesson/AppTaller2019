@@ -156,39 +156,43 @@
         });
     });
 
+    /*
+        //Boton Facebook
+        btnFacebookSingIn.addEventListener('click', e => {
+            console.log("Facebook")
+            var provider = new firebase.auth.FacebookAuthProvider();
 
-    //Boton Facebook
-    btnFacebookSingIn.addEventListener('click', e => {
-        console.log("Facebook")
-        var provider = new firebase.auth.FacebookAuthProvider();
+            //firebase.auth().signInWithRedirect(provider);
 
-        //firebase.auth().signInWithRedirect(provider);
+            firebase.auth().signInWithPopup(provider).then(function(result) {
+                console.log(result);
+                console.log('usuario Facebook:', result.user.email);
+                console.log(result.operationType);
 
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-            console.log(result);
-            console.log('usuario Facebook:', result.user.email);
-            console.log(result.operationType);
-
-            //CONSULTA AL BACKEND POR EL USUARIO
-            CosultarUsuarioBackend(result.user.email);
+                //CONSULTA AL BACKEND POR EL USUARIO
+                CosultarUsuarioBackend(result.user.email);
 
 
-        }).catch(function(error) {
-            console.log(error);
-            //Si el usario cierra el la ventana emergente de red social 
-            if (error.code == "auth/popup-closed-by-user") {
-                alert('Ha cerrado el login de Red Social!!!')
-            }
+            }).catch(function(error) {
+                console.log(error);
+                //Si el usario cierra el la ventana emergente de red social 
+                if (error.code == "auth/popup-closed-by-user") {
+                    alert('Ha cerrado el login de Red Social!!!')
+                }
 
+            });
         });
-    });
-
+    */
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             //validateUserRol(user.email); // Valida rol y redirecciona --> se podria reducir compelgidad 
             console.log("LoginRedes usuario logueado", user.email);
-
+            console.log("metodo ejecutado onAuthStateChanged");
+            // Almacema al la session y valida ya que ahora esta registrado el usuario
+            if (user.email !== null) {
+                // CosultarUsuarioBackend(user.email);
+            }
 
             //window.location.href = window.location;
         } else {
