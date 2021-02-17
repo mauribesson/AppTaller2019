@@ -261,9 +261,8 @@ def guardarUsuario():
             if 'email' in session:
                 return render_template('usuario/usuarioGuardado.html', data=data, verificador=verificador) 
             # Si el usuario fue creado por el usuario
-            else:
-                #Si es por Red social, paso el email, para que valide por js                
-                return render_template('usuario/usuarioGuardadoPorUsuario.html', data=nombre) 
+            else:             
+                return render_template('usuario/usuarioGuardadoPorUsuario.html') 
 
 """
 @app.route('/bajaUsuario') 
