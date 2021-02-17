@@ -4,15 +4,16 @@
 <head>
     <title>Entrando a Mercadopago... </title>
     <style>
-        .mensaje{
-          font-size: 28px;
-          margin-top: 140px;
-          text-align: center;
-          padding-bottom: 20px;
+        .mensaje {
+            font-size: 28px;
+            margin-top: 140px;
+            text-align: center;
+            padding-bottom: 20px;
         }
-        .b{
-            display:block;
-            margin:auto;
+        
+        .b {
+            display: block;
+            margin: auto;
             text-align: center;
             font-size: 24px;
             color: green;
@@ -28,13 +29,13 @@
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_usuario_logueado.html' %}
             <div class="mensaje">
-              Serás redirigido a Mercadopago para seleccionar tu forma abonar
+                Serás redirigido a Mercadopago para seleccionar tu forma abonar
             </div>
-            <a class="b" target="_blank" href="{{link}}">Continuar a Mercadopago</a>
-            
+            <a class="b" href="{{link}}">Continuar a Mercadopago</a>
+
         </div>
     </div>
-    {% include 'footer/footer.html' %} 
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>
