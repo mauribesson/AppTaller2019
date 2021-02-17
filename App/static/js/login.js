@@ -120,7 +120,8 @@
                     location.href = '/'; //Redirecciona al inicio 
                 } else { //usuario no regitrado en el Backend
                     console.log("Redirección a registro de usuario");
-                    location.href = "/altaUsuario"; //redirecciona al Alta de usuario
+                    //location.href = "/altaUsuario"; //redirecciona al Alta de usuario
+                    location.href = "/"; //redirecciona al Al inicio con la sesion guardada y registrado en DB
                 }
 
             });

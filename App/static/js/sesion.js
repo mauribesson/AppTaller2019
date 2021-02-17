@@ -1,4 +1,4 @@
-(function() {
+/**(function() {
 
         //Configura app Firebase
         var firebaseConfig = {
@@ -34,23 +34,23 @@
 
         })();
         */
-        /*
-        const btnSingOut = document.getElementById("btnSingOut");
+/*
+const btnSingOut = document.getElementById("btnSingOut");
 
-        btnSingOut.addEventListener('click', e => {
-            //alert('Esta salindo de la app... Chau! ')
+btnSingOut.addEventListener('click', e => {
+    //alert('Esta salindo de la app... Chau! ')
 
-            let res = confirm("¿Desea salir?");
-            if (res) {
-                const auth = firebase.auth();
-                auth.signOut().then(function() {
-                    // Sign-out successful.
-                }).catch(function(e) {
-                    // An error happened.
-                    console.log(e);
-                });
-            }
-
-
+    let res = confirm("¿Desea salir?");
+    if (res) {
+        const auth = firebase.auth();
+        auth.signOut().then(function() {
+            // Sign-out successful.
+        }).catch(function(e) {
+            // An error happened.
+            console.log(e);
         });
-        */
+    }
+
+
+});
+*/

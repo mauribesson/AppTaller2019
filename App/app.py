@@ -2373,7 +2373,23 @@ def validarSignInRedes():
             return jsonify({'usuario_regitrado': True}),200
 
         else: #usuario no existe, no esta regitrado 
-            print('usario nuevo, debe registrar')
+            print('usario nuevo, debe registrar')           
+                  
+            #Se da de alta el nuevo usuario 
+            nuevaContrasenia = "google12345678" #Contraseña generica para usuario red social
+            usuarioNuevo = Usuario()
+            usuarioNuevo.set_nombre(json_data['email']) 
+                      
+            usuarioNuevo.set_contrasenia(nuevaContrasenia) #poner contraseña harcodeada por defecto 
+            usuarioNuevo.set_contacto(json_data['email'])
+            usuarioNuevo.alta_usuario()
+
+            #guardar en la sesion 
+            session['email'] = json_data['email']
+            #poner contraseña harcodeada por defecto
+            session['contraseña'] = nuevaContrasenia    
+
+            #respuesta para la redireccion       
             return jsonify({'usuario_regitrado': False}), 200  
 
         #return 400 #Bad request         
