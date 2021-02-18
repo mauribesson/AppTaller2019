@@ -2,18 +2,16 @@ from google.cloud.storage import Blob
 from google.cloud import storage 
 import webbrowser, os
 from modelos.imagenes import Imagenes
+from pathlib import Path
 
-def guardarImagen(imagenes, idProducto):    
-    
-    #Andrea
+def guardarImagen(imagenes, idProducto): 
+    #Seteo de Credenciales    
+    rutaCredenciales = str(Path(__file__).parent / "./credenciales.json")
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = rutaCredenciales 
+
     client = storage.Client(project='AIzaSyDk6jA_SFUMsjdZn7jvruPhXbh1YJxwQ0U')
     bucket = client.get_bucket("apptaller-18740.appspot.com")
-    
-    '''
-    #Mauricio
-    client = storage.Client(project='AIzaSyBHoVNC2ji7XihvnD22q9SysNl9OGlDapc')
-    bucket = client.get_bucket("apptaller2019.appspot.com")
-    '''
+       
     for imagen in imagenes:
             path_imagen = os.path.basename(imagen.filename)
             blob = Blob(path_imagen, bucket)
