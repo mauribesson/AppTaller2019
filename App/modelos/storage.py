@@ -4,11 +4,12 @@ import webbrowser, os
 from modelos.imagenes import Imagenes
 from pathlib import Path
 
-def guardarImagen(imagenes, idProducto): 
-    #Seteo de Credenciales    
-    rutaCredenciales = str(Path(__file__).parent / "./credenciales.json")
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = rutaCredenciales 
 
+def guardarImagen(imagenes, idProducto): 
+    #Seteo de Credenciales 
+    rutaCredenciales = str(Path(__file__).parent / "./credenciales.json")
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = rutaCredenciales   
+  
     client = storage.Client(project='AIzaSyDk6jA_SFUMsjdZn7jvruPhXbh1YJxwQ0U')
     bucket = client.get_bucket("apptaller-18740.appspot.com")
        
