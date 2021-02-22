@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include 'header/header.html' %}
-
+<!--
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+-->
 <style>
     .card-deck {
         width: 700px;
@@ -95,6 +95,7 @@
     <div class="d-flex" id="wrapper">
         {% include 'navbars/sidebar.html' %}
         <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
             <div class="container p-2" style="margin-top: 70px;">
                 <div class="card-deck">
                     <div class="card">
