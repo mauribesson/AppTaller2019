@@ -4,35 +4,41 @@
 <head>
     <title>Mis compras</title>
     <style>
-        .titulo{
-          font-size: 30px;
-          margin-top: 70px;
-          text-align: center;
-          padding-bottom: 20px;
-          font-weight: bold;
+        .titulo {
+            font-size: 30px;
+            margin-top: 70px;
+            text-align: center;
+            padding-bottom: 20px;
+            font-weight: bold;
         }
-        .tabla{
-            display:block;
-            margin:auto;
+        
+        .tabla {
+            display: block;
+            margin: auto;
             text-align: center;
             width: 80%;
         }
-        .producto{
+        
+        .producto {
             width: 150px;
         }
-        .precio{
+        
+        .precio {
             width: 150px;
         }
-        .accion{
+        
+        .accion {
             width: 250px;
         }
-        th{
+        
+        th {
             color: black;
             font-size: 20px;
             padding-top: 10px;
             padding-bottom: 10px;
         }
-        td{
+        
+        td {
             font-size: 20px;
             padding-top: 7px;
             padding-bottom: 7px;
@@ -41,19 +47,22 @@
             border-top: gray 1px solid;
             border-bottom: gray 1px solid;
         }
-        .verCompra{
+        
+        .verCompra {
             background-color: transparent;
             border: none;
             font-size: 20px;
             color: blue;
         }
-        .pagar{
+        
+        .pagar {
             background-color: transparent;
             border: none;
             color: green;
             font-size: 20px;
         }
-        .botones{
+        
+        .botones {
             border: transparent;
             text-align: center;
             width: 150px;
@@ -69,7 +78,7 @@
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_usuario_logueado.html' %}
             <div class="titulo">
-              <span>Mis compras</span>
+                <span>Mis compras</span>
             </div>
             <table class="tabla">
                 <tr>
@@ -78,59 +87,57 @@
                     <th class="precio">Estado</th>
                 </tr>
                 {% for e in data %}
-                    <tr>
-                        <td>{{ e[3] }}</td>
-                        <td>${{ e[2] }}</td>
-                        {% if e[6] == False %}
-                            <td>Pendiente</td>
-                        {%endif%}
-                        {% if e[6] == True %}
-                            <td>Pagada</td>
-                        {%endif%}
-                        <td>
-                            <table>
-                                <tr>
-                                    <td class="botones">
-                                        <form action="verCompra" method="POST">
-                                            <div>
-                                                <input value="{{e[5]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
-                                                <input value="{{e[1]}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
-                                                <input value="{{e[2]}}" type="hidden" class="form-control" name="total" id="total">
-                                                <input value="{{e[4]}}" type="hidden" class="form-control" name="estado" id="estado">
-                                                <button class="verCompra" type="submit">Ver Compra</button>
-                                            </div>
-                                        </form>
-                                    </td>
-                                    {% if e[4] == False %}
-                                        <td class="botones">
-                                            <form action="guardarPago" method="POST">
-                                                <div>
-                                                    <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
-                                                    <input value="{{e[2]}}" type="hidden" class="form-control" name="total" id="total">
-                                                    <button class="pagar" type="submit">Pagar</button>
-                                                </div>
-                                            </form>
-                                        </td>
-                                    {%endif%}
-                                    {% if e[6] == False %}
-                                        <td class="botones">
-                                            <form action="verCupon" method="POST">
-                                                <div>
-                                                    <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
-                                                    <button class="pagar" type="submit">Ver cupón</button>
-                                                </div>
-                                            </form>
-                                        </td>
-                                    {%endif%}
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>{{ e[3] }}</td>
+                    <td>${{ e[2] }}</td>
+                    {% if e[6] == False %}
+                    <td>Pendiente</td>
+                    {%endif%} {% if e[6] == True %}
+                    <td>Pagada</td>
+                    {%endif%}
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="botones">
+                                    <form action="verCompra" method="POST">
+                                        <div>
+                                            <input value="{{e[5]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                            <input value="{{e[1]}}" type="hidden" class="form-control" name="idCarrito" id="idCarrito">
+                                            <input value="{{e[2]}}" type="hidden" class="form-control" name="total" id="total">
+                                            <input value="{{e[6]}}" type="hidden" class="form-control" name="estado" id="estado">
+                                            <button class="verCompra" type="submit">Ver Compra</button>
+                                        </div>
+                                    </form>
+                                </td>
+                                {% if e[4] == False %}
+                                <td class="botones">
+                                    <form action="guardarPago" method="POST">
+                                        <div>
+                                            <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                            <input value="{{e[2]}}" type="hidden" class="form-control" name="total" id="total">
+                                            <button class="pagar" type="submit">Pagar</button>
+                                        </div>
+                                    </form>
+                                </td>
+                                {%endif%} {% if e[6] == False %}
+                                <td class="botones">
+                                    <form action="verCupon" method="POST">
+                                        <div>
+                                            <input value="{{e[0]}}" type="hidden" class="form-control" name="idCompra" id="idCompra">
+                                            <button class="pagar" type="submit">Ver cupón</button>
+                                        </div>
+                                    </form>
+                                </td>
+                                {%endif%}
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
-    {% include 'footer/footer.html' %} 
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>

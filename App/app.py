@@ -1955,6 +1955,9 @@ def cancelarCompra():
         idCarrito = request.form['idCarrito']
         total = request.form['total']
     # Eliminamos la compra
+    #Eliminamos la referencia de mercadopago
+    mercadopego = MercadoPago()
+    mercadopego.baja_mercadopago(idCompra)
     compra = Compra()
     data = compra.baja_compra(idCompra)
     # Volvemos a activar el carrito
