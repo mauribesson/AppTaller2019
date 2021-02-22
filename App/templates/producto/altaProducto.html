@@ -7,7 +7,7 @@
         {% include 'navbars/sidebar.html' %}
 
         <div id="page-content-wrapper">
-
+            {% include 'navbars/navbar_admin.html' %}
             <div class="container-fluid" style="margin-top: 70px;">
                 <h2>Nuevo producto</h2>
                 <form action="guardarProducto" method="POST" enctype="multipart/form-data">
@@ -94,7 +94,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="marca"> Imágenes del producto</label>
-                                <input type="file" multiple name="imagenes" id="imagenes" class="form-control" style="padding:3px;color:#C11E34;"/>
+                                <input type="file" multiple name="imagenes" id="imagenes" class="form-control" style="padding:3px;color:#C11E34;" />
                             </div>
                         </div>
 
@@ -107,7 +107,7 @@
     </div>
     {% include 'footer/footer.html' %}
 
-    
+
 </body>
 
 </html>
