@@ -37,8 +37,8 @@
     <ul class="navbar-nav  my-2 my-lg-0">
         <li class="nav-item dropdown mr-sm-2"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i style="font-size: 30px;" class="fas fa-user"></i></a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="miCuenta">Mi cuenta</a>
-                <a class="dropdown-item" href="salir">Salir</a>
+                <a class="dropdown-item" href="{{ url_for('miCuenta') }}">Mi cuenta</a>
+                <a class="dropdown-item" href="{{ url_for('salir') }}">Salir</a>
             </div>
         </li>
         <li class="nav-item">

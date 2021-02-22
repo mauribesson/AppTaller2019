@@ -1,5 +1,19 @@
+<nav class="menuUsuario  navbar navbar-expand-lg navbar-light bg-dark p-1 justify-content-end">
+    <ul class="navbar-nav  my-2 my-lg-0">
+        <li class="nav-item dropdown mr-sm-2"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i style="font-size: 30px;" class="fas fa-user"></i></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url_for('miCuenta') }}">Mi cuenta</a>
+                <a class="dropdown-item" href="{{ url_for('salir') }}">Salir</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="{{ url_for('mostrarCarrito') }}"><i style="font-size: 30px;" class='fa fa-shopping-cart'></i></a>
+        </li>
+    </ul>
+</nav>
+
+<!--
 <nav class="navbar navbar-expand-lg navbar-light bg-dark p-1">
-    <!--<a class="navbar-brand mb-0 h1" href="/">App Taller 2019</a>-->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -7,102 +21,7 @@
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-
-
-
-            <!--MARCA-->
-
-            <!--/MARCA-->
-            <!--PRODUCTO-->
-
-            <!--/PRODUCTO-->
-            <!--EJEMPLAR-->
-            <!--<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ejemplar ABMC
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url_for('altaEjemplar') }}">Alta</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('bajaEjemplar') }}">Baja</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('modificarEjemplar') }}">Modificaión</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('listarEjemplar') }}">Consulta(Lista)</a>
-                </div>
-            </li>-->
-            <!--/EJEMPLAR-->
-            <!--COMBO-->
-            <!--<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Combo ABMC
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url_for('altaCombo') }}">Alta</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('bajaCombo') }}">Baja</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('modificarCombo') }}">Modificaión</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('listarCombo') }}">Consulta(Lista)</a>
-                </div>
-            </li>-->
-            <!--/COMBO-->
-
-            <!--CARRITO-->
-            <!--
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Carrito ABMC
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url_for('altaCarrito') }}">Alta</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('bajaCarrito') }}">Baja</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('modificarCarrito') }}">Modificaión</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('mostrarCarrito') }}">Consulta(Lista)</a>
-                </div>
-            </li>-->
-            <!--/CARRITO-->
-            <!--COMPRA-->
-            <!--
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Compra ABMC
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url_for('altaCompra') }}">Alta</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('bajaCompra') }}">Baja</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('modificarCompra') }}">Modificaión</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('mostrarCompra') }}">Consulta(Lista)</a>
-                </div>
-            </li>-->
-            <!--/COMPRA-->
-            <!--PAGO-->
-            <!--
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Pago ABMC
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url_for('altaPago') }}">Alta</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('bajaPago') }}">Baja</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('modificarPago') }}">Modificaión</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('mostrarPago') }}">Consulta(Lista)</a>
-                </div>
-            </li>-->
-            <!--/PAGO-->
-        </ul>
-
+            </li>            
     </div>
     <span class="navbar-text">
         <a href="/cliente">Vista cliente</a>
@@ -114,4 +33,5 @@
         <button class="btn btn-danger" id="btnSingOut">Salir</button>
       </span>
 </nav>
+-->
 {% include 'sesion/sesion.html' %}

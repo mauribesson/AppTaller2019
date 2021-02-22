@@ -1,4 +1,5 @@
 <style>
+    /*
     .menuUsuario ul {
 		display: flex;
 		padding-top: 10px;
@@ -28,9 +29,10 @@
 	.menuUsuario ul li a:hover + ul, .menuUsuario ul li ul:hover {
 		display: block;
 	}
+	*/
 </style>
 
-		<nav class="menuUsuario">
+<!-- <nav class="menuUsuario">
 			<ul>
 				<li><a href="#"><i style="font-size: 30px;" class='fas fa-user'></i></a>
 					<ul>
@@ -39,6 +41,21 @@
 					</ul>
 				</li>
 			</ul>
-		</nav>
+		</nav>-->
+
+
+
+<nav class="menuUsuario  navbar navbar-expand-lg navbar-light bg-dark p-1 justify-content-end">
+    <ul class="navbar-nav  my-2 my-lg-0">
+        <li class="nav-item dropdown mr-sm-4"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i style="font-size: 30px;" class="fas fa-user"></i></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url_for('miCuenta_admin') }}">Mi cuenta</a>
+                <a class="dropdown-item" href="{{ url_for('salir') }}">Salir</a>
+            </div>
+        </li>
+
+    </ul>
+</nav>
+
 
 {% include 'sesion/sesion.html' %}
