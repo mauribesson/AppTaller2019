@@ -3,19 +3,22 @@
 {% include 'header/header.html' %}
 
 <style>
-    .btn-success{
-    font-size: 24px;
-    padding: 1px;
+    .btn-success {
+        font-size: 24px;
+        padding: 1px;
     }
-    .btn-comprar{
+    
+    .btn-comprar {
         background-color: transparent;
         border: none;
     }
-    .btn-danger{
-        margin-top: 15px;
+    
+    .btn-danger {
+        /*margin-top: 15px;*/
         margin-left: 10px;
     }
-    h2{
+    
+    h2 {
         margin-top: 30px;
     }
 </style>
@@ -26,7 +29,7 @@
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_nologueado.html' %}
             <div class="container p-2">
-                <center>        
+                <center>
                     <h2>{{dato['nombreCombo']}}</h2>
                     <div class="form-group">
                         <input readonly value="{{dato['nombreCombo']}}" type="hidden" class="form-control" name="nombreCombo" id="nombreCombo" placeholder="Nombre del combo">
@@ -70,7 +73,7 @@
             </div>
         </div>
     </div>
-    {% include 'footer/footer-usuario.html' %}
+    {% include 'footer/footer.html' %}
 </body>
 
 
