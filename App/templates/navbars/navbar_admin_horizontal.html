@@ -1,15 +1,28 @@
 <style>
+    /*
     .menu li {
         display: inline;
         font-size: 24px;
         float: right;
         height: 10px;
     }
+    */
 </style>
-
+<!--
 <ul class="menu">
     <li style="width: 50px;"><a style="width: 50px;" href="{{ url_for('salir') }}"><i class="fas fa-sign-out-alt"></i></a></li>
     <li style="width: 50px;"><a style="width: 50px;" href="{{ url_for('miCuenta_admin') }}"><i class='fas fa-user'></i></a></li>
 </ul>
+-->
+<nav class="menuUsuario  navbar navbar-expand-lg navbar-light bg-dark p-1 justify-content-end">
+    <ul class="navbar-nav  my-2 my-lg-0">
+        <li class="nav-item dropdown mr-sm-4"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i style="font-size: 30px;" class="fas fa-user"></i></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url_for('miCuenta_admin') }}">Mi cuenta</a>
+                <a class="dropdown-item" href="{{ url_for('salir') }}">Salir</a>
+            </div>
+        </li>
 
+    </ul>
+</nav>
 {% include 'sesion/sesion.html' %}
