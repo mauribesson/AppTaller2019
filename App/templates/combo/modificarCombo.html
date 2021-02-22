@@ -5,17 +5,16 @@
 <head>
     <title>Modificacion del combo</title>
     <style>
-        .btn-ej{
-        background-color: #18BC9C;
-        font-size: 20px;
-        margin-right:5px;
-        margin-left:5px;
-        margin-bottom:15px;
-        margin-top: 5px;
-        border: none;
-        color:whitesmoke;
+        .btn-ej {
+            background-color: #18BC9C;
+            font-size: 20px;
+            margin-right: 5px;
+            margin-left: 5px;
+            margin-bottom: 15px;
+            margin-top: 5px;
+            border: none;
+            color: whitesmoke;
         }
-
     </style>
 </head>
 
@@ -25,6 +24,7 @@
         {% include 'navbars/sidebar.html' %}
 
         <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
             <div class="container p-2">
                 <h2>Modificar Combo</h2>
                 <form action="{{ url_for('editarCombo') }}" method="POST">
@@ -43,18 +43,18 @@
                     <a class="btn btn-danger" href="/" role="button">Cancelar</a>
                 </form>
 
-                
+
                 <div style="margin-top: 40px;">
-                <a href="{{ url_for('editarProductosDelCombo')}}/{{id}}" class="btn btn-ej">Modificar los productos del combo</a>
+                    <a href="{{ url_for('editarProductosDelCombo')}}/{{id}}" class="btn btn-ej">Modificar los productos del combo</a>
                 </div>
 
 
             </div>
         </div>
     </div>
+    {% include 'footer/footer.html' %}
 
-
-<!-- 
+    <!-- 
     <div class="container p-2">
         <h2>Modificar combo</h2>
         <form action="editarCombo" method="POST">
@@ -80,6 +80,7 @@
 
 
     </div>
- --></body>
+ -->
+</body>
 
 </html>

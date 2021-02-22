@@ -3,20 +3,27 @@
 {% include 'header/header.html' %}
 
 <body>
-    {% include 'navbars/navbar_admin.html' %}
-    <div class="container p-2">
-        <h2>Baja Rol</h2>
-        <form action="eliminarRol" method="POST">
-            <div class="form-group">
-                <label for="exampleInputEmail1">Nombre del rol</label>
-                <input value="{{ data }}" type="text" class="form-control" name="nombreRol" id="nombreRol" placeholder="ingresar nombre del rol">
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
+            <div class="container p-2">
+                <h2>Baja Rol</h2>
+                <form action="eliminarRol" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre del rol</label>
+                        <input value="{{ data }}" type="text" class="form-control" name="nombreRol" id="nombreRol" placeholder="ingresar nombre del rol">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                    <a class="btn btn-danger" href="/" role="button">Cancelar</a>
+                </form>
+
+
             </div>
-            <button type="submit" class="btn btn-primary">Aceptar</button>
-            <a class="btn btn-danger" href="/" role="button">Cancelar</a>
-        </form>
-
-
+        </div>
     </div>
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>
