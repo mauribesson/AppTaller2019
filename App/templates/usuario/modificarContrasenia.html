@@ -4,6 +4,10 @@
 
 <body>
     <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
 
             <div class="container p-2" style="margin-top: 70px;">
                 <h2>Modificación de contraseña</h2>
@@ -23,8 +27,10 @@
                     <a class="btn btn-danger" href="/miCuenta" role="button">Cancelar</a>
                 </form>
 
+            </div>
         </div>
     </div>
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>
