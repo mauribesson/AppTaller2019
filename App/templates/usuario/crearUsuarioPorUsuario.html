@@ -53,5 +53,11 @@
     </div>
     {% include 'footer/footer.html' %}
 </body>
+<script>
+    //Limpia campo de contacto al cargar la pantalla al inicio 
+    window.onload = () => {
+        document.getElementById("contacto").value = '';
+    }
+</script>
 
 </html>

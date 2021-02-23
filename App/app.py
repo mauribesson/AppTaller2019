@@ -1958,6 +1958,9 @@ def cancelarCompra():
     mercadopego = MercadoPago()
     mercadopego.baja_mercadopago(idCompra)
     # Eliminamos la compra
+    #Eliminamos la referencia de mercadopago
+    mercadopego = MercadoPago()
+    mercadopego.baja_mercadopago(idCompra)
     compra = Compra()
     data = compra.baja_compra(idCompra)
     # Volvemos a activar el carrito
@@ -2005,7 +2008,11 @@ def ventasPorFecha():
         # Calcula la cantidad de ventas del período
         cantidad = cantidad + 1
     # Calcula el promedio de venta
-    promedio = total/cantidad
+    if cantidad != 0 :
+        promedio = total/cantidad
+    else:
+         promedio = 0  
+
     datos['desde'] = desde
     datos['hasta'] = hasta
     datos['total'] = total
