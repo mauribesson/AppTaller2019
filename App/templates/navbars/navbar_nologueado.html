@@ -1,5 +1,5 @@
 <style>
-    .btn-danger {
+    #btnIngresar .btn-danger {
         background-color: white;
         border-color: white;
         color: black;
@@ -15,7 +15,7 @@
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-dark p-1">
     <span class="navbar-text">
-        <a href="{{ url_for('iniciarSesion') }}"><button class="btn btn-danger">Ingresar</button></a>
+        <a id="btnIngresar" href="{{ url_for('iniciarSesion') }}"><button class="btn btn-danger">Ingresar</button></a>
     </span>
 </nav>
 {% include 'sesion/sesion.html' %}
