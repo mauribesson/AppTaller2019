@@ -7,6 +7,7 @@
         {% include 'navbars/sidebar.html' %}
 
         <div id="page-content-wrapper">
+            {% include 'navbars/navbar_admin.html' %}
             <div class="container p-2" style="margin-top: 70px;">
                 <h2>Modificación de usuario</h2>
                 <form action="{{ url_for('editarUsuario') }}" method="POST">
@@ -47,7 +48,9 @@
 
             </div>
         </div>
+
     </div>
+    {% include 'footer/footer.html' %}
 </body>
 
 </html>
