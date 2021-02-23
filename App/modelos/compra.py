@@ -71,8 +71,8 @@ class Compra:
 
     def compra_pendiente_pago(self, pUsuario):
             data = db.querySelect('''
-                    SELECT * FROM "vista_compras" 
-                    WHERE "usuario" = '{}' AND "estadoConfirmacion" = 'False';
+                    SELECT * FROM "compra_pago" 
+                    WHERE "usuario" = '{}' AND "estado" = 'False';
             '''.format(pUsuario))
             return data
 

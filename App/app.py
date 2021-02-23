@@ -1954,6 +1954,9 @@ def cancelarCompra():
         idCompra = request.form['idCompra']
         idCarrito = request.form['idCarrito']
         total = request.form['total']
+    #Eliminamos la referencia de mercadopago
+    mercadopego = MercadoPago()
+    mercadopego.baja_mercadopago(idCompra)
     # Eliminamos la compra
     compra = Compra()
     data = compra.baja_compra(idCompra)
@@ -2406,7 +2409,11 @@ def page_not_found(e):
 
 @app.errorhandler(psycopg2.errors.ForeignKeyViolation)
 def page_not_found(e):
-    return render_template('errors/error_foreignKeyViolation.html') 
+    return render_template('errors/error_foreignKeyViolation.html')
+
+@app.errorhandler(psycopg2.ProgrammingError)
+def page_not_found(e):
+    return render_template('errors/index.html')
 
 #Inicio de aplicacion
 if __name__ == '__main__':
