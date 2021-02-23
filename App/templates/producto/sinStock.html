@@ -1,47 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>Atención</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-        <style>
-            .caja{
-                width: 500px;
-                display:block;
-                margin:auto;
-                margin-top: 200px;
-                background-color: gold;
-                border: transparent;
-                height: 100px;
-            }
-            .boton{
-                text-align: right;
-                background-color: gold;
-                border: none;
-            }
-            .mensaje{
-                text-align: center;
-                padding-top: 30px;
-                font-size: 20px;
-            }
-            .btn{
-                background-color: gold;
-                border: none; 
-                margin-top: 5px;
-            }
-        </style>
-    </head>
 
-    <body>
-        <div class="caja">
-            <div class="boton">
-                <form action="/" >
-                    <button class="btn" type="submit"><i class='far fa-times-circle' style='font-size:24px;background-color: gold;'></i></button>
-                </form>
-            </div>
-            <div class="mensaje">
-                Disculpe, no contamos con disponibilidad de este producto
+{% include 'header/header.html' %}
+
+
+<style>
+    .caja {
+        width: 500px;
+        display: block;
+        margin: auto;
+        margin-top: 200px;
+        background-color: gold;
+        border: transparent;
+        height: 200px;
+    }
+    
+    .boton {
+        text-align: right;
+        background-color: gold;
+        border: none;
+    }
+    
+    .mensaje {
+        text-align: center;
+        padding-top: 30px;
+        font-size: 20px;
+    }
+    
+    .btn {
+        background-color: gold;
+        border: none;
+        margin-top: 5px;
+    }
+</style>
+
+
+<body>
+    <div class="d-flex" id="wrapper">
+        {% include 'navbars/sidebar_usuarios.html' %}
+
+        <div id="page-content-wrapper">
+            {% include 'navbars/navbar_usuario_logueado.html' %}
+
+            <div class="container p-2" style="margin-top: 15px;">
+                <div class="caja">
+                    <div class="boton">
+                        <form action="/">
+                            <button class="btn" type="submit"><i class='far fa-times-circle' style='font-size:24px;background-color: gold;'></i></button>
+                        </form>
+                    </div>
+                    <div class="mensaje">
+                        Disculpe, no contamos con disponibilidad de este producto
+                    </div>
+                </div>
             </div>
         </div>
-    </body>
+    </div>
+    {% include 'footer/footer.html' %}
+</body>
+
 </html>
