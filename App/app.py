@@ -439,7 +439,10 @@ def editarTipoProducto():
 def listarTipoProducto():
     tipo_producto = TipoProducto()
     data = tipo_producto.consultar_tipo_producto()
-    return render_template('tipoProducto/listadoTipoProducto.html', data=data)
+    if 'email' in session:
+        return render_template('tipoProducto/listadoTipoProducto.html', data=data)
+    else:    
+        return render_template('tipoProducto/listadoTipoProducto-noLog.html', data=data)
 
 @app.route('/listarCategorias', methods=["POST"])
 def listarCategorias():
