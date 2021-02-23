@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include 'header/header.html' %}
-<!--
+
+<!-- Para el carrusel de imagenes -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
--->
+
 <style>
     .card-deck {
         width: 90%;
@@ -129,15 +130,21 @@
                                                 <div class="item active">
                                                     <img class="imagen" src="..\static\img\producto-default.png">
                                                 </div>
-                                                {%endif%} {% if cantidadFotos != 0 %} {% for foto in range(cantidadFotos) %} {% if foto == 0 %}
-                                                <div class="item active">
-                                                    <img class="imagen" src="{{fotos[foto][0]}}">
-                                                </div>
-                                                {%endif%} {% if foto != 0 %}
-                                                <div class="item">
-                                                    <img class="imagen" src="{{fotos[foto][0]}}">
-                                                </div>
-                                                {%endif%} {%endfor%} {%endif%}
+                                                {%endif%} 
+                                                {% if cantidadFotos != 0 %} 
+                                                    {% for foto in range(cantidadFotos) %} 
+                                                        {% if foto == 0 %}
+                                                        <div class="item active">
+                                                            <img class="imagen" src="{{fotos[foto][0]}}">
+                                                        </div>
+                                                        {%endif%} 
+                                                        {% if foto != 0 %}
+                                                        <div class="item">
+                                                            <img class="imagen" src="{{fotos[foto][0]}}">
+                                                        </div>
+                                                        {%endif%}
+                                                    {%endfor%} 
+                                                {%endif%}
                                             </div>
 
                                             <!-- Controls -->

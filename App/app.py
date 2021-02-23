@@ -1601,7 +1601,7 @@ def agregarComboAlCarrito():
             # Total del carrito actual antes de agregarle el producto
             total = carrito.carrito_actual(session['email'])
             total = total[0][1]
-            nuevo_total = int(precioCombo) + int(total)
+            nuevo_total = float(precioCombo) + int(total)
             carritoActualizado = Carrito()
             carritoActualizado.actualizar_total_carrito(nuevo_total, id_carrito)
         
