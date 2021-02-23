@@ -2010,6 +2010,7 @@ def ventasPorFecha():
     # Calcula el promedio de venta
     if cantidad != 0 :
         promedio = total/cantidad
+        promedio = round(promedio,2) ##trunca los decimales
     else:
          promedio = 0  
 
