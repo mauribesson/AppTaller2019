@@ -563,8 +563,10 @@ def listarMarca():
 def listadoMarcas():
     marca = Marca()
     data = marca.listar_marca()
-    return render_template('marca/listadoMarca.html', data=data)
-
+    if 'email' in session:
+        return render_template('marca/listadoMarca.html', data=data)
+    else: 
+        return render_template('marca/listadoMarca-noLog.html', data=data)
 
 @app.route('/productosPorMarca', methods=["POST"])
 def productosPorMarca():
