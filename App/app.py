@@ -2197,7 +2197,11 @@ def manual_vendedor():
 
 @app.route('/manual_comprador')
 def manual_comprador():
-    return render_template('cliente/manual_comprador.html')
+    ## Verifica si hay algún usuario logueado para dirigirlo a la vista correspondiente
+    if 'email' in session:
+        return render_template('cliente/manual_comprador.html')
+    else:
+        return render_template('cliente/manual_comprador-noLog.html')
 
 @app.route('/administracion')
 def administracion():

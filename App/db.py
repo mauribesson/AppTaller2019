@@ -6,7 +6,7 @@ class Database:
         self.port = "5432" 
         self.database = "AppTaller2019" 
         self.user = "postgres" 
-        self.password = "admin"  # Mauricio: 12345678 ; andrea: admin
+        self.password = "12345678"  # Mauricio: 12345678 ; andrea: admin
         pass
 
     #para hacer querys tipo select que retornan 0 o mas elemntos
