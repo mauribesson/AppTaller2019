@@ -1996,35 +1996,43 @@ def gestionarVentas():
     data = compra.ventas()
     return render_template('compra/ventas.html', data=data)
 
+    
+
 @app.route('/ventasPorFecha', methods=["POST"])
 def ventasPorFecha():
     datos = {}
     if request.method == 'POST':
         desde = request.form['desde']
         hasta = request.form['hasta']
-    compra = Compra()
-    # Trae las ventas en esas fechas
-    data = compra.ventas_por_fecha(desde,hasta)
-    total = 0
-    cantidad = 0
-    for e in data:
-        # Calcula el total de ventas del período
-        total = total + e[2]
-        # Calcula la cantidad de ventas del período
-        cantidad = cantidad + 1
-    # Calcula el promedio de venta
-    if cantidad != 0 :
-        promedio = total/cantidad
-        promedio = round(promedio,2) ##trunca los decimales
+    #Si la fecha de inicio es posterior a la fecha de fin
+    if desde >hasta:
+        # Se obtiene la fecha de hoy
+        fecha = date.today()
+        return render_template('admin/reintentar_reporte_ventas.html', hoy=fecha)
     else:
-         promedio = 0  
+        compra = Compra()
+        # Trae las ventas en esas fechas
+        data = compra.ventas_por_fecha(desde,hasta)
+        total = 0
+        cantidad = 0
+        for e in data:
+            # Calcula el total de ventas del período
+            total = total + e[2]
+            # Calcula la cantidad de ventas del período
+            cantidad = cantidad + 1
+        # Calcula el promedio de venta
+        if cantidad != 0 :
+            promedio = total/cantidad
+            promedio = round(promedio,2) ##trunca los decimales
+        else:
+            promedio = 0  
 
-    datos['desde'] = desde
-    datos['hasta'] = hasta
-    datos['total'] = total
-    datos['cantidad'] = cantidad
-    datos['promedio'] = promedio
-    return render_template('admin/ventasPorFecha.html', data=data, datos=datos)
+        datos['desde'] = desde
+        datos['hasta'] = hasta
+        datos['total'] = total
+        datos['cantidad'] = cantidad
+        datos['promedio'] = promedio
+        return render_template('admin/ventasPorFecha.html', data=data, datos=datos)
 
 # No se usaría
 """ @app.route('/modificarCompra') 
@@ -2430,7 +2438,11 @@ def page_not_found(e):
 
 @app.errorhandler(psycopg2.ProgrammingError)
 def page_not_found(e):
-    return render_template('errors/index.html')
+    return render_template('index.html')
+
+@app.errorhandler(psycopg2.InterfaceError)
+def page_not_found(e):
+    return render_template('index.html')
 
 #Inicio de aplicacion
 if __name__ == '__main__':
