@@ -264,12 +264,6 @@ def guardarUsuario():
             else:             
                 return render_template('usuario/usuarioGuardadoPorUsuario.html') 
 
-"""
-@app.route('/bajaUsuario') 
-def bajaUsuario():
-    return render_template('usuario/bajaUsuario.html')  
-"""
-
 @app.route('/eliminarUsuario')
 @app.route('/eliminarUsuario/<email>')
 def eliminarUsuario(email=None):
@@ -748,17 +742,6 @@ def fichaProducto(id=None):
     cantidadImagenes=cantidadImagenes[0][0]
     return render_template('producto/fichaProducto.html', data = data, stock = cantidad, fotos = imgs, cantidadFotos = cantidadImagenes)
 
-# No se usaría, asi como tampoco el template
-""" @app.route('/listarProductos')
-def listarProductos():
-    data = {}
-    producto = Producto()
-    data['productos'] = producto.listar_productos()
-    cant = producto.obtener_cantidad_productos()
-    for e in cant:
-        cantidad = e[0]
-    cantidad=int(cantidad)
-    return render_template('producto/productos.html', data=data, cantidad=cantidad) """
 
 ## Vista del usuario
 @app.route('/verProducto')
@@ -824,17 +807,6 @@ def buscarProducto():
         return render_template('cliente/index_cliente_logueado.html', data=data)
     else:
         return render_template('index.html', data=data)
-
-#ver producto viejo
-# @app.route('/verProducto')
-# @app.route('/verProducto/<int:id>')
-# def verProducto(id=None):
-#     data = {}
-#     producto = Producto()
-#     producto.set_id(id)
-#     data = producto.consultar_producto_por_id()
-#     return render_template('producto/verProducto.html', data = data)
-
 
 
 #==================
@@ -1434,11 +1406,6 @@ def eliminarEjemplar_combo(numeroSerie=None, idCombo=None):
     
 #====CARRITO
 
-## No se usaria
-""" @app.route('/altaCarrito')
-def altaCarrito():
-     return render_template('carrito/altaCarrito.html')  """
-
 @app.route('/agregarAlCarrito', methods=["POST"])
 def agregarAlCarrito():
     if request.method == 'POST':
@@ -1659,82 +1626,6 @@ def mostrarCarrito():
     return render_template('carrito/mostrarCarrito.html', ejemplares=ejempares_carrito, combos=combos_carrito, total=total, idCarrito=id_carrito)
 
 
-## No se usaria
-""" @app.route('/guardarCarrito', methods=["POST"])
-def guardarCarrito():
-    data = []
-    if request.method == 'POST':
-        total = request.form['total']
-        
-        carrito = Carrito()
-        carrito.set_total(total)
-        data = carrito.alta_carrito()
-    return render_template('carrito/carritoGuardado.html', data=data)
-
-
-@app.route('/bajaCarrito') 
-def bajaCarrito():
-    return render_template('carrito/bajaCarrito.html')  
-
-
-@app.route('/eliminarCarrito', methods=["POST"])
-def eliminarCarrito():
-    if request.method == 'POST':
-        idCarrito = request.form['id']
-
-        carrito = Carrito()
-        carrito.set_id(idCarrito)
-        data = carrito.baja_carrito()
-    return render_template('carrito/carritoEliminado.html', data=data)    
-
-
-@app.route('/modificarCarrito') 
-def modificarCarrito():
-    return render_template('carrito/modificarCarrito.html')  
-
-
-@app.route('/editarCarrito', methods=["POST"])
-def editarCarrito():
-    data = []
-    if request.method == 'POST':
-        total = request.form['nuevoTotal']
-        idCarrito = request.form['id']
-
-        carrito = Carrito()
-        carrito.set_id(idCarrito)
-        data = carrito.modificar_carrito(total) 
-
-    return render_template('carrito/carritoModificado.html', data=data)
- """
-
-
-
-#======== ejemplar_carrito
-
-# No se usaría
-""" @app.route('/altaEjemplar_carrito')
-def altaEjemplar_carrito():
-     return render_template('ejemplar_carrito/altaEjemplar_carrito.html')  """
-
-# No se usaria
-""" @app.route('/guardarEjemplar_carrito', methods=["POST"])
-def guardarEjemplar_carrito():
-    data = []
-    if request.method == 'POST':
-        idCarrito= request.form['idCarrito']
-        numeroSerie = request.form['numeroSerie']
-        data = db.queryInsert('''
-            INSERT INTO "ejemplar_carrito" ("idCarrito", "numeroSerie") values ('{}', '{}');
-            '''.format(idCarrito, numeroSerie))  
-    return render_template('index.html') """
-
-
-### No se usaría
-""" @app.route('/bajaEjemplar_carrito') 
-def bajaEjemplar_carrito():
-    return render_template('ejemplar_carrito/bajaEjemplar_carrito.html')  """ 
-
-
 @app.route('/eliminarEjemplar_carrito', methods=["POST"])
 def eliminarEjemplar_carrito():
     # Obtenemos los datos que vienen del formulario
@@ -1801,43 +1692,8 @@ def eliminarCombo_carrito():
     return render_template('carrito/mostrarCarrito.html', ejemplares=ejempares_carrito, combos=combos_carrito, total=total, idCarrito=idCarrito)
 
 
-# No se usaría
-""" @app.route('/modificarEjemplar_carrito') 
-def modificarEjemplar_carrito():
-    return render_template('ejemplar_carrito/modificarEjemplar_carrito.html')   """
-
-# No se usaría
-""" @app.route('/editarEjemplar_carrito', methods=["POST"])
-def editarEjemplar_carrito():
-    data = []
-    if request.method == 'POST':
-        idCarrito = request.form['idCarrito']
-        numeroSerie = request.form['numeroSerie']
-        nuevoIdCarrito = request.form['nuevoIdCarrito']
-        nuevoNumeroSerie = request.form['nuevoNumeroSerie']  
-        data = db.queryInsert('''
-               UPDATE "ejemplar_carrito"
-	                SET "idCarrito" = '{}', "numeroSerie" = '{}'
-	                WHERE "idCarrito" = '{}' AND "numeroSerie" = '{}';
-            '''.format(nuevoIdCarrito, nuevoNumeroSerie, idCarrito, numeroSerie))
-    return render_template('index.html') """
-
-# No se usaría
-""" @app.route('/listarEjemplar_carrito')
-def listarEjemplar_carrito():
-    data = db.querySelect('''
-                SELECT * FROM "ejemplar_carrito";
-            ''')
-    return render_template('ejemplar_carrito/listadoEjemplar_carrito.html', data=data)   """ 
-
 
 #====COMPRA
-
-# No se usaría
-""" @app.route('/altaCompra')
-def altaCompra():
-     return render_template('compra/altaCompra.html')  """
-
 
 @app.route('/confirmarCompra', methods=["POST"])
 def confirmarCompra():
@@ -2033,33 +1889,6 @@ def ventasPorFecha():
         datos['cantidad'] = cantidad
         datos['promedio'] = promedio
         return render_template('admin/ventasPorFecha.html', data=data, datos=datos)
-
-# No se usaría
-""" @app.route('/modificarCompra') 
-def modificarCompra():
-    return render_template('compra/modificarCompra.html')   """
-
-# No se usaría
-""" @app.route('/editarCompra', methods=["POST"])
-def editarCompra():
-    if request.method == 'POST':
-        idCompra = request.form['id']
-        nuevoMontoCompra = request.form['nuevoMontoCompra']
-        nuevoEstadoConfirmacion = request.form['nuevoEstadoConfirmacion']
-
-        compra = Compra()
-        compra.set_id(idCompra)   
-
-        data = compra.modificar_compra(nuevoMontoCompra, nuevoEstadoConfirmacion)
-    return render_template('compra/compraModificada.html', data=data)
- """
-
-# No se usaría
-""" @app.route('/mostrarCompra')
-def mostrarCompra():
-    compra = Compra()
-    data = compra.consultar_compra()
-    return render_template('compra/mostrarCompra.html', data=data) """
 
 
 #====PAGO
@@ -2263,19 +2092,6 @@ def stockDeUnProducto():
 #========================== Fin CLIENTE ===============================#
 
 #========================== Sesion de usario ===============================#
-'''
-@app.route('/login/validarRolUsuario')
-def validarRolUsusario():
-    if request.method == 'GET':
-        res = request.args['usuario'] 
-    ### si el usario existe , si es nuevo falta ARMAR y ver flujos js    
-        usuario = Usuario()
-        usuario.set_nombre(res)
-        rol_id = usuario.validar_rol()
-        data ={'rol_id': rol_id }
-        #data ={'rol_id': 1 } #consultar backend HARCODEADO 1: admin (admin@admin.com), 2: cliente, 0 No registrado otro nada
-        return jsonify(data)
-'''
 
 @app.route('/iniciarSesion')
 def iniciarSesion():

@@ -40,7 +40,8 @@
         <div id="page-content-wrapper">
             {% include 'navbars/navbar_admin.html' %}
 
-            <div class="alerta">Atención: LA FECHA DE INICIO DEBE SER MENOR A LA FECHA DE FIN</div>
+            <div class="alerta">Atención: 
+                LA FECHA DE INICIO NO PUEDE SER POSTERIOR A LA FECHA DE FIN</div>
             <div class="msj">Reporte de ventas</div>
             <div class="fechas">
                 <form action="ventasPorFecha" method="POST">
